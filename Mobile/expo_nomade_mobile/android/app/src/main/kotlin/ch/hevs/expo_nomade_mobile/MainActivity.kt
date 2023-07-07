@@ -1,4 +1,4 @@
-package com.example.expo_nomade_mobile
+package ch.hevs.expo_nomade_mobile
 
 import io.flutter.embedding.android.FlutterActivity
 
