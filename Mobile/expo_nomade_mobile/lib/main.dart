@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'homepage.dart';
 import 'mappage.dart';
@@ -28,6 +29,9 @@ class MyApp extends StatelessWidget {
         textTheme: const TextTheme(bodyMedium: TextStyle(fontFamily: 'Arial')),
         useMaterial3: true,
       ),
+      locale: const Locale('fr'),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: const HomePage(title: 'Expo Nomade'),
       routes: {
         '/map': (context) => MapPage(),

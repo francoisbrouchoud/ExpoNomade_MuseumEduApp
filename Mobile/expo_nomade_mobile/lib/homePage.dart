@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'mappage.dart';
 
@@ -17,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
+    final AppLocalizations translations = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: theme.colorScheme.primary,
       body: Center(
@@ -40,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       );
                     },
-                    text: 'Quiz'),
+                    text: translations.quiz),
                 SizedBox(width: 25),
                 MainButton(
                     action: () {
@@ -51,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       );
                     },
-                    text: 'Carte'),
+                    text: translations.map),
               ],
             ),
             SizedBox(height: 50),
@@ -60,16 +61,16 @@ class _HomePageState extends State<HomePage> {
               children: [
                 LangButton(
                   action: () {
-                    print("Français");
+                    print("BTN FR CLICK");
                   },
-                  text: 'fr',
+                  text: translations.lang_fr,
                 ),
                 SizedBox(width: 50),
                 LangButton(
                   action: () {
-                    print("Allemand");
+                    print("BTN DE CLICK");
                   },
-                  text: 'de',
+                  text: translations.lang_de,
                 ),
               ],
             ),
