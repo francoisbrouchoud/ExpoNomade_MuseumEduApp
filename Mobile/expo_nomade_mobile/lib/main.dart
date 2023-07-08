@@ -5,12 +5,12 @@ import 'homepage.dart';
 import 'mappage.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const App());
 }
 
 /// It is the class that contains the root
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   // This widget is the root of your application.
   @override
