@@ -2,7 +2,7 @@ import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'mappage.dart';
+import 'map_page.dart';
 
 /// Contains the homepage builder
 class HomePage extends StatefulWidget {

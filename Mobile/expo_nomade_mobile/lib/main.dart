@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'homepage.dart';
-import 'mappage.dart';
+import 'home_page.dart';
+import 'map_page.dart';
 import 'app_localization.dart';
 
 void main() {
