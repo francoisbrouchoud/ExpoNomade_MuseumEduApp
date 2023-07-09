@@ -1,5 +1,7 @@
+import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+
 import 'mappage.dart';
 
 /// Contains the homepage builder
@@ -17,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final AppLocalizations translations = AppLocalizations.of(context)!;
+    final translations = AppLocalization.of(context);
     return Scaffold(
       backgroundColor: theme.colorScheme.primary,
       body: Center(
@@ -40,7 +42,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       );
                     },
-                    text: translations.quiz),
+                    text: translations.getTranslation("quiz").toString()),
                 SizedBox(width: 25),
                 MainButton(
                     action: () {
@@ -51,32 +53,30 @@ class _HomePageState extends State<HomePage> {
                         ),
                       );
                     },
-                    text: translations.map),
+                    text: translations.getTranslation("map").toString()),
               ],
             ),
             SizedBox(height: 50),
             Row(
               mainAxisSize: MainAxisSize.min,
-              children: [
-                LangButton(
-                  action: () {
-                    print("BTN FR CLICK");
-                  },
-                  text: translations.lang_fr,
-                ),
-                SizedBox(width: 50),
-                LangButton(
-                  action: () {
-                    print("BTN DE CLICK");
-                  },
-                  text: translations.lang_de,
-                ),
-              ],
+              children: Language.langList()
+                  .map((e) => LangButton(
+                      text: e.name,
+                      action: () {
+                        setLanguage(e, context);
+                      }))
+                  .toList(),
             ),
           ],
         ),
       ),
     );
+  }
+
+  setLanguage(Language e, BuildContext context) {
+    final appLocaleProvider =
+        Provider.of<LocaleNotifier>(context, listen: false);
+    appLocaleProvider.setLocale(Locale(e.langCode));
   }
 }
 
