@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-/// Containes the home page content with the state
+/// Contains the home page content with the state
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
@@ -73,6 +73,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Handles the click event on any language button
   setLanguage(Language e, BuildContext context) {
     final appLocaleProvider =
         Provider.of<LocaleNotifier>(context, listen: false);
