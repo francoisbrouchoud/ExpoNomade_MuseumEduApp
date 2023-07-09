@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
             const Text(
               'Logo',
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
                       );
                     },
                     text: translations.getTranslation("quiz").toString()),
-                SizedBox(width: 25),
+                const SizedBox(width: 25),
                 MainButton(
                     action: () {
                       print("map");
@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
                     text: translations.getTranslation("map").toString()),
               ],
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: Language.langList()
@@ -120,7 +120,7 @@ class LangButton extends StatelessWidget {
     );
     return ElevatedButton.icon(
         onPressed: action,
-        icon: Icon(Icons.flag),
+        icon: const Icon(Icons.flag),
         label: Text(text, style: lanTextStyle),
         style: ElevatedButton.styleFrom(
           backgroundColor: theme.colorScheme.secondary,

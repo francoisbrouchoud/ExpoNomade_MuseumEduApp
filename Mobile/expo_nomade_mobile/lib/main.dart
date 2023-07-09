@@ -37,19 +37,19 @@ class App extends StatelessWidget {
           /// TODO : define with Julienne
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
-                seedColor: Color.fromARGB(255, 230, 147, 14),
-                primary: Color.fromARGB(255, 230, 147, 14),
-                onPrimary: Color.fromARGB(255, 0, 0, 0),
-                secondary: Color.fromARGB(255, 252, 240, 221),
-                onSecondary: Color.fromARGB(255, 40, 40, 40)),
+                seedColor: const Color.fromARGB(255, 230, 147, 14),
+                primary: const Color.fromARGB(255, 230, 147, 14),
+                onPrimary: const Color.fromARGB(255, 0, 0, 0),
+                secondary: const Color.fromARGB(255, 252, 240, 221),
+                onSecondary: const Color.fromARGB(255, 40, 40, 40)),
             textTheme:
                 const TextTheme(bodyMedium: TextStyle(fontFamily: 'Arial')),
             useMaterial3: true,
           ),
           home: const HomePage(title: 'Expo Nomade'),
           routes: {
-            '/map': (context) => MapPage(),
-            '/quiz': (context) => Placeholder(),
+            '/map': (context) => const MapPage(),
+            '/quiz': (context) => const Placeholder(),
           },
         );
       },
