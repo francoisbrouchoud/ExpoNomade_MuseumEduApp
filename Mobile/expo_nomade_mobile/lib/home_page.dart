@@ -57,27 +57,20 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             const SizedBox(height: 50),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: Language.langList()
-                  .map((e) => LangButton(
-                      text: e.name,
-                      action: () {
-                        setLanguage(e, context);
-                      }))
-                  .toList(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 600),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: Language.langList()
+                    .map((e) => LangButton(lang: e))
+                    .toList(),
+              ),
             ),
           ],
         ),
       ),
     );
-  }
-
-  /// Handles the click event on any language button
-  setLanguage(Language e, BuildContext context) {
-    final appLocaleProvider =
-        Provider.of<LocaleNotifier>(context, listen: false);
-    appLocaleProvider.setLocale(Locale(e.langCode));
   }
 }
 
@@ -92,12 +85,12 @@ class MainButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final btnTextStyle = theme.textTheme.displayMedium!.copyWith(
-      color: theme.colorScheme.onPrimary,
+      color: theme.colorScheme.secondary,
     );
     return ElevatedButton(
         onPressed: action,
         style: ElevatedButton.styleFrom(
-          backgroundColor: theme.colorScheme.secondary,
+          backgroundColor: theme.colorScheme.background,
         ),
         child: Padding(
             padding: const EdgeInsets.all(20),
@@ -108,23 +101,35 @@ class MainButton extends StatelessWidget {
 /// Contain the design of a language button from the homepage
 /// TODO : add a flag instad of icon
 class LangButton extends StatelessWidget {
-  const LangButton({super.key, required this.text, required this.action});
+  const LangButton({super.key, required this.lang});
 
-  final String text;
-  final Function()? action;
+  final Language lang;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final lanTextStyle = theme.textTheme.displaySmall!.copyWith(
-      color: theme.colorScheme.onSecondary,
+      color: theme.colorScheme.secondary,
     );
-    return ElevatedButton.icon(
-        onPressed: action,
-        icon: const Icon(Icons.flag),
-        label: Text(text, style: lanTextStyle),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: theme.colorScheme.secondary,
-        ));
+    return IconButton(
+      onPressed: () {
+        setLanguage(lang, context);
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: theme.colorScheme.background,
+      ),
+      icon: Image.asset(
+        'assets/images/${lang.langCode}.png',
+        width: 50,
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+
+  /// Handles the click event on any language button
+  setLanguage(Language e, BuildContext context) {
+    final appLocaleProvider =
+        Provider.of<LocaleNotifier>(context, listen: false);
+    appLocaleProvider.setLocale(Locale(e.langCode));
   }
 }

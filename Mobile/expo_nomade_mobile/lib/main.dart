@@ -34,16 +34,19 @@ class App extends StatelessWidget {
           },
           title: 'Expo Nomade',
 
-          /// TODO : define with Julienne
+          /// TODO : Julienne review
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
-                seedColor: const Color.fromARGB(255, 230, 147, 14),
-                primary: const Color.fromARGB(255, 230, 147, 14),
-                onPrimary: const Color.fromARGB(255, 0, 0, 0),
-                secondary: const Color.fromARGB(255, 252, 240, 221),
-                onSecondary: const Color.fromARGB(255, 40, 40, 40)),
-            textTheme:
-                const TextTheme(bodyMedium: TextStyle(fontFamily: 'Arial')),
+              seedColor: const Color(0xFFF5A125),
+              primary: const Color(0xFFF5A125),
+              //onPrimary: const Color.fromARGB(255, 0, 0, 0),
+              secondary: const Color(0xFF676664),
+              background: const Color(0xFFEEEEEE),
+              //onSecondary: const Color.fromARGB(255, 40, 40, 40),
+            ),
+            textTheme: const TextTheme(
+              bodyMedium: TextStyle(fontFamily: 'Montserrat'),
+            ),
             useMaterial3: true,
           ),
           home: const HomePage(title: 'Expo Nomade'),
