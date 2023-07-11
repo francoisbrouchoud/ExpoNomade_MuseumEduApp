@@ -99,7 +99,6 @@ class MainButton extends StatelessWidget {
 }
 
 /// Contain the design of a language button from the homepage
-/// TODO : add a flag instad of icon
 class LangButton extends StatelessWidget {
   const LangButton({super.key, required this.lang});
 
@@ -108,9 +107,6 @@ class LangButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final lanTextStyle = theme.textTheme.displaySmall!.copyWith(
-      color: theme.colorScheme.secondary,
-    );
     return IconButton(
       onPressed: () {
         setLanguage(lang, context);

@@ -19,7 +19,7 @@ class _MapPageState extends State<MapPage> {
        *  The latitude and the longitude we use here are the coordinates of Sion, capital city of the State Valais. 
       */
       options: MapOptions(
-        center: LatLng(46.22809, 7.35886),
+        center: const LatLng(46.22809, 7.35886),
         zoom: 10,
       ),
       nonRotatedChildren: [

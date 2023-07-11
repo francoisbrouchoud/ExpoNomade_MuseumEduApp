@@ -5,7 +5,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 /// Contains all available languages in the application
 class Language {
-  // TODO replace name with flag or just add flag
   final String name;
   final String langCode;
 
