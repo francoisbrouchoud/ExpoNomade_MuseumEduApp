@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
             ),
             const SizedBox(height: 50),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 600),
+              padding: const EdgeInsets.symmetric(horizontal: 50),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
