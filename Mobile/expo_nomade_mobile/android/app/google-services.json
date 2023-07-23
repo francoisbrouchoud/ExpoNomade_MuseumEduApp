@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "160286679537",
+    "project_id": "exponomade-42671",
+    "storage_bucket": "exponomade-42671.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160286679537:android:961fc3e361cfc16dd0a450",
+        "android_client_info": {
+          "package_name": "ch.hevs.expo_nomade_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "160286679537-7ob3jlqlfatm2g7iag7ps5fcjbenslc4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjgeaVDYP755R20EgM1OgAkS2LK_CcvSI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "160286679537-7ob3jlqlfatm2g7iag7ps5fcjbenslc4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
