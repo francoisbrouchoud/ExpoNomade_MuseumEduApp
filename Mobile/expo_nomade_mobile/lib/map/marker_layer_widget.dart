@@ -19,7 +19,7 @@ class MarkerLayerWidget extends StatelessWidget {
           /// and what image we want the marker to be, in this case, the basic flutter logo.
           builder: (ctx) => GestureDetector(
             onTap: _onMarkerTap,
-            child: const FlutterLogo(),
+            child: Image.asset('assets/images/marker.png'),
           ),
         ),
       ],

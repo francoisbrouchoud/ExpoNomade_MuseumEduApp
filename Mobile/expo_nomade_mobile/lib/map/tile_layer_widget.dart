@@ -7,6 +7,9 @@ import 'package:flutter_map/flutter_map.dart';
 const styleUrl =
     "https://api.mapbox.com/styles/v1/laumey/clk7147pb009801nw2y750jx5/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGF1bWV5IiwiYSI6ImNsazcxbWRiZDA1a2kzdHA2OTFzd2JkdmYifQ.8xOnsXZQ7GZprIYer0llfw";
 
+// If the previous styleUrl isn't working any more (because we are using a free subscription plan to MapBox), use the following styleUrl.
+// const styleUrl = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
+
 /// This class is the layer that render the tiles into a map on our application,
 class TileLayerWidget extends StatelessWidget {
   const TileLayerWidget({Key? key}) : super(key: key);

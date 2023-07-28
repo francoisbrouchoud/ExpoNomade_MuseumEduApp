@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'map/map_page.dart';
-
+import 'quiz/quiz_page.dart';
+import 'quiz/quiz_question';
 /// Contains the homepage builder
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -38,7 +39,26 @@ class _HomePageState extends State<HomePage> {
                       print("quiz");
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const Placeholder(),
+                          builder: (context) => QuizPage(
+                            //Les questions seront déplacées sur la DB mais en attendant elles sont en dur ici
+                            questions: [
+                              QuizQuestion(
+                                question: 'De quel pays proviennent principalement les ouvriers qui ont construit le tunnel du Simplon ?',
+                                options: ['France', 'Allemagne', 'Italie'],
+                                answerIdx: 2,
+                              ),
+                               QuizQuestion(
+                                question: 'En quel année a été terminé le premier tube tunnel du Simplon ?',
+                                options: ['1859', '1905', '1921', '1980'],
+                                answerIdx: 1,
+                              ),
+                              QuizQuestion(
+                                question: 'Qui a traversé le col du Grand St-Bernard avec un éléphant ?',
+                                options: ['Louis XIV', 'Hannibal', 'Jules César'],
+                                answerIdx: 1,
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     },
