@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'map/map_page.dart';
-import 'quiz_page.dart';
-import 'quiz_question';
-
+import 'quiz/quiz_page.dart';
+import 'quiz/quiz_question';
 /// Contains the homepage builder
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
