@@ -1,10 +1,12 @@
 import 'package:expo_nomade_mobile/app_localization.dart';
+import 'package:expo_nomade_mobile/firebase_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'map/map_page.dart';
 import 'quiz/quiz_page.dart';
 import 'quiz/quiz_question';
+
 /// Contains the homepage builder
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -27,9 +29,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'Logo',
-            ),
+            TitleName(),
             const SizedBox(height: 50),
             Row(
               mainAxisSize: MainAxisSize.min,
@@ -43,18 +43,25 @@ class _HomePageState extends State<HomePage> {
                             //Les questions seront déplacées sur la DB mais en attendant elles sont en dur ici
                             questions: [
                               QuizQuestion(
-                                question: 'De quel pays proviennent principalement les ouvriers qui ont construit le tunnel du Simplon ?',
+                                question:
+                                    'De quel pays proviennent principalement les ouvriers qui ont construit le tunnel du Simplon ?',
                                 options: ['France', 'Allemagne', 'Italie'],
                                 answerIdx: 2,
                               ),
-                               QuizQuestion(
-                                question: 'En quel année a été terminé le premier tube tunnel du Simplon ?',
+                              QuizQuestion(
+                                question:
+                                    'En quel année a été terminé le premier tube tunnel du Simplon ?',
                                 options: ['1859', '1905', '1921', '1980'],
                                 answerIdx: 1,
                               ),
                               QuizQuestion(
-                                question: 'Qui a traversé le col du Grand St-Bernard avec un éléphant ?',
-                                options: ['Louis XIV', 'Hannibal', 'Jules César'],
+                                question:
+                                    'Qui a traversé le col du Grand St-Bernard avec un éléphant ?',
+                                options: [
+                                  'Louis XIV',
+                                  'Hannibal',
+                                  'Jules César'
+                                ],
                                 answerIdx: 1,
                               ),
                             ],
@@ -91,6 +98,21 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+}
+
+class TitleName extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<String>(
+        future: FirebaseService.getExpositionName(),
+        builder: (context, AsyncSnapshot<String> snapshot) {
+          if (snapshot.hasData) {
+            return Text(snapshot.data.toString());
+          } else {
+            return const CircularProgressIndicator();
+          }
+        });
   }
 }
 

@@ -1,16 +1,22 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 // documentation : https://firebase.flutter.dev/docs/database/read-and-write
 class FirebaseService {
-  static FirebaseDatabase database = FirebaseDatabase.instance;
+  static final firebaseApp = Firebase.app();
+  static FirebaseDatabase database = FirebaseDatabase.instanceFor(
+      app: firebaseApp,
+      databaseURL:
+          'https://exponomade-42671-default-rtdb.europe-west1.firebasedatabase.app');
 
-  static getExpositionName(action) {
+  static Future<String> getExpositionName() async {
     DatabaseReference ref = database.ref();
-    ref.child("expositions/0/name").get().then((snapshot) => {
-          if (snapshot.exists)
-            {action(snapshot.value)}
-          else
-            {print('No data available.')}
-        });
+    final snapshot = await ref.child("expositions/0/name").get();
+    if (snapshot.exists) {
+      return snapshot.value.toString();
+    } else {
+      print('No data available.');
+      return "";
+    }
   }
 }
