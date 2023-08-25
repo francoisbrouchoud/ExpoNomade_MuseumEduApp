@@ -64,6 +64,127 @@ class _HomePageState extends State<HomePage> {
                                 ],
                                 answerIdx: 1,
                               ),
+                              QuizQuestion(
+                                question:
+                                    'En 2020, quel pays représentait la plus grande communauté étrangère résidant en Valais ?',
+                                options: [
+                                  'Portugal',
+                                  'France',
+                                  'Italie',
+                                  'Espagne'
+                                ],
+                                answerIdx: 0,
+                              ),
+                              QuizQuestion(
+                                question:
+                                    'Dans l\'Antiquité, quel peuple occupait principalement la région du Valais avant la conquête romaine?',
+                                options: [
+                                  'Les Helvètes',
+                                  'Les Rauraques',
+                                  'Les Sedunes',
+                                  'Les Allobroges'
+                                ],
+                                answerIdx: 2,
+                              ),
+                              QuizQuestion(
+                                question:
+                                    'Durant quel siècle le Valais a-t-il été intégré à l\'Empire carolingien?',
+                                options: [
+                                  'VIe siècle',
+                                  'VIIIe siècle',
+                                  'IXe siècle',
+                                  'XIe siècle'
+                                ],
+                                answerIdx: 1,
+                              ),
+                              QuizQuestion(
+                                question:
+                                    'Quelle route commerciale importante traversait le Valais dans l\'Antiquité et le Moyen Âge, favorisant les mouvements migratoires?',
+                                options: [
+                                  'Route de la soie',
+                                  'Route du sel',
+                                  'Route de l\'ambre',
+                                  'Route du poivre'
+                                ],
+                                answerIdx: 1,
+                              ),
+                              QuizQuestion(
+                                question:
+                                    'Le Valais est devenu un évêché indépendant au début duquel siècle, consolidant ainsi son autonomie?',
+                                options: [
+                                  'Xe siècle',
+                                  'XIIe siècle',
+                                  'XIVe siècle',
+                                  'XVIe siècle'
+                                ],
+                                answerIdx: 2,
+                              ),
+                              QuizQuestion(
+                                question:
+                                    'Durant les invasions barbares, quel peuple germanique a traversé et parfois occupé le Valais, influençant sa démographie?',
+                                options: [
+                                  'Les Vandales',
+                                  'Les Burgondes',
+                                  'Les Wisigoths',
+                                  'Les Ostrogoths'
+                                ],
+                                answerIdx: 1,
+                              ),
+                              QuizQuestion(
+                                question:
+                                    'Quelle ligne ferroviaire, inaugurée à la fin du 19ème siècle, a considérablement renforcé les liens entre le Valais et le reste de la Suisse?',
+                                options: [
+                                  'Ligne du Gotthard',
+                                  'Ligne de la Furka',
+                                  'Ligne du Lötschberg',
+                                  'Ligne du Simplon'
+                                ],
+                                answerIdx: 3,
+                              ),
+                              QuizQuestion(
+                                question:
+                                    'Durant la Première Guerre mondiale, le Valais a accueilli de nombreux réfugiés de quel pays voisin?',
+                                options: [
+                                  'Allemagne',
+                                  'France',
+                                  'Italie',
+                                  'Autriche'
+                                ],
+                                answerIdx: 2,
+                              ),
+                              QuizQuestion(
+                                question:
+                                    'À la suite de la construction de grands barrages hydroélectriques au 20ème siècle, le Valais a vu une augmentation de migrants venant principalement de quel pays?',
+                                options: [
+                                  'Portugal',
+                                  'Italie',
+                                  'Espagne',
+                                  'Grèce'
+                                ],
+                                answerIdx: 1,
+                              ),
+                              QuizQuestion(
+                                question:
+                                    'Durant la Seconde Guerre mondiale, quel col du Valais a été particulièrement utilisé par les réfugiés fuyant l\'occupation?',
+                                options: [
+                                  'Col du Simplon',
+                                  'Col de la Furka',
+                                  'Col du Grand St-Bernard',
+                                  'Col du Lötschberg'
+                                ],
+                                answerIdx: 2,
+                              ),
+                              QuizQuestion(
+                                question:
+                                    'Au 20ème siècle, quelle industrie du Valais a particulièrement attiré des travailleurs étrangers, notamment en raison de la croissance du tourisme?',
+                                options: [
+                                  'Viticulture',
+                                  'Horlogerie',
+                                  'Construction',
+                                  'Hôtellerie'
+                                ],
+                                answerIdx: 3,
+                              ),
                             ],
                           ),
                         ),
