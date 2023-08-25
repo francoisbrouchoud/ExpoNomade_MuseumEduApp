@@ -68,6 +68,11 @@ class AppLocalization {
   String? getTranslation(String key) {
     return _localizedTranslations[key];
   }
+
+  /// Gets the current language code
+  String getCurrentLangCode() {
+    return _locale.languageCode;
+  }
 }
 
 /// Contains the application localization delegate
