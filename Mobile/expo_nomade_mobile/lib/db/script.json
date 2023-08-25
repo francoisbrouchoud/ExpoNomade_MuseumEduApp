@@ -1,0 +1,213 @@
+{
+    "museum":{
+       "1":{
+          "name":{
+             "fr":"Musée d’art du Valais",
+             "de":""
+          },
+          "address":""
+       }
+    },
+    "expositions":[
+       {
+          "name":{
+             "fr":"Les migrations",
+             "de":"Die Migration"
+          },
+          "axes":{
+             "1":{
+                "title":{
+                   "fr":"le territoire (établissement)",
+                   "de":"das Gebiet (Einrichtung)"
+                },
+                "description":{
+                   "fr":"",
+                   "de":""
+                },
+                "color":""
+             },
+             "2":{
+                "title":{
+                   "fr":"la conquête",
+                   "de":"die Eroberung"
+                },
+                "description":{
+                   "fr":"",
+                   "de":""
+                },
+                "color":""
+             },
+             "3":{
+                "title":{
+                   "fr":"le refuge",
+                   "de":"die Zuflucht"
+                },
+                "description":{
+                   "fr":"",
+                   "de":""
+                },
+                "color":""
+             },
+             "4":{
+                "title":{
+                   "fr":"le travail",
+                   "de":"die Arbeit"
+                },
+                "description":{
+                   "fr":"",
+                   "de":""
+                },
+                "color":""
+             }
+          },
+          "populationTypes":{
+             "1":{
+                "title":{
+                   "fr":"les familles",
+                   "de":"die Familien"
+                }
+             },
+             "2":{
+                "title":{
+                   "fr":"les hommes",
+                   "de":"die Männer"
+                }
+             }
+          },
+          "object":[
+             {
+                "title":{
+                   "fr":"Ernest Biéler",
+                   "de":""
+                },
+                "description":{
+                   "fr":"Considéré́ comme le chef de file de ce que l’on nomme « l’École de Savièse », Ernest Biéler s’attache à la représentation idéalisée d’une société́ rurale. Arrivant en Valais et à Savièse en 1884 sur les conseils du peintre Raphaël Ritz, le Vaudois s’établit dans la Commune en 1885 et y construit une maison en 1934. Jusqu’à sa mort, en 1948, l’artiste réside entre Savièse, Paris et Montellier-sur-Rivaz. Ernest Biéler invite de nombreux·ses artistes à le rejoindre en Valais pour dépeindre cette paysannerie rêvée, le primitivisme rural étant alors en vogue. \n Dans un style graphique, Savièse est une représentation typique des réalisations valaisannes de Biéler, avec un regard exogène focalisé sur ce que le peintre considère comme « exotique » : les costumes, les coutumes et tout ce qui se réfère à la paysannerie et que l’artiste estime être « authentique ». Ces deux Saviésannes au champ incarnent alors la typologie de la Valaisanne par excellence, avec tous les attributs qui la définissent : costume traditionnel, activité rurale, décor bucolique ou alpestre. ",
+                   "de":"Ernest Biéler, der alś Anführer der sogenannten \"Schule von Savièse\" gilt, bemüht sich um die idealisierte Darstellung einer ländlichen Gesellschaft́. Der Waadtländer kam 1884 auf Anraten des Malers Raphaël Ritz ins Wallis und nach Savièse, ließ sich 1885 in der Gemeinde nieder und baute 1934 ein Haus. Bis zu seinem Tod im Jahr 1948 wohnte der Künstler zwischen Savièse, Paris und Montellier-sur-Rivaz. Ernest Biéler lud zahlreiche Künstler ein, sich ihm ins Wallis anzuschließen, um die erträumte Bauernschaft zu porträtieren, da der ländliche Primitivismus damals in Mode war. \n Savièse ist eine typische grafische Darstellung von Biélers Walliser Werken, mit einem exogenen Blick, der sich auf das konzentriert, was der Maler als \"exotisch\" betrachtet: Trachten, Bräuche und alles, was sich auf die Bauernschaft bezieht und was der Künstler als \"authentisch\" erachtet. Diese beiden Savieserinnen auf dem Feld verkörpern dann die Typologie der Walliserin par excellence, mit allen Attributen, die sie definieren: traditionelle Tracht, ländliche Tätigkeit, bukolische oder alpine Szenerie."
+                },
+                "coordinates":[
+                   {
+                      "year":1921,
+                      "coordonate":"Savièse"
+                   }
+                ],
+                "picture":"",
+                "axe":"1",
+                "museum":"1",
+                "dimension":"48 x 46 cm",
+                "material":{
+                   "fr":"aquarelle, gouache et crayon sur papier",
+                   "de":"Aquarell, Gouache und Bleistift auf Papier"
+                },
+                "others":{
+                   "fr":"",
+                   "de":""
+                },
+                "position":{
+                   "fr":"",
+                   "de":""
+                }
+             }
+          ],
+          "event":[
+             {
+                "title":{
+                   "fr":"Tournant du XXe siècle",
+                   "de":"Wende zum 20. Jahrhundert"
+                },
+                "description":{
+                   "fr":"Dès le XIXe siècle, la configuration même du Valais commence à attirer une catégorie bien précise de peintres, rejoignant la cause de la défense et de l’illustration de la montagne et de la paysannerie. Certain.e.s sont uniquement de passage, tandis que d’autres y séjournent régulièrement et y élisent même domicile. Avec plus de quarante sommets de plus de 4000 mètres, les Alpes valaisannes confèrent au canton une place à part dans l’art suisse. Avec l’essor économique et touristique de la région – notamment lié aux grandes ascensions qui ont lieu vers 1850 – le Valais devient une terre d’accueil pour de nombreux·ses artistes helvétiques et étrangers·ères. Avant cela, le paysage valaisan était choisi comme illustration d’ouvrages scientifiques ou de récits de voyageurs, mais pas encore comme sujet par la peinture de chevalet, de par sa situation à l’écart des centres économiques et culturels. Désormais plus accessible à la fin du XIXe siècle, le canton devient une véritable source d’inspiration pour l’École paysagère genevoise, mais également pour des peintres vaudois ou neuchâtelois, principalement. Ainsi, hormis quelques exceptions, l’image du Valais s’est majoritairement construite de l’extérieur, par des regards exogènes et immigrés. Écrivain·e·s, artistes et ethnologues, issu·e·s majoritairement de contextes urbains, considèrent le canton comme étant encore vierge de toute transformation et exempt de toute modernité. La topographie particulière de la région, ses montagnes et ses habitant·e·s, deviennent emblématiques d’une période perdue et idéalisée. En effet, l’essor économique qui commence dès 1875 et les mouvements de développement, d’industrialisation et d’internationalisation du canton qui ont lieu principalement entre 1890 et 1914 sont totalement occultés par ces artistes. Leurs œuvres sont à l’origine d’une image spécifique du Valais encore perceptible aujourd’hui : un canton rural, isolé et conservateur. ",
+                   "de":"Jahrhundert begann die Beschaffenheit des Wallis eine ganz bestimmte Kategorie von Malern anzuziehen, die sich der Sache der Verteidigung und Darstellung der Berge und der Bauernschaft anschlossen. Einige von ihnen sind nur auf der Durchreise, während andere sich regelmäßig im Wallis aufhalten oder es sogar zu ihrem Wohnsitz machen. Die Walliser Alpen mit ihren über vierzig Viertausendern verleihen dem Kanton einen besonderen Platz in der Schweizer Kunst. Mit dem wirtschaftlichen und touristischen Aufschwung der Region - insbesondere im Zusammenhang mit den großen Bergbesteigungen um 1850 - wurde das Wallis zu einer Heimat für viele Schweizer und ausländische Künstlerinnen und Künstler. Zuvor wurde die Walliser Landschaft als Illustration für wissenschaftliche Werke oder Reiseberichte gewählt, aber noch nicht als Thema für die Staffeleimalerei, da sie abseits der wirtschaftlichen und kulturellen Zentren lag. Jahrhunderts leichter zugänglich und wurde zu einer echten Inspirationsquelle für die Genfer Landschaftsschule, aber auch für Maler vor allem aus den Kantonen Waadt und Neuenburg. Abgesehen von einigen Ausnahmen wurde das Bild des Wallis also mehrheitlich von aussen, durch exogene und eingewanderte Blicke geprägt. Schriftsteller/innen, Künstler/innen und Ethnolog/innen, die vorwiegend aus städtischen Kontexten stammen, betrachten den Kanton als noch unberührt von jeglicher Veränderung und Modernität. Die besondere Topografie der Region, ihre Berge"
+                },
+                "picture":"",
+                "from":"",
+                "to":"",
+                "startYear":1900,
+                "endYear":2000,
+                "axe":"1",
+                "reason":{
+                   "fr":"",
+                   "de":""
+                },
+                "populationType":""
+             }
+          ],
+          "quiz":{
+             "questions":[
+                {
+                   "question":{
+                      "fr":"De quel pays proviennent principalement les ouvriers qui ont construit le tunnel du Simplon ?",
+                      "de":"Aus welchem Land kommen die Arbeiter, die den Simplontunnel gebaut haben, hauptsächlich?"
+                   },
+                   "options":[
+                      {
+                         "fr":"France",
+                         "de":"Frankreich"
+                      },
+                      {
+                         "fr":"Allemagne",
+                         "de":"Deutschland"
+                      },
+                      {
+                         "fr":"Italie",
+                         "de":"Italien"
+                      }
+                   ],
+                   "answerIdx":2
+                },
+                {
+                   "question":{
+                      "fr":"En quel année a été terminé le premier tube tunnel du Simplon ?",
+                      "de":"In welchem Jahr wurde die erste Tunnelröhre am Simplon fertiggestellt?"
+                   },
+                   "options":[
+                      {
+                         "fr":"1859",
+                         "de":"1859"
+                      },
+                      {
+                         "fr":"1905",
+                         "de":"1905"
+                      },
+                      {
+                         "fr":"1921",
+                         "de":"1921"
+                      },
+                      {
+                         "fr":"1980",
+                         "de":"1980"
+                      }
+                   ],
+                   "answerIdx":1
+                },
+                {
+                   "question":{
+                      "fr":"Qui a traversé le col du Grand St-Bernard avec un éléphant ?",
+                      "de":"Wer hat den Pass des Großen St. Bernhard mit einem Elefanten überquert?"
+                   },
+                   "options":[
+                      {
+                         "fr":"Louis XIV",
+                         "de":"Ludwig XIV"
+                      },
+                      {
+                         "fr":"Hannibal",
+                         "de":"Hannibal"
+                      },
+                      {
+                         "fr":"Jules César",
+                         "de":"Julius Cäsar"
+                      }
+                   ],
+                   "answerIdx":1
+                }
+             ],
+             "participation":[
+                {
+                   "email":"",
+                   "score":0
+                }
+             ]
+          }
+       }
+    ]
+ }
