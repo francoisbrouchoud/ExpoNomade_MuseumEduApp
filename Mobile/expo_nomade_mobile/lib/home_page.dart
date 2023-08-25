@@ -233,8 +233,7 @@ class TitleName extends StatelessWidget {
     final translations = AppLocalization.of(context);
     return FutureBuilder<String>(
         future: FirebaseService.getExpositionName(
-            //translations.getCurrentLangCode()
-            "fr"),
+            translations.getCurrentLangCode()),
         builder: (context, AsyncSnapshot<String> snapshot) {
           if (snapshot.hasData) {
             return Text(snapshot.data.toString());
