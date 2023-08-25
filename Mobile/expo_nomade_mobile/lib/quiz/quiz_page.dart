@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'score_page.dart';
 
 import 'quiz_question';
 
@@ -43,7 +44,8 @@ class _QuizPageState extends State<QuizPage> {
                 onChanged: (int? value) {
                   setState(() {
                     selectedOptionIdx[currentQuestionIdx] = value;
-                    answeredCorrectly[currentQuestionIdx] = (value == widget.questions[currentQuestionIdx].answerIdx);
+                    answeredCorrectly[currentQuestionIdx] = (value ==
+                        widget.questions[currentQuestionIdx].answerIdx);
                   });
                 },
               ),
@@ -52,7 +54,18 @@ class _QuizPageState extends State<QuizPage> {
           if (currentQuestionIdx == widget.questions.length - 1)
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                // This is where we check for the number of good answers
+                int correctAnswers =
+                    answeredCorrectly.where((correct) => correct).length;
+
+                // Naviguez vers la page de résultats avec les données nécessaires
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ScorePage(
+                        correctAnswers: correctAnswers,
+                        totalQuestions: widget.questions.length),
+                  ),
+                );
               },
               child: Text('Terminer'),
             )
