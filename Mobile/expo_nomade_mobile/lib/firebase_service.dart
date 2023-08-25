@@ -9,13 +9,12 @@ class FirebaseService {
       databaseURL:
           'https://exponomade-42671-default-rtdb.europe-west1.firebasedatabase.app');
 
-  static Future<String> getExpositionName() async {
+  static Future<String> getExpositionName(String lang) async {
     DatabaseReference ref = database.ref();
-    final snapshot = await ref.child("expositions/0/name").get();
+    final snapshot = await ref.child("expositions/0/name/$lang").get();
     if (snapshot.exists) {
       return snapshot.value.toString();
     } else {
-      print('No data available.');
       return "";
     }
   }

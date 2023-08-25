@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'map/map_page.dart';
 import 'quiz/quiz_page.dart';
-import 'quiz/quiz_question'; // Ajout de l'import manquant
+import 'quiz/quiz_question.dart'; // Ajout de l'import manquant
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key, required this.title})
@@ -230,8 +230,11 @@ class _HomePageState extends State<HomePage> {
 class TitleName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final translations = AppLocalization.of(context);
     return FutureBuilder<String>(
-        future: FirebaseService.getExpositionName(),
+        future: FirebaseService.getExpositionName(
+            //translations.getCurrentLangCode()
+            "fr"),
         builder: (context, AsyncSnapshot<String> snapshot) {
           if (snapshot.hasData) {
             return Text(snapshot.data.toString());
