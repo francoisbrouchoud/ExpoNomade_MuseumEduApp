@@ -1,11 +1,13 @@
 class QuizQuestion {
   final String question;
-  final List<String> options;
-  final int answerIdx;
+  final List<QuizOption> options;
 
-  QuizQuestion({
-    required this.question,
-    required this.options,
-    required this.answerIdx,
-  });
+  QuizQuestion({required this.question, required this.options});
+}
+
+class QuizOption {
+  final String label;
+  final bool isCorrect;
+
+  QuizOption({required this.label, this.isCorrect = false});
 }

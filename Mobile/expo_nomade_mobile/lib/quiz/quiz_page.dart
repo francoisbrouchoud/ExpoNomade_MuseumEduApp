@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'score_page.dart';
-
 import 'quiz_question';
 
 class QuizPage extends StatefulWidget {
@@ -14,9 +13,9 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  int currentQuestionIdx = 0;
   List<int?> selectedOptionIdx = [];
   List<bool> answeredCorrectly = [];
+  int currentQuestionIdx = 0;
 
   @override
   void initState() {
@@ -37,15 +36,18 @@ class _QuizPageState extends State<QuizPage> {
           ...List.generate(
             widget.questions[currentQuestionIdx].options.length,
             (index) => ListTile(
-              title: Text(widget.questions[currentQuestionIdx].options[index]),
+              title: Text(
+                  widget.questions[currentQuestionIdx].options[index].label),
               leading: Radio(
                 value: index,
                 groupValue: selectedOptionIdx[currentQuestionIdx],
                 onChanged: (int? value) {
                   setState(() {
                     selectedOptionIdx[currentQuestionIdx] = value;
-                    answeredCorrectly[currentQuestionIdx] = (value ==
-                        widget.questions[currentQuestionIdx].answerIdx);
+                    answeredCorrectly[currentQuestionIdx] = widget
+                        .questions[currentQuestionIdx]
+                        .options[value!]
+                        .isCorrect;
                   });
                 },
               ),
@@ -54,11 +56,8 @@ class _QuizPageState extends State<QuizPage> {
           if (currentQuestionIdx == widget.questions.length - 1)
             ElevatedButton(
               onPressed: () {
-                // This is where we check for the number of good answers
                 int correctAnswers =
                     answeredCorrectly.where((correct) => correct).length;
-
-                // Naviguez vers la page de résultats avec les données nécessaires
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => ScorePage(

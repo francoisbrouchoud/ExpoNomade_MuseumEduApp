@@ -5,11 +5,11 @@ import 'package:provider/provider.dart';
 
 import 'map/map_page.dart';
 import 'quiz/quiz_page.dart';
-import 'quiz/quiz_question';
+import 'quiz/quiz_question'; // Ajout de l'import manquant
 
-/// Contains the homepage builder
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.title});
+  const HomePage({Key? key, required this.title})
+      : super(key: key); // Correction du nom du paramètre
 
   final String title;
 
@@ -17,7 +17,6 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-/// Contains the home page content with the state
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
@@ -35,173 +34,177 @@ class _HomePageState extends State<HomePage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 MainButton(
-                    action: () {
-                      print("quiz");
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => QuizPage(
-                            //Les questions seront déplacées sur la DB mais en attendant elles sont en dur ici
-                            questions: [
-                              QuizQuestion(
-                                question:
-                                    'De quel pays proviennent principalement les ouvriers qui ont construit le tunnel du Simplon ?',
-                                options: ['France', 'Allemagne', 'Italie'],
-                                answerIdx: 2,
-                              ),
-                              QuizQuestion(
-                                question:
-                                    'En quel année a été terminé le premier tube tunnel du Simplon ?',
-                                options: ['1859', '1905', '1921', '1980'],
-                                answerIdx: 1,
-                              ),
-                              QuizQuestion(
-                                question:
-                                    'Qui a traversé le col du Grand St-Bernard avec un éléphant ?',
-                                options: [
-                                  'Louis XIV',
-                                  'Hannibal',
-                                  'Jules César'
-                                ],
-                                answerIdx: 1,
-                              ),
-                              QuizQuestion(
-                                question:
-                                    'En 2020, quel pays représentait la plus grande communauté étrangère résidant en Valais ?',
-                                options: [
-                                  'Portugal',
-                                  'France',
-                                  'Italie',
-                                  'Espagne'
-                                ],
-                                answerIdx: 0,
-                              ),
-                              QuizQuestion(
-                                question:
-                                    'Dans l\'Antiquité, quel peuple occupait principalement la région du Valais avant la conquête romaine?',
-                                options: [
-                                  'Les Helvètes',
-                                  'Les Rauraques',
-                                  'Les Sedunes',
-                                  'Les Allobroges'
-                                ],
-                                answerIdx: 2,
-                              ),
-                              QuizQuestion(
-                                question:
-                                    'Durant quel siècle le Valais a-t-il été intégré à l\'Empire carolingien?',
-                                options: [
-                                  'VIe siècle',
-                                  'VIIIe siècle',
-                                  'IXe siècle',
-                                  'XIe siècle'
-                                ],
-                                answerIdx: 1,
-                              ),
-                              QuizQuestion(
+                  action: () {
+                    print("quiz");
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => QuizPage(
+                          questions: [
+                            QuizQuestion(
+                              question:
+                                  'De quel pays proviennent principalement les ouvriers qui ont construit le tunnel du Simplon ?',
+                              options: [
+                                QuizOption(label: 'France'),
+                                QuizOption(label: 'Allemagne'),
+                                QuizOption(label: 'Italie', isCorrect: true),
+                              ],
+                            ),
+                            QuizQuestion(
+                              question:
+                                  'En quel année a été terminé le premier tube tunnel du Simplon ?',
+                              options: [
+                                QuizOption(label: '1859'),
+                                QuizOption(label: '1905', isCorrect: true),
+                                QuizOption(label: '1921'),
+                                QuizOption(label: '1980'),
+                              ],
+                            ),
+                            QuizQuestion(
+                              question:
+                                  'Qui a traversé le col du Grand St-Bernard avec un éléphant ?',
+                              options: [
+                                QuizOption(label: 'Louis XIV'),
+                                QuizOption(label: 'Hannibal', isCorrect: true),
+                                QuizOption(label: 'Jules César'),
+                              ],
+                            ),
+                            QuizQuestion(
+                              question:
+                                  'En 2020, quel pays représentait la plus grande communauté étrangère résidant en Valais ?',
+                              options: [
+                                QuizOption(label: 'Portugal', isCorrect: true),
+                                QuizOption(label: 'France'),
+                                QuizOption(label: 'Italie'),
+                                QuizOption(label: 'Espagne'),
+                              ],
+                            ),
+                            QuizQuestion(
+                              question:
+                                  'Dans l\'Antiquité, quel peuple occupait principalement la région du Valais avant la conquête romaine?',
+                              options: [
+                                QuizOption(label: 'Les Helvètes'),
+                                QuizOption(label: 'Les Rauraques'),
+                                QuizOption(
+                                    label: 'Les Sedunes', isCorrect: true),
+                                QuizOption(label: 'Les Allobroges'),
+                              ],
+                            ),
+                            QuizQuestion(
+                              question:
+                                  'Durant quellle siècle le Valais a-t-il été intégré à l\'Empire carolingien?',
+                              options: [
+                                QuizOption(label: 'VIe siècle'),
+                                QuizOption(
+                                    label: 'VIIIe siècle', isCorrect: true),
+                                QuizOption(label: 'IXe siècle'),
+                                QuizOption(label: 'XIe siècle'),
+                              ],
+                            ),
+                            QuizQuestion(
                                 question:
                                     'Quelle route commerciale importante traversait le Valais dans l\'Antiquité et le Moyen Âge, favorisant les mouvements migratoires?',
                                 options: [
-                                  'Route de la soie',
-                                  'Route du sel',
-                                  'Route de l\'ambre',
-                                  'Route du poivre'
-                                ],
-                                answerIdx: 1,
-                              ),
-                              QuizQuestion(
-                                question:
-                                    'Le Valais est devenu un évêché indépendant au début duquel siècle, consolidant ainsi son autonomie?',
-                                options: [
-                                  'Xe siècle',
-                                  'XIIe siècle',
-                                  'XIVe siècle',
-                                  'XVIe siècle'
-                                ],
-                                answerIdx: 2,
-                              ),
-                              QuizQuestion(
-                                question:
-                                    'Durant les invasions barbares, quel peuple germanique a traversé et parfois occupé le Valais, influençant sa démographie?',
-                                options: [
-                                  'Les Vandales',
-                                  'Les Burgondes',
-                                  'Les Wisigoths',
-                                  'Les Ostrogoths'
-                                ],
-                                answerIdx: 1,
-                              ),
-                              QuizQuestion(
-                                question:
-                                    'Quelle ligne ferroviaire, inaugurée à la fin du 19ème siècle, a considérablement renforcé les liens entre le Valais et le reste de la Suisse?',
-                                options: [
-                                  'Ligne du Gotthard',
-                                  'Ligne de la Furka',
-                                  'Ligne du Lötschberg',
-                                  'Ligne du Simplon'
-                                ],
-                                answerIdx: 3,
-                              ),
-                              QuizQuestion(
-                                question:
-                                    'Durant la Première Guerre mondiale, le Valais a accueilli de nombreux réfugiés de quel pays voisin?',
-                                options: [
-                                  'Allemagne',
-                                  'France',
-                                  'Italie',
-                                  'Autriche'
-                                ],
-                                answerIdx: 2,
-                              ),
-                              QuizQuestion(
-                                question:
-                                    'À la suite de la construction de grands barrages hydroélectriques au 20ème siècle, le Valais a vu une augmentation de migrants venant principalement de quel pays?',
-                                options: [
-                                  'Portugal',
-                                  'Italie',
-                                  'Espagne',
-                                  'Grèce'
-                                ],
-                                answerIdx: 1,
-                              ),
-                              QuizQuestion(
-                                question:
-                                    'Durant la Seconde Guerre mondiale, quel col du Valais a été particulièrement utilisé par les réfugiés fuyant l\'occupation?',
-                                options: [
-                                  'Col du Simplon',
-                                  'Col de la Furka',
-                                  'Col du Grand St-Bernard',
-                                  'Col du Lötschberg'
-                                ],
-                                answerIdx: 2,
-                              ),
-                              QuizQuestion(
-                                question:
-                                    'Au 20ème siècle, quelle industrie du Valais a particulièrement attiré des travailleurs étrangers, notamment en raison de la croissance du tourisme?',
-                                options: [
-                                  'Viticulture',
-                                  'Horlogerie',
-                                  'Construction',
-                                  'Hôtellerie'
-                                ],
-                                answerIdx: 3,
-                              ),
-                            ],
-                          ),
+                                  QuizOption(label: 'Route de la soie'),
+                                  QuizOption(
+                                      label: 'Route du sel', isCorrect: true),
+                                  QuizOption(label: 'Route de l\'ambre'),
+                                  QuizOption(label: 'Route du poivre'),
+                                ]),
+                            QuizQuestion(
+                              question:
+                                  'Le Valais est devenu un évêché indépendant au début duquel siècle, consolidant ainsi son autonomie?',
+                              options: [
+                                QuizOption(label: 'Xe siècle'),
+                                QuizOption(label: 'XIIe siècle'),
+                                QuizOption(
+                                    label: 'XIVe siècle', isCorrect: true),
+                                QuizOption(label: 'XVIe siècle'),
+                              ],
+                            ),
+                            QuizQuestion(
+                              question:
+                                  'Durant les invasions barbares, quel peuple germanique a traversé et parfois occupé le Valais, influençant sa démographie?',
+                              options: [
+                                QuizOption(label: 'Les Vandales'),
+                                QuizOption(
+                                    label: 'Les Burgondes', isCorrect: true),
+                                QuizOption(label: 'Les Wisigoths'),
+                                QuizOption(label: 'Les Ostrogoths'),
+                              ],
+                            ),
+                            QuizQuestion(
+                              question:
+                                  'Quelle ligne ferroviaire, inaugurée à la fin du 19ème siècle, a considérablement renforcé les liens entre le Valais et le reste de la Suisse?',
+                              options: [
+                                QuizOption(label: 'Ligne du Gotthard'),
+                                QuizOption(label: 'Ligne de la Furka'),
+                                QuizOption(label: 'Ligne du Lötschberg'),
+                                QuizOption(
+                                    label: 'Ligne du Simplon', isCorrect: true),
+                              ],
+                            ),
+                            QuizQuestion(
+                              question:
+                                  'Durant la Première Guerre mondiale, le Valais a accueilli de nombreux réfugiés de quel pays voisin?',
+                              options: [
+                                QuizOption(label: 'Allemagne'),
+                                QuizOption(label: 'France'),
+                                QuizOption(label: 'Italie', isCorrect: true),
+                                QuizOption(label: 'Autriche'),
+                              ],
+                            ),
+                            QuizQuestion(
+                              question:
+                                  'À la suite de la construction de grands barrages hydroélectriques au 20ème siècle, le Valais a vu une augmentation de migrants venant principalement de quel pays?',
+                              options: [
+                                QuizOption(label: 'Portugal'),
+                                QuizOption(label: 'Italie', isCorrect: true),
+                                QuizOption(label: 'Espagne'),
+                                QuizOption(label: 'Grèce'),
+                              ],
+                            ),
+                            QuizQuestion(
+                              question:
+                                  'Durant la Seconde Guerre mondiale, quel col du Valais a été particulièrement utilisé par les réfugiés fuyant l\'occupation?',
+                              options: [
+                                QuizOption(label: 'Col du Simplon'),
+                                QuizOption(label: 'Col de la Furka'),
+                                QuizOption(
+                                    label: 'Col du Grand St-Bernard',
+                                    isCorrect: true),
+                                QuizOption(label: 'Col du Lötschberg'),
+                              ],
+                            ),
+                            QuizQuestion(
+                              question:
+                                  'Au 20ème siècle, quelle industrie du Valais a particulièrement attiré des travailleurs étrangers, notamment en raison de la croissance du tourisme?',
+                              options: [
+                                QuizOption(label: 'Viticulture'),
+                                QuizOption(label: 'Horlogerie'),
+                                QuizOption(label: 'Construction'),
+                                QuizOption(
+                                    label: 'Hôtellerie', isCorrect: true),
+                              ],
+                            ),
+                          ],
                         ),
-                      );
-                    },
-                    text: translations.getTranslation("quiz").toString()),
+                      ),
+                    );
+                  },
+                  text: translations.getTranslation("quiz").toString(),
+                ),
                 const SizedBox(width: 25),
                 MainButton(
-                    action: () {
-                      print("map");
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const MapPage(),
-                        ),
-                      );
-                    },
-                    text: translations.getTranslation("map").toString()),
+                  action: () {
+                    print("map");
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const MapPage(),
+                      ),
+                    );
+                  },
+                  text: translations.getTranslation("map").toString(),
+                ),
               ],
             ),
             const SizedBox(height: 50),
@@ -221,6 +224,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+// ... (le reste du code reste inchangé)
 
 class TitleName extends StatelessWidget {
   @override
