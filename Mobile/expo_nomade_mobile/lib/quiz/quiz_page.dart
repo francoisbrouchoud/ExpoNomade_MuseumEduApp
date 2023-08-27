@@ -75,6 +75,15 @@ class _QuizPageState extends State<QuizPage> {
                   color: Colors.blueGrey[100],
                 ),
                 child: ListTile(
+                  onTap: () {
+                    setState(() {
+                      selectedOptionIdx[currentQuestionIdx] = index;
+                      answeredCorrectly[currentQuestionIdx] =
+                          randomSelectedQuestions[currentQuestionIdx]
+                              .options[index]
+                              .isCorrect;
+                    });
+                  },
                   title: Text(
                     randomSelectedQuestions[currentQuestionIdx]
                             .options[index]
