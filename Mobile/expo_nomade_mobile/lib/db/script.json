@@ -1,6 +1,6 @@
 {
    "museum":{
-      "1":{
+      "-NcqpwOffpnKeRhzQKN2":{
          "name":{
             "fr":"Musée d’art du Valais",
             "de":""
@@ -8,14 +8,15 @@
          "address":""
       }
    },
-   "expositions":[
-      {
+   "currentExposition":"-Ncqq4-PqPZh2avCdA_q",
+   "expositions":{
+      "-Ncqq4-PqPZh2avCdA_q":{
          "name":{
             "fr":"Les migrations",
             "de":"Die Migration"
          },
          "axes":{
-            "1":{
+            "-NcqpNHcZkWCsLTXxIxm":{
                "title":{
                   "fr":"le territoire (établissement)",
                   "de":"das Gebiet (Einrichtung)"
@@ -26,7 +27,7 @@
                },
                "color":""
             },
-            "2":{
+            "-Ncqpb935WPaykE9_5X-":{
                "title":{
                   "fr":"la conquête",
                   "de":"die Eroberung"
@@ -37,7 +38,7 @@
                },
                "color":""
             },
-            "3":{
+            "-NcqpeK33xcP1gElFa21":{
                "title":{
                   "fr":"le refuge",
                   "de":"die Zuflucht"
@@ -48,7 +49,7 @@
                },
                "color":""
             },
-            "4":{
+            "-Ncqph9qqmiNqP2qh9FS":{
                "title":{
                   "fr":"le travail",
                   "de":"die Arbeit"
@@ -61,13 +62,13 @@
             }
          },
          "populationTypes":{
-            "1":{
+            "-Ncqpj_hDfwZeo_YYBmn":{
                "title":{
                   "fr":"les familles",
                   "de":"die Familien"
                }
             },
-            "2":{
+            "-NcqprMePtNbqjB0fpbY":{
                "title":{
                   "fr":"les hommes",
                   "de":"die Männer"
@@ -94,8 +95,8 @@
                   }
                ],
                "picture":"",
-               "axe":"1",
-               "museum":"1",
+               "axe":"-NcqpNHcZkWCsLTXxIxm",
+               "museum":"-NcqpwOffpnKeRhzQKN2",
                "dimension":"48 x 46 cm",
                "material":{
                   "fr":"aquarelle, gouache et crayon sur papier",
@@ -147,12 +148,12 @@
                }],
                "startYear":1900,
                "endYear":2000,
-               "axe":"1",
+               "axe":"-NcqpNHcZkWCsLTXxIxm",
                "reason":{
                   "fr":"",
                   "de":""
                },
-               "populationType":""
+               "populationType":"-Ncqpj_hDfwZeo_YYBmn"
             }
          ],
          "quiz":{
@@ -656,5 +657,5 @@
             ]
          }
       }
-   ]
+   }
 }
