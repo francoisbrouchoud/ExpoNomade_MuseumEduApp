@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../app_localization.dart';
 import 'score_page.dart';
 import 'quiz_question.dart';
 
@@ -26,18 +27,21 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   Widget build(BuildContext context) {
+    final translations = AppLocalization.of(context);
+    final langCode = translations.getCurrentLangCode();
     return Scaffold(
       appBar: AppBar(
         title: Text('Quiz'),
       ),
       body: Column(
         children: [
-          Text(widget.questions[currentQuestionIdx].question),
+          Text(widget.questions[currentQuestionIdx].question[langCode] ?? ""),
           ...List.generate(
             widget.questions[currentQuestionIdx].options.length,
             (index) => ListTile(
-              title: Text(
-                  widget.questions[currentQuestionIdx].options[index].label),
+              title: Text(widget.questions[currentQuestionIdx].options[index]
+                      .label[langCode] ??
+                  ""),
               leading: Radio(
                 value: index,
                 groupValue: selectedOptionIdx[currentQuestionIdx],
