@@ -28,7 +28,6 @@ class _QuizPageState extends State<QuizPage> {
     randomSelectedQuestions = List.from(widget.questions);
     randomSelectedQuestions.shuffle(Random());
     randomSelectedQuestions = randomSelectedQuestions.take(5).toList();
-
     selectedOptionIdx = List.filled(randomSelectedQuestions.length, null);
     answeredCorrectly = List.filled(randomSelectedQuestions.length, false);
   }
@@ -37,33 +36,66 @@ class _QuizPageState extends State<QuizPage> {
   Widget build(BuildContext context) {
     final translations = AppLocalization.of(context);
     final langCode = translations.getCurrentLangCode();
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Quiz'),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(randomSelectedQuestions[currentQuestionIdx].question[langCode] ??
-              ""),
+          Center(
+            child: Container(
+              width: screenWidth * 0.85,
+              padding: EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16.0),
+                color: Colors.blueGrey[100],
+              ),
+              child: Text(
+                randomSelectedQuestions[currentQuestionIdx]
+                        .question[langCode] ??
+                    "",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          SizedBox(height: 20),
           ...List.generate(
             randomSelectedQuestions[currentQuestionIdx].options.length,
-            (index) => ListTile(
-              title: Text(randomSelectedQuestions[currentQuestionIdx]
-                      .options[index]
-                      .label[langCode] ??
-                  ""),
-              leading: Radio(
-                value: index,
-                groupValue: selectedOptionIdx[currentQuestionIdx],
-                onChanged: (int? value) {
-                  setState(() {
-                    selectedOptionIdx[currentQuestionIdx] = value;
-                    answeredCorrectly[currentQuestionIdx] =
-                        randomSelectedQuestions[currentQuestionIdx]
-                            .options[value!]
-                            .isCorrect;
-                  });
-                },
+            (index) => Center(
+              child: Container(
+                width: screenWidth * 0.7,
+                margin: EdgeInsets.symmetric(vertical: 8),
+                padding: EdgeInsets.all(12.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16.0),
+                  color: Colors.blueGrey[100],
+                ),
+                child: ListTile(
+                  title: Text(
+                    randomSelectedQuestions[currentQuestionIdx]
+                            .options[index]
+                            .label[langCode] ??
+                        "",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  leading: Radio(
+                    value: index,
+                    groupValue: selectedOptionIdx[currentQuestionIdx],
+                    onChanged: (int? value) {
+                      setState(() {
+                        selectedOptionIdx[currentQuestionIdx] = value;
+                        answeredCorrectly[currentQuestionIdx] =
+                            randomSelectedQuestions[currentQuestionIdx]
+                                .options[value!]
+                                .isCorrect;
+                      });
+                    },
+                  ),
+                ),
               ),
             ),
           ),
