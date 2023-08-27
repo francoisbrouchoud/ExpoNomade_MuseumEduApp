@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../app_localization.dart';
 import 'score_page.dart';
@@ -34,11 +33,22 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final translations = AppLocalization.of(context);
     final langCode = translations.getCurrentLangCode();
+    final QuestionTextStyle = theme.textTheme.displayMedium!.copyWith(
+      color: theme.colorScheme.secondary,
+      fontSize: 25,
+    );
+    final OptionTextStyle = theme.textTheme.displayMedium!.copyWith(
+      color: theme.colorScheme.secondary,
+      fontSize: 20,
+    );
+
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      backgroundColor: theme.colorScheme.primary,
       appBar: AppBar(
         title: Text('Quiz'),
       ),
@@ -51,13 +61,13 @@ class _QuizPageState extends State<QuizPage> {
               padding: EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16.0),
-                color: Colors.blueGrey[100],
+                color: theme.colorScheme.background,
               ),
               child: Text(
                 randomSelectedQuestions[currentQuestionIdx]
                         .question[langCode] ??
                     "",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: QuestionTextStyle,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -72,7 +82,7 @@ class _QuizPageState extends State<QuizPage> {
                 padding: EdgeInsets.all(12.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16.0),
-                  color: Colors.blueGrey[100],
+                  color: theme.colorScheme.background,
                 ),
                 child: ListTile(
                   onTap: () {
@@ -89,7 +99,7 @@ class _QuizPageState extends State<QuizPage> {
                             .options[index]
                             .label[langCode] ??
                         "",
-                    style: TextStyle(fontSize: 16),
+                    style: OptionTextStyle,
                   ),
                   leading: Radio(
                     value: index,
