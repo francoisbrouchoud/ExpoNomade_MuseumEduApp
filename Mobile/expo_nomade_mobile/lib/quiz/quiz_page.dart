@@ -23,7 +23,7 @@ class _QuizPageState extends State<QuizPage> {
   void initState() {
     super.initState();
 
-    // Shuffle questins and take only 5
+    // Shuffle questions and take only 5
     randomSelectedQuestions = List.from(widget.questions);
     randomSelectedQuestions.shuffle(Random());
     randomSelectedQuestions = randomSelectedQuestions.take(5).toList();
@@ -118,31 +118,80 @@ class _QuizPageState extends State<QuizPage> {
               ),
             ),
           ),
-          if (currentQuestionIdx == randomSelectedQuestions.length - 1)
-            ElevatedButton(
-              onPressed: () {
-                int correctAnswers =
-                    answeredCorrectly.where((correct) => correct).length;
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => ScorePage(
-                      correctAnswers: correctAnswers,
-                      totalQuestions: randomSelectedQuestions.length,
-                    ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Don't show previous button on first question
+              if (currentQuestionIdx > 0)
+                Container(
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.background,
+                    shape: BoxShape.circle,
                   ),
-                );
-              },
-              child: Text('Terminer'),
-            )
-          else
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  currentQuestionIdx++;
-                });
-              },
-              child: Text('Suivant'),
-            ),
+                  child: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        currentQuestionIdx--;
+                      });
+                    },
+                    icon: Icon(Icons.navigate_before),
+                    color: theme.colorScheme.secondary,
+                  ),
+                ),
+
+              // Show the current question index
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  '${currentQuestionIdx + 1} / ${randomSelectedQuestions.length}',
+                  style: QuestionTextStyle,
+                ),
+              ),
+
+              // Show finish button on last question
+              if (currentQuestionIdx == randomSelectedQuestions.length - 1)
+                Container(
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.background,
+                    shape: BoxShape.circle,
+                  ),
+                  child: IconButton(
+                    onPressed: () {
+                      int correctAnswers =
+                          answeredCorrectly.where((correct) => correct).length;
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ScorePage(
+                            correctAnswers: correctAnswers,
+                            totalQuestions: randomSelectedQuestions.length,
+                          ),
+                        ),
+                      );
+                    },
+                    icon: Icon(Icons.check),
+                    color: theme.colorScheme.secondary,
+                  ),
+                )
+
+              // Next button
+              else
+                Container(
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.background,
+                    shape: BoxShape.circle,
+                  ),
+                  child: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        currentQuestionIdx++;
+                      });
+                    },
+                    icon: Icon(Icons.navigate_next),
+                    color: theme.colorScheme.secondary,
+                  ),
+                ),
+            ],
+          ),
         ],
       ),
     );
