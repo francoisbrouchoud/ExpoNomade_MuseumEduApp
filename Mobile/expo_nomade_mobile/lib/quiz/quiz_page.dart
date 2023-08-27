@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../app_localization.dart';
@@ -16,13 +17,20 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<int?> selectedOptionIdx = [];
   List<bool> answeredCorrectly = [];
+  List<QuizQuestion> randomSelectedQuestions = [];
   int currentQuestionIdx = 0;
 
   @override
   void initState() {
     super.initState();
-    selectedOptionIdx = List.filled(widget.questions.length, null);
-    answeredCorrectly = List.filled(widget.questions.length, false);
+
+    // Shuffle questins and take only 5
+    randomSelectedQuestions = List.from(widget.questions);
+    randomSelectedQuestions.shuffle(Random());
+    randomSelectedQuestions = randomSelectedQuestions.take(5).toList();
+
+    selectedOptionIdx = List.filled(randomSelectedQuestions.length, null);
+    answeredCorrectly = List.filled(randomSelectedQuestions.length, false);
   }
 
   @override
@@ -35,11 +43,13 @@ class _QuizPageState extends State<QuizPage> {
       ),
       body: Column(
         children: [
-          Text(widget.questions[currentQuestionIdx].question[langCode] ?? ""),
+          Text(randomSelectedQuestions[currentQuestionIdx].question[langCode] ??
+              ""),
           ...List.generate(
-            widget.questions[currentQuestionIdx].options.length,
+            randomSelectedQuestions[currentQuestionIdx].options.length,
             (index) => ListTile(
-              title: Text(widget.questions[currentQuestionIdx].options[index]
+              title: Text(randomSelectedQuestions[currentQuestionIdx]
+                      .options[index]
                       .label[langCode] ??
                   ""),
               leading: Radio(
@@ -48,16 +58,16 @@ class _QuizPageState extends State<QuizPage> {
                 onChanged: (int? value) {
                   setState(() {
                     selectedOptionIdx[currentQuestionIdx] = value;
-                    answeredCorrectly[currentQuestionIdx] = widget
-                        .questions[currentQuestionIdx]
-                        .options[value!]
-                        .isCorrect;
+                    answeredCorrectly[currentQuestionIdx] =
+                        randomSelectedQuestions[currentQuestionIdx]
+                            .options[value!]
+                            .isCorrect;
                   });
                 },
               ),
             ),
           ),
-          if (currentQuestionIdx == widget.questions.length - 1)
+          if (currentQuestionIdx == randomSelectedQuestions.length - 1)
             ElevatedButton(
               onPressed: () {
                 int correctAnswers =
@@ -65,8 +75,9 @@ class _QuizPageState extends State<QuizPage> {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => ScorePage(
-                        correctAnswers: correctAnswers,
-                        totalQuestions: widget.questions.length),
+                      correctAnswers: correctAnswers,
+                      totalQuestions: randomSelectedQuestions.length,
+                    ),
                   ),
                 );
               },
