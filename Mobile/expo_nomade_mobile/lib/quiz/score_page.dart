@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../home_page.dart';
 
 class ScorePage extends StatelessWidget {
   final int correctAnswers;
@@ -26,11 +25,8 @@ class ScorePage extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // TODO corriger ça.
-                //Navigator.of(context).push(MaterialPageRoute(
-                //    builder: (context) => const HomePage(
-                //          title: '',
-                //        ))); // Revenir à la page précédente si nécessaire
+                Navigator.of(context).popUntil(
+                    (route) => route.isFirst); // Revenir à la première page
               },
               child: const Text('Retour au menu principal'),
             ),

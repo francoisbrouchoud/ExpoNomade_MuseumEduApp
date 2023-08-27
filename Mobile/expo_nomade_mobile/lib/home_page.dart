@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 import 'map/map_page.dart';
 import 'quiz/quiz_page.dart';
-import 'quiz/quiz_question.dart'; // Ajout de l'import manquant
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key, required this.exposition})
@@ -38,7 +37,7 @@ class _HomePageState extends State<HomePage> {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => QuizPage(
-                          questions: [],
+                          questions: widget.exposition.quiz.questions,
                         ),
                       ),
                     );

@@ -6,6 +6,7 @@ import 'package:expo_nomade_mobile/bo/expo_object.dart';
 import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
 
 import 'museum.dart';
+import 'quiz_question.dart';
 
 /// Class Exposition is used to store all details related to an exposition.
 class Exposition {
@@ -14,11 +15,11 @@ class Exposition {
   Map<String, ExpoPopulationType> populationTypes;
   List<ExpoEvent> events;
   List<ExpoObject> objects;
-  // TODO add quiz
+  Quiz quiz;
 
   /// Exposition complete constructor.
-  Exposition(
-      this.name, this.axes, this.events, this.objects, this.populationTypes);
+  Exposition(this.name, this.axes, this.events, this.objects,
+      this.populationTypes, this.quiz);
 
   /// Convert json into the business object Exposition.
   factory Exposition.fromJson(dynamic json, Map<String, Museum> museums) {
@@ -38,6 +39,7 @@ class Exposition {
     List<ExpoObject> objects = List<dynamic>.from(json['object'])
         .map((o) => ExpoObject.fromJson(o, axes, museums))
         .toList();
-    return Exposition(name, axes, events, objects, popTypes);
+    Quiz quiz = Quiz.fromJson(json['quiz']);
+    return Exposition(name, axes, events, objects, popTypes, quiz);
   }
 }

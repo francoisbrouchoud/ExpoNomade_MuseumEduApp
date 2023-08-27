@@ -44,6 +44,7 @@ class QuizOption {
   factory QuizOption.fromJson(quizOptionJson) {
     Map<String, String> label =
         Map<String, String>.from(quizOptionJson['optionText']);
-    return QuizOption(label: label, isCorrect: quizOptionJson['isCorrect']);
+    return QuizOption(
+        label: label, isCorrect: quizOptionJson['isCorrect'] == 1);
   }
 }

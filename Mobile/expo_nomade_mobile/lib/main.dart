@@ -1,5 +1,4 @@
 import 'package:expo_nomade_mobile/quiz/quiz_page.dart';
-import 'package:expo_nomade_mobile/quiz/quiz_question.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -35,7 +34,7 @@ class App extends StatelessWidget {
               if (snapshot.hasData) {
                 if (snapshot.data == null) {
                   // TODO error msg
-                  return Text("ERROR");
+                  return const Text("ERROR");
                 } else {
                   final Exposition expo = snapshot.data!;
                   return MaterialApp(
@@ -74,7 +73,7 @@ class App extends StatelessWidget {
                     routes: {
                       '/map': (context) => MapPage(exposition: expo),
                       '/quiz': (context) =>
-                          QuizPage(questions: List<QuizQuestion>.empty()),
+                          QuizPage(questions: expo.quiz.questions),
                     },
                   );
                 }

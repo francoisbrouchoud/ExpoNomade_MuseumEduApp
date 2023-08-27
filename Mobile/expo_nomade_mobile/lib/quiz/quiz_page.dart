@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../app_localization.dart';
 import 'score_page.dart';
-import 'quiz_question.dart';
+import '../bo/quiz_question.dart';
 
 class QuizPage extends StatefulWidget {
   final List<QuizQuestion> questions;

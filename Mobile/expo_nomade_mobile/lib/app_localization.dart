@@ -15,10 +15,10 @@ class Language {
   /// Any new language must be added in the list here and a json file with the same language code must be added in the assets/lang folder.
   /// For example, steps to add italian language:
   /// 1. Add the line "Language("Italiano", "it") in the following method"
-  /// 2. Create the file "it.json" in the "assets/lang" folder.
-  /// 3. Add the translations key-value pairs in the file.
-  /// 4. You're all set, the translation button will be automatically added on the home page and working.
-  // TODO describe how to add the flag
+  /// 2. Add the language flag "it.png" in the "assets/images" folder.
+  /// 3. Create the file "it.json" in the "assets/lang" folder.
+  /// 4. Add the translations key-value pairs in the file.
+  /// 5. You're all set, the translation button will be automatically added on the home page and working.
   static List<Language> langList() {
     return <Language>[
       Language("Français", "fr"),
