@@ -26,10 +26,11 @@ class ScorePage extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const HomePage(
-                          title: '',
-                        ))); // Revenir à la page précédente si nécessaire
+                // TODO corriger ça.
+                //Navigator.of(context).push(MaterialPageRoute(
+                //    builder: (context) => const HomePage(
+                //          title: '',
+                //        ))); // Revenir à la page précédente si nécessaire
               },
               child: const Text('Retour au menu principal'),
             ),

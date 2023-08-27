@@ -5,9 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
+import '../bo/exposition.dart';
+
 /// Class MapPage is used to display the map and the information related to the exposition.
 class MapPage extends StatefulWidget {
-  const MapPage({Key? key}) : super(key: key);
+  const MapPage({Key? key, required this.exposition}) : super(key: key);
+
+  final Exposition exposition;
 
   @override
   _MapPageState createState() => _MapPageState();

@@ -1,7 +1,11 @@
+import 'package:expo_nomade_mobile/quiz/quiz_page.dart';
+import 'package:expo_nomade_mobile/quiz/quiz_question.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'bo/exposition.dart';
 import 'firebase_options.dart';
+import 'firebase_service.dart';
 import 'home_page.dart';
 import 'map/map_page.dart';
 import 'app_localization.dart';
@@ -25,41 +29,59 @@ class App extends StatelessWidget {
       value: LocaleNotifier(),
       builder: (context, child) {
         final appLocaleProvider = Provider.of<LocaleNotifier>(context);
-        return MaterialApp(
-          locale: appLocaleProvider.locale,
-          localizationsDelegates: AppLocalization.localizationsDelegates,
-          supportedLocales: AppLocalization.supportedLocales,
-          localeResolutionCallback: (deviceLocale, supportedLocales) {
-            for (var locale in supportedLocales) {
-              if (locale.languageCode == deviceLocale!.languageCode) {
-                return deviceLocale;
-              }
-            }
-            return supportedLocales.first;
-          },
-          title: 'Expo Nomade',
+        return FutureBuilder<Exposition?>(
+            future: FirebaseService.getCurrentExposition(),
+            builder: (context, AsyncSnapshot<Exposition?> snapshot) {
+              if (snapshot.hasData) {
+                if (snapshot.data == null) {
+                  // TODO error msg
+                  return Text("ERROR");
+                } else {
+                  final Exposition expo = snapshot.data!;
+                  return MaterialApp(
+                    locale: appLocaleProvider.locale,
+                    localizationsDelegates:
+                        AppLocalization.localizationsDelegates,
+                    supportedLocales: AppLocalization.supportedLocales,
+                    localeResolutionCallback: (deviceLocale, supportedLocales) {
+                      for (var locale in supportedLocales) {
+                        if (locale.languageCode == deviceLocale!.languageCode) {
+                          return deviceLocale;
+                        }
+                      }
+                      return supportedLocales.first;
+                    },
+                    title: 'Expo Nomade',
 
-          /// TODO : Julienne review
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color(0xFFF5A125),
-              primary: const Color(0xFFF5A125),
-              //onPrimary: const Color.fromARGB(255, 0, 0, 0),
-              secondary: const Color(0xFF676664),
-              background: const Color(0xFFEEEEEE),
-              //onSecondary: const Color.fromARGB(255, 40, 40, 40),
-            ),
-            textTheme: const TextTheme(
-              bodyMedium: TextStyle(fontFamily: 'Montserrat'),
-            ),
-            useMaterial3: true,
-          ),
-          home: const HomePage(title: 'Expo Nomade'),
-          routes: {
-            '/map': (context) => const MapPage(),
-            '/quiz': (context) => const Placeholder(),
-          },
-        );
+                    /// TODO : Julienne review
+                    theme: ThemeData(
+                      colorScheme: ColorScheme.fromSeed(
+                        seedColor: const Color(0xFFF5A125),
+                        primary: const Color(0xFFF5A125),
+                        //onPrimary: const Color.fromARGB(255, 0, 0, 0),
+                        secondary: const Color(0xFF676664),
+                        background: const Color(0xFFEEEEEE),
+                        //onSecondary: const Color.fromARGB(255, 40, 40, 40),
+                      ),
+                      textTheme: const TextTheme(
+                        bodyMedium: TextStyle(fontFamily: 'Montserrat'),
+                      ),
+                      useMaterial3: true,
+                    ),
+                    home: HomePage(
+                      exposition: expo,
+                    ),
+                    routes: {
+                      '/map': (context) => MapPage(exposition: expo),
+                      '/quiz': (context) =>
+                          QuizPage(questions: List<QuizQuestion>.empty()),
+                    },
+                  );
+                }
+              } else {
+                return const CircularProgressIndicator();
+              }
+            });
       },
     );
   }
