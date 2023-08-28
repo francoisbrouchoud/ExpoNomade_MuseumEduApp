@@ -65,8 +65,11 @@ class AppLocalization {
   }
 
   /// Gets a translation in the current language by it's [key] defined in the assets/lang/XX.json files
-  String? getTranslation(String key) {
-    return _localizedTranslations[key];
+  String getTranslation(String key) {
+    if (_localizedTranslations.containsKey(key)) {
+      return _localizedTranslations[key]!;
+    }
+    return "Missing translation for '$key' in '${getCurrentLangCode()}'.";
   }
 
   /// Gets the current language code

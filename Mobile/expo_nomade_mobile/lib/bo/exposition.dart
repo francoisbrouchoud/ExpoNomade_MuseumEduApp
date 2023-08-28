@@ -4,13 +4,14 @@ import 'package:expo_nomade_mobile/bo/expo_axis.dart';
 import 'package:expo_nomade_mobile/bo/expo_event.dart';
 import 'package:expo_nomade_mobile/bo/expo_object.dart';
 import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
+import 'package:expo_nomade_mobile/util/multilingual_string.dart';
 
 import 'museum.dart';
 import 'quiz_question.dart';
 
 /// Class Exposition is used to store all details related to an exposition.
 class Exposition {
-  Map<String, String> name;
+  MultilingualString name;
   Map<String, ExpoAxis> axes;
   Map<String, ExpoPopulationType> populationTypes;
   List<ExpoEvent> events;
@@ -23,10 +24,11 @@ class Exposition {
 
   /// Convert json into the business object Exposition.
   factory Exposition.fromJson(dynamic json, Map<String, Museum> museums) {
-    Map<String, String> name = Map<String, String>.from(json['name']);
+    MultilingualString name =
+        MultilingualString(Map<String, String>.from(json['name']));
     Map<String, ExpoAxis> axes = HashMap();
     for (var axis in Map<String, dynamic>.from(json['axes']).entries) {
-      axes[axis.key] = ExpoAxis.fromJson(axis.value);
+      axes[axis.key] = ExpoAxis.fromJson(axis.key, axis.value);
     }
     Map<String, ExpoPopulationType> popTypes = HashMap();
     for (var popType

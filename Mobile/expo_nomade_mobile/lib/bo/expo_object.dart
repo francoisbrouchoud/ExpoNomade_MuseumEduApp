@@ -3,20 +3,21 @@ import 'dart:ui';
 
 import 'package:expo_nomade_mobile/bo/expo_axis.dart';
 import 'package:expo_nomade_mobile/bo/museum.dart';
+import 'package:expo_nomade_mobile/util/multilingual_string.dart';
 import 'package:latlong2/latlong.dart';
 
 /// Class ExpoObject is used to store all details related to an object of an exposition.
 class ExpoObject {
   ExpoAxis axis;
   Map<int, LatLng> coordinates;
-  Map<String, String> description;
+  MultilingualString description;
   String dimension;
-  Map<String, String> material;
+  MultilingualString material;
   Museum museum;
-  Map<String, String> others;
+  MultilingualString others;
   Picture? picture;
-  Map<String, String> position;
-  Map<String, String> title;
+  MultilingualString position;
+  MultilingualString title;
 
   /// ExpoObject complete constructor.
   ExpoObject(
@@ -41,14 +42,18 @@ class ExpoObject {
           coordinate['coordonate']['lat'] as double,
           coordinate['coordonate']['lon'] as double);
     }
-    Map<String, String> description =
-        Map<String, String>.from(json['description']);
+    MultilingualString description =
+        MultilingualString(Map<String, String>.from(json['description']));
     String dimension = json['dimension'] as String;
-    Map<String, String> material = Map<String, String>.from(json['material']);
+    MultilingualString material =
+        MultilingualString(Map<String, String>.from(json['material']));
     Museum museum = museums[json['museum'] as String]!;
-    Map<String, String> others = Map<String, String>.from(json['others']);
-    Map<String, String> title = Map<String, String>.from(json['title']);
-    Map<String, String> position = Map<String, String>.from(json['position']);
+    MultilingualString others =
+        MultilingualString(Map<String, String>.from(json['others']));
+    MultilingualString title =
+        MultilingualString(Map<String, String>.from(json['title']));
+    MultilingualString position =
+        MultilingualString(Map<String, String>.from(json['position']));
     Picture? picture; // TODO picture
     return ExpoObject(axis, coordinates, description, dimension, material,
         museum, others, picture, position, title);

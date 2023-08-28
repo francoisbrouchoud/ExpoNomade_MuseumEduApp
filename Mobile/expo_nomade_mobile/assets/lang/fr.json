@@ -18,5 +18,10 @@
     "send" : "Envoyer",
     "quit" : "Quitter",
     "invalid_email" : "Adresse email invalide",
-    "please_email_valid" : "Merci de saisir une adresse email valide."
+    "please_email_valid" : "Merci de saisir une adresse email valide.",
+    "title": "Titre",
+    "description": "Description",
+    "add": "Ajouter",
+    "save": "Sauvegarder",
+    "delete": "Supprimer"
 }

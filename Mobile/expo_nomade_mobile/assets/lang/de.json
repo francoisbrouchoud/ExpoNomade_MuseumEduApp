@@ -18,5 +18,10 @@
     "send" : "Senden",
     "quit": "Beenden",
     "invalid_email": "Ungültige E-Mail-Adresse",
-    "please_email_valid": "Bitte gib eine gültige E-Mail-Adresse ein."
+    "please_email_valid": "Bitte gib eine gültige E-Mail-Adresse ein.",
+    "title": "Titel",
+    "description": "Beschreibung",
+    "add": "Hinzufügen",
+    "save": "Speichern",
+    "delete": "Löschen"
 }
