@@ -1,3 +1,4 @@
+import 'package:expo_nomade_mobile/quiz/score_submission_page.dart';
 import 'package:flutter/material.dart';
 import '../app_localization.dart';
 
@@ -99,8 +100,16 @@ class ScorePage extends StatelessWidget {
                   SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).popUntil((route) =>
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ScoreSubmissionPage(score: correctAnswers),
+                        ),
+                      );
+
+                      /*Navigator.of(context).popUntil((route) =>
                           route.isFirst); // Revenir à la première page
+                          */
                     },
                     child: Text(
                       'Suivant',
