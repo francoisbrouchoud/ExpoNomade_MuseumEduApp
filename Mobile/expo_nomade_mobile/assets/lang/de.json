@@ -12,5 +12,11 @@
     "answer_msg_0": "Du hast",
     "answer_msg_1_sing": "von",
     "answer_msg_1_plur": "von",
-    "answer_msg_2": "Antworten richtig beantwortet."
+    "answer_msg_2": "Antworten richtig beantwortet.",
+    "submit_score": "Speichere deine Punktzahl",
+    "contact_input" : "Hinterlasse uns deine Kontaktdaten, damit wir dir gratulieren können.",
+    "send" : "Senden",
+    "quit": "Beenden",
+    "invalid_email": "Ungültige E-Mail-Adresse",
+    "please_email_valid": "Bitte gib eine gültige E-Mail-Adresse ein."
 }

@@ -106,10 +106,6 @@ class ScorePage extends StatelessWidget {
                               ScoreSubmissionPage(score: correctPercentage),
                         ),
                       );
-
-                      /*Navigator.of(context).popUntil((route) =>
-                          route.isFirst); // Revenir à la première page
-                          */
                     },
                     child: Text(
                       'Suivant',

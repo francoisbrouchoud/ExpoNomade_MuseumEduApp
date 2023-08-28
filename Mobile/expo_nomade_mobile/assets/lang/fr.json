@@ -12,5 +12,11 @@
     "answer_msg_0": "Tu as obtenu",
     "answer_msg_1_sing": "réponse correcte sur",
     "answer_msg_1_plur": "réponses correctes sur",
-    "answer_msg_2": "."
+    "answer_msg_2": ".",
+    "submit_score": "Enregistre ton score",
+    "contact_input" : "Laisse-nous tes coordonnées pour que nous puissions te féliciter.",
+    "send" : "Envoyer",
+    "quit" : "Quitter",
+    "invalid_email" : "Adresse email invalide",
+    "please_email_valid" : "Merci de saisir une adresse email valide."
 }

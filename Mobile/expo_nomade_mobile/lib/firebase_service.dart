@@ -35,4 +35,14 @@ class FirebaseService {
     }
     return null;
   }
+
+  static Future<void> submitScore(String email, double score) async {
+    DatabaseReference ref = database.ref();
+    final currentExpo = await ref.child("currentExposition").get();
+    if (currentExpo.exists) {
+      await ref
+          .child('expositions/${currentExpo.value}/quiz/participation')
+          .set({'email': email, 'score': score});
+    }
+  }
 }
