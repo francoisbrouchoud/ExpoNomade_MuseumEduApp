@@ -1,5 +1,16 @@
 {
     "app_title": "Nomadenausstellung",
     "map": "Karte",
-    "quiz": "Quiz"
+    "quiz": "Quiz",
+    "next": "Weiter",
+    "result": "Ergebnisse",
+    "quiz_result": "Quizergebnisse",
+    "very_good_result": "Gratuliere. Hier ist dein Ergebnis:",
+    "good_result": "Gut gemacht. Hier ist dein Ergebnis:",
+    "average_result": "Nicht schlecht. Hier ist dein Ergebnis:",
+    "bad_result": "Schade. Hier ist dein Ergebnis:",
+    "answer_msg_0": "Du hast",
+    "answer_msg_1_sing": "von",
+    "answer_msg_1_plur": "von",
+    "answer_msg_2": "Antworten richtig beantwortet."
 }

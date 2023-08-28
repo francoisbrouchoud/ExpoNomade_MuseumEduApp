@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../app_localization.dart';
 
 class ScorePage extends StatelessWidget {
   final int correctAnswers;
@@ -10,6 +11,9 @@ class ScorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final translations = AppLocalization.of(context);
+    final langCode = translations.getCurrentLangCode();
+
     final EltTextStyle = theme.textTheme.displayMedium!.copyWith(
       color: theme.colorScheme.secondary,
       fontSize: 30,
@@ -25,7 +29,7 @@ class ScorePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Résultats'),
+        title: Text(translations.getTranslation("result").toString()),
       ),
       backgroundColor: theme.colorScheme.primary,
       body: Column(
@@ -40,7 +44,7 @@ class ScorePage extends StatelessWidget {
                 color: theme.colorScheme.background,
               ),
               child: Text(
-                'Résultats du quiz',
+                translations.getTranslation("quiz_result").toString(),
                 style: EltTextStyle,
                 textAlign: TextAlign.center,
               ),
@@ -57,10 +61,28 @@ class ScorePage extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Text(
-                    'Félititations ! Voici ton score : ',
-                    style: EltTextStyle,
-                  ),
+                  if (correctPercentage >= 90)
+                    Text(
+                      translations
+                          .getTranslation("very_good_result")
+                          .toString(),
+                      style: EltTextStyle,
+                    )
+                  else if (correctPercentage >= 80)
+                    Text(
+                      translations.getTranslation("good_result").toString(),
+                      style: EltTextStyle,
+                    )
+                  else if (correctPercentage >= 60)
+                    Text(
+                      translations.getTranslation("average_result").toString(),
+                      style: EltTextStyle,
+                    )
+                  else
+                    Text(
+                      translations.getTranslation("bad_result").toString(),
+                      style: EltTextStyle,
+                    ),
                   SizedBox(height: 20),
                   Text(
                     '${correctPercentage.toStringAsFixed(0)}%',
@@ -68,7 +90,10 @@ class ScorePage extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   Text(
-                    'Tu as obtenu $correctAnswers réponses correctes sur $totalQuestions',
+                    ('${translations.getTranslation("answer_msg_0")} $correctAnswers '
+                        '${correctAnswers == 0 ? translations.getTranslation("answer_msg_1_sing") : translations.getTranslation("answer_msg_1_plur")} '
+                        '$totalQuestions '
+                        '${translations.getTranslation("answer_msg_2")}'),
                     style: EltTextStyle,
                   ),
                   SizedBox(height: 20),
