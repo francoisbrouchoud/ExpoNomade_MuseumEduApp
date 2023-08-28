@@ -103,7 +103,7 @@ class ScorePage extends StatelessWidget {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) =>
-                              ScoreSubmissionPage(score: correctAnswers),
+                              ScoreSubmissionPage(score: correctPercentage),
                         ),
                       );
 
