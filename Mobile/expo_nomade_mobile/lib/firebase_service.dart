@@ -40,8 +40,16 @@ class FirebaseService {
     DatabaseReference ref = database.ref();
     final currentExpo = await ref.child("currentExposition").get();
     if (currentExpo.exists) {
+      // get timestamp
+      DateTime now = DateTime.now();
+
+      // format timestamp
+      String formattedDate =
+          "${now.year}${now.month.toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}_${now.hour.toString().padLeft(2, '0')}${now.minute.toString().padLeft(2, '0')}${now.second.toString().padLeft(2, '0')}${now.millisecond.toString().padLeft(3, '0')}";
+
       await ref
-          .child('expositions/${currentExpo.value}/quiz/participation')
+          .child(
+              'expositions/${currentExpo.value}/quiz/participation/$formattedDate')
           .set({'email': email, 'score': score});
     }
   }
