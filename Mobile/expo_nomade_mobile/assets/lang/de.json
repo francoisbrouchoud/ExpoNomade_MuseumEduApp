@@ -23,5 +23,6 @@
     "description": "Beschreibung",
     "add": "Hinzufügen",
     "save": "Speichern",
-    "delete": "Löschen"
+    "delete": "Löschen",
+    "login": "Verbindung"
 }
