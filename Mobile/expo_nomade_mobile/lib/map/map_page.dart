@@ -1,3 +1,5 @@
+import 'package:expo_nomade_mobile/app_localization.dart';
+import 'package:expo_nomade_mobile/bo/expo_object.dart';
 import 'package:expo_nomade_mobile/map/info_panel.dart';
 import 'package:expo_nomade_mobile/map/marker_layer_widget.dart';
 import 'package:expo_nomade_mobile/map/tile_layer_widget.dart';
@@ -20,10 +22,12 @@ class MapPage extends StatefulWidget {
 /// Class _MapPageState is the state class for the MapPage class, used to manage the behavior on click of the markers.
 class _MapPageState extends State<MapPage> {
   bool isLargeScreen = false;
-  String? selectedMarkerId;
+  ExpoObject? selectedObject;
 
   @override
   Widget build(BuildContext context) {
+    final translations = AppLocalization.of(context);
+    final langCode = translations.getCurrentLangCode();
     isLargeScreen = MediaQuery.of(context).size.width >= 600;
 
     return Scaffold(
@@ -45,25 +49,26 @@ class _MapPageState extends State<MapPage> {
                   /// They are in charge of rendering the map and adding any markers on it.
                   TileLayerWidget(),
                   MarkerLayerWidget(
-                    onMarkerTap: (String markerId) {
+                    onMarkerTap: (ExpoObject object) {
                       setState(() {
-                        selectedMarkerId = markerId;
+                        selectedObject = object;
                       });
                     },
+                    expoObjects: widget.exposition.objects,
                   ),
                 ],
               ),
             ),
-            if (selectedMarkerId != null)
+            if (selectedObject != null)
               Flexible(
                 flex: 1,
                 child: InfoPanel(
-                    markerId: selectedMarkerId!,
                     onClose: () {
                       setState(() {
-                        selectedMarkerId = null;
+                        selectedObject = null;
                       });
-                    }),
+                    },
+                    object: selectedObject!),
               ),
           ],
         ),
