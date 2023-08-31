@@ -5,6 +5,7 @@ import 'package:expo_nomade_mobile/util/multilingual_string.dart';
 import 'package:flutter/material.dart';
 
 import '../bo/expo_axis.dart';
+import 'expo_axis_list.dart';
 
 /// Class ExpoAxisEditorWidget is a widget used to edit or create an ExpoAxis object.
 class ExpoAxisEditorWidget extends StatefulWidget {
@@ -44,7 +45,12 @@ class _ExpoAxisEditorWidgetState extends State<ExpoAxisEditorWidget> {
 
   /// Navigates back to the list view.
   void backToList() {
-    Navigator.of(context).pop(true);
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+            builder: (context) => ExpoAxisListWidget(
+                  exposition: widget.exposition,
+                )),
+        ModalRoute.withName('/admin'));
   }
 
   @override
@@ -101,9 +107,9 @@ class _ExpoAxisEditorWidgetState extends State<ExpoAxisEditorWidget> {
           if (widget.axisId != null)
             ElevatedButton(
               onPressed: () async {
-                widget.exposition.axes.remove(widget.axisId!);
                 await FirebaseService.deleteAxis(
                     widget.exposition.axes[widget.axisId]!);
+                widget.exposition.axes.remove(widget.axisId!);
                 backToList();
               },
               child: Text(translations.getTranslation("delete")),

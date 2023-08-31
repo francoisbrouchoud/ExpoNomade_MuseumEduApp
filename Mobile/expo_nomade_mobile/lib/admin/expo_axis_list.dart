@@ -7,13 +7,11 @@ import '../app_localization.dart';
 /// Class ExpoAxisListWidget is a widget used to list all ExpoAxes or add a new one.
 class ExpoAxisListWidget extends StatefulWidget {
   final Exposition exposition;
-  final void Function() onAddButtonPressed;
 
   /// ExpoAxisListWidget constructor.
   const ExpoAxisListWidget({
     super.key,
     required this.exposition,
-    required this.onAddButtonPressed,
   });
 
   @override
@@ -29,7 +27,11 @@ class _ExpoAxisListWidgetState extends State<ExpoAxisListWidget> {
       child: Column(
         children: [
           ElevatedButton(
-            onPressed: widget.onAddButtonPressed,
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) =>
+                      ExpoAxisEditorWidget(exposition: widget.exposition)));
+            },
             child: Text(translations.getTranslation("add")),
           ),
           Expanded(
