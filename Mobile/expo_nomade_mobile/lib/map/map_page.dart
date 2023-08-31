@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
+import '../app_localization.dart';
 import '../bo/expo_event.dart';
 import '../bo/exposition.dart';
 
@@ -24,7 +25,7 @@ class MapPage extends StatefulWidget {
 /// Class _MapPageState is the state class for the MapPage class, used to manage the behavior on click of the markers.
 class _MapPageState extends State<MapPage> {
   bool isLargeScreen = false;
-  String? selectedMarkerId;
+  ExpoObject? selectedObject;
   bool showFilter = false;
   double startYearFilter = 1700;
   double endYearFilter = 2020;
@@ -40,8 +41,11 @@ class _MapPageState extends State<MapPage> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
+    final translations = AppLocalization.of(context);
+    final langCode = translations.getCurrentLangCode();
     isLargeScreen = MediaQuery.of(context).size.width >= 600;
 
     return Scaffold(
@@ -65,23 +69,24 @@ class _MapPageState extends State<MapPage> {
                       /// They are in charge of rendering the map and adding any markers on it.
                       TileLayerWidget(),
                       MarkerLayerWidget(
-                        onMarkerTap: (String markerId) {
+                        onMarkerTap: (ExpoObject object) {
                           setState(() {
-                            selectedMarkerId = markerId;
+                            selectedObject = object;
                           });
                         },
+                        expoObjects: widget.exposition.objects,
                       ),
                     ],
                   ),
                 ),
-                if (selectedMarkerId != null)
+                if (selectedObject != null)
                   Flexible(
                     flex: 1,
                     child: InfoPanel(
-                        markerId: selectedMarkerId!,
+                        object: selectedObject!,
                         onClose: () {
                           setState(() {
-                            selectedMarkerId = null;
+                            selectedObject = null;
                           });
                         }),
                   ),

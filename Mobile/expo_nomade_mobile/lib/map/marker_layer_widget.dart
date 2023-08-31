@@ -1,36 +1,44 @@
+import 'dart:math';
+
+import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
+import '../bo/expo_object.dart';
+
 /// This class is the layer that allows us to manage the markers on the map.
 class MarkerLayerWidget extends StatelessWidget {
-  final Function(String) onMarkerTap;
-  const MarkerLayerWidget({Key? key, required this.onMarkerTap})
+  final Function(ExpoObject) onMarkerTap;
+  final List<ExpoObject> expoObjects;
+
+  const MarkerLayerWidget(
+      {Key? key, required this.onMarkerTap, required this.expoObjects})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MarkerLayer(
-      // TODO loop here to create all necessary markers
-      markers: [
-        Marker(
-          point: LatLng(46.22809, 7.35886),
-          width: 80,
-          height: 80,
+    final markers = <Marker>[];
 
-          /// The builder let us choose if we want the marker to be clickable, in this case yes, with the onTap function that triggers any other methods we want.
-          /// and what image we want the marker to be, in this case, a marker logo.
-          builder: (ctx) => GestureDetector(
-            onTap: _onMarkerTap,
-            child: Image.asset('assets/images/marker.png'),
+    for (final expoObject in expoObjects) {
+      final coordinates = expoObject.coordinates.values.toList();
+      if (coordinates.isNotEmpty) {
+        final latLng = coordinates.first;
+        markers.add(
+          Marker(
+            point: LatLng(latLng.latitude, latLng.longitude),
+            width: 50,
+            height: 50,
+            builder: (ctx) => GestureDetector(
+              onTap: () => {onMarkerTap(expoObject)},
+              child: Image.asset('assets/images/marker.png'),
+            ),
           ),
-        ),
-      ],
+        );
+      }
+    }
+    return MarkerLayer(
+      markers: markers,
     );
-  }
-
-  /// Performed action when marke is clicked.
-  void _onMarkerTap() {
-    onMarkerTap("marker1");
   }
 }
