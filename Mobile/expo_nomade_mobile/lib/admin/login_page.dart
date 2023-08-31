@@ -17,40 +17,77 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController mailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final translations = AppLocalization.of(context);
     return Scaffold(
-      backgroundColor: theme.colorScheme.primary,
-      body: Center(
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+        backgroundColor: theme.colorScheme.primary,
+        body: Center(
+          child: Form(
+            key: _formKey,
+            child: Column(
               children: <Widget>[
-            MainButton(
-              action: () async {
-                try {
-                  final credential = await FirebaseAuth.instance
-                      .signInWithEmailAndPassword(
-                          email: "exponomade.grp2@gmail.com",
-                          password: "123456");
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            ExpoAxisListWidget(exposition: widget.exposition)),
-                  );
-                } on FirebaseAuthException catch (e) {
-                  if (e.code == 'user-not-found') {
-                    print('No user found for that email.');
-                  } else if (e.code == 'wrong-password') {
-                    print('Wrong password provided for that user.');
-                  }
-                }
-              },
-              text: translations.getTranslation("login").toString(),
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
+                  controller: mailController,
+                  decoration: InputDecoration(
+                      labelText: translations.getTranslation("email")),
+                ),
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
+                  obscureText: true,
+                  controller: passwordController,
+                  decoration: InputDecoration(
+                      labelText: translations.getTranslation("password")),
+                ),
+                MainButton(
+                  action: () async {
+                    if (_formKey.currentState!.validate()) {
+                      try {
+                        final credential = await FirebaseAuth.instance
+                            .signInWithEmailAndPassword(
+                                email: mailController
+                                    .text, //"exponomade.grp2@gmail.com",
+                                password: passwordController.text); //"123456");
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => ExpoAxisListWidget(
+                                  exposition: widget.exposition)),
+                        );
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'user-not-found') {
+                          print('No user found for that email.');
+                        } else if (e.code == 'wrong-password') {
+                          print('Wrong password provided for that user.');
+                        }
+                      } on Exception catch (e) {
+                        print("nulll!!!!!!!!!!!!!!");
+                      }
+                    } else {
+                      print('Not valide!!!');
+                    }
+                  },
+                  text: translations.getTranslation("login"),
+                )
+              ],
             ),
-          ])),
-    );
+          ),
+        ));
   }
 }
 
