@@ -1,3 +1,4 @@
+import 'package:expo_nomade_mobile/bo/expo_axis.dart';
 import 'package:expo_nomade_mobile/bo/exposition.dart';
 import 'package:expo_nomade_mobile/bo/museum.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -51,6 +52,47 @@ class FirebaseService {
           .child(
               'expositions/${currentExpo.value}/quiz/participation/$formattedDate')
           .set({'email': email, 'score': score});
+    }
+  }
+
+  /// Creates an ExpoAxis business object.
+  static Future<ExpoAxis?> createAxis(ExpoAxis axis) async {
+    DatabaseReference ref = database.ref();
+    final currentExpo = await ref.child("currentExposition").get();
+    if (currentExpo.exists) {
+      DatabaseReference newAxisRef =
+          ref.child("expositions/${currentExpo.value}/axes").push();
+      if (newAxisRef.key != null) {
+        await newAxisRef.set({
+          "description": axis.description.toMap(),
+          "title": axis.title.toMap()
+        });
+        return ExpoAxis(newAxisRef.key!, axis.description, axis.title);
+      }
+    }
+    return null;
+  }
+
+  /// Updates an ExpoAxis business object.
+  static Future<void> updateAxis(ExpoAxis axis) async {
+    DatabaseReference ref = database.ref();
+    final currentExpo = await ref.child("currentExposition").get();
+    if (currentExpo.exists) {
+      await ref.child("expositions/${currentExpo.value}/axes/${axis.id}").set({
+        "description": axis.description.toMap(),
+        "title": axis.title.toMap()
+      });
+    }
+  }
+
+  /// Deletes an ExpoAxis business object.
+  static Future<void> deleteAxis(ExpoAxis axis) async {
+    DatabaseReference ref = database.ref();
+    final currentExpo = await ref.child("currentExposition").get();
+    if (currentExpo.exists) {
+      await ref
+          .child("expositions/${currentExpo.value}/axes/${axis.id}")
+          .remove();
     }
   }
 }
