@@ -3,7 +3,7 @@ import 'package:expo_nomade_mobile/map/info_panel.dart';
 import 'package:expo_nomade_mobile/map/marker_layer_widget.dart';
 import 'package:expo_nomade_mobile/map/tile_layer_widget.dart';
 import 'package:expo_nomade_mobile/map/filter_popup.dart';
-//import 'package:expo_nomade_mobile/map/filter_logic.dart';
+import 'package:expo_nomade_mobile/map/filter_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -29,6 +29,16 @@ class _MapPageState extends State<MapPage> {
   bool showFilter = false;
   double startYearFilter = 1700;
   double endYearFilter = 2020;
+  List<ExpoEvent> filteredEvents = [];
+  Map<ExpoObject, int> filteredObjects = {};
+  
+  @override
+  void initState() {
+    super.initState();
+
+    filteredEvents = filterEventsByYear(widget.exposition.events, startYearFilter, endYearFilter);
+    filteredObjects = filterObjectsByYear(widget.exposition.objects, startYearFilter, endYearFilter);
+  }
 
   void filterRangeChanged(double start, double end) {
     setState(() {
@@ -36,8 +46,8 @@ class _MapPageState extends State<MapPage> {
       endYearFilter = end;
 
       // Filter Events and Objects
-      //var filteredEvents = filterEventsByYear(allEvents, startYearFilter, endYearFilter);
-      //var filteredObjects = filterObjectsByYear(allObjects, startYearFilter, endYearFilter);
+      filteredEvents = filterEventsByYear(widget.exposition.events, startYearFilter, endYearFilter);
+      filteredObjects = filterObjectsByYear(widget.exposition.objects, startYearFilter, endYearFilter);
     });
   }
 
@@ -74,7 +84,7 @@ class _MapPageState extends State<MapPage> {
                             selectedObject = object;
                           });
                         },
-                        expoObjects: widget.exposition.objects,
+                        expoObjects: filteredObjects,
                       ),
                     ],
                   ),
