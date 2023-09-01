@@ -26,5 +26,6 @@
     "delete": "Löschen",
     "login": "Anmelden",
     "email":"Email",
-    "password":"Passwort"
+    "password":"Passwort",
+    "years" : "Jahre"
 }

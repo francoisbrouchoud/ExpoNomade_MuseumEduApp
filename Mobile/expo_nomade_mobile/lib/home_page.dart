@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'admin/login_page.dart';
 import 'map/map_page.dart';
 import 'quiz/quiz_page.dart';
+import 'util/title_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key, required this.exposition})
@@ -24,21 +25,23 @@ class _HomePageState extends State<HomePage> {
     final translations = AppLocalization.of(context);
     return Scaffold(
       backgroundColor: theme.colorScheme.primary,
+      floatingActionButton: ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => LoginPage(exposition: widget.exposition),
+              ),
+            );
+          },
+          child: Text("admin")),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          LoginPage(exposition: widget.exposition),
-                    ),
-                  );
-                },
-                child: Text("admin")),
-            Text(widget.exposition.name[translations.getCurrentLangCode()]),
+            TitleWidget(
+                text:
+                    widget.exposition.name[translations.getCurrentLangCode()]),
             const SizedBox(height: 50),
             Row(
               mainAxisSize: MainAxisSize.min,
