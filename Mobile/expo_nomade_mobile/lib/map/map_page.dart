@@ -1,6 +1,7 @@
 import 'package:expo_nomade_mobile/bo/expo_object.dart';
 import 'package:expo_nomade_mobile/map/info_panel.dart';
 import 'package:expo_nomade_mobile/map/marker_layer_widget.dart';
+import 'package:expo_nomade_mobile/map/polygon_layer_widget.dart';
 import 'package:expo_nomade_mobile/map/tile_layer_widget.dart';
 import 'package:expo_nomade_mobile/map/filter_popup.dart';
 import 'package:expo_nomade_mobile/map/filter_logic.dart';
@@ -31,13 +32,15 @@ class _MapPageState extends State<MapPage> {
   double endYearFilter = 2020;
   List<ExpoEvent> filteredEvents = [];
   Map<ExpoObject, int> filteredObjects = {};
-  
+
   @override
   void initState() {
     super.initState();
 
-    filteredEvents = filterEventsByYear(widget.exposition.events, startYearFilter, endYearFilter);
-    filteredObjects = filterObjectsByYear(widget.exposition.objects, startYearFilter, endYearFilter);
+    filteredEvents = filterEventsByYear(
+        widget.exposition.events, startYearFilter, endYearFilter);
+    filteredObjects = filterObjectsByYear(
+        widget.exposition.objects, startYearFilter, endYearFilter);
   }
 
   void filterRangeChanged(double start, double end) {
@@ -46,11 +49,12 @@ class _MapPageState extends State<MapPage> {
       endYearFilter = end;
 
       // Filter Events and Objects
-      filteredEvents = filterEventsByYear(widget.exposition.events, startYearFilter, endYearFilter);
-      filteredObjects = filterObjectsByYear(widget.exposition.objects, startYearFilter, endYearFilter);
+      filteredEvents = filterEventsByYear(
+          widget.exposition.events, startYearFilter, endYearFilter);
+      filteredObjects = filterObjectsByYear(
+          widget.exposition.objects, startYearFilter, endYearFilter);
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +82,7 @@ class _MapPageState extends State<MapPage> {
                       /// Both the tile layer and the marker layer have their own class to prevent messy code.
                       /// They are in charge of rendering the map and adding any markers on it.
                       TileLayerWidget(),
+                      PolygonLayerWidget(),
                       MarkerLayerWidget(
                         onMarkerTap: (ExpoObject object) {
                           setState(() {
@@ -121,7 +126,7 @@ class _MapPageState extends State<MapPage> {
               left: 16,
               child: FilterPopup(
                 onRangeChanged: filterRangeChanged,
-                startYearFilter: startYearFilter, 
+                startYearFilter: startYearFilter,
                 endYearFilter: endYearFilter,
               ),
             ),
@@ -129,6 +134,4 @@ class _MapPageState extends State<MapPage> {
       ),
     );
   }
-
-
 }

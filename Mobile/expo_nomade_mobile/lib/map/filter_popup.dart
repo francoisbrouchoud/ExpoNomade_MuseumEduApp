@@ -1,3 +1,4 @@
+import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:flutter/material.dart';
 
 class FilterPopup extends StatefulWidget {
@@ -29,13 +30,14 @@ class _FilterPopupState extends State<FilterPopup> {
 
   @override
   Widget build(BuildContext context) {
+    final translations = AppLocalization.of(context);
     return Container(
       color: Colors.white,
       padding: EdgeInsets.all(16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text("Années"),
+          Text(translations.getTranslation("years").toString()),
           RangeSlider(
             values: RangeValues(start, end),
             min: 1700,

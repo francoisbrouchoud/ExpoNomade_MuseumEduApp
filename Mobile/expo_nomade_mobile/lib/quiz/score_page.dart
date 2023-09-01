@@ -108,7 +108,7 @@ class ScorePage extends StatelessWidget {
                       );
                     },
                     child: Text(
-                      'Suivant',
+                      translations.getTranslation("next").toString(),
                       style: TextStyle(
                         color: theme.colorScheme.onSecondary,
                       ),

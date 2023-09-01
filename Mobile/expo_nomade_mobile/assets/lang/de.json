@@ -14,7 +14,7 @@
     "answer_msg_1_plur": "von",
     "answer_msg_2": "Antworten richtig beantwortet.",
     "submit_score": "Speichere deine Punktzahl",
-    "contact_input" : "Hinterlasse uns deine Kontaktdaten, damit wir dir gratulieren können.",
+    "contact_input" : "Hinterlasse uns deine Kontaktdaten, damit du am Wettbewerb teilnehmen kannst.",
     "send" : "Senden",
     "quit": "Beenden",
     "invalid_email": "Ungültige E-Mail-Adresse",
@@ -24,7 +24,8 @@
     "add": "Hinzufügen",
     "save": "Speichern",
     "delete": "Löschen",
-    "login": "Verbindung",
+    "login": "Anmelden",
     "email":"Email",
-    "password":"Passwort"
+    "password":"Passwort",
+    "years" : "Jahre"
 }
