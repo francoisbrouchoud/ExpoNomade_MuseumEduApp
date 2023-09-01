@@ -1,5 +1,6 @@
 import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:expo_nomade_mobile/bo/exposition.dart';
+import 'package:expo_nomade_mobile/util/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -46,7 +47,7 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                MainButton(
+                ButtonWidget(
                   action: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
@@ -57,9 +58,10 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                   text: translations.getTranslation("quiz"),
+                  type: ButtonWidgetType.home,
                 ),
                 const SizedBox(width: 25),
-                MainButton(
+                ButtonWidget(
                   action: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
@@ -70,6 +72,7 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                   text: translations.getTranslation("map").toString(),
+                  type: ButtonWidgetType.home,
                 ),
               ],
             ),
@@ -88,30 +91,6 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
-  }
-}
-
-/// Contain the design of a main button from the homepage
-class MainButton extends StatelessWidget {
-  const MainButton({super.key, required this.text, required this.action});
-
-  final String text;
-  final Function()? action;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final btnTextStyle = theme.textTheme.displayMedium!.copyWith(
-      color: theme.colorScheme.secondary,
-    );
-    return ElevatedButton(
-        onPressed: action,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: theme.colorScheme.background,
-        ),
-        child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Text(text, style: btnTextStyle)));
   }
 }
 
