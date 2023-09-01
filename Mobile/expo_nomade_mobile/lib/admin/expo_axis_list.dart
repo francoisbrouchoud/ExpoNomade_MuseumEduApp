@@ -42,11 +42,8 @@ class _ExpoAxisListWidgetState extends State<ExpoAxisListWidget> {
                     widget.exposition.axes.keys.elementAt(index);
                 final expoAxis = widget.exposition.axes[expoAxisKey]!;
                 final title = expoAxis.title[translations.getCurrentLangCode()];
-                final description =
-                    expoAxis.description[translations.getCurrentLangCode()];
                 return ListTile(
                   title: Text(title),
-                  subtitle: Text(description),
                   onTap: () async {
                     final result = await Navigator.of(context).push(
                       MaterialPageRoute(
