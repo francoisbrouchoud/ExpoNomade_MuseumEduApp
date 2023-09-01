@@ -49,9 +49,6 @@ class _QuizPageState extends State<QuizPage> {
 
     return Scaffold(
       backgroundColor: theme.colorScheme.primary,
-      appBar: AppBar(
-        title: Text('Quiz'),
-      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

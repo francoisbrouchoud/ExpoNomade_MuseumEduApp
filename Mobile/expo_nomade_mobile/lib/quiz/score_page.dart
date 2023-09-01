@@ -29,9 +29,6 @@ class ScorePage extends StatelessWidget {
     double correctPercentage = (correctAnswers / totalQuestions) * 100;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(translations.getTranslation("result").toString()),
-      ),
       backgroundColor: theme.colorScheme.primary,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
