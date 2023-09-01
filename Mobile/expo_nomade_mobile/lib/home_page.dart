@@ -3,7 +3,7 @@ import 'package:expo_nomade_mobile/bo/exposition.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'login_page.dart';
+import 'admin/login_page.dart';
 import 'map/map_page.dart';
 import 'quiz/quiz_page.dart';
 
@@ -32,12 +32,13 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => LoginPage(),
+                      builder: (context) =>
+                          LoginPage(exposition: widget.exposition),
                     ),
                   );
                 },
                 child: Text("admin")),
-            Text(widget.exposition.name[translations.getCurrentLangCode()]!),
+            Text(widget.exposition.name[translations.getCurrentLangCode()]),
             const SizedBox(height: 50),
             Row(
               mainAxisSize: MainAxisSize.min,
