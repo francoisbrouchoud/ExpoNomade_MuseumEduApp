@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
               ),
             );
           },
-          child: Text("admin")),
+          child: Text(translations.getTranslation("admin"))),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: Center(
         child: Column(
@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     );
                   },
-                  text: translations.getTranslation("map").toString(),
+                  text: translations.getTranslation("map"),
                   type: ButtonWidgetType.home,
                 ),
               ],

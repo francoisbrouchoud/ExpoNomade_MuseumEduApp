@@ -9,7 +9,9 @@ class TitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     double screenWidth = MediaQuery.of(context).size.width;
-
+    final textStyle = theme.textTheme.displayMedium!.copyWith(
+      color: theme.colorScheme.secondary,
+    );
     return Container(
         width: screenWidth * 0.7,
         margin: EdgeInsets.symmetric(vertical: 8),
@@ -21,8 +23,6 @@ class TitleWidget extends StatelessWidget {
         child: Center(
             child: Padding(
                 padding: const EdgeInsets.all(10),
-                child: Text(text,
-                    style: TextStyle(
-                        color: theme.colorScheme.secondary, fontSize: 48)))));
+                child: Text(text, style: textStyle))));
   }
 }

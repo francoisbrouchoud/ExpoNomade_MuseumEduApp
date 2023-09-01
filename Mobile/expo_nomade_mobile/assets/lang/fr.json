@@ -27,5 +27,6 @@
     "login" : "Connexion",
     "email" : "Email",
     "password" : "Mot de passe",
-    "years" : "Années"
+    "years" : "Années",
+    "admin":"Administration"
 }

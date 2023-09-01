@@ -27,5 +27,6 @@
     "login": "Anmelden",
     "email":"Email",
     "password":"Passwort",
-    "years" : "Jahre"
+    "years" : "Jahre",
+    "admin":"Verwaltung"
 }

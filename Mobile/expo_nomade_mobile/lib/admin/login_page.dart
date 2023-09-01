@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../bo/exposition.dart';
+import '../util/container_widget.dart';
 import 'expo_axis_list.dart';
 
 class LoginPage extends StatefulWidget {
@@ -27,8 +28,9 @@ class _LoginPageState extends State<LoginPage> {
     final translations = AppLocalization.of(context);
     return Scaffold(
         backgroundColor: theme.colorScheme.primary,
-        body: Center(
-          child: Form(
+        body: ContainerWidget(
+          title: translations.getTranslation("login"),
+          body: Form(
             key: _formKey,
             child: Column(
               children: <Widget>[
