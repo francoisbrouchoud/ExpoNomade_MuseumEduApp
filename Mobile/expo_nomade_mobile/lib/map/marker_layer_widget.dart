@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
