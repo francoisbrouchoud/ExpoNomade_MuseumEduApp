@@ -29,9 +29,6 @@ class ScorePage extends StatelessWidget {
     double correctPercentage = (correctAnswers / totalQuestions) * 100;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(translations.getTranslation("result").toString()),
-      ),
       backgroundColor: theme.colorScheme.primary,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -93,7 +90,7 @@ class ScorePage extends StatelessWidget {
                   Text(
                     ('${translations.getTranslation("answer_msg_0")} $correctAnswers '
                         '${correctAnswers == 0 ? translations.getTranslation("answer_msg_1_sing") : translations.getTranslation("answer_msg_1_plur")} '
-                        '$totalQuestions '
+                        '$totalQuestions'
                         '${translations.getTranslation("answer_msg_2")}'),
                     style: EltTextStyle,
                   ),

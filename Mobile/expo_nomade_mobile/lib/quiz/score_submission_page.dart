@@ -55,9 +55,6 @@ class ScoreSubmissionPage extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Score'),
-      ),
       backgroundColor: theme.colorScheme.primary,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
