@@ -57,8 +57,8 @@ class App extends StatelessWidget {
                     /// TODO : Julienne review
                     theme: ThemeData(
                       colorScheme: ColorScheme.fromSeed(
-                        seedColor: const Color(0xFFF5A125),
-                        primary: const Color(0xFFF5A125),
+                        seedColor: const Color(0xFFBCC1EC),
+                        primary: const Color(0xFFBCC1EC),
                         //onPrimary: const Color.fromARGB(255, 0, 0, 0),
                         secondary: const Color(0xFF676664),
                         background: const Color(0xFFEEEEEE),
