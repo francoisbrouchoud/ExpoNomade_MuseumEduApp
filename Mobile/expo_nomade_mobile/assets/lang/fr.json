@@ -27,5 +27,8 @@
     "email" : "Email",
     "password" : "Mot de passe",
     "years" : "Années",
-    "admin":"Administration"
+    "admin":"Administration",
+    "selectExpo" : "Sélectionnez une exposition",
+    "axis":"Axes",
+    "titleMenu" : "Que souhaitez-vous gérer ?"
 }

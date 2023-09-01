@@ -22,9 +22,8 @@ class ButtonWidget extends StatelessWidget {
     switch (type) {
       case ButtonWidgetType.standard:
         bgCol = theme.colorScheme.secondary;
-        btnTextStyle = theme.textTheme.displayMedium!.copyWith(
-          color: theme.colorScheme.background,
-        );
+        btnTextStyle = theme.textTheme.displaySmall!
+            .copyWith(color: theme.colorScheme.background);
         break;
       case ButtonWidgetType.home:
         bgCol = theme.colorScheme.background;
@@ -34,9 +33,8 @@ class ButtonWidget extends StatelessWidget {
         break;
       case ButtonWidgetType.delete:
         bgCol = theme.colorScheme.error;
-        btnTextStyle = theme.textTheme.displayMedium!.copyWith(
-          color: theme.colorScheme.background,
-        );
+        btnTextStyle = theme.textTheme.displaySmall!
+            .copyWith(color: theme.colorScheme.background);
         break;
       default:
       // unused
@@ -47,7 +45,7 @@ class ButtonWidget extends StatelessWidget {
           backgroundColor: bgCol,
         ),
         child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Text(text, style: btnTextStyle)));
   }
 }

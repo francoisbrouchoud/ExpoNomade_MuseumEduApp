@@ -2,17 +2,23 @@ import 'package:expo_nomade_mobile/util/title_widget.dart';
 import 'package:flutter/material.dart';
 
 class ContainerWidget extends StatelessWidget {
-  const ContainerWidget({super.key, required this.title, required this.body});
+  const ContainerWidget(
+      {super.key,
+      required this.title,
+      required this.body,
+      this.isAdmin = true});
 
   final String title;
   final Widget body;
+  final bool isAdmin;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-        backgroundColor: theme.colorScheme.primary,
+        backgroundColor:
+            isAdmin ? theme.colorScheme.tertiary : theme.colorScheme.primary,
         body: Center(
             child: Column(children: [
           const SizedBox(height: 60),

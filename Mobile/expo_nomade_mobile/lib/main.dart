@@ -23,6 +23,12 @@ void main() async {
 class App extends StatelessWidget {
   const App({super.key});
 
+  static const primary = Color(0xFFBCC1EC);
+  static const secondary = Color(0xFF676664);
+  static const tertiary = Color(0xFF1B8989);
+  static const error = Color(0xFF942A3D);
+  static const background = Color(0xFFEEEEEE);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -57,15 +63,16 @@ class App extends StatelessWidget {
                     /// TODO : Julienne review
                     theme: ThemeData(
                       colorScheme: ColorScheme.fromSeed(
-                        seedColor: const Color(0xFFBCC1EC),
-                        primary: const Color(0xFFBCC1EC),
-                        error: const Color(0xFF942A3D),
-                        secondary: const Color(0xFF676664),
-                        background: const Color(0xFFEEEEEE),
-                      ),
+                          seedColor: primary,
+                          primary: primary,
+                          error: error,
+                          secondary: secondary,
+                          background: background,
+                          tertiary: tertiary),
                       textTheme: const TextTheme(
-                        bodyMedium: TextStyle(fontFamily: 'Montserrat'),
-                      ),
+                          displayMedium: TextStyle(fontFamily: 'Montserrat'),
+                          displaySmall:
+                              TextStyle(fontSize: 26, color: secondary)),
                       useMaterial3: true,
                     ),
                     home: HomePage(

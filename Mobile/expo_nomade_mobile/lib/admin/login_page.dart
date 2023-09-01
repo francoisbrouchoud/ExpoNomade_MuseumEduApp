@@ -1,3 +1,4 @@
+import 'package:expo_nomade_mobile/admin/menu_page.dart';
 import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:expo_nomade_mobile/util/button_widget.dart';
 import 'package:flutter/material.dart';
@@ -72,8 +73,8 @@ class _LoginPageState extends State<LoginPage> {
                                 password: passwordController.text); //"123456");
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                              builder: (context) => ExpoAxisListWidget(
-                                  exposition: widget.exposition)),
+                              builder: (context) =>
+                                  MenuPage(exposition: widget.exposition)),
                         );
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'user-not-found') {

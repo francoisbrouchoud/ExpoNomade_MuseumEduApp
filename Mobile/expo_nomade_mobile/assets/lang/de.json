@@ -27,5 +27,8 @@
     "email":"Email",
     "password":"Passwort",
     "years" : "Jahre",
-    "admin":"Verwaltung"
+    "admin":"Verwaltung",
+    "selectExpo" : "Wählen Sie eine Ausstellung",
+    "axis":"Achsen",
+    "titleMenu" : "Was möchten Sie verwalten?"
 }

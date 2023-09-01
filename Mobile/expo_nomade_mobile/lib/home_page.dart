@@ -1,3 +1,4 @@
+import 'package:expo_nomade_mobile/admin/menu_page.dart';
 import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:expo_nomade_mobile/bo/exposition.dart';
 import 'package:expo_nomade_mobile/util/button_widget.dart';
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePage> {
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => LoginPage(exposition: widget.exposition),
+                builder: (context) => MenuPage(exposition: widget.exposition),
               ),
             );
           },
