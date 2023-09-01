@@ -1,9 +1,9 @@
 import 'package:expo_nomade_mobile/app_localization.dart';
+import 'package:expo_nomade_mobile/util/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../bo/exposition.dart';
-import 'expo_axis_editor.dart';
 import 'expo_axis_list.dart';
 
 class LoginPage extends StatefulWidget {
@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: InputDecoration(
                       labelText: translations.getTranslation("password")),
                 ),
-                MainButton(
+                ButtonWidget(
                   action: () async {
                     if (_formKey.currentState!.validate()) {
                       try {
@@ -83,34 +83,11 @@ class _LoginPageState extends State<LoginPage> {
                     }
                   },
                   text: translations.getTranslation("login"),
+                  type: ButtonWidgetType.standard,
                 )
               ],
             ),
           ),
         ));
-  }
-}
-
-/// Contain the design of a main button from the homepage
-class MainButton extends StatelessWidget {
-  const MainButton({super.key, required this.text, required this.action});
-
-  final String text;
-  final Function()? action;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final btnTextStyle = theme.textTheme.displayMedium!.copyWith(
-      color: theme.colorScheme.secondary,
-    );
-    return ElevatedButton(
-        onPressed: action,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: theme.colorScheme.background,
-        ),
-        child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Text(text, style: btnTextStyle)));
   }
 }
