@@ -59,10 +59,9 @@ class App extends StatelessWidget {
                       colorScheme: ColorScheme.fromSeed(
                         seedColor: const Color(0xFFBCC1EC),
                         primary: const Color(0xFFBCC1EC),
-                        //onPrimary: const Color.fromARGB(255, 0, 0, 0),
+                        error: const Color(0xFF942A3D),
                         secondary: const Color(0xFF676664),
                         background: const Color(0xFFEEEEEE),
-                        //onSecondary: const Color.fromARGB(255, 40, 40, 40),
                       ),
                       textTheme: const TextTheme(
                         bodyMedium: TextStyle(fontFamily: 'Montserrat'),

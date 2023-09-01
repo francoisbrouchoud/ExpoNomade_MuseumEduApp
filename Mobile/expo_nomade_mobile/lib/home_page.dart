@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     );
                   },
-                  text: translations.getTranslation("quiz").toString(),
+                  text: translations.getTranslation("quiz"),
                 ),
                 const SizedBox(width: 25),
                 MainButton(
