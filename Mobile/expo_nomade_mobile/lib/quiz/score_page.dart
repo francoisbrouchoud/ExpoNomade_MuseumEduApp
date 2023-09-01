@@ -90,7 +90,7 @@ class ScorePage extends StatelessWidget {
                   Text(
                     ('${translations.getTranslation("answer_msg_0")} $correctAnswers '
                         '${correctAnswers == 0 ? translations.getTranslation("answer_msg_1_sing") : translations.getTranslation("answer_msg_1_plur")} '
-                        '$totalQuestions '
+                        '$totalQuestions'
                         '${translations.getTranslation("answer_msg_2")}'),
                     style: EltTextStyle,
                   ),
