@@ -1,24 +1,23 @@
 import 'dart:collection';
 
-import 'package:expo_nomade_mobile/admin/expo_population_type_list_widget.dart';
 import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../app_localization.dart';
 import '../bo/exposition.dart';
 import '../firebase_service.dart';
 import '../util/base_bo_editor_widget.dart';
+import '../util/globals.dart';
 import '../util/multilingual_string.dart';
 import '../util/multilingual_string_editor.dart';
 
 /// Class ExpoPopulationTypeEditorWidget is a widget used to edit or create an ExpoPopulationType object.
 class ExpoPopulationTypeEditorWidget extends StatefulWidget {
-  final Exposition exposition;
   final String? popTypeId;
 
   /// ExpoPopulationTypeEditorWidget constructor.
-  const ExpoPopulationTypeEditorWidget(
-      {super.key, required this.exposition, this.popTypeId});
+  const ExpoPopulationTypeEditorWidget({super.key, this.popTypeId});
 
   @override
   _ExpoPopulationTypeEditorWidgetState createState() =>
@@ -35,25 +34,23 @@ class _ExpoPopulationTypeEditorWidgetState
 
   /// Navigates back to the list view.
   void backToList(AppLocalization translations) {
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(
-          builder: (context) => ExpoPopulationTypeListWidget(
-              context: context, exposition: widget.exposition)),
-      ModalRoute.withName('/admin'),
-    );
+    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
     final translations = AppLocalization.of(context);
     final title = translations.getTranslation("title");
+    final dataProvider = Provider.of<DataNotifier>(context);
+    Exposition expo = dataProvider.exposition;
+
     Map<String, String> newTitleVals = widget.popTypeId != null
-        ? widget.exposition.populationTypes[widget.popTypeId!]!.title.toMap()
+        ? expo.populationTypes[widget.popTypeId!]!.title.toMap()
         : HashMap();
     final titleWidget = MultilingualStringEditorWidget(
       name: title,
       value: widget.popTypeId != null
-          ? widget.exposition.populationTypes[widget.popTypeId!]!.title
+          ? expo.populationTypes[widget.popTypeId!]!.title
           : null,
       valueChanged: (newVals) => newTitleVals = newVals,
     );
@@ -66,13 +63,13 @@ class _ExpoPopulationTypeEditorWidgetState
           titleWidget,
         ],
         object: widget.popTypeId != null
-            ? widget.exposition.populationTypes[widget.popTypeId!]
+            ? expo.populationTypes[widget.popTypeId!]
             : null,
         itemSaveRequested: () async {
           ExpoPopulationType popType =
               ExpoPopulationType("", MultilingualString(newTitleVals));
           if (widget.popTypeId != null) {
-            popType = widget.exposition.populationTypes[widget.popTypeId]!;
+            popType = expo.populationTypes[widget.popTypeId]!;
             popType.title = MultilingualString(newTitleVals);
           }
           if (popType.id.isNotEmpty) {
@@ -81,16 +78,17 @@ class _ExpoPopulationTypeEditorWidgetState
             ExpoPopulationType? newPopType =
                 await FirebaseService.createPopulationType(popType);
             if (newPopType != null) {
-              widget.exposition.populationTypes
-                  .putIfAbsent(newPopType.id, () => newPopType);
+              expo.populationTypes.putIfAbsent(newPopType.id, () => newPopType);
             }
           }
+          dataProvider.forceRelaod();
           backToList(translations);
         },
         itemDeleteRequested: () async {
           await FirebaseService.deletePopulationType(
-              widget.exposition.populationTypes[widget.popTypeId]!);
-          widget.exposition.populationTypes.remove(widget.popTypeId!);
+              expo.populationTypes[widget.popTypeId]!);
+          expo.populationTypes.remove(widget.popTypeId!);
+          dataProvider.forceRelaod();
           backToList(translations);
         },
       ),

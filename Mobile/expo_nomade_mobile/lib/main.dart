@@ -1,4 +1,6 @@
 import 'package:expo_nomade_mobile/admin/expo_axis_list_widget.dart';
+import 'package:expo_nomade_mobile/admin/expo_population_type_list_widget.dart';
+import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
 import 'package:expo_nomade_mobile/quiz/quiz_page.dart';
 import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +91,9 @@ class App extends StatelessWidget {
                           questions: dataProvider.exposition.quiz.questions),
                       '/admin': (context) => const MenuPage(),
                       '/admin/axis': (context) =>
-                          ExpoAxisListWidget(context: context)
+                          ExpoAxisListWidget(context: context),
+                      '/admin/populationType': (context) =>
+                          ExpoPopulationTypeListWidget(context: context)
                     },
                   );
                 }
