@@ -1,7 +1,7 @@
 import 'package:expo_nomade_mobile/admin/menu_page.dart';
 import 'package:expo_nomade_mobile/app_localization.dart';
-import 'package:expo_nomade_mobile/bo/exposition.dart';
 import 'package:expo_nomade_mobile/util/button_widget.dart';
+import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,10 +10,8 @@ import 'quiz/quiz_page.dart';
 import 'util/title_widget.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key, required this.exposition})
+  const HomePage({Key? key})
       : super(key: key); // Correction du nom du paramètre
-
-  final Exposition exposition;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -24,13 +22,14 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final translations = AppLocalization.of(context);
+    final dataProvider = Provider.of<DataNotifier>(context);
     return Scaffold(
       backgroundColor: theme.colorScheme.primary,
       floatingActionButton: ElevatedButton(
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => MenuPage(exposition: widget.exposition),
+                builder: (context) => const MenuPage(),
               ),
             );
           },
@@ -41,8 +40,9 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TitleWidget(
-                text:
-                    widget.exposition.name[translations.getCurrentLangCode()]),
+                text: Provider.of<DataNotifier>(context)
+                    .exposition
+                    .name[translations.getCurrentLangCode()]),
             const SizedBox(height: 50),
             Row(
               mainAxisSize: MainAxisSize.min,
@@ -52,8 +52,7 @@ class _HomePageState extends State<HomePage> {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => QuizPage(
-                          questions: widget.exposition.quiz.questions,
-                        ),
+                            questions: dataProvider.exposition.quiz.questions),
                       ),
                     );
                   },
@@ -65,9 +64,8 @@ class _HomePageState extends State<HomePage> {
                   action: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => MapPage(
-                          exposition: widget.exposition,
-                        ),
+                        builder: (context) =>
+                            MapPage(exposition: dataProvider.exposition),
                       ),
                     );
                   },

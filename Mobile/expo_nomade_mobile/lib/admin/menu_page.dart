@@ -3,14 +3,14 @@ import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:expo_nomade_mobile/util/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../bo/exposition.dart';
+import 'package:provider/provider.dart';
+import '../firebase_service.dart';
 import '../util/container_admin_widget.dart';
+import '../util/globals.dart';
 
 class MenuPage extends StatefulWidget {
-  const MenuPage({Key? key, required this.exposition})
+  const MenuPage({Key? key})
       : super(key: key); // Correction du nom du paramètre
-
-  final Exposition exposition;
 
   @override
   State<MenuPage> createState() => _MenuPageState();
@@ -22,7 +22,6 @@ class _MenuPageState extends State<MenuPage> {
   Widget build(BuildContext context) {
     final translations = AppLocalization.of(context);
     return ContainerAdminWidget(
-        refresh: () => {setState(() {})},
         title: translations.getTranslation("admin"),
         body: Padding(
           padding: const EdgeInsets.only(left: 40, right: 40),
@@ -30,13 +29,11 @@ class _MenuPageState extends State<MenuPage> {
             key: _formKey,
             child: Column(
               children: <Widget>[
-                SelectExpo(exposition: widget.exposition),
+                SelectExpo(),
                 const SizedBox(height: 25),
-                Menu(
-                    exposition: widget.exposition,
-                    refresh: () {
-                      setState(() {});
-                    })
+                Menu(refresh: () {
+                  setState(() {});
+                })
               ],
             ),
           ),
@@ -45,8 +42,7 @@ class _MenuPageState extends State<MenuPage> {
 }
 
 class SelectExpo extends StatelessWidget {
-  const SelectExpo({super.key, required this.exposition});
-  final Exposition exposition;
+  const SelectExpo({super.key});
   @override
   Widget build(BuildContext context) {
     final translations = AppLocalization.of(context);
@@ -57,13 +53,16 @@ class SelectExpo extends StatelessWidget {
     ]);
   }
 
-  /// Handles the click event on any language button
-  setCurrentExpo(String expoId, BuildContext context) {}
+  /// Handles the click event on any expo button
+  setCurrentExpo(String expoId, BuildContext context) async {
+    final dataProvider = Provider.of<DataNotifier>(context);
+    var expo = await FirebaseService.getCurrentExposition();
+    dataProvider.setExposition(expo!);
+  }
 }
 
 class Menu extends StatelessWidget {
-  const Menu({super.key, required this.exposition, required this.refresh});
-  final Exposition exposition;
+  const Menu({super.key, required this.refresh});
   final Function() refresh;
 
   @override
@@ -79,8 +78,8 @@ class Menu extends StatelessWidget {
           action: () => {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                      builder: (context) => ExpoAxisListWidget(
-                          context: context, exposition: exposition)),
+                      builder: (context) =>
+                          ExpoAxisListWidget(context: context)),
                 ),
               },
           type: ButtonWidgetType.standard),
@@ -88,8 +87,10 @@ class Menu extends StatelessWidget {
       ButtonWidget(
           text: "logout",
           action: () {
+            final dataProvider =
+                Provider.of<DataNotifier>(context, listen: true);
             FirebaseAuth.instance.signOut();
-            refresh();
+            dataProvider.setIsLogin(true);
           },
           type: ButtonWidgetType.standard)
     ]);

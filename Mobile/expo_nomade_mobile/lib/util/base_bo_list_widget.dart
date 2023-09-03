@@ -1,10 +1,10 @@
 import 'package:expo_nomade_mobile/app_localization.dart';
-import 'package:expo_nomade_mobile/util/container_widget.dart';
 import 'package:expo_nomade_mobile/util/base_business_object.dart';
 import 'package:expo_nomade_mobile/util/underlined_container_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'button_widget.dart';
+import 'container_admin_widget.dart';
 
 /// Abstract class BaseBOListWidget is a widget used to list a collection of business objects.
 abstract class BaseBOListWidget extends StatelessWidget {
@@ -27,8 +27,7 @@ abstract class BaseBOListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     const iconDim = 24.0; // edit icon fixed dimensions
     final translations = AppLocalization.of(context);
-    return ContainerWidget(
-      // TODO use ContainerAdminWidget here!
+    return ContainerAdminWidget(
       fixedContainerHeight: true,
       title: title,
       body: Material(

@@ -1,6 +1,5 @@
 import 'dart:collection';
 
-import 'package:expo_nomade_mobile/admin/expo_axis_list_widget.dart';
 import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:expo_nomade_mobile/bo/exposition.dart';
 import 'package:expo_nomade_mobile/firebase_service.dart';
@@ -8,17 +7,17 @@ import 'package:expo_nomade_mobile/util/base_bo_editor_widget.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string_editor.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../bo/expo_axis.dart';
+import '../util/globals.dart';
 
 /// Class ExpoAxisEditorWidget is a widget used to edit or create an ExpoAxis object.
 class ExpoAxisEditorWidget extends StatefulWidget {
-  final Exposition exposition;
   final String? axisId;
 
   /// ExpoAxisEditorWidget constructor.
-  const ExpoAxisEditorWidget(
-      {super.key, required this.exposition, this.axisId});
+  const ExpoAxisEditorWidget({super.key, this.axisId});
 
   @override
   _ExpoAxisEditorWidgetState createState() => _ExpoAxisEditorWidgetState();
@@ -33,36 +32,31 @@ class _ExpoAxisEditorWidgetState extends State<ExpoAxisEditorWidget> {
 
   /// Navigates back to the list view.
   void backToList(AppLocalization translations) {
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(
-          builder: (context) => ExpoAxisListWidget(
-              context: context, exposition: widget.exposition)),
-      ModalRoute.withName('/admin'),
-    );
+    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
     final translations = AppLocalization.of(context);
     final title = translations.getTranslation("title");
+    final dataProvider = Provider.of<DataNotifier>(context);
+    Exposition expo = dataProvider.exposition;
     Map<String, String> newTitleVals = widget.axisId != null
-        ? widget.exposition.axes[widget.axisId!]!.title.toMap()
+        ? expo.axes[widget.axisId!]!.title.toMap()
         : HashMap();
     final titleWidget = MultilingualStringEditorWidget(
       name: title,
-      value: widget.axisId != null
-          ? widget.exposition.axes[widget.axisId!]!.title
-          : null,
+      value: widget.axisId != null ? expo.axes[widget.axisId!]!.title : null,
       valueChanged: (newVals) => newTitleVals = newVals,
     );
     final description = translations.getTranslation("description");
     Map<String, String> newDescVals = widget.axisId != null
-        ? widget.exposition.axes[widget.axisId!]!.description.toMap()
+        ? expo.axes[widget.axisId!]!.description.toMap()
         : HashMap();
     final descWidget = MultilingualStringEditorWidget(
         name: description,
         value: widget.axisId != null
-            ? widget.exposition.axes[widget.axisId!]!.description
+            ? expo.axes[widget.axisId!]!.description
             : null,
         valueChanged: (newVals) => newDescVals = newVals);
     return Material(
@@ -74,14 +68,12 @@ class _ExpoAxisEditorWidgetState extends State<ExpoAxisEditorWidget> {
           titleWidget,
           descWidget,
         ],
-        object: widget.axisId != null
-            ? widget.exposition.axes[widget.axisId!]
-            : null,
+        object: widget.axisId != null ? expo.axes[widget.axisId!] : null,
         itemSaveRequested: () async {
           ExpoAxis axis = ExpoAxis("", MultilingualString(newDescVals),
               MultilingualString(newTitleVals));
           if (widget.axisId != null) {
-            axis = widget.exposition.axes[widget.axisId]!;
+            axis = expo.axes[widget.axisId]!;
             axis.title = MultilingualString(newTitleVals);
             axis.description = MultilingualString(newDescVals);
           }
@@ -90,15 +82,16 @@ class _ExpoAxisEditorWidgetState extends State<ExpoAxisEditorWidget> {
           } else {
             ExpoAxis? newAxis = await FirebaseService.createAxis(axis);
             if (newAxis != null) {
-              widget.exposition.axes.putIfAbsent(newAxis.id, () => newAxis);
+              expo.axes.putIfAbsent(newAxis.id, () => newAxis);
             }
           }
+          dataProvider.forceRelaod();
           backToList(translations);
         },
         itemDeleteRequested: () async {
-          await FirebaseService.deleteAxis(
-              widget.exposition.axes[widget.axisId]!);
-          widget.exposition.axes.remove(widget.axisId!);
+          await FirebaseService.deleteAxis(expo.axes[widget.axisId]!);
+          expo.axes.remove(widget.axisId!);
+          dataProvider.forceRelaod();
           backToList(translations);
         },
       ),

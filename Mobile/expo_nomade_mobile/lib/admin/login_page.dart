@@ -2,19 +2,20 @@ import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:expo_nomade_mobile/util/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 import '../util/container_widget.dart';
+import '../util/globals.dart';
 import '../util/validation_helper.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage(
-      {super.key, required this.refresh}); // Correction du nom du paramètre
-  final Function() refresh;
+  const LoginPage({super.key}); // Correction du nom du paramètre
 
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
     TextEditingController mailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
+    final dataProvider = Provider.of<DataNotifier>(context, listen: true);
 
     final translations = AppLocalization.of(context);
     return ContainerWidget(
@@ -65,7 +66,7 @@ class LoginPage extends StatelessWidget {
                         await FirebaseAuth.instance.signInWithEmailAndPassword(
                             email: mailController.text,
                             password: passwordController.text);
-                        refresh();
+                        dataProvider.setIsLogin(true);
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'user-not-found' ||
                             e.code == 'wrong-password') {
