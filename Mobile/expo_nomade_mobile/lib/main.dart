@@ -1,6 +1,6 @@
 import 'package:expo_nomade_mobile/admin/expo_axis_list.dart';
 import 'package:expo_nomade_mobile/quiz/quiz_page.dart';
-import 'package:expo_nomade_mobile/util/globals.dart';
+//import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -33,7 +33,7 @@ class App extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    GlobalData data = GlobalData();
+    //GlobalData data = GlobalData();
     return ChangeNotifierProvider<LocaleNotifier>.value(
       value: LocaleNotifier(),
       builder: (context, child) {
@@ -47,7 +47,7 @@ class App extends StatelessWidget {
                   return const Text("no_data");
                 } else {
                   final Exposition expo = snapshot.data!;
-                  data.exposition = expo;
+                  //data.exposition = expo;
                   return MaterialApp(
                     locale: appLocaleProvider.locale,
                     localizationsDelegates:
