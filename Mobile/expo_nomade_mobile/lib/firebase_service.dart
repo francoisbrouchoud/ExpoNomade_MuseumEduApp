@@ -1,4 +1,5 @@
 import 'package:expo_nomade_mobile/bo/expo_axis.dart';
+import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
 import 'package:expo_nomade_mobile/bo/exposition.dart';
 import 'package:expo_nomade_mobile/bo/museum.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -73,6 +74,22 @@ class FirebaseService {
     return null;
   }
 
+  /// Creates an ExpoPopulationType business object
+  static Future<ExpoPopulationType?> createPopulationType(
+      ExpoPopulationType populationType) async {
+    DatabaseReference ref = database.ref();
+    final currentExpo = await ref.child("currentExposition").get();
+    if (currentExpo.exists) {
+      DatabaseReference newPopTypeRef =
+          ref.child("expositions/${currentExpo.value}/populationTypes").push();
+      if (newPopTypeRef.key != null) {
+        await newPopTypeRef.set({"title": populationType.title.toMap()});
+        return ExpoPopulationType(newPopTypeRef.key!, populationType.title);
+      }
+    }
+    return null;
+  }
+
   /// Updates an ExpoAxis business object.
   static Future<void> updateAxis(ExpoAxis axis) async {
     DatabaseReference ref = database.ref();
@@ -85,6 +102,19 @@ class FirebaseService {
     }
   }
 
+  /// Updates an ExpoPopulationType business object.
+  static Future<void> updatePopulationType(
+      ExpoPopulationType populationType) async {
+    DatabaseReference ref = database.ref();
+    final currentExpo = await ref.child("currentExposition").get();
+    if (currentExpo.exists) {
+      await ref
+          .child(
+              "expositions/${currentExpo.value}/populationTypes/${populationType.id}")
+          .set({"title": populationType.title.toMap()});
+    }
+  }
+
   /// Deletes an ExpoAxis business object.
   static Future<void> deleteAxis(ExpoAxis axis) async {
     DatabaseReference ref = database.ref();
@@ -92,6 +122,19 @@ class FirebaseService {
     if (currentExpo.exists) {
       await ref
           .child("expositions/${currentExpo.value}/axes/${axis.id}")
+          .remove();
+    }
+  }
+
+  /// Deletes an ExpoPopulationType business object.
+  static Future<void> deletePopulationType(
+      ExpoPopulationType populationType) async {
+    DatabaseReference ref = database.ref();
+    final currentExpo = await ref.child("currentExposition").get();
+    if (currentExpo.exists) {
+      await ref
+          .child(
+              "expositions/${currentExpo.value}/populationTypes/${populationType.id}")
           .remove();
     }
   }

@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import '../firebase_service.dart';
 import '../util/container_admin_widget.dart';
+import 'expo_population_type_list_widget.dart';
 import '../util/globals.dart';
 
 class MenuPage extends StatefulWidget {
@@ -80,6 +81,18 @@ class Menu extends StatelessWidget {
                   MaterialPageRoute(
                       builder: (context) =>
                           ExpoAxisListWidget(context: context)),
+                ),
+              },
+          type: ButtonWidgetType.standard),
+      const SizedBox(height: 25),
+      ButtonWidget(
+          text: translations.getTranslation("population_types"),
+          action: () => {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ExpoPopulationTypeListWidget(context: context),
+                  ),
                 ),
               },
           type: ButtonWidgetType.standard),
