@@ -5,7 +5,6 @@ import 'package:expo_nomade_mobile/util/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'admin/login_page.dart';
 import 'map/map_page.dart';
 import 'quiz/quiz_page.dart';
 import 'util/title_widget.dart';

@@ -6,7 +6,7 @@ class ContainerWidget extends StatelessWidget {
       {super.key,
       required this.title,
       required this.body,
-      this.isAdmin = true});
+      this.isAdmin = false});
 
   final String title;
   final Widget body;

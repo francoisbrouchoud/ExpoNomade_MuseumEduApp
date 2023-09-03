@@ -1,9 +1,9 @@
 import 'package:expo_nomade_mobile/admin/expo_axis_list.dart';
-import 'package:expo_nomade_mobile/admin/login_page.dart';
 import 'package:expo_nomade_mobile/quiz/quiz_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'admin/menu_page.dart';
 import 'bo/exposition.dart';
 import 'firebase_options.dart';
 import 'firebase_service.dart';
@@ -32,6 +32,8 @@ class App extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final translations = AppLocalization.of(context);
+
     return ChangeNotifierProvider<LocaleNotifier>.value(
       value: LocaleNotifier(),
       builder: (context, child) {
@@ -41,8 +43,7 @@ class App extends StatelessWidget {
             builder: (context, AsyncSnapshot<Exposition?> snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.data == null) {
-                  // TODO error msg
-                  return const Text("ERROR");
+                  return Text(translations.getTranslation("no_data"));
                 } else {
                   final Exposition expo = snapshot.data!;
                   return MaterialApp(
@@ -82,7 +83,7 @@ class App extends StatelessWidget {
                       '/map': (context) => MapPage(exposition: expo),
                       '/quiz': (context) =>
                           QuizPage(questions: expo.quiz.questions),
-                      '/admin': (context) => LoginPage(exposition: expo),
+                      '/admin': (context) => MenuPage(exposition: expo),
                       '/admin/axis': (context) =>
                           ExpoAxisListWidget(exposition: expo)
                     },

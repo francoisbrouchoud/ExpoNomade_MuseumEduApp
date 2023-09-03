@@ -30,5 +30,9 @@
     "admin":"Verwaltung",
     "selectExpo" : "Wählen Sie eine Ausstellung",
     "axis":"Achsen",
-    "titleMenu" : "Was möchten Sie verwalten?"
+    "titleMenu" : "Was möchten Sie verwalten?",
+    "please_not_null":"Bitte geben Sie Text ein",
+    "user-not-found" : "Der Nutzer existiert nicht",
+    "wrong-password" : "Das Passwort ist falsch",
+    "no_data" : "Konnte die Daten nicht herunterladen"
 }

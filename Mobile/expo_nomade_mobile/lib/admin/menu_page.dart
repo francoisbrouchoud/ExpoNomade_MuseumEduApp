@@ -1,10 +1,10 @@
-import 'package:expo_nomade_mobile/admin/login_page.dart';
 import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:expo_nomade_mobile/util/button_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../bo/exposition.dart';
-import '../util/container_widget.dart';
+import '../util/containerAdmin_widget.dart';
 import 'expo_axis_list.dart';
 
 class MenuPage extends StatefulWidget {
@@ -19,11 +19,11 @@ class MenuPage extends StatefulWidget {
 
 class _MenuPageState extends State<MenuPage> {
   final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     final translations = AppLocalization.of(context);
-    return ContainerWidget(
+    return ContainerAdminWidget(
+        refresh: () => {setState(() {})},
         title: translations.getTranslation("admin"),
         body: Padding(
           padding: const EdgeInsets.only(left: 40, right: 40),
@@ -33,7 +33,11 @@ class _MenuPageState extends State<MenuPage> {
               children: <Widget>[
                 SelectExpo(exposition: widget.exposition),
                 const SizedBox(height: 25),
-                Menu(exposition: widget.exposition)
+                Menu(
+                    exposition: widget.exposition,
+                    refresh: () {
+                      setState(() {});
+                    })
               ],
             ),
           ),
@@ -59,8 +63,10 @@ class SelectExpo extends StatelessWidget {
 }
 
 class Menu extends StatelessWidget {
-  const Menu({super.key, required this.exposition});
+  const Menu({super.key, required this.exposition, required this.refresh});
   final Exposition exposition;
+  final Function() refresh;
+
   @override
   Widget build(BuildContext context) {
     final translations = AppLocalization.of(context);
@@ -79,11 +85,11 @@ class Menu extends StatelessWidget {
           type: ButtonWidgetType.standard),
       const SizedBox(height: 25),
       ButtonWidget(
-          text: "login",
-          action: () => {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => LoginPage(exposition: exposition)))
-              },
+          text: "logout",
+          action: () {
+            FirebaseAuth.instance.signOut();
+            refresh();
+          },
           type: ButtonWidgetType.standard)
     ]);
   }

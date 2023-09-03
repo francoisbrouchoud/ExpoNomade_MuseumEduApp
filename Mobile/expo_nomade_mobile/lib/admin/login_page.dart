@@ -1,37 +1,29 @@
-import 'package:expo_nomade_mobile/admin/menu_page.dart';
 import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:expo_nomade_mobile/util/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import '../bo/exposition.dart';
 import '../util/container_widget.dart';
-import 'expo_axis_list.dart';
+import '../util/validation_helper.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key, required this.exposition})
-      : super(key: key); // Correction du nom du paramètre
-
-  final Exposition exposition;
-
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  final _formKey = GlobalKey<FormState>();
-  TextEditingController mailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+class LoginPage extends StatelessWidget {
+  const LoginPage(
+      {super.key, required this.refresh}); // Correction du nom du paramètre
+  final Function() refresh;
 
   @override
   Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
+    TextEditingController mailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
+
     final translations = AppLocalization.of(context);
     return ContainerWidget(
         title: translations.getTranslation("login"),
+        isAdmin: true,
         body: Padding(
           padding: const EdgeInsets.only(left: 40, right: 40),
           child: Form(
-            key: _formKey,
+            key: formKey,
             child: Column(
               children: <Widget>[
                 Padding(
@@ -39,7 +31,11 @@ class _LoginPageState extends State<LoginPage> {
                     child: TextFormField(
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
+                          return translations.getTranslation("please_not_null");
+                        }
+                        if (!isValidEmail(value)) {
+                          return translations
+                              .getTranslation("please_email_valid");
                         }
                         return null;
                       },
@@ -52,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: TextFormField(
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
+                          return translations.getTranslation("please_not_null");
                         }
                         return null;
                       },
@@ -64,29 +60,20 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 30),
                 ButtonWidget(
                   action: () async {
-                    if (_formKey.currentState!.validate()) {
+                    if (formKey.currentState!.validate()) {
                       try {
-                        final credential = await FirebaseAuth.instance
-                            .signInWithEmailAndPassword(
-                                email: mailController
-                                    .text, //"exponomade.grp2@gmail.com",
-                                password: passwordController.text); //"123456");
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  MenuPage(exposition: widget.exposition)),
-                        );
+                        await FirebaseAuth.instance.signInWithEmailAndPassword(
+                            email: mailController.text,
+                            password: passwordController.text);
+                        refresh();
                       } on FirebaseAuthException catch (e) {
-                        if (e.code == 'user-not-found') {
-                          print('No user found for that email.');
-                        } else if (e.code == 'wrong-password') {
-                          print('Wrong password provided for that user.');
+                        if (e.code == 'user-not-found' ||
+                            e.code == 'wrong-password') {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content:
+                                  Text(translations.getTranslation(e.code))));
                         }
-                      } on Exception catch (e) {
-                        print("nulll!!!!!!!!!!!!!!");
                       }
-                    } else {
-                      print('Not valide!!!');
                     }
                   },
                   text: translations.getTranslation("login"),
