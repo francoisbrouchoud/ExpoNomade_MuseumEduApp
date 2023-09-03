@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:expo_nomade_mobile/util/base_business_object.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -6,7 +7,7 @@ import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
 import 'package:expo_nomade_mobile/bo/expo_axis.dart';
 
 /// Class ExpoEvent is used to store all details related to an event of an exposition.
-class ExpoEvent {
+class ExpoEvent extends BaseBusinessObject {
   ExpoAxis axis;
   MultilingualString description;
   int endYear;
@@ -46,5 +47,10 @@ class ExpoEvent {
     Picture? picture; // TODO get picture if existing
     return ExpoEvent(axis, description, endYear, from, picture, popType, reason,
         startYear, title, to);
+  }
+
+  @override
+  String toListText(String langCode) {
+    return title[langCode];
   }
 }

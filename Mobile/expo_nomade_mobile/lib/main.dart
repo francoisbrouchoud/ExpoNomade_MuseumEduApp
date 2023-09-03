@@ -1,4 +1,4 @@
-import 'package:expo_nomade_mobile/admin/expo_axis_list.dart';
+import 'package:expo_nomade_mobile/admin/expo_axis_list_widget.dart';
 import 'package:expo_nomade_mobile/quiz/quiz_page.dart';
 //import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:flutter/material.dart';
@@ -87,7 +87,7 @@ class App extends StatelessWidget {
                           QuizPage(questions: expo.quiz.questions),
                       '/admin': (context) => MenuPage(exposition: expo),
                       '/admin/axis': (context) =>
-                          ExpoAxisListWidget(exposition: expo)
+                          ExpoAxisListWidget(context: context, exposition: expo)
                     },
                   );
                 }

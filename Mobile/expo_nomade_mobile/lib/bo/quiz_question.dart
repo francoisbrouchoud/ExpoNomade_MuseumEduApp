@@ -1,3 +1,4 @@
+import 'package:expo_nomade_mobile/util/base_business_object.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string.dart';
 
 /// Class contain all questions
@@ -17,7 +18,7 @@ class Quiz {
 }
 
 /// Contain the question text in différente language and a list of option
-class QuizQuestion {
+class QuizQuestion extends BaseBusinessObject {
   MultilingualString question;
   final List<QuizOption> options;
 
@@ -32,6 +33,11 @@ class QuizQuestion {
     MultilingualString question =
         MultilingualString(Map<String, String>.from(questionJson['question']));
     return QuizQuestion(question: question, options: options);
+  }
+
+  @override
+  String toListText(String langCode) {
+    return question[langCode];
   }
 }
 

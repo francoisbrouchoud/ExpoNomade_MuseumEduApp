@@ -9,11 +9,13 @@ class ContainerAdminWidget extends StatelessWidget {
       {super.key,
       required this.title,
       required this.body,
-      required this.refresh});
+      required this.refresh,
+      this.fixedContainerHeight = false});
 
   final String title;
   final Widget body;
   final Function() refresh;
+  final bool fixedContainerHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,11 @@ class ContainerAdminWidget extends StatelessWidget {
         refresh: refresh,
       );
     }
-    return ContainerWidget(title: title, isAdmin: true, body: body);
+    return ContainerWidget(
+      title: title,
+      isAdmin: true,
+      body: body,
+      fixedContainerHeight: fixedContainerHeight,
+    );
   }
 }

@@ -3,11 +3,12 @@ import 'dart:ui';
 
 import 'package:expo_nomade_mobile/bo/expo_axis.dart';
 import 'package:expo_nomade_mobile/bo/museum.dart';
+import 'package:expo_nomade_mobile/util/base_business_object.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string.dart';
 import 'package:latlong2/latlong.dart';
 
 /// Class ExpoObject is used to store all details related to an object of an exposition.
-class ExpoObject {
+class ExpoObject extends BaseBusinessObject {
   ExpoAxis axis;
   Map<int, LatLng> coordinates;
   MultilingualString description;
@@ -57,5 +58,10 @@ class ExpoObject {
     Picture? picture; // TODO picture
     return ExpoObject(axis, coordinates, description, dimension, material,
         museum, others, picture, position, title);
+  }
+
+  @override
+  String toListText(String langCode) {
+    return title[langCode];
   }
 }

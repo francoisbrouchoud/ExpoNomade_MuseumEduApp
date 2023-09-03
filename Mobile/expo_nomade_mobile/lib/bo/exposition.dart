@@ -4,13 +4,14 @@ import 'package:expo_nomade_mobile/bo/expo_axis.dart';
 import 'package:expo_nomade_mobile/bo/expo_event.dart';
 import 'package:expo_nomade_mobile/bo/expo_object.dart';
 import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
+import 'package:expo_nomade_mobile/util/base_business_object.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string.dart';
 
 import 'museum.dart';
 import 'quiz_question.dart';
 
 /// Class Exposition is used to store all details related to an exposition.
-class Exposition {
+class Exposition extends BaseBusinessObject {
   MultilingualString name;
   Map<String, ExpoAxis> axes;
   Map<String, ExpoPopulationType> populationTypes;
@@ -43,5 +44,10 @@ class Exposition {
         .toList();
     Quiz quiz = Quiz.fromJson(json['quiz']);
     return Exposition(name, axes, events, objects, popTypes, quiz);
+  }
+
+  @override
+  String toListText(String langCode) {
+    return name[langCode];
   }
 }

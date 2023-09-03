@@ -1,11 +1,10 @@
+import 'package:expo_nomade_mobile/admin/expo_axis_list_widget.dart';
 import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:expo_nomade_mobile/util/button_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import '../bo/exposition.dart';
-import '../util/containerAdmin_widget.dart';
-import 'expo_axis_list.dart';
+import '../util/container_admin_widget.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({Key? key, required this.exposition})
@@ -78,9 +77,11 @@ class Menu extends StatelessWidget {
       ButtonWidget(
           text: translations.getTranslation("axis"),
           action: () => {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>
-                        ExpoAxisListWidget(exposition: exposition)))
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) => ExpoAxisListWidget(
+                          context: context, exposition: exposition)),
+                ),
               },
           type: ButtonWidgetType.standard),
       const SizedBox(height: 25),

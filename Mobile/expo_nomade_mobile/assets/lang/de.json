@@ -34,5 +34,16 @@
     "please_not_null":"Bitte geben Sie Text ein",
     "user-not-found" : "Der Nutzer existiert nicht",
     "wrong-password" : "Das Passwort ist falsch",
-    "no_data" : "Konnte die Daten nicht herunterladen"
+    "no_data" : "Konnte die Daten nicht herunterladen",
+    "axis_edit": "Änderung der Achse",
+    "axis_creation": "Hinzufügen einer neuen Achse",
+    "axis_add": "Achse hinzufügen",
+    "lang_fr": "Französisch",
+    "lang_de": "Deutsch",
+    "warning": "Achtung!",
+    "delete_confirm_msg": "Sind Sie sicher, dass Sie dieses Objekt löschen wollen?",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
+    "saved": "Gespeichert",
+    "deleted": "Gelöscht"
 }
