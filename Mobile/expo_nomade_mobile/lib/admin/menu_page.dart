@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../bo/exposition.dart';
 import '../util/container_admin_widget.dart';
+import 'expo_population_type_list_widget.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({Key? key, required this.exposition})
@@ -81,6 +82,18 @@ class Menu extends StatelessWidget {
                   MaterialPageRoute(
                       builder: (context) => ExpoAxisListWidget(
                           context: context, exposition: exposition)),
+                ),
+              },
+          type: ButtonWidgetType.standard),
+      const SizedBox(height: 25),
+      ButtonWidget(
+          text: translations.getTranslation("population_types"),
+          action: () => {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ExpoPopulationTypeListWidget(
+                        context: context, exposition: exposition),
+                  ),
                 ),
               },
           type: ButtonWidgetType.standard),
