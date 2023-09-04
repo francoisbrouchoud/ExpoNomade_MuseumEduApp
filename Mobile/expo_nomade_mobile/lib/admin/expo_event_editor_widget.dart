@@ -1,5 +1,4 @@
 import 'dart:collection';
-import 'dart:ui';
 
 import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:expo_nomade_mobile/bo/expo_axis.dart';
@@ -8,6 +7,7 @@ import 'package:expo_nomade_mobile/firebase_service.dart';
 import 'package:expo_nomade_mobile/util/base_bo_editor_widget.dart';
 import 'package:expo_nomade_mobile/util/bo_selector_widget.dart';
 import 'package:expo_nomade_mobile/util/globals.dart';
+import 'package:expo_nomade_mobile/util/image_selector_widget.dart';
 import 'package:expo_nomade_mobile/util/latlng_selector_widget.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string_editor.dart';
@@ -59,7 +59,7 @@ class _ExpoEventEditorWidgetState extends State<ExpoEventEditorWidget> {
     int newEndYearVal = widget.event?.endYear ?? DateTime.now().year;
     List<LatLng> newFromVals = widget.event?.from ?? [];
     List<LatLng> newToVals = widget.event?.to ?? [];
-    Picture? newPicVal = null;
+    String newPicURLVal = widget.event?.pictureURL ?? "";
     return Material(
       child: BaseBOEditorWidget(
         title: widget.event != null
@@ -81,6 +81,11 @@ class _ExpoEventEditorWidgetState extends State<ExpoEventEditorWidget> {
             name: translations.getTranslation("reason"),
             value: widget.event != null ? widget.event!.reason : null,
             valueChanged: (newVals) => newReasVals = newVals,
+          ),
+          ImageSelectorWidget(
+            name: translations.getTranslation("picture"),
+            urlChanged: (newVal) => newPicURLVal = newVal,
+            url: newPicURLVal,
           ),
           BOSelectorWidget(
             name: translations.getTranslation("axe"),
@@ -133,7 +138,7 @@ class _ExpoEventEditorWidgetState extends State<ExpoEventEditorWidget> {
                 MultilingualString(newDescVals),
                 newEndYearVal,
                 newFromVals,
-                newPicVal,
+                newPicURLVal,
                 newPopTypeVal,
                 MultilingualString(newReasVals),
                 newStartYearVal,
@@ -150,7 +155,7 @@ class _ExpoEventEditorWidgetState extends State<ExpoEventEditorWidget> {
               event.endYear = newEndYearVal;
               event.from = newFromVals;
               event.to = newToVals;
-              event.picture = newPicVal;
+              event.pictureURL = newPicURLVal;
               await FirebaseService.updateEvent(event);
             } else {
               ExpoEvent? newEvent = await FirebaseService.createEvent(event);

@@ -64,5 +64,6 @@
     "coordinates_from": "Anfängliche Koordinaten",
     "coordinates_to": "Finale Koordinaten",
     "required": "obligatorisch",
-    "fill_required_fields_msg": "Bitte füllen Sie alle Pflichtfelder aus!"
+    "fill_required_fields_msg": "Bitte füllen Sie alle Pflichtfelder aus!",
+    "picture": "Bild"
 }
