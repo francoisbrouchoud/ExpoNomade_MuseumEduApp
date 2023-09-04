@@ -8,6 +8,7 @@ import 'package:expo_nomade_mobile/bo/expo_axis.dart';
 
 /// Class ExpoEvent is used to store all details related to an event of an exposition.
 class ExpoEvent extends BaseBusinessObject {
+  String id;
   ExpoAxis axis;
   MultilingualString description;
   int endYear;
@@ -20,19 +21,37 @@ class ExpoEvent extends BaseBusinessObject {
   List<LatLng> to;
 
   /// ExpoEvent complete constructor.
-  ExpoEvent(this.axis, this.description, this.endYear, this.from, this.picture,
-      this.populationType, this.reason, this.startYear, this.title, this.to);
+  ExpoEvent(
+      this.id,
+      this.axis,
+      this.description,
+      this.endYear,
+      this.from,
+      this.picture,
+      this.populationType,
+      this.reason,
+      this.startYear,
+      this.title,
+      this.to);
 
   /// Convert json into the business object ExpoEvent.
-  factory ExpoEvent.fromJson(dynamic json, Map<String, ExpoAxis> axes,
+  factory ExpoEvent.fromJson(
+      String id,
+      dynamic json,
+      Map<String, ExpoAxis> axes,
       Map<String, ExpoPopulationType> populationTypes) {
     ExpoAxis axis = axes[json['axe']]!;
     MultilingualString description =
         MultilingualString(Map<String, String>.from(json['description']));
     int endYear = json['endYear'] as int;
     List<LatLng> from = List<dynamic>.from(json['from'])
-        .map((coordinate) =>
-            LatLng(coordinate['lat'] as double, coordinate['lon'] as double))
+        .map((coordinate) => LatLng(
+            coordinate['lat'] is int
+                ? (coordinate['lat'] as int).toDouble()
+                : coordinate['lat'] as double,
+            coordinate['lon'] is int
+                ? (coordinate['lon'] as int).toDouble()
+                : coordinate['lon'] as double))
         .toList();
     ExpoPopulationType popType = populationTypes[json['populationType']]!;
     MultilingualString reason =
@@ -41,12 +60,17 @@ class ExpoEvent extends BaseBusinessObject {
     MultilingualString title =
         MultilingualString(Map<String, String>.from(json['title']));
     List<LatLng> to = List<dynamic>.from(json['to'])
-        .map((coordinate) =>
-            LatLng(coordinate['lat'] as double, coordinate['lon'] as double))
+        .map((coordinate) => LatLng(
+            coordinate['lat'] is int
+                ? (coordinate['lat'] as int).toDouble()
+                : coordinate['lat'] as double,
+            coordinate['lon'] is int
+                ? (coordinate['lon'] as int).toDouble()
+                : coordinate['lon'] as double))
         .toList();
     Picture? picture; // TODO get picture if existing
-    return ExpoEvent(axis, description, endYear, from, picture, popType, reason,
-        startYear, title, to);
+    return ExpoEvent(id, axis, description, endYear, from, picture, popType,
+        reason, startYear, title, to);
   }
 
   @override

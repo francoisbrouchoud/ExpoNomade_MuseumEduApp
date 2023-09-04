@@ -112,8 +112,8 @@
                }
             }
          ],
-         "event":[
-            {
+         "event": {
+            "-KsJm6IyzP3_mzXsA7LW": {
                "title":{
                   "fr":"Tournant du XXe siècle",
                   "de":"Wende zum 20. Jahrhundert"
@@ -155,7 +155,7 @@
                },
                "populationType":"-Ncqpj_hDfwZeo_YYBmn"
             }
-         ],
+         },
          "quiz":{
             "questions":[
                {

@@ -49,5 +49,18 @@
     "population_types": "Bevölkerungstypen",
     "population_type_add": "Bevölkerungstyp hinzufügen",
     "population_type_edit": "Änderung des Bevölkerungstyps",
-    "population_type_creation": "Hinzufügen eines neuen Bevölkerungstyps"
+    "population_type_creation": "Hinzufügen eines neuen Bevölkerungstyps",
+    "events": "Events",
+    "event_add": "Event hinzufügen",
+    "event_edit": "Änderung des Events",
+    "event_creation": "Hinzufügen eines neuen Events",
+    "reason": "Grund",
+    "axe": "Achse",
+    "population_type": "Bevölkerungstyp",
+    "start_year": "Startjahr",
+    "end_year": "Endjahr",
+    "latitude": "Breitengrad",
+    "longitude": "Längengrad",
+    "coordinates_from": "Anfängliche Koordinaten",
+    "coordinates_to": "Finale Koordinaten"
 }

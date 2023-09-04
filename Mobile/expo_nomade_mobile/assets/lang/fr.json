@@ -49,5 +49,18 @@
     "population_types": "Types de population",
     "population_type_add": "Ajouter un type de population",
     "population_type_edit": "Edition du type de population",
-    "population_type_creation": "Ajout d'un nouveau type de population"
+    "population_type_creation": "Ajout d'un nouveau type de population",
+    "events": "Evénements",
+    "event_add": "Ajouter un événement",
+    "event_edit": "Edition de l'événement",
+    "event_creation": "Ajout d'un nouvel événement",
+    "reason": "Raison",
+    "axe": "Axe",
+    "population_type": "Type de population",
+    "start_year": "Année de début",
+    "end_year": "Année de fin",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "coordinates_from": "Coordonnées initiales",
+    "coordinates_to": "Coordonnées finales"
 }

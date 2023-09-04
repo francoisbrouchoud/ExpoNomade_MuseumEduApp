@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import '../firebase_service.dart';
 import '../util/container_admin_widget.dart';
+import 'expo_event_list_widget.dart';
 import 'expo_population_type_list_widget.dart';
 import '../util/globals.dart';
 
@@ -92,6 +93,17 @@ class Menu extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) =>
                         ExpoPopulationTypeListWidget(context: context),
+                  ),
+                ),
+              },
+          type: ButtonWidgetType.standard),
+      const SizedBox(height: 25),
+      ButtonWidget(
+          text: translations.getTranslation("events"),
+          action: () => {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ExpoEventListWidget(context: context),
                   ),
                 ),
               },

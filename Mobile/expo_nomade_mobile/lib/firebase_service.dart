@@ -1,4 +1,5 @@
 import 'package:expo_nomade_mobile/bo/expo_axis.dart';
+import 'package:expo_nomade_mobile/bo/expo_event.dart';
 import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
 import 'package:expo_nomade_mobile/bo/exposition.dart';
 import 'package:expo_nomade_mobile/bo/museum.dart';
@@ -74,7 +75,7 @@ class FirebaseService {
     return null;
   }
 
-  /// Creates an ExpoPopulationType business object
+  /// Creates an ExpoPopulationType business object.
   static Future<ExpoPopulationType?> createPopulationType(
       ExpoPopulationType populationType) async {
     DatabaseReference ref = database.ref();
@@ -85,6 +86,53 @@ class FirebaseService {
       if (newPopTypeRef.key != null) {
         await newPopTypeRef.set({"title": populationType.title.toMap()});
         return ExpoPopulationType(newPopTypeRef.key!, populationType.title);
+      }
+    }
+    return null;
+  }
+
+  /// Creates an ExpoEvent business object.
+  static Future<ExpoEvent?> createEvent(ExpoEvent event) async {
+    DatabaseReference ref = database.ref();
+    final currentExpo = await ref.child("currentExposition").get();
+    if (currentExpo.exists) {
+      DatabaseReference newEventRef =
+          ref.child("expositions/${currentExpo.value}/event").push();
+      if (newEventRef.key != null) {
+        await newEventRef.set({
+          "title": event.title.toMap(),
+          "description": event.description.toMap(),
+          "reason": event.reason.toMap(),
+          "axe": event.axis.id,
+          "populationType": event.populationType.id,
+          "startYear": event.startYear,
+          "endYear": event.endYear,
+          "from": event.from.map((latlng) {
+            return {
+              "lat": latlng.latitude,
+              "lon": latlng.longitude,
+            };
+          }).toList(),
+          "to": event.to.map((latlng) {
+            return {
+              "lat": latlng.latitude,
+              "lon": latlng.longitude,
+            };
+          }).toList(),
+          "picture": event.picture?.toString() ?? "",
+        });
+        return ExpoEvent(
+            newEventRef.key!,
+            event.axis,
+            event.description,
+            event.endYear,
+            event.from,
+            event.picture,
+            event.populationType,
+            event.reason,
+            event.startYear,
+            event.title,
+            event.to);
       }
     }
     return null;
@@ -115,6 +163,38 @@ class FirebaseService {
     }
   }
 
+  /// Updates an ExpoEvent business object.
+  static Future<void> updateEvent(ExpoEvent event) async {
+    DatabaseReference ref = database.ref();
+    final currentExpo = await ref.child("currentExposition").get();
+    if (currentExpo.exists) {
+      await ref
+          .child("expositions/${currentExpo.value}/event/${event.id}")
+          .set({
+        "title": event.title.toMap(),
+        "description": event.description.toMap(),
+        "reason": event.reason.toMap(),
+        "axe": event.axis.id,
+        "populationType": event.populationType.id,
+        "startYear": event.startYear,
+        "endYear": event.endYear,
+        "from": event.from.map((latlng) {
+          return {
+            "lat": latlng.latitude,
+            "lon": latlng.longitude,
+          };
+        }).toList(),
+        "to": event.to.map((latlng) {
+          return {
+            "lat": latlng.latitude,
+            "lon": latlng.longitude,
+          };
+        }).toList(),
+        "picture": event.picture?.toString() ?? "",
+      });
+    }
+  }
+
   /// Deletes an ExpoAxis business object.
   static Future<void> deleteAxis(ExpoAxis axis) async {
     DatabaseReference ref = database.ref();
@@ -135,6 +215,17 @@ class FirebaseService {
       await ref
           .child(
               "expositions/${currentExpo.value}/populationTypes/${populationType.id}")
+          .remove();
+    }
+  }
+
+  /// Deletes an ExpoEvent business object.
+  static Future<void> deleteEvent(ExpoEvent event) async {
+    DatabaseReference ref = database.ref();
+    final currentExpo = await ref.child("currentExposition").get();
+    if (currentExpo.exists) {
+      await ref
+          .child("expositions/${currentExpo.value}/event/${event.id}")
           .remove();
     }
   }

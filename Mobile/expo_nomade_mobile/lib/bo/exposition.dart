@@ -37,9 +37,10 @@ class Exposition extends BaseBusinessObject {
       popTypes[popType.key] =
           ExpoPopulationType.fromJson(popType.key, popType.value);
     }
-    List<ExpoEvent> events = List<dynamic>.from(json['event'])
-        .map((e) => ExpoEvent.fromJson(e, axes, popTypes))
-        .toList();
+    List<ExpoEvent> events = [];
+    for (var event in Map<String, dynamic>.from(json['event']).entries) {
+      events.add(ExpoEvent.fromJson(event.key, event.value, axes, popTypes));
+    }
     List<ExpoObject> objects = List<dynamic>.from(json['object'])
         .map((o) => ExpoObject.fromJson(o, axes, museums))
         .toList();

@@ -65,7 +65,7 @@ class BaseBOEditorWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: Column(
+              child: ListView(
                 children: content,
               ),
             ),
