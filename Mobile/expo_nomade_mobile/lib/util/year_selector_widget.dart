@@ -1,5 +1,5 @@
+import 'package:expo_nomade_mobile/util/input_formatters.dart';
 import 'package:expo_nomade_mobile/util/underlined_container_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../app_localization.dart';
@@ -12,12 +12,13 @@ class YearSelectorWidget extends StatefulWidget {
   final bool mandatory;
 
   /// Creates a new YearSelectorWidget
-  const YearSelectorWidget(
-      {super.key,
-      required this.name,
-      required this.selectedYearChanged,
-      required this.selectedYear,
-      this.mandatory = false});
+  const YearSelectorWidget({
+    Key? key,
+    required this.name,
+    required this.selectedYearChanged,
+    required this.selectedYear,
+    this.mandatory = false,
+  }) : super(key: key);
 
   @override
   _YearSelectorWidgetState createState() => _YearSelectorWidgetState();
@@ -26,28 +27,17 @@ class YearSelectorWidget extends StatefulWidget {
 /// State class for the YearSelectorWidget.
 class _YearSelectorWidgetState extends State<YearSelectorWidget> {
   late int selectedYear = widget.selectedYear;
+  final TextEditingController _yearController = TextEditingController();
 
-  /// Shows a dialog to select a year.
-  Future<void> _selectYear(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime(selectedYear),
-      firstDate: DateTime(-1000), // TODO select a first year
-      lastDate: DateTime.now(),
-      initialDatePickerMode: DatePickerMode.year,
-    );
-    if (picked != null && picked.year != selectedYear) {
-      setState(() {
-        selectedYear = picked.year;
-        widget.selectedYearChanged(selectedYear);
-      });
-    }
+  @override
+  void initState() {
+    super.initState();
+    _yearController.text = selectedYear.toString();
   }
 
   @override
   Widget build(BuildContext context) {
     const containerMargin = 15.0;
-    const iconDim = 24.0;
     return UnderlinedContainerWidget(
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -62,12 +52,21 @@ class _YearSelectorWidgetState extends State<YearSelectorWidget> {
           ),
           Row(
             children: [
-              Text(selectedYear.toString()),
-              IconButton(
-                onPressed: () => _selectYear(context),
-                icon: const Icon(
-                  CupertinoIcons.calendar,
-                  size: iconDim,
+              Expanded(
+                child: TextFormField(
+                  controller: _yearController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: widget.name,
+                  ),
+                  onChanged: (value) {
+                    final year = int.tryParse(value);
+                    if (year != null) {
+                      selectedYear = year;
+                      widget.selectedYearChanged(selectedYear);
+                    }
+                  },
+                  inputFormatters: [IntegerInputFormatter()],
                 ),
               ),
             ],

@@ -1,9 +1,9 @@
 import 'package:expo_nomade_mobile/app_localization.dart';
+import 'package:expo_nomade_mobile/util/input_formatters.dart';
 import 'package:expo_nomade_mobile/util/underlined_container_widget.dart';
 import 'package:expo_nomade_mobile/util/validation_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'package:latlong2/latlong.dart';
 
@@ -93,8 +93,6 @@ class _LatLngSelectorWidgetState extends State<LatLngSelectorWidget> {
     final translations = AppLocalization.of(context);
     final lat = translations.getTranslation("latitude");
     final lon = translations.getTranslation("longitude");
-    final numberInputFormatter =
-        FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*$'));
     return UnderlinedContainerWidget(
       content: Column(
         children: [
@@ -119,7 +117,7 @@ class _LatLngSelectorWidgetState extends State<LatLngSelectorWidget> {
                     keyboardType:
                         const TextInputType.numberWithOptions(decimal: true),
                     decoration: InputDecoration(labelText: lat),
-                    inputFormatters: [numberInputFormatter],
+                    inputFormatters: [DecimalInputFormatter()],
                   ),
                 ),
                 const SizedBox(width: textFormFieldMargin),
@@ -133,7 +131,7 @@ class _LatLngSelectorWidgetState extends State<LatLngSelectorWidget> {
                     keyboardType:
                         const TextInputType.numberWithOptions(decimal: true),
                     decoration: InputDecoration(labelText: lon),
-                    inputFormatters: [numberInputFormatter],
+                    inputFormatters: [DecimalInputFormatter()],
                   ),
                 ),
                 if (_controllers.indexOf(pair) >= eventMinCoordinatesNb)
