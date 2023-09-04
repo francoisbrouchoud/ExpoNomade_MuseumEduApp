@@ -23,7 +23,7 @@ class ExpoPopulationTypeListWidget extends BaseBOListWidget {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => ExpoPopulationTypeEditorWidget(
-                    popTypeId: (item as ExpoPopulationType).id,
+                    populationType: (item as ExpoPopulationType),
                   ),
                 ),
               );
@@ -31,7 +31,7 @@ class ExpoPopulationTypeListWidget extends BaseBOListWidget {
             itemAddRequested: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => ExpoPopulationTypeEditorWidget(),
+                  builder: (context) => const ExpoPopulationTypeEditorWidget(),
                 ),
               );
             },

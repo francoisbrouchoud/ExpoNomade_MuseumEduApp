@@ -22,14 +22,16 @@ class ExpoAxisListWidget extends BaseBOListWidget {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => ExpoAxisEditorWidget(
-                    axisId: (item as ExpoAxis).id,
+                    axis: (item as ExpoAxis),
                   ),
                 ),
               );
             },
             itemAddRequested: () {
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => ExpoAxisEditorWidget()),
+                MaterialPageRoute(
+                  builder: (context) => const ExpoAxisEditorWidget(),
+                ),
               );
             },
             addButtonText:
