@@ -13,6 +13,7 @@ class BaseBOEditorWidget extends StatelessWidget {
   final VoidCallback itemSaveRequested;
   final VoidCallback itemDeleteRequested;
   final BaseBusinessObject? object;
+  final bool hasDependencies;
 
   /// Creates a new BaseBOEditorWidget, must be used within a business object editor.
   const BaseBOEditorWidget(
@@ -21,7 +22,8 @@ class BaseBOEditorWidget extends StatelessWidget {
       required this.content,
       required this.itemSaveRequested,
       required this.itemDeleteRequested,
-      this.object});
+      this.object,
+      this.hasDependencies = false});
 
   /// Handles the click on the delete button: shows a confirmation dialog.
   void itemDeleteClicked(BuildContext context, AppLocalization translations) {
@@ -78,8 +80,9 @@ class BaseBOEditorWidget extends StatelessWidget {
               text: translations.getTranslation("save"),
               type: ButtonWidgetType.standard,
             ),
-            if (object != null) const SizedBox(height: btnMargin),
-            if (object != null)
+            if (object != null && !hasDependencies)
+              const SizedBox(height: btnMargin),
+            if (object != null && !hasDependencies)
               ButtonWidget(
                 action: () => itemDeleteClicked(context, translations),
                 text: translations.getTranslation("delete"),

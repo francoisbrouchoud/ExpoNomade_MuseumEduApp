@@ -91,6 +91,9 @@ class _ExpoPopulationTypeEditorWidgetState
           dataProvider.forceRelaod();
           backToList(translations);
         },
+        hasDependencies: expo.events
+            .where((event) => event.populationType.id == widget.popTypeId)
+            .isNotEmpty,
       ),
     );
   }

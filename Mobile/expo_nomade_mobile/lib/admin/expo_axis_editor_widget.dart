@@ -94,6 +94,12 @@ class _ExpoAxisEditorWidgetState extends State<ExpoAxisEditorWidget> {
           dataProvider.forceRelaod();
           backToList(translations);
         },
+        hasDependencies: expo.events
+                .where((event) => event.axis.id == widget.axisId)
+                .isNotEmpty ||
+            expo.objects
+                .where((obj) => obj.axis.id == widget.axisId)
+                .isNotEmpty,
       ),
     );
   }
