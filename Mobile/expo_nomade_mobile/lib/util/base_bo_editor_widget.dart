@@ -73,8 +73,6 @@ class BaseBOEditorWidget extends StatelessWidget {
             ),
             ButtonWidget(
               action: () {
-                SimpleSnackBar.showSnackBar(
-                    context, translations.getTranslation("saved"));
                 itemSaveRequested();
               },
               text: translations.getTranslation("save"),

@@ -11,6 +11,8 @@ import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:expo_nomade_mobile/util/latlng_selector_widget.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string_editor.dart';
+import 'package:expo_nomade_mobile/util/simple_snack_bar.dart';
+import 'package:expo_nomade_mobile/util/validation_helper.dart';
 import 'package:expo_nomade_mobile/util/year_selector_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -68,6 +70,7 @@ class _ExpoEventEditorWidgetState extends State<ExpoEventEditorWidget> {
             name: translations.getTranslation("title"),
             value: widget.event != null ? widget.event!.title : null,
             valueChanged: (newVals) => newTitleVals = newVals,
+            mandatory: true,
           ),
           MultilingualStringEditorWidget(
             name: translations.getTranslation("description"),
@@ -84,6 +87,7 @@ class _ExpoEventEditorWidgetState extends State<ExpoEventEditorWidget> {
             preSel: newAxisVal,
             objects: exposition.axes.values.toList(),
             selectedItemChanged: (newVal) => newAxisVal = (newVal as ExpoAxis),
+            mandatory: true,
           ),
           BOSelectorWidget(
             name: translations.getTranslation("population_type"),
@@ -91,63 +95,77 @@ class _ExpoEventEditorWidgetState extends State<ExpoEventEditorWidget> {
             objects: exposition.populationTypes.values.toList(),
             selectedItemChanged: (newVal) =>
                 newPopTypeVal = (newVal as ExpoPopulationType),
+            mandatory: true,
           ),
           YearSelectorWidget(
             name: translations.getTranslation("start_year"),
             selectedYearChanged: (newVal) => newStartYearVal = newVal,
             selectedYear: newStartYearVal,
+            mandatory: true,
           ),
           YearSelectorWidget(
             name: translations.getTranslation("end_year"),
             selectedYear: newEndYearVal,
             selectedYearChanged: (newVal) => newEndYearVal = newVal,
+            mandatory: true,
           ),
           LatLngSelectorWidget(
             name: translations.getTranslation("coordinates_from"),
             values: newFromVals,
             valuesChanged: (newVals) => newFromVals = newVals,
+            mandatory: true,
           ),
           LatLngSelectorWidget(
             name: translations.getTranslation("coordinates_to"),
             values: newToVals,
             valuesChanged: (newVals) => newToVals = newVals,
+            mandatory: true,
           ),
         ],
         object: widget.event,
         itemSaveRequested: () async {
-          ExpoEvent event = ExpoEvent(
-              "",
-              newAxisVal,
-              MultilingualString(newDescVals),
-              newEndYearVal,
-              newFromVals,
-              newPicVal,
-              newPopTypeVal,
-              MultilingualString(newReasVals),
-              newStartYearVal,
-              MultilingualString(newTitleVals),
-              newToVals);
-          if (widget.event != null) {
-            event = widget.event!;
-            event.title = MultilingualString(newTitleVals);
-            event.description = MultilingualString(newDescVals);
-            event.reason = MultilingualString(newReasVals);
-            event.axis = newAxisVal;
-            event.populationType = newPopTypeVal;
-            event.startYear = newStartYearVal;
-            event.endYear = newEndYearVal;
-            event.from = newFromVals;
-            event.to = newToVals;
-            event.picture = newPicVal;
-            await FirebaseService.updateEvent(event);
-          } else {
-            ExpoEvent? newEvent = await FirebaseService.createEvent(event);
-            if (newEvent != null) {
-              exposition.events.add(newEvent);
+          if (!isEmptyTranslationMap(newTitleVals) &&
+              !isIncompleteLatLngListForEvent(newFromVals) &&
+              !isIncompleteLatLngListForEvent(newToVals)) {
+            ExpoEvent event = ExpoEvent(
+                "",
+                newAxisVal,
+                MultilingualString(newDescVals),
+                newEndYearVal,
+                newFromVals,
+                newPicVal,
+                newPopTypeVal,
+                MultilingualString(newReasVals),
+                newStartYearVal,
+                MultilingualString(newTitleVals),
+                newToVals);
+            if (widget.event != null) {
+              event = widget.event!;
+              event.title = MultilingualString(newTitleVals);
+              event.description = MultilingualString(newDescVals);
+              event.reason = MultilingualString(newReasVals);
+              event.axis = newAxisVal;
+              event.populationType = newPopTypeVal;
+              event.startYear = newStartYearVal;
+              event.endYear = newEndYearVal;
+              event.from = newFromVals;
+              event.to = newToVals;
+              event.picture = newPicVal;
+              await FirebaseService.updateEvent(event);
+            } else {
+              ExpoEvent? newEvent = await FirebaseService.createEvent(event);
+              if (newEvent != null) {
+                exposition.events.add(newEvent);
+              }
             }
+            dataProvider.forceRelaod();
+            SimpleSnackBar.showSnackBar(
+                context, translations.getTranslation("saved"));
+            backToList(translations);
+          } else {
+            SimpleSnackBar.showSnackBar(context,
+                translations.getTranslation("fill_required_fields_msg"));
           }
-          dataProvider.forceRelaod();
-          backToList(translations);
         },
         itemDeleteRequested: () async {
           await FirebaseService.deleteEvent(widget.event!);

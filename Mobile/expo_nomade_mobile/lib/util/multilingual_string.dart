@@ -11,7 +11,7 @@ class MultilingualString {
   /// Returns the translation in the language provided by the lang code. If no translation exists for the lang code, an empty string will be returned.
   String operator [](String langCode) {
     String val = translations[langCode] ?? "";
-    if (val.isNotEmpty && isEmpty(val)) {
+    if (val.isNotEmpty && isEmptyString(val)) {
       val = "";
     }
     return val;

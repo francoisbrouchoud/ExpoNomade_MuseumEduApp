@@ -1,5 +1,6 @@
 import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:expo_nomade_mobile/util/underlined_container_widget.dart';
+import 'package:expo_nomade_mobile/util/validation_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,13 +11,15 @@ class LatLngSelectorWidget extends StatefulWidget {
   final String name;
   final List<LatLng>? values;
   final Function(List<LatLng>) valuesChanged;
+  final bool mandatory;
 
   /// Creates a new LatLngSelectorWidget
   const LatLngSelectorWidget(
       {super.key,
       required this.name,
       required this.valuesChanged,
-      this.values});
+      this.values,
+      this.mandatory = false});
 
   @override
   _LatLngSelectorWidgetState createState() => _LatLngSelectorWidgetState();
@@ -54,6 +57,8 @@ class _LatLngSelectorWidgetState extends State<LatLngSelectorWidget> {
   void _deleteCoordinate(int idx) {
     setState(() {
       _controllers.removeAt(idx);
+      widget.valuesChanged(
+          _getCurrentValues()); // make sure the listener doesn't keep the deleted coordinates
     });
   }
 
@@ -67,8 +72,8 @@ class _LatLngSelectorWidgetState extends State<LatLngSelectorWidget> {
         TextEditingController(text: lnlg.longitude.toString())
       ]);
     }
-    if (_controllers.length < 3) {
-      for (var i = _controllers.length; i < 3; i++) {
+    if (_controllers.length < eventMinCoordinatesNb) {
+      for (var i = _controllers.length; i < eventMinCoordinatesNb; i++) {
         _controllers.add([TextEditingController(), TextEditingController()]);
       }
     }
@@ -93,7 +98,9 @@ class _LatLngSelectorWidgetState extends State<LatLngSelectorWidget> {
           const SizedBox(height: containerMargin),
           Row(
             children: [
-              Text(widget.name),
+              Text(widget.mandatory
+                  ? "${widget.name} (${translations.getTranslation("required")})"
+                  : widget.name),
             ],
           ),
           ..._controllers.map(
@@ -124,7 +131,7 @@ class _LatLngSelectorWidgetState extends State<LatLngSelectorWidget> {
                     decoration: InputDecoration(labelText: lon),
                   ),
                 ),
-                if (_controllers.indexOf(pair) >= 3)
+                if (_controllers.indexOf(pair) >= eventMinCoordinatesNb)
                   IconButton(
                       onPressed: () =>
                           _deleteCoordinate(_controllers.indexOf(pair)),

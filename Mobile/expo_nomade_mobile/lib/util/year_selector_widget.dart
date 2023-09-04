@@ -2,18 +2,22 @@ import 'package:expo_nomade_mobile/util/underlined_container_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../app_localization.dart';
+
 /// Class YearSelectorWidget is used to display a simple widget to input a year
 class YearSelectorWidget extends StatefulWidget {
   final String name;
   final Function(int) selectedYearChanged;
   final int selectedYear;
+  final bool mandatory;
 
   /// Creates a new YearSelectorWidget
   const YearSelectorWidget(
       {super.key,
       required this.name,
       required this.selectedYearChanged,
-      required this.selectedYear});
+      required this.selectedYear,
+      this.mandatory = false});
 
   @override
   _YearSelectorWidgetState createState() => _YearSelectorWidgetState();
@@ -50,7 +54,11 @@ class _YearSelectorWidgetState extends State<YearSelectorWidget> {
         children: [
           const SizedBox(height: containerMargin),
           Row(
-            children: [Text(widget.name)],
+            children: [
+              Text(widget.mandatory
+                  ? "${widget.name} (${AppLocalization.of(context).getTranslation("required")})"
+                  : widget.name),
+            ],
           ),
           Row(
             children: [

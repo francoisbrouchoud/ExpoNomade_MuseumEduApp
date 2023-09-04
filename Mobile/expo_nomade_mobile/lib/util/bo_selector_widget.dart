@@ -9,6 +9,7 @@ class BOSelectorWidget extends StatefulWidget {
   final BaseBusinessObject? preSel;
   final Function(BaseBusinessObject) selectedItemChanged;
   final String? name;
+  final bool mandatory;
 
   /// Creates a new BOSelectorWidget: the items will be listed and the preselected item will be selected if provided.
   const BOSelectorWidget(
@@ -16,7 +17,8 @@ class BOSelectorWidget extends StatefulWidget {
       required this.objects,
       required this.selectedItemChanged,
       this.preSel,
-      this.name});
+      this.name,
+      this.mandatory = false});
 
   @override
   _BOSelectorWidgetState createState() => _BOSelectorWidgetState();
@@ -42,7 +44,9 @@ class _BOSelectorWidgetState extends State<BOSelectorWidget> {
             const SizedBox(height: containerMargin),
             Row(
               children: [
-                Text(widget.name!),
+                Text(widget.mandatory
+                    ? "${widget.name!} (${AppLocalization.of(context).getTranslation("required")})"
+                    : widget.name!),
               ],
             ),
             Row(

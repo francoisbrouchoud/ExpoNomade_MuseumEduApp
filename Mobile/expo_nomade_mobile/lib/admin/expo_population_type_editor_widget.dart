@@ -1,6 +1,8 @@
 import 'dart:collection';
 
 import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
+import 'package:expo_nomade_mobile/util/simple_snack_bar.dart';
+import 'package:expo_nomade_mobile/util/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -53,6 +55,7 @@ class _ExpoPopulationTypeEditorWidgetState
           ? expo.populationTypes[widget.popTypeId!]!.title
           : null,
       valueChanged: (newVals) => newTitleVals = newVals,
+      mandatory: true,
     );
     return Material(
       child: BaseBOEditorWidget(
@@ -66,23 +69,31 @@ class _ExpoPopulationTypeEditorWidgetState
             ? expo.populationTypes[widget.popTypeId!]
             : null,
         itemSaveRequested: () async {
-          ExpoPopulationType popType =
-              ExpoPopulationType("", MultilingualString(newTitleVals));
-          if (widget.popTypeId != null) {
-            popType = expo.populationTypes[widget.popTypeId]!;
-            popType.title = MultilingualString(newTitleVals);
-          }
-          if (popType.id.isNotEmpty) {
-            await FirebaseService.updatePopulationType(popType);
-          } else {
-            ExpoPopulationType? newPopType =
-                await FirebaseService.createPopulationType(popType);
-            if (newPopType != null) {
-              expo.populationTypes.putIfAbsent(newPopType.id, () => newPopType);
+          if (!isEmptyTranslationMap(newTitleVals)) {
+            ExpoPopulationType popType =
+                ExpoPopulationType("", MultilingualString(newTitleVals));
+            if (widget.popTypeId != null) {
+              popType = expo.populationTypes[widget.popTypeId]!;
+              popType.title = MultilingualString(newTitleVals);
             }
+            if (popType.id.isNotEmpty) {
+              await FirebaseService.updatePopulationType(popType);
+            } else {
+              ExpoPopulationType? newPopType =
+                  await FirebaseService.createPopulationType(popType);
+              if (newPopType != null) {
+                expo.populationTypes
+                    .putIfAbsent(newPopType.id, () => newPopType);
+              }
+            }
+            dataProvider.forceRelaod();
+            SimpleSnackBar.showSnackBar(
+                context, translations.getTranslation("saved"));
+            backToList(translations);
+          } else {
+            SimpleSnackBar.showSnackBar(context,
+                translations.getTranslation("fill_required_fields_msg"));
           }
-          dataProvider.forceRelaod();
-          backToList(translations);
         },
         itemDeleteRequested: () async {
           await FirebaseService.deletePopulationType(

@@ -8,13 +8,15 @@ class MultilingualStringEditorWidget extends StatefulWidget {
   final String name;
   final MultilingualString? value;
   final Function(Map<String, String>) valueChanged;
+  final bool mandatory;
 
   /// Creates a new MultilingualStringEditorWidget: the name will be displayed as a title and the generated fields will be filled with the value if provided. Every change will trigget the valueChanged callback.
   const MultilingualStringEditorWidget(
       {super.key,
       required this.name,
       required this.value,
-      required this.valueChanged});
+      required this.valueChanged,
+      this.mandatory = false});
 
   @override
   _MultilingualStringEditorWidgetState createState() =>
@@ -55,7 +57,9 @@ class _MultilingualStringEditorWidgetState
           const SizedBox(height: containerMargin),
           Row(
             children: [
-              Text(widget.name),
+              Text(widget.mandatory
+                  ? "${widget.name} (${translations.getTranslation("required")})"
+                  : widget.name),
             ],
           ),
           ...AppLocalization.supportedLanguages.map(

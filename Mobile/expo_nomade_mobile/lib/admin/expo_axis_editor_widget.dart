@@ -6,6 +6,8 @@ import 'package:expo_nomade_mobile/firebase_service.dart';
 import 'package:expo_nomade_mobile/util/base_bo_editor_widget.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string_editor.dart';
+import 'package:expo_nomade_mobile/util/simple_snack_bar.dart';
+import 'package:expo_nomade_mobile/util/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -48,6 +50,7 @@ class _ExpoAxisEditorWidgetState extends State<ExpoAxisEditorWidget> {
       name: title,
       value: widget.axisId != null ? expo.axes[widget.axisId!]!.title : null,
       valueChanged: (newVals) => newTitleVals = newVals,
+      mandatory: true,
     );
     final description = translations.getTranslation("description");
     Map<String, String> newDescVals = widget.axisId != null
@@ -70,23 +73,30 @@ class _ExpoAxisEditorWidgetState extends State<ExpoAxisEditorWidget> {
         ],
         object: widget.axisId != null ? expo.axes[widget.axisId!] : null,
         itemSaveRequested: () async {
-          ExpoAxis axis = ExpoAxis("", MultilingualString(newDescVals),
-              MultilingualString(newTitleVals));
-          if (widget.axisId != null) {
-            axis = expo.axes[widget.axisId]!;
-            axis.title = MultilingualString(newTitleVals);
-            axis.description = MultilingualString(newDescVals);
-          }
-          if (axis.id.isNotEmpty) {
-            await FirebaseService.updateAxis(axis);
-          } else {
-            ExpoAxis? newAxis = await FirebaseService.createAxis(axis);
-            if (newAxis != null) {
-              expo.axes.putIfAbsent(newAxis.id, () => newAxis);
+          if (!isEmptyTranslationMap(newTitleVals)) {
+            ExpoAxis axis = ExpoAxis("", MultilingualString(newDescVals),
+                MultilingualString(newTitleVals));
+            if (widget.axisId != null) {
+              axis = expo.axes[widget.axisId]!;
+              axis.title = MultilingualString(newTitleVals);
+              axis.description = MultilingualString(newDescVals);
             }
+            if (axis.id.isNotEmpty) {
+              await FirebaseService.updateAxis(axis);
+            } else {
+              ExpoAxis? newAxis = await FirebaseService.createAxis(axis);
+              if (newAxis != null) {
+                expo.axes.putIfAbsent(newAxis.id, () => newAxis);
+              }
+            }
+            dataProvider.forceRelaod();
+            SimpleSnackBar.showSnackBar(
+                context, translations.getTranslation("saved"));
+            backToList(translations);
+          } else {
+            SimpleSnackBar.showSnackBar(context,
+                translations.getTranslation("fill_required_fields_msg"));
           }
-          dataProvider.forceRelaod();
-          backToList(translations);
         },
         itemDeleteRequested: () async {
           await FirebaseService.deleteAxis(expo.axes[widget.axisId]!);

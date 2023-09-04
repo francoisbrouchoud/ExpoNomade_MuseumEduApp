@@ -62,5 +62,7 @@
     "latitude": "Latitude",
     "longitude": "Longitude",
     "coordinates_from": "Coordonnées initiales",
-    "coordinates_to": "Coordonnées finales"
+    "coordinates_to": "Coordonnées finales",
+    "required": "obligatoire",
+    "fill_required_fields_msg": "Veuillez remplir tous les champs obligatoires!"
 }
