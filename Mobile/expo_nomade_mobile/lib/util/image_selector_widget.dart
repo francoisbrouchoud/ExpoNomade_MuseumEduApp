@@ -1,4 +1,4 @@
-import 'package:expo_nomade_mobile/util/underlined_container_widget.dart';
+import 'package:expo_nomade_mobile/util/bo_editor_block_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 
@@ -49,36 +49,26 @@ class _ImageSelectorWidgetState extends State<ImageSelectorWidget> {
 
   @override
   Widget build(BuildContext context) {
-    const containerMargin = 15.0;
-    const iconDim = 24.0;
-    return UnderlinedContainerWidget(
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const SizedBox(height: containerMargin),
-          Row(
-            children: [
-              Text(widget.name),
-            ],
-          ),
-          Row(
-            children: [
-              if (url.isNotEmpty)
-                SizedBox(
-                  child: Image.network(url),
-                ),
-              IconButton(
-                onPressed: _pickImageFile,
-                icon: const Icon(
-                  Icons.upload_file,
-                  size: iconDim,
-                ),
+    const iconDim = 24.0; // TODO move this into globals
+    return BOEditorBlockWidget(
+      name: widget.name,
+      children: [
+        Row(
+          children: [
+            if (url.isNotEmpty)
+              SizedBox(
+                child: Image.network(url),
               ),
-            ],
-          ),
-          const SizedBox(height: containerMargin),
-        ],
-      ),
+            IconButton(
+              onPressed: _pickImageFile,
+              icon: const Icon(
+                Icons.upload_file,
+                size: iconDim,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
