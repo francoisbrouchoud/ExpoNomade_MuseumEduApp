@@ -1,5 +1,4 @@
 import 'dart:collection';
-import 'dart:ui';
 
 import 'package:expo_nomade_mobile/bo/expo_axis.dart';
 import 'package:expo_nomade_mobile/bo/museum.dart';
@@ -16,7 +15,7 @@ class ExpoObject extends BaseBusinessObject {
   MultilingualString material;
   Museum museum;
   MultilingualString others;
-  Picture? picture;
+  String pictureURL;
   MultilingualString position;
   MultilingualString title;
 
@@ -29,7 +28,7 @@ class ExpoObject extends BaseBusinessObject {
       this.material,
       this.museum,
       this.others,
-      this.picture,
+      this.pictureURL,
       this.position,
       this.title);
 
@@ -55,9 +54,9 @@ class ExpoObject extends BaseBusinessObject {
         MultilingualString(Map<String, String>.from(json['title']));
     MultilingualString position =
         MultilingualString(Map<String, String>.from(json['position']));
-    Picture? picture; // TODO picture
+    String pictureURL = json['picture'] as String;
     return ExpoObject(axis, coordinates, description, dimension, material,
-        museum, others, picture, position, title);
+        museum, others, pictureURL, position, title);
   }
 
   @override

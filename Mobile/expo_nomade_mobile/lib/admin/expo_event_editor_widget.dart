@@ -1,13 +1,14 @@
 import 'dart:collection';
-import 'dart:ui';
 
 import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:expo_nomade_mobile/bo/expo_axis.dart';
 import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
+import 'package:expo_nomade_mobile/bo/exposition.dart';
 import 'package:expo_nomade_mobile/firebase_service.dart';
 import 'package:expo_nomade_mobile/util/base_bo_editor_widget.dart';
 import 'package:expo_nomade_mobile/util/bo_selector_widget.dart';
 import 'package:expo_nomade_mobile/util/globals.dart';
+import 'package:expo_nomade_mobile/util/image_selector_widget.dart';
 import 'package:expo_nomade_mobile/util/latlng_selector_widget.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string_editor.dart';
@@ -39,7 +40,7 @@ class _ExpoEventEditorWidgetState extends State<ExpoEventEditorWidget> {
   }
 
   /// Navigates back to the list view.
-  void backToList(AppLocalization translations) {
+  void backToList() {
     Navigator.of(context).pop();
   }
 
@@ -47,19 +48,19 @@ class _ExpoEventEditorWidgetState extends State<ExpoEventEditorWidget> {
   Widget build(BuildContext context) {
     final translations = AppLocalization.of(context);
     final dataProvider = Provider.of<DataNotifier>(context);
-    final exposition = dataProvider.exposition;
+    final Exposition expo = dataProvider.exposition;
     Map<String, String> newTitleVals = widget.event?.title.toMap() ?? HashMap();
     Map<String, String> newDescVals =
         widget.event?.description.toMap() ?? HashMap();
     Map<String, String> newReasVals = widget.event?.reason.toMap() ?? HashMap();
-    ExpoAxis newAxisVal = widget.event?.axis ?? exposition.axes.values.first;
+    ExpoAxis newAxisVal = widget.event?.axis ?? expo.axes.values.first;
     ExpoPopulationType newPopTypeVal =
-        widget.event?.populationType ?? exposition.populationTypes.values.first;
+        widget.event?.populationType ?? expo.populationTypes.values.first;
     int newStartYearVal = widget.event?.startYear ?? DateTime.now().year;
     int newEndYearVal = widget.event?.endYear ?? DateTime.now().year;
     List<LatLng> newFromVals = widget.event?.from ?? [];
     List<LatLng> newToVals = widget.event?.to ?? [];
-    Picture? newPicVal = null;
+    String newPicURLVal = widget.event?.pictureURL ?? "";
     return Material(
       child: BaseBOEditorWidget(
         title: widget.event != null
@@ -82,17 +83,22 @@ class _ExpoEventEditorWidgetState extends State<ExpoEventEditorWidget> {
             value: widget.event != null ? widget.event!.reason : null,
             valueChanged: (newVals) => newReasVals = newVals,
           ),
+          ImageSelectorWidget(
+            name: translations.getTranslation("picture"),
+            urlChanged: (newVal) => newPicURLVal = newVal,
+            url: newPicURLVal,
+          ),
           BOSelectorWidget(
             name: translations.getTranslation("axe"),
             preSel: newAxisVal,
-            objects: exposition.axes.values.toList(),
+            objects: expo.axes.values.toList(),
             selectedItemChanged: (newVal) => newAxisVal = (newVal as ExpoAxis),
             mandatory: true,
           ),
           BOSelectorWidget(
             name: translations.getTranslation("population_type"),
             preSel: newPopTypeVal,
-            objects: exposition.populationTypes.values.toList(),
+            objects: expo.populationTypes.values.toList(),
             selectedItemChanged: (newVal) =>
                 newPopTypeVal = (newVal as ExpoPopulationType),
             mandatory: true,
@@ -133,7 +139,7 @@ class _ExpoEventEditorWidgetState extends State<ExpoEventEditorWidget> {
                 MultilingualString(newDescVals),
                 newEndYearVal,
                 newFromVals,
-                newPicVal,
+                newPicURLVal,
                 newPopTypeVal,
                 MultilingualString(newReasVals),
                 newStartYearVal,
@@ -150,18 +156,18 @@ class _ExpoEventEditorWidgetState extends State<ExpoEventEditorWidget> {
               event.endYear = newEndYearVal;
               event.from = newFromVals;
               event.to = newToVals;
-              event.picture = newPicVal;
+              event.pictureURL = newPicURLVal;
               await FirebaseService.updateEvent(event);
             } else {
               ExpoEvent? newEvent = await FirebaseService.createEvent(event);
               if (newEvent != null) {
-                exposition.events.add(newEvent);
+                expo.events.add(newEvent);
               }
             }
             dataProvider.forceRelaod();
             SimpleSnackBar.showSnackBar(
                 context, translations.getTranslation("saved"));
-            backToList(translations);
+            backToList();
           } else {
             SimpleSnackBar.showSnackBar(context,
                 translations.getTranslation("fill_required_fields_msg"));
@@ -169,9 +175,9 @@ class _ExpoEventEditorWidgetState extends State<ExpoEventEditorWidget> {
         },
         itemDeleteRequested: () async {
           await FirebaseService.deleteEvent(widget.event!);
-          exposition.events.remove(widget.event!);
+          expo.events.remove(widget.event!);
           dataProvider.forceRelaod();
-          backToList(translations);
+          backToList();
         },
       ),
     );

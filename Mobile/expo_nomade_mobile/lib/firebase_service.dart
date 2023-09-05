@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:expo_nomade_mobile/bo/expo_axis.dart';
 import 'package:expo_nomade_mobile/bo/expo_event.dart';
 import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
@@ -5,6 +7,7 @@ import 'package:expo_nomade_mobile/bo/exposition.dart';
 import 'package:expo_nomade_mobile/bo/museum.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 // documentation : https://firebase.flutter.dev/docs/database/read-and-write
 class FirebaseService {
@@ -37,6 +40,22 @@ class FirebaseService {
       }
     }
     return null;
+  }
+
+  /// Uploads an image to firebase storage. Returns the download URL.
+  static Future<String> uploadImage(
+      Uint8List imageBytes, String imageName) async {
+    final DateTime now = DateTime.now();
+    final String formattedDate =
+        "${now.year}${now.month.toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}_${now.hour.toString().padLeft(2, '0')}${now.minute.toString().padLeft(2, '0')}${now.second.toString().padLeft(2, '0')}${now.millisecond.toString().padLeft(3, '0')}";
+    final String type = imageName.split('.').last;
+    final String filename = "$formattedDate.$type";
+    final Reference imageRef =
+        FirebaseStorage.instance.ref().child("images").child(filename);
+    UploadTask task = imageRef.putData(
+        imageBytes, SettableMetadata(contentType: 'image/$type'));
+    await task.whenComplete(() => null);
+    return await imageRef.getDownloadURL();
   }
 
   static Future<void> submitScore(String email, double score) async {
@@ -119,7 +138,7 @@ class FirebaseService {
               "lon": latlng.longitude,
             };
           }).toList(),
-          "picture": event.picture?.toString() ?? "",
+          "picture": event.pictureURL,
         });
         return ExpoEvent(
             newEventRef.key!,
@@ -127,7 +146,7 @@ class FirebaseService {
             event.description,
             event.endYear,
             event.from,
-            event.picture,
+            event.pictureURL,
             event.populationType,
             event.reason,
             event.startYear,
@@ -190,7 +209,7 @@ class FirebaseService {
             "lon": latlng.longitude,
           };
         }).toList(),
-        "picture": event.picture?.toString() ?? "",
+        "picture": event.pictureURL,
       });
     }
   }
