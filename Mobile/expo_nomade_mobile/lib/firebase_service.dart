@@ -52,7 +52,7 @@ class FirebaseService {
 
       await ref
           .child(
-              'expositions/${currentExpo.value}/quiz/participation/$formattedDate')
+              'expositions/${currentExpo.value}/quizParticipations/$formattedDate')
           .set({'email': email, 'score': score});
     }
   }
