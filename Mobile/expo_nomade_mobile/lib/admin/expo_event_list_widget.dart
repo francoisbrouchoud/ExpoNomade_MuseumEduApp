@@ -13,9 +13,10 @@ class ExpoEventListWidget extends BaseBOListWidget {
   ExpoEventListWidget({super.key, required BuildContext context})
       : super(
             title: AppLocalization.of(context).getTranslation("events"),
-            listableItems: Provider.of<DataNotifier>(context, listen: true)
-                .exposition
-                .events,
+            listableItems:
+                Provider.of<ExpositionNotifier>(context, listen: true)
+                    .exposition
+                    .events,
             itemTap: (item) {
               Navigator.of(context).push(
                 MaterialPageRoute(

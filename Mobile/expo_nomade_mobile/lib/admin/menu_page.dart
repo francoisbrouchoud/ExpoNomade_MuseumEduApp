@@ -58,7 +58,7 @@ class SelectExpo extends StatelessWidget {
 
   /// Handles the click event on any expo button
   setCurrentExpo(String expoId, BuildContext context) async {
-    final dataProvider = Provider.of<DataNotifier>(context);
+    final dataProvider = Provider.of<ExpositionNotifier>(context);
     var expo = await FirebaseService.getCurrentExposition();
     dataProvider.setExposition(expo!);
   }
@@ -124,10 +124,10 @@ class Menu extends StatelessWidget {
       ButtonWidget(
           text: "logout",
           action: () {
-            final dataProvider =
-                Provider.of<DataNotifier>(context, listen: true);
+            final loginProvider =
+                Provider.of<LoginNotifier>(context, listen: false);
             FirebaseAuth.instance.signOut();
-            dataProvider.setIsLogin(true);
+            loginProvider.setIsLogin(false);
           },
           type: ButtonWidgetType.standard)
     ]);

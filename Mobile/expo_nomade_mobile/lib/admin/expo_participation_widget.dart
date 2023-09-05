@@ -14,10 +14,11 @@ class ExpoParticipationTypeListWidget extends BaseBOListWidget {
   ExpoParticipationTypeListWidget({super.key, required BuildContext context})
       : super(
             title: AppLocalization.of(context).getTranslation("quiz_result"),
-            listableItems: Provider.of<DataNotifier>(context, listen: true)
-                .exposition
-                .participations
-                .toList(),
+            listableItems:
+                Provider.of<ExpositionNotifier>(context, listen: true)
+                    .exposition
+                    .participations
+                    .toList(),
             itemTap: (item) {
               Navigator.of(context).push(
                 MaterialPageRoute(

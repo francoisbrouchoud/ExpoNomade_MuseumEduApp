@@ -1,12 +1,10 @@
 import 'package:expo_nomade_mobile/bo/exposition.dart';
 import 'package:flutter/material.dart';
 
-class DataNotifier extends ChangeNotifier {
+class ExpositionNotifier extends ChangeNotifier {
   Exposition? _exposition;
-  bool _isLogin = false;
 
   Exposition get exposition => _exposition!;
-  bool get isLogin => _isLogin;
 
   /// Updates the current locale and notifies the listeners
   void setExposition(Exposition expo) {
@@ -15,15 +13,21 @@ class DataNotifier extends ChangeNotifier {
     }
   }
 
+  void forceRelaod() {
+    notifyListeners();
+  }
+}
+
+class LoginNotifier extends ChangeNotifier {
+  bool _isLogin = false;
+
+  bool get isLogin => _isLogin;
+
   void setIsLogin(bool isLogin) {
     if (_isLogin != isLogin) {
       _isLogin = isLogin;
       notifyListeners();
     }
-  }
-
-  void forceRelaod() {
-    notifyListeners();
   }
 }
 

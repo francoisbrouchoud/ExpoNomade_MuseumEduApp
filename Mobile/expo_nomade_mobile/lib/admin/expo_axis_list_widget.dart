@@ -13,11 +13,12 @@ class ExpoAxisListWidget extends BaseBOListWidget {
   ExpoAxisListWidget({super.key, required BuildContext context})
       : super(
             title: AppLocalization.of(context).getTranslation("axis"),
-            listableItems: Provider.of<DataNotifier>(context, listen: true)
-                .exposition
-                .axes
-                .values
-                .toList(),
+            listableItems:
+                Provider.of<ExpositionNotifier>(context, listen: true)
+                    .exposition
+                    .axes
+                    .values
+                    .toList(),
             itemTap: (item) {
               Navigator.of(context).push(
                 MaterialPageRoute(
