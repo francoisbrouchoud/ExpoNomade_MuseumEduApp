@@ -65,5 +65,10 @@
     "coordinates_to": "Finale Koordinaten",
     "required": "obligatorisch",
     "fill_required_fields_msg": "Bitte füllen Sie alle Pflichtfelder aus!",
-    "picture": "Bild"
+    "picture": "Bild",
+    "expo": "Ausstellung",
+    "expo_add": "Ausstellung hinzufügen",
+    "expo_edit": "Änderung der Ausstellung",
+    "expo_creation": "Hinzufügen einer neuen Ausstellung",
+    "name":"Name"
 }

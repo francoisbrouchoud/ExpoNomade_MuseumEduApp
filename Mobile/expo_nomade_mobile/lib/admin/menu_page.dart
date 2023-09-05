@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import '../firebase_service.dart';
 import '../util/container_admin_widget.dart';
+import 'exp_list_widget.dart';
 import 'expo_event_list_widget.dart';
 import 'expo_population_type_list_widget.dart';
 import '../util/globals.dart';
@@ -20,27 +21,36 @@ class MenuPage extends StatefulWidget {
 }
 
 class _MenuPageState extends State<MenuPage> {
+  Future<bool> _onWillPop(BuildContext context) async {
+    final loginProvider = Provider.of<LoginNotifier>(context, listen: false);
+    FirebaseAuth.instance.signOut();
+    loginProvider.setIsLogin(false);
+    return true;
+  }
+
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final translations = AppLocalization.of(context);
-    return ContainerAdminWidget(
-        title: translations.getTranslation("admin"),
-        body: Padding(
-          padding: const EdgeInsets.only(left: 40, right: 40),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: <Widget>[
-                SelectExpo(),
-                const SizedBox(height: 25),
-                Menu(refresh: () {
-                  setState(() {});
-                })
-              ],
-            ),
-          ),
-        ));
+    return WillPopScope(
+        onWillPop: () => _onWillPop(context),
+        child: ContainerAdminWidget(
+            title: translations.getTranslation("admin"),
+            body: Padding(
+              padding: const EdgeInsets.only(left: 40, right: 40),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
+                    SelectExpo(),
+                    const SizedBox(height: 25),
+                    Menu(refresh: () {
+                      setState(() {});
+                    })
+                  ],
+                ),
+              ),
+            )));
   }
 }
 
@@ -116,6 +126,17 @@ class Menu extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => ExpoEventListWidget(context: context),
+                  ),
+                ),
+              },
+          type: ButtonWidgetType.standard),
+      const SizedBox(height: 25),
+      ButtonWidget(
+          text: translations.getTranslation("expo"),
+          action: () => {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ExpoListWidget(context: context),
                   ),
                 ),
               },

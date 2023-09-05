@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:expo_nomade_mobile/bo/expo_axis.dart';
 import 'package:expo_nomade_mobile/bo/expo_event.dart';
+import 'package:expo_nomade_mobile/bo/expo_name.dart';
 import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
 import 'package:expo_nomade_mobile/bo/exposition.dart';
 import 'package:expo_nomade_mobile/bo/museum.dart';
@@ -24,6 +25,17 @@ class FirebaseService {
     if (mus.exists) {
       return Map.from(mus.value as Map)
           .map((key, value) => MapEntry(key, Museum.fromJson(value)));
+    }
+    return null;
+  }
+
+  /// Gets the list of all museums.
+  static Future<Map<String, ExpoName>?> getAllExpoNames() async {
+    DatabaseReference ref = database.ref();
+    final expo = await ref.child("expositions").get();
+    if (expo.exists) {
+      return Map.from(expo.value as Map)
+          .map((key, value) => MapEntry(key, ExpoName.fromJson(key, value)));
     }
     return null;
   }
@@ -156,6 +168,19 @@ class FirebaseService {
     return null;
   }
 
+  /// Creates an ExpoEvent business object.
+  static Future<ExpoName?> createExposition(ExpoName expo) async {
+    DatabaseReference ref = database.ref();
+    DatabaseReference newEventRef = ref.child("expositions").push();
+    if (newEventRef.key != null) {
+      await newEventRef.set({
+        "name": expo.name.toMap(),
+      });
+      return ExpoName(newEventRef.key!, expo.name);
+    }
+    return null;
+  }
+
   /// Updates an ExpoAxis business object.
   static Future<void> updateAxis(ExpoAxis axis) async {
     DatabaseReference ref = database.ref();
@@ -213,6 +238,12 @@ class FirebaseService {
     }
   }
 
+  /// Updates an ExpoEvent business object.
+  static Future<void> updateExposition(ExpoName expo) async {
+    DatabaseReference ref = database.ref();
+    await ref.child("expositions/${expo.id}").set({"name": expo.name.toMap()});
+  }
+
   /// Deletes an ExpoAxis business object.
   static Future<void> deleteAxis(ExpoAxis axis) async {
     DatabaseReference ref = database.ref();
@@ -246,5 +277,11 @@ class FirebaseService {
           .child("expositions/${currentExpo.value}/event/${event.id}")
           .remove();
     }
+  }
+
+  /// Deletes an Exposition business object.
+  static Future<void> deleteExposition(ExpoName expo) async {
+    DatabaseReference ref = database.ref();
+    await ref.child("expositions/${expo.id}").remove();
   }
 }

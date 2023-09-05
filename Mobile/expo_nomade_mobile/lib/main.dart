@@ -1,11 +1,11 @@
 import 'package:expo_nomade_mobile/admin/expo_axis_list_widget.dart';
 import 'package:expo_nomade_mobile/admin/expo_population_type_list_widget.dart';
-import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
 import 'package:expo_nomade_mobile/quiz/quiz_page.dart';
 import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'admin/exp_list_widget.dart';
 import 'admin/menu_page.dart';
 import 'bo/exposition.dart';
 import 'firebase_options.dart';
@@ -94,7 +94,9 @@ class App extends StatelessWidget {
                       '/admin/axis': (context) =>
                           ExpoAxisListWidget(context: context),
                       '/admin/populationType': (context) =>
-                          ExpoPopulationTypeListWidget(context: context)
+                          ExpoPopulationTypeListWidget(context: context),
+                      '/admin/expositions': (context) =>
+                          ExpoListWidget(context: context)
                     },
                   );
                 }
