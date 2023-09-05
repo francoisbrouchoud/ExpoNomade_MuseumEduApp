@@ -58,7 +58,7 @@ class _ExpoEditorWidgetState extends State<ExpoEditorWidget> {
           ],
           object: widget.expo,
           itemSaveRequested: () async {
-            if (!isEmptyTranslationMap(newTitleVals)) {
+            if (!ValidationHelper.isEmptyTranslationMap(newTitleVals)) {
               ExpoName expoName =
                   ExpoName("", MultilingualString(newTitleVals));
               if (widget.expo != null) {
