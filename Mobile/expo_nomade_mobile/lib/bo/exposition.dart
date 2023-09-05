@@ -4,6 +4,7 @@ import 'package:expo_nomade_mobile/bo/expo_axis.dart';
 import 'package:expo_nomade_mobile/bo/expo_event.dart';
 import 'package:expo_nomade_mobile/bo/expo_object.dart';
 import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
+import 'package:expo_nomade_mobile/bo/paticipation.dart';
 import 'package:expo_nomade_mobile/util/base_business_object.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string.dart';
 
@@ -18,10 +19,11 @@ class Exposition extends BaseBusinessObject {
   List<ExpoEvent> events;
   List<ExpoObject> objects;
   Quiz quiz;
+  List<Participation> participations;
 
   /// Exposition complete constructor.
   Exposition(this.name, this.axes, this.events, this.objects,
-      this.populationTypes, this.quiz);
+      this.populationTypes, this.quiz, this.participations);
 
   /// Convert json into the business object Exposition.
   factory Exposition.fromJson(dynamic json, Map<String, Museum> museums) {
@@ -45,7 +47,17 @@ class Exposition extends BaseBusinessObject {
         .map((o) => ExpoObject.fromJson(o, axes, museums))
         .toList();
     Quiz quiz = Quiz.fromJson(json['quiz']);
-    return Exposition(name, axes, events, objects, popTypes, quiz);
+
+    List<Participation> participations = [];
+
+    for (var participation
+        in Map<String, dynamic>.from(json['quizParticipations']).entries) {
+      participations
+          .add(Participation.fromJson(participation.key, participation.value));
+    }
+
+    return Exposition(
+        name, axes, events, objects, popTypes, quiz, participations);
   }
 
   @override

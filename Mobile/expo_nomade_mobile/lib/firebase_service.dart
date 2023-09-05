@@ -65,7 +65,7 @@ class FirebaseService {
     if (currentExpo.exists) {
       await ref
           .child(
-              'expositions/${currentExpo.value}/quiz/participation/${GlobalConstants.getNowFormattedForDB()}')
+              'expositions/${currentExpo.value}/quizParticipations/${GlobalConstants.getNowFormattedForDB()}')
           .set({'email': email, 'score': score});
     }
   }
