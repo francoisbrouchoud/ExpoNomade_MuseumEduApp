@@ -36,9 +36,9 @@ class _ImageSelectorWidgetState extends State<ImageSelectorWidget> {
     );
     if (result != null && result.files.isNotEmpty) {
       final PlatformFile file = result.files.single;
-      if (file.bytes != null) {
+      if (file.bytes != null && file.extension != null) {
         String imageUrl =
-            await FirebaseService.uploadImage(file.bytes!, file.name);
+            await FirebaseService.uploadImage(file.bytes!, file.extension!);
         setState(() {
           url = imageUrl;
           widget.urlChanged(imageUrl);

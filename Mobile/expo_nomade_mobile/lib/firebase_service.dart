@@ -44,16 +44,15 @@ class FirebaseService {
 
   /// Uploads an image to firebase storage. Returns the download URL.
   static Future<String> uploadImage(
-      Uint8List imageBytes, String imageName) async {
+      Uint8List imageBytes, String imageExtension) async {
     final DateTime now = DateTime.now();
     final String formattedDate =
         "${now.year}${now.month.toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}_${now.hour.toString().padLeft(2, '0')}${now.minute.toString().padLeft(2, '0')}${now.second.toString().padLeft(2, '0')}${now.millisecond.toString().padLeft(3, '0')}";
-    final String type = imageName.split('.').last;
-    final String filename = "$formattedDate.$type";
+    final String filename = "$formattedDate.$imageExtension";
     final Reference imageRef =
         FirebaseStorage.instance.ref().child("images").child(filename);
     UploadTask task = imageRef.putData(
-        imageBytes, SettableMetadata(contentType: 'image/$type'));
+        imageBytes, SettableMetadata(contentType: 'image/$imageExtension'));
     await task.whenComplete(() => null);
     return await imageRef.getDownloadURL();
   }
