@@ -38,11 +38,12 @@ class App extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => LocaleNotifier()),
-        ChangeNotifierProvider(create: (context) => DataNotifier())
+        ChangeNotifierProvider(create: (context) => ExpositionNotifier()),
+        ChangeNotifierProvider(create: (context) => LoginNotifier()),
       ],
       builder: (context, child) {
         final appLocaleProvider = Provider.of<LocaleNotifier>(context);
-        final dataProvider = Provider.of<DataNotifier>(context);
+        final expoProvider = Provider.of<ExpositionNotifier>(context);
         return FutureBuilder<Exposition?>(
             future: FirebaseService.getCurrentExposition(),
             builder: (context, AsyncSnapshot<Exposition?> snapshot) {
@@ -52,7 +53,7 @@ class App extends StatelessWidget {
                   return const Text("no_data");
                 } else {
                   final Exposition expo = snapshot.data!;
-                  dataProvider.setExposition(expo);
+                  expoProvider.setExposition(expo);
                   return MaterialApp(
                     locale: appLocaleProvider.locale,
                     localizationsDelegates:
@@ -86,9 +87,9 @@ class App extends StatelessWidget {
                     home: const HomePage(),
                     routes: {
                       '/map': (context) =>
-                          MapPage(exposition: dataProvider.exposition),
+                          MapPage(exposition: expoProvider.exposition),
                       '/quiz': (context) => QuizPage(
-                          questions: dataProvider.exposition.quiz.questions),
+                          questions: expoProvider.exposition.quiz.questions),
                       '/admin': (context) => const MenuPage(),
                       '/admin/axis': (context) =>
                           ExpoAxisListWidget(context: context),

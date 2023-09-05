@@ -6,31 +6,35 @@ import 'package:provider/provider.dart';
 
 import '../admin/login_page.dart';
 
-class ContainerAdminWidget extends StatelessWidget {
+class ContainerAdminWidget extends StatefulWidget {
   const ContainerAdminWidget(
-      {super.key,
+      {Key? key,
       required this.title,
       required this.body,
-      this.fixedContainerHeight = false});
-
+      this.fixedContainerHeight = false})
+      : super(key: key); // Correction du nom du paramètre
   final String title;
   final Widget body;
   final bool fixedContainerHeight;
 
   @override
+  State<ContainerAdminWidget> createState() => _ContainerAdminWidgetState();
+}
+
+class _ContainerAdminWidgetState extends State<ContainerAdminWidget> {
+  @override
   Widget build(BuildContext context) {
-    final dataProvider = Provider.of<DataNotifier>(context, listen: true);
+    final dataProvider = Provider.of<LoginNotifier>(context, listen: true);
     if (!dataProvider.isLogin) {
       if (FirebaseAuth.instance.currentUser == null) {
         return const LoginPage();
       }
     }
-    dataProvider.setIsLogin(true);
     return ContainerWidget(
-      title: title,
+      title: widget.title,
       isAdmin: true,
-      body: body,
-      fixedContainerHeight: fixedContainerHeight,
+      body: widget.body,
+      fixedContainerHeight: widget.fixedContainerHeight,
     );
   }
 }

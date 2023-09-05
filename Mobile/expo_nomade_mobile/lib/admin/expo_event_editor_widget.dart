@@ -47,7 +47,7 @@ class _ExpoEventEditorWidgetState extends State<ExpoEventEditorWidget> {
   @override
   Widget build(BuildContext context) {
     final translations = AppLocalization.of(context);
-    final dataProvider = Provider.of<DataNotifier>(context);
+    final dataProvider = Provider.of<ExpositionNotifier>(context);
     final Exposition expo = dataProvider.exposition;
     Map<String, String> newTitleVals = widget.event?.title.toMap() ?? HashMap();
     Map<String, String> newDescVals =

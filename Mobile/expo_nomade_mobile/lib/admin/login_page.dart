@@ -15,7 +15,7 @@ class LoginPage extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
     TextEditingController mailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
-    final dataProvider = Provider.of<DataNotifier>(context, listen: true);
+    final dataProvider = Provider.of<LoginNotifier>(context, listen: true);
 
     final translations = AppLocalization.of(context);
     return ContainerWidget(

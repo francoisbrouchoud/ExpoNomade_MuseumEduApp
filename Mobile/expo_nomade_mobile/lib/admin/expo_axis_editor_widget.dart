@@ -40,7 +40,7 @@ class _ExpoAxisEditorWidgetState extends State<ExpoAxisEditorWidget> {
   @override
   Widget build(BuildContext context) {
     final translations = AppLocalization.of(context);
-    final dataProvider = Provider.of<DataNotifier>(context);
+    final dataProvider = Provider.of<ExpositionNotifier>(context);
     final Exposition expo = dataProvider.exposition;
     Map<String, String> newTitleVals = widget.axis?.title.toMap() ?? HashMap();
     Map<String, String> newDescVals =
