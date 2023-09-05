@@ -1,4 +1,5 @@
 import 'package:expo_nomade_mobile/app_localization.dart';
+import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:expo_nomade_mobile/util/underlined_container_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -17,8 +18,8 @@ class BOEditorBlockWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const containerMargin = 15.0; // TODO move this into globals
-    const blockMargin = SizedBox(height: containerMargin);
+    const blockMargin =
+        SizedBox(height: GlobalConstants.blockTopBottomMarginHeight);
     return UnderlinedContainerWidget(
       content: Column(
         mainAxisSize: MainAxisSize.min,

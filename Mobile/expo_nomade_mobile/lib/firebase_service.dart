@@ -6,11 +6,14 @@ import 'package:expo_nomade_mobile/bo/expo_name.dart';
 import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
 import 'package:expo_nomade_mobile/bo/exposition.dart';
 import 'package:expo_nomade_mobile/bo/museum.dart';
+import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-// documentation : https://firebase.flutter.dev/docs/database/read-and-write
+// TODO are we going to keep this here??
+// -> documentation : https://firebase.flutter.dev/docs/database/read-and-write
+/// Class FirebaseService provides every method needed by the application to communicate with Firebase.
 class FirebaseService {
   static final firebaseApp = Firebase.app();
   static FirebaseDatabase database = FirebaseDatabase.instanceFor(
@@ -57,10 +60,8 @@ class FirebaseService {
   /// Uploads an image to firebase storage. Returns the download URL.
   static Future<String> uploadImage(
       Uint8List imageBytes, String imageExtension) async {
-    final DateTime now = DateTime.now();
-    final String formattedDate =
-        "${now.year}${now.month.toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}_${now.hour.toString().padLeft(2, '0')}${now.minute.toString().padLeft(2, '0')}${now.second.toString().padLeft(2, '0')}${now.millisecond.toString().padLeft(3, '0')}";
-    final String filename = "$formattedDate.$imageExtension";
+    final String filename =
+        "${GlobalConstants.getNowFormattedForDB()}.$imageExtension";
     final Reference imageRef =
         FirebaseStorage.instance.ref().child("images").child(filename);
     UploadTask task = imageRef.putData(
@@ -69,20 +70,14 @@ class FirebaseService {
     return await imageRef.getDownloadURL();
   }
 
+  /// Adds a new score entry in the database.
   static Future<void> submitScore(String email, double score) async {
     DatabaseReference ref = database.ref();
     final currentExpo = await ref.child("currentExposition").get();
     if (currentExpo.exists) {
-      // get timestamp
-      DateTime now = DateTime.now();
-
-      // format timestamp
-      String formattedDate =
-          "${now.year}${now.month.toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}_${now.hour.toString().padLeft(2, '0')}${now.minute.toString().padLeft(2, '0')}${now.second.toString().padLeft(2, '0')}${now.millisecond.toString().padLeft(3, '0')}";
-
       await ref
           .child(
-              'expositions/${currentExpo.value}/quizParticipations/$formattedDate')
+              'expositions/${currentExpo.value}/quizParticipations/${GlobalConstants.getNowFormattedForDB()}')
           .set({'email': email, 'score': score});
     }
   }

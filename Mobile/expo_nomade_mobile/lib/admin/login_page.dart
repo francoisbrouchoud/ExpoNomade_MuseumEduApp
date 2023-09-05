@@ -36,7 +36,7 @@ class LoginPage extends StatelessWidget {
                         if (value == null || value.isEmpty) {
                           return translations.getTranslation("please_not_null");
                         }
-                        if (!isValidEmail(value)) {
+                        if (!ValidationHelper.isValidEmail(value)) {
                           return translations
                               .getTranslation("please_email_valid");
                         }

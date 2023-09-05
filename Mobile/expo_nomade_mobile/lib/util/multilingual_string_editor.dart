@@ -1,5 +1,6 @@
 import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:expo_nomade_mobile/util/bo_editor_block_widget.dart';
+import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string.dart';
 import 'package:flutter/material.dart';
 
@@ -48,7 +49,6 @@ class _MultilingualStringEditorWidgetState
 
   @override
   Widget build(BuildContext context) {
-    const labelMargin = 20.0; // TODO move this into globals
     final translations = AppLocalization.of(context);
     return BOEditorBlockWidget(
       name: widget.name,
@@ -58,7 +58,8 @@ class _MultilingualStringEditorWidgetState
           (lang) => Row(
             children: [
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: labelMargin),
+                margin: const EdgeInsets.symmetric(
+                    horizontal: GlobalConstants.multiTFFLabelMargin),
                 child: Text(lang.toUpperCase()),
               ),
               Expanded(

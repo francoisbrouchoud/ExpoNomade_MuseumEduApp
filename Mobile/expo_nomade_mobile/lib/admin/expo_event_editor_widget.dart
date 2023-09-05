@@ -130,9 +130,9 @@ class _ExpoEventEditorWidgetState extends State<ExpoEventEditorWidget> {
         ],
         object: widget.event,
         itemSaveRequested: () async {
-          if (!isEmptyTranslationMap(newTitleVals) &&
-              !isIncompleteLatLngListForEvent(newFromVals) &&
-              !isIncompleteLatLngListForEvent(newToVals)) {
+          if (!ValidationHelper.isEmptyTranslationMap(newTitleVals) &&
+              !ValidationHelper.isIncompleteLatLngListForEvent(newFromVals) &&
+              !ValidationHelper.isIncompleteLatLngListForEvent(newToVals)) {
             ExpoEvent event = ExpoEvent(
                 "",
                 newAxisVal,

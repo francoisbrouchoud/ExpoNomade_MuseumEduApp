@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 
+/// Class IntegerInputFormatter is a formatter for TextInputFields that authorizes only integers (positive and negative) to be input.
 class IntegerInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
@@ -12,6 +13,7 @@ class IntegerInputFormatter extends TextInputFormatter {
   }
 }
 
+/// Class DecimalInputFormatter is a formatter for TextInputFields that authorizes only positive decimals to be input.
 class DecimalInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
