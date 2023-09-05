@@ -61,7 +61,7 @@ class _ExpoPopulationTypeEditorWidgetState
         ],
         object: widget.populationType,
         itemSaveRequested: () async {
-          if (!isEmptyTranslationMap(newTitleVals)) {
+          if (!ValidationHelper.isEmptyTranslationMap(newTitleVals)) {
             ExpoPopulationType popType =
                 ExpoPopulationType("", MultilingualString(newTitleVals));
             if (widget.populationType != null) {

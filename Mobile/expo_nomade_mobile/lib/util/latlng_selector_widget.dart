@@ -1,7 +1,7 @@
 import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:expo_nomade_mobile/util/bo_editor_block_widget.dart';
+import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:expo_nomade_mobile/util/input_formatters.dart';
-import 'package:expo_nomade_mobile/util/validation_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -73,8 +73,10 @@ class _LatLngSelectorWidgetState extends State<LatLngSelectorWidget> {
         TextEditingController(text: lnlg.longitude.toString())
       ]);
     }
-    if (_controllers.length < eventMinCoordinatesNb) {
-      for (var i = _controllers.length; i < eventMinCoordinatesNb; i++) {
+    if (_controllers.length < GlobalConstants.eventMinCoordinatesNb) {
+      for (var i = _controllers.length;
+          i < GlobalConstants.eventMinCoordinatesNb;
+          i++) {
         _controllers.add([TextEditingController(), TextEditingController()]);
       }
     }
@@ -86,9 +88,6 @@ class _LatLngSelectorWidgetState extends State<LatLngSelectorWidget> {
 
   @override
   Widget build(BuildContext context) {
-    const textFormFieldMargin = 50.0; // TODO move this into globals
-    const labelMargin = 20.0; // TODO move this into globals
-    const iconDim = 24.0; // TODO move this into globals
     final translations = AppLocalization.of(context);
     final lat = translations.getTranslation("latitude");
     final lon = translations.getTranslation("longitude");
@@ -100,7 +99,8 @@ class _LatLngSelectorWidgetState extends State<LatLngSelectorWidget> {
           (pair) => Row(
             children: [
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: labelMargin),
+                margin: const EdgeInsets.symmetric(
+                    horizontal: GlobalConstants.multiTFFLabelMargin),
                 child: Text(lat),
               ),
               Expanded(
@@ -112,9 +112,11 @@ class _LatLngSelectorWidgetState extends State<LatLngSelectorWidget> {
                   inputFormatters: [DecimalInputFormatter()],
                 ),
               ),
-              const SizedBox(width: textFormFieldMargin),
+              const SizedBox(
+                  width: GlobalConstants.textFormFieldIconRightMargin),
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: labelMargin),
+                margin: const EdgeInsets.symmetric(
+                    horizontal: GlobalConstants.multiTFFLabelMargin),
                 child: Text(lon),
               ),
               Expanded(
@@ -126,13 +128,16 @@ class _LatLngSelectorWidgetState extends State<LatLngSelectorWidget> {
                   inputFormatters: [DecimalInputFormatter()],
                 ),
               ),
-              if (_controllers.indexOf(pair) >= eventMinCoordinatesNb)
+              if (_controllers.indexOf(pair) >=
+                  GlobalConstants.eventMinCoordinatesNb)
                 IconButton(
                     onPressed: () =>
                         _deleteCoordinate(_controllers.indexOf(pair)),
-                    icon: const Icon(CupertinoIcons.delete, size: iconDim))
+                    icon: const Icon(CupertinoIcons.delete,
+                        size: GlobalConstants.iconsDefaultDimension))
               else
-                const SizedBox(width: textFormFieldMargin)
+                const SizedBox(
+                    width: GlobalConstants.textFormFieldIconRightMargin)
             ],
           ),
         ),
@@ -143,7 +148,7 @@ class _LatLngSelectorWidgetState extends State<LatLngSelectorWidget> {
                 onPressed: _addCoordinate,
                 icon: const Icon(
                   CupertinoIcons.add,
-                  size: 24.0,
+                  size: GlobalConstants.iconsDefaultDimension,
                 ),
               ),
             )

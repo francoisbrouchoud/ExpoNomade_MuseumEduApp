@@ -1,4 +1,5 @@
 import 'package:expo_nomade_mobile/util/bo_editor_block_widget.dart';
+import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 
@@ -49,7 +50,6 @@ class _ImageSelectorWidgetState extends State<ImageSelectorWidget> {
 
   @override
   Widget build(BuildContext context) {
-    const iconDim = 24.0; // TODO move this into globals
     return BOEditorBlockWidget(
       name: widget.name,
       children: [
@@ -63,7 +63,7 @@ class _ImageSelectorWidgetState extends State<ImageSelectorWidget> {
               onPressed: _pickImageFile,
               icon: const Icon(
                 Icons.upload_file,
-                size: iconDim,
+                size: GlobalConstants.iconsDefaultDimension,
               ),
             ),
           ],

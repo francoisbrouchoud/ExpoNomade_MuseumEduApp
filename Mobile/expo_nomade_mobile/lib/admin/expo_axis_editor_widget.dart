@@ -65,7 +65,7 @@ class _ExpoAxisEditorWidgetState extends State<ExpoAxisEditorWidget> {
         ],
         object: widget.axis,
         itemSaveRequested: () async {
-          if (!isEmptyTranslationMap(newTitleVals)) {
+          if (!ValidationHelper.isEmptyTranslationMap(newTitleVals)) {
             ExpoAxis axis = ExpoAxis("", MultilingualString(newDescVals),
                 MultilingualString(newTitleVals));
             if (widget.axis != null) {

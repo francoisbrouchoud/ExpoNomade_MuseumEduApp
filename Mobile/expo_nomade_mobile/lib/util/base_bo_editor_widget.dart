@@ -1,6 +1,7 @@
 import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:expo_nomade_mobile/util/base_business_object.dart';
 import 'package:expo_nomade_mobile/util/container_admin_widget.dart';
+import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:expo_nomade_mobile/util/simple_snack_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -57,7 +58,6 @@ class BaseBOEditorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const btnMargin = 10.0;
     final translations = AppLocalization.of(context);
     return ContainerAdminWidget(
       fixedContainerHeight: true,
@@ -79,7 +79,8 @@ class BaseBOEditorWidget extends StatelessWidget {
               type: ButtonWidgetType.standard,
             ),
             if (object != null && !hasDependencies)
-              const SizedBox(height: btnMargin),
+              const SizedBox(
+                  height: GlobalConstants.multiButtonVerticalSpacing),
             if (object != null && !hasDependencies)
               ButtonWidget(
                 action: () => itemDeleteClicked(context, translations),
