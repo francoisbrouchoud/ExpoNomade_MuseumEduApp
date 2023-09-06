@@ -6,6 +6,7 @@ import 'package:expo_nomade_mobile/bo/expo_name.dart';
 import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
 import 'package:expo_nomade_mobile/bo/exposition.dart';
 import 'package:expo_nomade_mobile/bo/museum.dart';
+import 'package:expo_nomade_mobile/bo/quiz_question.dart';
 import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -161,6 +162,62 @@ class FirebaseService {
       }
     }
     return null;
+  }
+
+  /// Creates a QuizQuestion business object.
+  static Future<QuizQuestion?> createQuizQuestion(
+      QuizQuestion quizQuestion) async {
+    DatabaseReference ref = database.ref();
+    final currentExpo = await ref.child("currentExposition").get();
+    if (currentExpo.exists) {
+      DatabaseReference newQuestionRef =
+          ref.child("expositions/${currentExpo.value}/quiz/questions").push();
+      if (newQuestionRef.key != null) {
+        await newQuestionRef.set({
+          "question": quizQuestion.question.toMap(),
+          "options": quizQuestion.options.map((quizOption) {
+            return {
+              "isCorrect": quizOption.isCorrect,
+              "optionText": quizOption.label.toMap(),
+            };
+          }).toList()
+        });
+        return QuizQuestion(quizQuestion.question, quizQuestion.options);
+      }
+    }
+    return null;
+  }
+
+  /// Updates a QuizQuestion business object.
+  static Future<void> updateQuizQuestion(QuizQuestion quizQuestion) async {
+    DatabaseReference ref = database.ref();
+    final currentExpo = await ref.child("currentExposition").get();
+    if (currentExpo.exists) {
+      await ref
+          .child(
+              "expositions/${currentExpo.value}/quiz/questions/${quizQuestion.question}")
+          .set({
+        "questions": quizQuestion.question.toMap(),
+        "options": quizQuestion.options.map((quizOption) {
+          return {
+            "isCorrect": quizOption.isCorrect,
+            "optionText": quizOption.label.toMap(),
+          };
+        }).toList(),
+      });
+    }
+  }
+
+  /// Delete a QuizQuestion business object.
+  static Future<void> deleteQuizQuestion(QuizQuestion quizQuestion) async {
+    DatabaseReference ref = database.ref();
+    final currentExpo = await ref.child("currentExposition").get();
+    if (currentExpo.exists) {
+      await ref
+          .child(
+              "expositions/${currentExpo.value}/quiz/questions/${quizQuestion.question}")
+          .remove();
+    }
   }
 
   /// Creates an ExpoEvent business object.

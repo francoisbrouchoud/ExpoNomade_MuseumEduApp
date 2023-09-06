@@ -1,5 +1,6 @@
 import 'package:expo_nomade_mobile/admin/expo_axis_list_widget.dart';
 import 'package:expo_nomade_mobile/admin/expo_participation_widget.dart';
+import 'package:expo_nomade_mobile/admin/expo_quiz_list_widget.dart';
 import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:expo_nomade_mobile/util/button_widget.dart';
 import 'package:flutter/material.dart';
@@ -93,6 +94,17 @@ class Menu extends StatelessWidget {
                   MaterialPageRoute(
                       builder: (context) =>
                           ExpoParticipationTypeListWidget(context: context)),
+                ),
+              },
+          type: ButtonWidgetType.standard),
+      const SizedBox(height: 25),
+      ButtonWidget(
+          text: translations.getTranslation("quiz"),
+          action: () => {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          ExpoQuizListWidget(context: context)),
                 ),
               },
           type: ButtonWidgetType.standard),

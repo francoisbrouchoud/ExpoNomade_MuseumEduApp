@@ -73,5 +73,7 @@
     "expo_creation": "Ajout d'une nouvelle exposition",
     "name":"Nom",
     "quiz_result_list": "Liste des résultats",
-    "show_result": "Consulter les résultats"
+    "show_result": "Consulter les résultats",
+    "question_edit": "Edition du quiz",
+    "question_creation": "Ajout d'une nouvelle question"
 }
