@@ -87,7 +87,7 @@ class Menu extends StatelessWidget {
           style: theme.textTheme.displaySmall),
       const SizedBox(height: 25),
       ButtonWidget(
-          text: translations.getTranslation("quiz_result"),
+          text: translations.getTranslation("show_result"),
           action: () => {
                 Navigator.of(context).push(
                   MaterialPageRoute(

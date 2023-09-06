@@ -22,6 +22,6 @@ class Participation extends BaseBusinessObject {
 
   @override
   String toListText(String langCode) {
-    return "Email " + email + " " + score.toString() + " points";
+    return email + " " + score.toString();
   }
 }

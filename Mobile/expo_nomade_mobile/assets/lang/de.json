@@ -13,6 +13,7 @@
     "answer_msg_1_plur": "von",
     "answer_msg_2": " Antworten richtig beantwortet.",
     "submit_score": "Speichere deine Punktzahl",
+    "score": "Punktzahl",
     "contact_input" : "Hinterlasse uns deine Kontaktdaten, damit du am Wettbewerb teilnehmen kannst.",
     "send" : "Senden",
     "quit": "Beenden",
@@ -70,5 +71,7 @@
     "expo_add": "Ausstellung hinzufügen",
     "expo_edit": "Änderung der Ausstellung",
     "expo_creation": "Hinzufügen einer neuen Ausstellung",
-    "name":"Name"
+    "name":"Name",
+    "quiz_result_list": "Liste der Quizergebnisse",
+    "show_result": "Ergebnisse ansehen"
 }
