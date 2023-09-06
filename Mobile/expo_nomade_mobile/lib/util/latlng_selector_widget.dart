@@ -1,5 +1,7 @@
 import 'package:expo_nomade_mobile/app_localization.dart';
-import 'package:expo_nomade_mobile/util/underlined_container_widget.dart';
+import 'package:expo_nomade_mobile/util/bo_editor_block_widget.dart';
+import 'package:expo_nomade_mobile/util/globals.dart';
+import 'package:expo_nomade_mobile/util/input_formatters.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,13 +12,15 @@ class LatLngSelectorWidget extends StatefulWidget {
   final String name;
   final List<LatLng>? values;
   final Function(List<LatLng>) valuesChanged;
+  final bool mandatory;
 
   /// Creates a new LatLngSelectorWidget
   const LatLngSelectorWidget(
       {super.key,
       required this.name,
       required this.valuesChanged,
-      this.values});
+      this.values,
+      this.mandatory = false});
 
   @override
   _LatLngSelectorWidgetState createState() => _LatLngSelectorWidgetState();
@@ -54,6 +58,8 @@ class _LatLngSelectorWidgetState extends State<LatLngSelectorWidget> {
   void _deleteCoordinate(int idx) {
     setState(() {
       _controllers.removeAt(idx);
+      widget.valuesChanged(
+          _getCurrentValues()); // make sure the listener doesn't keep the deleted coordinates
     });
   }
 
@@ -67,8 +73,10 @@ class _LatLngSelectorWidgetState extends State<LatLngSelectorWidget> {
         TextEditingController(text: lnlg.longitude.toString())
       ]);
     }
-    if (_controllers.length < 3) {
-      for (var i = _controllers.length; i < 3; i++) {
+    if (_controllers.length < GlobalConstants.eventMinCoordinatesNb) {
+      for (var i = _controllers.length;
+          i < GlobalConstants.eventMinCoordinatesNb;
+          i++) {
         _controllers.add([TextEditingController(), TextEditingController()]);
       }
     }
@@ -80,76 +88,73 @@ class _LatLngSelectorWidgetState extends State<LatLngSelectorWidget> {
 
   @override
   Widget build(BuildContext context) {
-    const textFormFieldMargin = 50.0;
-    const labelMargin = 20.0;
-    const iconDim = 24.0;
-    const containerMargin = 15.0;
     final translations = AppLocalization.of(context);
     final lat = translations.getTranslation("latitude");
     final lon = translations.getTranslation("longitude");
-    return UnderlinedContainerWidget(
-      content: Column(
-        children: [
-          const SizedBox(height: containerMargin),
-          Row(
+    return BOEditorBlockWidget(
+      name: widget.name,
+      mandatory: widget.mandatory,
+      children: [
+        ..._controllers.map(
+          (pair) => Row(
             children: [
-              Text(widget.name),
+              Container(
+                margin: const EdgeInsets.symmetric(
+                    horizontal: GlobalConstants.multiTFFLabelMargin),
+                child: Text(lat),
+              ),
+              Expanded(
+                child: TextFormField(
+                  controller: pair[0],
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                  decoration: InputDecoration(labelText: lat),
+                  inputFormatters: [DecimalInputFormatter()],
+                ),
+              ),
+              const SizedBox(
+                  width: GlobalConstants.textFormFieldIconRightMargin),
+              Container(
+                margin: const EdgeInsets.symmetric(
+                    horizontal: GlobalConstants.multiTFFLabelMargin),
+                child: Text(lon),
+              ),
+              Expanded(
+                child: TextFormField(
+                  controller: pair[1],
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                  decoration: InputDecoration(labelText: lon),
+                  inputFormatters: [DecimalInputFormatter()],
+                ),
+              ),
+              if (_controllers.indexOf(pair) >=
+                  GlobalConstants.eventMinCoordinatesNb)
+                IconButton(
+                    onPressed: () =>
+                        _deleteCoordinate(_controllers.indexOf(pair)),
+                    icon: const Icon(CupertinoIcons.delete,
+                        size: GlobalConstants.iconsDefaultDimension))
+              else
+                const SizedBox(
+                    width: GlobalConstants.textFormFieldIconRightMargin)
             ],
           ),
-          ..._controllers.map(
-            (pair) => Row(
-              children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: labelMargin),
-                  child: Text(lat),
+        ),
+        Row(
+          children: [
+            Center(
+              child: IconButton(
+                onPressed: _addCoordinate,
+                icon: const Icon(
+                  CupertinoIcons.add,
+                  size: GlobalConstants.iconsDefaultDimension,
                 ),
-                Expanded(
-                  child: TextFormField(
-                    controller: pair[0],
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
-                    decoration: InputDecoration(labelText: lat),
-                  ),
-                ),
-                const SizedBox(width: textFormFieldMargin),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: labelMargin),
-                  child: Text(lon),
-                ),
-                Expanded(
-                  child: TextFormField(
-                    controller: pair[1],
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
-                    decoration: InputDecoration(labelText: lon),
-                  ),
-                ),
-                if (_controllers.indexOf(pair) >= 3)
-                  IconButton(
-                      onPressed: () =>
-                          _deleteCoordinate(_controllers.indexOf(pair)),
-                      icon: const Icon(CupertinoIcons.delete, size: iconDim))
-                else
-                  const SizedBox(width: textFormFieldMargin)
-              ],
-            ),
-          ),
-          Row(
-            children: [
-              Center(
-                child: IconButton(
-                  onPressed: _addCoordinate,
-                  icon: const Icon(
-                    CupertinoIcons.add,
-                    size: 24.0,
-                  ),
-                ),
-              )
-            ],
-          ),
-          const SizedBox(height: containerMargin),
-        ],
-      ),
+              ),
+            )
+          ],
+        ),
+      ],
     );
   }
 }

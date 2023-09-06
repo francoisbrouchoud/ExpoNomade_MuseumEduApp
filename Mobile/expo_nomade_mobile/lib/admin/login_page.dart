@@ -1,4 +1,5 @@
 import 'package:expo_nomade_mobile/app_localization.dart';
+import 'package:expo_nomade_mobile/firebase_service.dart';
 import 'package:expo_nomade_mobile/util/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,7 +16,8 @@ class LoginPage extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
     TextEditingController mailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
-    final dataProvider = Provider.of<DataNotifier>(context, listen: true);
+    final loginProvider = Provider.of<LoginNotifier>(context, listen: true);
+    final dataProvider = Provider.of<ExpositionNotifier>(context, listen: true);
 
     final translations = AppLocalization.of(context);
     return ContainerWidget(
@@ -34,7 +36,7 @@ class LoginPage extends StatelessWidget {
                         if (value == null || value.isEmpty) {
                           return translations.getTranslation("please_not_null");
                         }
-                        if (!isValidEmail(value)) {
+                        if (!ValidationHelper.isValidEmail(value)) {
                           return translations
                               .getTranslation("please_email_valid");
                         }
@@ -66,7 +68,9 @@ class LoginPage extends StatelessWidget {
                         await FirebaseAuth.instance.signInWithEmailAndPassword(
                             email: mailController.text,
                             password: passwordController.text);
-                        dataProvider.setIsLogin(true);
+                        loginProvider.setIsLogin(true);
+                        var expos = await FirebaseService.getAllExpoNames();
+                        dataProvider.setExpositions(expos!);
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'user-not-found' ||
                             e.code == 'wrong-password') {

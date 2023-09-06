@@ -1,6 +1,7 @@
 import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:expo_nomade_mobile/util/base_business_object.dart';
 import 'package:expo_nomade_mobile/util/container_admin_widget.dart';
+import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:expo_nomade_mobile/util/simple_snack_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,7 @@ class BaseBOEditorWidget extends StatelessWidget {
   final VoidCallback itemSaveRequested;
   final VoidCallback itemDeleteRequested;
   final BaseBusinessObject? object;
+  final bool hasDependencies;
 
   /// Creates a new BaseBOEditorWidget, must be used within a business object editor.
   const BaseBOEditorWidget(
@@ -21,7 +23,8 @@ class BaseBOEditorWidget extends StatelessWidget {
       required this.content,
       required this.itemSaveRequested,
       required this.itemDeleteRequested,
-      this.object});
+      this.object,
+      this.hasDependencies = false});
 
   /// Handles the click on the delete button: shows a confirmation dialog.
   void itemDeleteClicked(BuildContext context, AppLocalization translations) {
@@ -55,7 +58,6 @@ class BaseBOEditorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const btnMargin = 10.0;
     final translations = AppLocalization.of(context);
     return ContainerAdminWidget(
       fixedContainerHeight: true,
@@ -71,15 +73,15 @@ class BaseBOEditorWidget extends StatelessWidget {
             ),
             ButtonWidget(
               action: () {
-                SimpleSnackBar.showSnackBar(
-                    context, translations.getTranslation("saved"));
                 itemSaveRequested();
               },
               text: translations.getTranslation("save"),
               type: ButtonWidgetType.standard,
             ),
-            if (object != null) const SizedBox(height: btnMargin),
-            if (object != null)
+            if (object != null && !hasDependencies)
+              const SizedBox(
+                  height: GlobalConstants.multiButtonVerticalSpacing),
+            if (object != null && !hasDependencies)
               ButtonWidget(
                 action: () => itemDeleteClicked(context, translations),
                 text: translations.getTranslation("delete"),

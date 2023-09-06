@@ -1,6 +1,6 @@
 import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:expo_nomade_mobile/util/base_business_object.dart';
-import 'package:expo_nomade_mobile/util/underlined_container_widget.dart';
+import 'package:expo_nomade_mobile/util/bo_editor_block_widget.dart';
 import 'package:flutter/material.dart';
 
 /// Class BOSelectorWidget is used to display a DropDownButton of business objects and select a single one of them.
@@ -9,6 +9,7 @@ class BOSelectorWidget extends StatefulWidget {
   final BaseBusinessObject? preSel;
   final Function(BaseBusinessObject) selectedItemChanged;
   final String? name;
+  final bool mandatory;
 
   /// Creates a new BOSelectorWidget: the items will be listed and the preselected item will be selected if provided.
   const BOSelectorWidget(
@@ -16,7 +17,8 @@ class BOSelectorWidget extends StatefulWidget {
       required this.objects,
       required this.selectedItemChanged,
       this.preSel,
-      this.name});
+      this.name,
+      this.mandatory = false});
 
   @override
   _BOSelectorWidgetState createState() => _BOSelectorWidgetState();
@@ -34,24 +36,17 @@ class _BOSelectorWidgetState extends State<BOSelectorWidget> {
 
   @override
   Widget build(BuildContext context) {
-    const containerMargin = 15.0;
     if (widget.name != null) {
-      return UnderlinedContainerWidget(
-        content: Column(
-          children: [
-            const SizedBox(height: containerMargin),
-            Row(
-              children: [
-                Text(widget.name!),
-              ],
-            ),
-            Row(
-              children: [
-                _buildCoreDropDown(context),
-              ],
-            )
-          ],
-        ),
+      return BOEditorBlockWidget(
+        name: widget.name!,
+        mandatory: widget.mandatory,
+        children: [
+          Row(
+            children: [
+              _buildCoreDropDown(context),
+            ],
+          )
+        ],
       );
     } else {
       return _buildCoreDropDown(context);

@@ -1,3 +1,7 @@
+import 'package:expo_nomade_mobile/app_localization.dart';
+import 'package:expo_nomade_mobile/util/globals.dart';
+import 'package:expo_nomade_mobile/util/validation_helper.dart';
+
 /// Class MultilingualString is used to manage translated properties.
 class MultilingualString {
   Map<String, String> translations;
@@ -7,11 +11,22 @@ class MultilingualString {
 
   /// Returns the translation in the language provided by the lang code. If no translation exists for the lang code, an empty string will be returned.
   String operator [](String langCode) {
-    return translations[langCode] ?? "";
+    String val = translations[langCode] ?? "";
+    if (ValidationHelper.isEmptyString(val)) {
+      val = "";
+    }
+    return val;
   }
 
   /// Returns all the values of the MultilingualString in a Map format.
   Map<String, String> toMap() {
-    return translations;
+    if (translations.isNotEmpty) {
+      return translations;
+    } else {
+      return {
+        for (var lang in Language.langList())
+          lang.langCode: GlobalConstants.emptyString
+      };
+    }
   }
 }

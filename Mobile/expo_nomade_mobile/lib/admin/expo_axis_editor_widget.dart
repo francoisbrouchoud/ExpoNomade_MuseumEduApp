@@ -6,6 +6,8 @@ import 'package:expo_nomade_mobile/firebase_service.dart';
 import 'package:expo_nomade_mobile/util/base_bo_editor_widget.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string_editor.dart';
+import 'package:expo_nomade_mobile/util/simple_snack_bar.dart';
+import 'package:expo_nomade_mobile/util/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,10 +16,10 @@ import '../util/globals.dart';
 
 /// Class ExpoAxisEditorWidget is a widget used to edit or create an ExpoAxis object.
 class ExpoAxisEditorWidget extends StatefulWidget {
-  final String? axisId;
+  final ExpoAxis? axis;
 
   /// ExpoAxisEditorWidget constructor.
-  const ExpoAxisEditorWidget({super.key, this.axisId});
+  const ExpoAxisEditorWidget({super.key, this.axis});
 
   @override
   _ExpoAxisEditorWidgetState createState() => _ExpoAxisEditorWidgetState();
@@ -31,69 +33,73 @@ class _ExpoAxisEditorWidgetState extends State<ExpoAxisEditorWidget> {
   }
 
   /// Navigates back to the list view.
-  void backToList(AppLocalization translations) {
+  void backToList() {
     Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
     final translations = AppLocalization.of(context);
-    final title = translations.getTranslation("title");
-    final dataProvider = Provider.of<DataNotifier>(context);
-    Exposition expo = dataProvider.exposition;
-    Map<String, String> newTitleVals = widget.axisId != null
-        ? expo.axes[widget.axisId!]!.title.toMap()
-        : HashMap();
-    final titleWidget = MultilingualStringEditorWidget(
-      name: title,
-      value: widget.axisId != null ? expo.axes[widget.axisId!]!.title : null,
-      valueChanged: (newVals) => newTitleVals = newVals,
-    );
-    final description = translations.getTranslation("description");
-    Map<String, String> newDescVals = widget.axisId != null
-        ? expo.axes[widget.axisId!]!.description.toMap()
-        : HashMap();
-    final descWidget = MultilingualStringEditorWidget(
-        name: description,
-        value: widget.axisId != null
-            ? expo.axes[widget.axisId!]!.description
-            : null,
-        valueChanged: (newVals) => newDescVals = newVals);
+    final dataProvider = Provider.of<ExpositionNotifier>(context);
+    final Exposition expo = dataProvider.exposition;
+    Map<String, String> newTitleVals = widget.axis?.title.toMap() ?? HashMap();
+    Map<String, String> newDescVals =
+        widget.axis?.description.toMap() ?? HashMap();
     return Material(
       child: BaseBOEditorWidget(
-        title: widget.axisId != null
+        title: widget.axis != null
             ? translations.getTranslation("axis_edit")
             : translations.getTranslation("axis_creation"),
         content: [
-          titleWidget,
-          descWidget,
+          MultilingualStringEditorWidget(
+            name: translations.getTranslation("title"),
+            value: widget.axis?.title,
+            valueChanged: (newVals) => newTitleVals = newVals,
+            mandatory: true,
+          ),
+          MultilingualStringEditorWidget(
+            name: translations.getTranslation("description"),
+            value: widget.axis?.description,
+            valueChanged: (newVals) => newDescVals = newVals,
+          ),
         ],
-        object: widget.axisId != null ? expo.axes[widget.axisId!] : null,
+        object: widget.axis,
         itemSaveRequested: () async {
-          ExpoAxis axis = ExpoAxis("", MultilingualString(newDescVals),
-              MultilingualString(newTitleVals));
-          if (widget.axisId != null) {
-            axis = expo.axes[widget.axisId]!;
-            axis.title = MultilingualString(newTitleVals);
-            axis.description = MultilingualString(newDescVals);
-          }
-          if (axis.id.isNotEmpty) {
-            await FirebaseService.updateAxis(axis);
-          } else {
-            ExpoAxis? newAxis = await FirebaseService.createAxis(axis);
-            if (newAxis != null) {
-              expo.axes.putIfAbsent(newAxis.id, () => newAxis);
+          if (!ValidationHelper.isEmptyTranslationMap(newTitleVals)) {
+            ExpoAxis axis = ExpoAxis("", MultilingualString(newDescVals),
+                MultilingualString(newTitleVals));
+            if (widget.axis != null) {
+              axis = widget.axis!;
+              axis.title = MultilingualString(newTitleVals);
+              axis.description = MultilingualString(newDescVals);
+              await FirebaseService.updateAxis(axis);
+            } else {
+              ExpoAxis? newAxis = await FirebaseService.createAxis(axis);
+              if (newAxis != null) {
+                expo.axes.putIfAbsent(newAxis.id, () => newAxis);
+              }
             }
+            dataProvider.forceRelaod();
+            SimpleSnackBar.showSnackBar(
+                context, translations.getTranslation("saved"));
+            backToList();
+          } else {
+            SimpleSnackBar.showSnackBar(context,
+                translations.getTranslation("fill_required_fields_msg"));
           }
-          dataProvider.forceRelaod();
-          backToList(translations);
         },
         itemDeleteRequested: () async {
-          await FirebaseService.deleteAxis(expo.axes[widget.axisId]!);
-          expo.axes.remove(widget.axisId!);
+          await FirebaseService.deleteAxis(widget.axis!);
+          expo.axes.remove(widget.axis!);
           dataProvider.forceRelaod();
-          backToList(translations);
+          backToList();
         },
+        hasDependencies: expo.events
+                .where((event) => event.axis.id == widget.axis?.id)
+                .isNotEmpty ||
+            expo.objects
+                .where((obj) => obj.axis.id == widget.axis?.id)
+                .isNotEmpty,
       ),
     );
   }

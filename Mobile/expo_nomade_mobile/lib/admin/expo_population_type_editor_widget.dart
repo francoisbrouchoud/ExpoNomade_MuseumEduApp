@@ -1,6 +1,8 @@
 import 'dart:collection';
 
 import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
+import 'package:expo_nomade_mobile/util/simple_snack_bar.dart';
+import 'package:expo_nomade_mobile/util/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,10 +16,10 @@ import '../util/multilingual_string_editor.dart';
 
 /// Class ExpoPopulationTypeEditorWidget is a widget used to edit or create an ExpoPopulationType object.
 class ExpoPopulationTypeEditorWidget extends StatefulWidget {
-  final String? popTypeId;
+  final ExpoPopulationType? populationType;
 
   /// ExpoPopulationTypeEditorWidget constructor.
-  const ExpoPopulationTypeEditorWidget({super.key, this.popTypeId});
+  const ExpoPopulationTypeEditorWidget({super.key, this.populationType});
 
   @override
   _ExpoPopulationTypeEditorWidgetState createState() =>
@@ -33,64 +35,66 @@ class _ExpoPopulationTypeEditorWidgetState
   }
 
   /// Navigates back to the list view.
-  void backToList(AppLocalization translations) {
+  void backToList() {
     Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
     final translations = AppLocalization.of(context);
-    final title = translations.getTranslation("title");
-    final dataProvider = Provider.of<DataNotifier>(context);
-    Exposition expo = dataProvider.exposition;
-
-    Map<String, String> newTitleVals = widget.popTypeId != null
-        ? expo.populationTypes[widget.popTypeId!]!.title.toMap()
-        : HashMap();
-    final titleWidget = MultilingualStringEditorWidget(
-      name: title,
-      value: widget.popTypeId != null
-          ? expo.populationTypes[widget.popTypeId!]!.title
-          : null,
-      valueChanged: (newVals) => newTitleVals = newVals,
-    );
+    final dataProvider = Provider.of<ExpositionNotifier>(context);
+    final Exposition expo = dataProvider.exposition;
+    Map<String, String> newTitleVals =
+        widget.populationType?.title.toMap() ?? HashMap();
     return Material(
       child: BaseBOEditorWidget(
-        title: widget.popTypeId != null
+        title: widget.populationType != null
             ? translations.getTranslation("population_type_edit")
             : translations.getTranslation("population_type_creation"),
         content: [
-          titleWidget,
+          MultilingualStringEditorWidget(
+            name: translations.getTranslation("title"),
+            value: widget.populationType?.title,
+            valueChanged: (newVals) => newTitleVals = newVals,
+            mandatory: true,
+          ),
         ],
-        object: widget.popTypeId != null
-            ? expo.populationTypes[widget.popTypeId!]
-            : null,
+        object: widget.populationType,
         itemSaveRequested: () async {
-          ExpoPopulationType popType =
-              ExpoPopulationType("", MultilingualString(newTitleVals));
-          if (widget.popTypeId != null) {
-            popType = expo.populationTypes[widget.popTypeId]!;
-            popType.title = MultilingualString(newTitleVals);
-          }
-          if (popType.id.isNotEmpty) {
-            await FirebaseService.updatePopulationType(popType);
-          } else {
-            ExpoPopulationType? newPopType =
-                await FirebaseService.createPopulationType(popType);
-            if (newPopType != null) {
-              expo.populationTypes.putIfAbsent(newPopType.id, () => newPopType);
+          if (!ValidationHelper.isEmptyTranslationMap(newTitleVals)) {
+            ExpoPopulationType popType =
+                ExpoPopulationType("", MultilingualString(newTitleVals));
+            if (widget.populationType != null) {
+              popType = widget.populationType!;
+              popType.title = MultilingualString(newTitleVals);
+              await FirebaseService.updatePopulationType(popType);
+            } else {
+              ExpoPopulationType? newPopType =
+                  await FirebaseService.createPopulationType(popType);
+              if (newPopType != null) {
+                expo.populationTypes
+                    .putIfAbsent(newPopType.id, () => newPopType);
+              }
             }
+            dataProvider.forceRelaod();
+            SimpleSnackBar.showSnackBar(
+                context, translations.getTranslation("saved"));
+            backToList();
+          } else {
+            SimpleSnackBar.showSnackBar(context,
+                translations.getTranslation("fill_required_fields_msg"));
           }
-          dataProvider.forceRelaod();
-          backToList(translations);
         },
         itemDeleteRequested: () async {
-          await FirebaseService.deletePopulationType(
-              expo.populationTypes[widget.popTypeId]!);
-          expo.populationTypes.remove(widget.popTypeId!);
+          await FirebaseService.deletePopulationType(widget.populationType!);
+          expo.populationTypes.remove(widget.populationType!);
           dataProvider.forceRelaod();
-          backToList(translations);
+          backToList();
         },
+        hasDependencies: expo.events
+            .where(
+                (event) => event.populationType.id == widget.populationType?.id)
+            .isNotEmpty,
       ),
     );
   }

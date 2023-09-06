@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'globals.dart';
+
+/// Enum ButtonWidgetType defines every type of button available in the application.
 enum ButtonWidgetType { standard, home, delete }
 
-/// Contain the design of a main button
+/// Contains the design of a button using the application's theme according to it's type.
 class ButtonWidget extends StatelessWidget {
   const ButtonWidget(
       {super.key,
@@ -45,7 +48,9 @@ class ButtonWidget extends StatelessWidget {
           backgroundColor: bgCol,
         ),
         child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            padding: const EdgeInsets.symmetric(
+                vertical: GlobalConstants.appBtnVertPadding,
+                horizontal: GlobalConstants.appBtnHorzPadding),
             child: Text(text, style: btnTextStyle)));
   }
 }
