@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
-import '../app_localization.dart';
 import '../bo/expo_event.dart';
 import '../bo/exposition.dart';
 
@@ -58,8 +57,6 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    final translations = AppLocalization.of(context);
-    final langCode = translations.getCurrentLangCode();
     isLargeScreen = MediaQuery.of(context).size.width >= 600;
 
     return Scaffold(
@@ -82,7 +79,7 @@ class _MapPageState extends State<MapPage> {
                       /// Both the tile layer and the marker layer have their own class to prevent messy code.
                       /// They are in charge of rendering the map and adding any markers on it.
                       TileLayerWidget(),
-                      PolygonLayerWidget(),
+                      PolygonLayerWidget(expoEvents: filteredEvents),
                       MarkerLayerWidget(
                         onMarkerTap: (ExpoObject object) {
                           setState(() {
