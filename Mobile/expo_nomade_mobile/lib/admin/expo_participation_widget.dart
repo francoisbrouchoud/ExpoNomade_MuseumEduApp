@@ -17,6 +17,7 @@ class ExpoParticipationTypeListWidget extends StatelessWidget {
         this.listableItems =
             Provider.of<ExpositionNotifier>(context, listen: true)
                 .exposition
+                .quiz
                 .participations
                 .toList();
 

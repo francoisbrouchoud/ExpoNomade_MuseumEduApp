@@ -21,8 +21,7 @@ class ExpoQuizEditorWidget extends StatefulWidget {
   final QuizQuestion? quizQuestion;
 
   /// ExpoQuizEditorWidget constructor.
-  const ExpoQuizEditorWidget(
-      {super.key, this.quizQuestion, required QuizQuestion quiz});
+  const ExpoQuizEditorWidget({super.key, this.quizQuestion});
 
   @override
   _ExpoQuizEditorWidgetState createState() => _ExpoQuizEditorWidgetState();
@@ -64,7 +63,7 @@ class _ExpoQuizEditorWidgetState extends State<ExpoQuizEditorWidget> {
             mandatory: true,
           ),
           /*
-          QuizOptionsEditor(
+          QuizOptionSelectorWidget(
             name: translations.getTranslation("coordinates_from"),
             values: newQuizOptVals,
             valuesChanged: (newVals) => newQuizOptVals = newVals,
@@ -74,8 +73,8 @@ class _ExpoQuizEditorWidgetState extends State<ExpoQuizEditorWidget> {
         ],
         object: widget.quizQuestion,
         itemSaveRequested: () async {
-          QuizQuestion quizQuestion =
-              QuizQuestion(MultilingualString(newQuestVals), new List.empty());
+          QuizQuestion quizQuestion = QuizQuestion(
+              "", MultilingualString(newQuestVals), new List.empty());
           if (widget.quizQuestion != null) {
             quizQuestion = widget.quizQuestion!;
             quizQuestion.question = MultilingualString(newQuestVals);

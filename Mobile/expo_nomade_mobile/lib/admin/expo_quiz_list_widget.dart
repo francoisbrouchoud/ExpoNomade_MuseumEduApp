@@ -24,7 +24,7 @@ class ExpoQuizListWidget extends BaseBOListWidget {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => ExpoQuizEditorWidget(
-                    quiz: (item as QuizQuestion),
+                    quizQuestion: (item as QuizQuestion),
                   ),
                 ),
               );
