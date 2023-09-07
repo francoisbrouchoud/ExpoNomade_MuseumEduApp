@@ -1,3 +1,4 @@
+import 'package:expo_nomade_mobile/bo/paticipation.dart';
 import 'package:expo_nomade_mobile/util/base_business_object.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string.dart';
 
@@ -11,7 +12,7 @@ class Quiz {
   factory Quiz.fromJson(dynamic json) {
     var quizQuestionJson = json['questions'] as List;
     List<QuizQuestion> questions = quizQuestionJson
-        .map((questionJson) => QuizQuestion.fromJson(questionJson))
+        .map((questionJson) => QuizQuestion.fromJson("", questionJson))
         .toList();
     return Quiz(questions: questions);
   }
@@ -19,22 +20,21 @@ class Quiz {
 
 /// Contain the question text in différente language and a list of option
 class QuizQuestion extends BaseBusinessObject {
-  //String id;
+  String id;
   MultilingualString question;
   List<QuizOption> options;
 
-  QuizQuestion(this.question, this.options);
+  QuizQuestion(this.id, this.question, this.options);
 
   /// Convert a json into the buisness object quizQuestion class
-  factory QuizQuestion.fromJson(questionJson) {
-    //String id;
+  factory QuizQuestion.fromJson(id, questionJson) {
     var quizQuestionJson = questionJson['options'] as List;
     List<QuizOption> options = quizQuestionJson
         .map((questionJson) => QuizOption.fromJson(questionJson))
         .toList();
     MultilingualString question =
         MultilingualString(Map<String, String>.from(questionJson['question']));
-    return QuizQuestion(question, options);
+    return QuizQuestion(id, question, options);
   }
 
   @override

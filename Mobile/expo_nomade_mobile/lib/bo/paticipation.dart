@@ -9,14 +9,14 @@ class Participation extends BaseBusinessObject {
   String email;
   int score;
 
-  Participation({required this.id, required this.email, required this.score});
+  Participation(this.id, this.email, this.score);
 
   /// Convert a json into the buisness object quiz class
-  factory Participation.fromJson(String id, dynamic json) {
+  factory Participation.fromJson(id, participation) {
     return Participation(
-      id: id,
-      email: json['email'],
-      score: json['score'],
+      id,
+      participation['email'],
+      participation['score'],
     );
   }
 
