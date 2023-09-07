@@ -76,6 +76,12 @@ class GlobalConstants {
   /// Application buttons horizontal padding.
   static const double appBtnHorzPadding = 20.0;
 
+  /// Minimum of options in the quiz
+  static const int quizOptionMinNb = 2;
+
+  /// Maximum of options in the quiz
+  static const int quizOptionMaxNb = 4;
+
   /// Gets now's DateTime formatted for database insert.
   static String getNowFormattedForDB() {
     final DateTime now = DateTime.now();

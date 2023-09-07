@@ -1,10 +1,12 @@
-/*
+import 'dart:collection';
 
 import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:expo_nomade_mobile/bo/quiz_question.dart';
 import 'package:expo_nomade_mobile/util/bo_editor_block_widget.dart';
 import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:expo_nomade_mobile/util/input_formatters.dart';
+import 'package:expo_nomade_mobile/util/multilingual_string.dart';
+import 'package:expo_nomade_mobile/util/multilingual_string_editor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -26,115 +28,118 @@ class QuizOptionSelectorWidget extends StatefulWidget {
       this.mandatory = false});
 
   @override
-  _QuizOptionSelectorWidgetState createState() => _QuizOptionSelectorWidgetState();
+  _QuizOptionSelectorWidgetState createState() =>
+      _QuizOptionSelectorWidgetState();
 }
 
 /// State class for the QuizOptionSelectorWidget.
 class _QuizOptionSelectorWidgetState extends State<QuizOptionSelectorWidget> {
-  late final List<List<TextEditingController>> _controllers;
+  late List<QuizOption> quizOptions;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
 
-  /// Gets the current values from the TextFormFields
-  List<QuizOption> _getCurrentValues() {
-    List<QuizOption> vals = [];
-    for (var pair in _controllers) {
-      //if (double.tryParse(pair[0].text) != null &&
-      //    double.tryParse(pair[1].text) != null) {
-        vals.add(QuizOption(label: pair[0], isCorrect: pair[1]));
-     // }
+    if (widget.values != null) {
+      quizOptions = widget.values!;
+      QuizOption optionCorrect =
+          quizOptions.singleWhere((element) => element.isCorrect);
+      quizOptions.remove(optionCorrect);
+      quizOptions.insert(0, optionCorrect);
+    } else {
+      quizOptions = [];
+
+      for (var i = 0; i < GlobalConstants.quizOptionMinNb; i++) {
+        quizOptions
+            .add(QuizOption(label: MultilingualString({}), isCorrect: i == 0));
+      }
     }
-    return vals;
   }
 
   /// Adds a new coordinate field
-  void _addCoordinate() {
+  void _addOption(BuildContext buildContext) {
     setState(() {
-      _controllers.add([TextEditingController(), TextEditingController()]);
-      _controllers.last[0]
-          .addListener(() => widget.valuesChanged(_getCurrentValues()));
-      _controllers.last[1]
-          .addListener(() => widget.valuesChanged(_getCurrentValues()));
+      widget.values!.add(QuizOption(label: MultilingualString({})));
+      /*
+      _controllers.add(MultilingualStringEditorWidget(
+          name:
+              "${AppLocalization.of(buildContext).getTranslation("option")} ${_controllers.length + 1}",
+          value: null,
+          valueChanged: (newValues) =>
+              _valueChange(_controllers.length + 1, newValues)));
+              */
     });
+  }
+
+  /// si on passe un qui est nul on devra le supprimer
+  void _valueChange(int idx, Map<String, String>? newValues) {
+    if (newValues != null) {
+      setState(() {
+        quizOptions.elementAt(idx).label = MultilingualString(newValues);
+      });
+    } else {
+      setState(() {
+        quizOptions.removeAt(idx);
+      });
+    }
+    widget.valuesChanged(quizOptions);
   }
 
   /// Removes a coordinate field
-  void _deleteCoordinate(int idx) {
-    setState(() {
-      _controllers.removeAt(idx);
-      widget.valuesChanged(
-          _getCurrentValues()); // make sure the listener doesn't keep the deleted coordinates
-    });
+  void _deleteOption(int idx) {
+    _valueChange(idx, null);
+    // make sure the listener doesn't keep the deleted option
   }
-
+/*
   @override
   void initState() {
     super.initState();
     _controllers = [];
-    for (var lnlg in widget.values!) {
-      _controllers.add([
-        TextEditingController(text: lnlg.latitude.toString()),
-        TextEditingController(text: lnlg.longitude.toString())
-      ]);
+    for (var option in widget.values!) {
+      _controllers.add(MultilingualStringEditorWidget(
+          name: "Option",
+          value: option.label,
+          valueChanged: (newValues) =>
+              _valueChange(_controllers.length + 1, newValues)));
     }
-    if (_controllers.length < GlobalConstants.eventMinCoordinatesNb) {
+    if (_controllers.length < GlobalConstants.quizOptionMinNb) {
       for (var i = _controllers.length;
-          i < GlobalConstants.eventMinCoordinatesNb;
+          i < GlobalConstants.quizOptionMinNb;
           i++) {
-        _controllers.add([TextEditingController(), TextEditingController()]);
+        _controllers.add(MultilingualStringEditorWidget(
+            name: "Option",
+            value: null,
+            valueChanged: (newValues) =>
+                _valueChange(_controllers.length + 1, newValues)));
       }
     }
-    for (var cp in _controllers) {
-      cp[0].addListener(() => widget.valuesChanged(_getCurrentValues()));
-      cp[1].addListener(() => widget.valuesChanged(_getCurrentValues()));
-    }
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
     final translations = AppLocalization.of(context);
-    final lat = translations.getTranslation("latitude");
-    final lon = translations.getTranslation("longitude");
+    final option = translations.getTranslation("option");
+
     return BOEditorBlockWidget(
       name: widget.name,
       mandatory: widget.mandatory,
       children: [
-        ..._controllers.map(
-          (pair) => Row(
+        ...quizOptions.map(
+          (quizOption) => Row(
             children: [
-              Container(
-                margin: const EdgeInsets.symmetric(
-                    horizontal: GlobalConstants.multiTFFLabelMargin),
-                child: Text(lat),
-              ),
               Expanded(
-                child: TextFormField(
-                  controller: pair[0],
-                  keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
-                  decoration: InputDecoration(labelText: lat),
-                  inputFormatters: [DecimalInputFormatter()],
-                ),
-              ),
+                  child: MultilingualStringEditorWidget(
+                      name: "$option ${quizOptions.indexOf(quizOption)}",
+                      value: quizOption.label,
+                      valueChanged: (newValues) => _valueChange(
+                          quizOptions.indexOf(quizOption), newValues))),
               const SizedBox(
                   width: GlobalConstants.textFormFieldIconRightMargin),
-              Container(
-                margin: const EdgeInsets.symmetric(
-                    horizontal: GlobalConstants.multiTFFLabelMargin),
-                child: Text(lon),
-              ),
-              Expanded(
-                child: TextFormField(
-                  controller: pair[1],
-                  keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
-                  decoration: InputDecoration(labelText: lon),
-                  inputFormatters: [DecimalInputFormatter()],
-                ),
-              ),
-              if (_controllers.indexOf(pair) >=
+              if (quizOptions.indexOf(quizOption) >=
                   GlobalConstants.eventMinCoordinatesNb)
                 IconButton(
                     onPressed: () =>
-                        _deleteCoordinate(_controllers.indexOf(pair)),
+                        _deleteOption(quizOptions.indexOf(quizOption)),
                     icon: const Icon(CupertinoIcons.delete,
                         size: GlobalConstants.iconsDefaultDimension))
               else
@@ -143,21 +148,21 @@ class _QuizOptionSelectorWidgetState extends State<QuizOptionSelectorWidget> {
             ],
           ),
         ),
-        Row(
-          children: [
-            Center(
-              child: IconButton(
-                onPressed: _addCoordinate,
-                icon: const Icon(
-                  CupertinoIcons.add,
-                  size: GlobalConstants.iconsDefaultDimension,
+        if (quizOptions.length < GlobalConstants.quizOptionMaxNb)
+          Row(
+            children: [
+              Center(
+                child: IconButton(
+                  onPressed: () => _addOption(context),
+                  icon: const Icon(
+                    CupertinoIcons.add,
+                    size: GlobalConstants.iconsDefaultDimension,
+                  ),
                 ),
-              ),
-            )
-          ],
-        ),
+              )
+            ],
+          ),
       ],
     );
   }
 }
-*/
