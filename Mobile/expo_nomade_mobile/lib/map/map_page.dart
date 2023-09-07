@@ -57,9 +57,9 @@ class _MapPageState extends State<MapPage> {
       selectedPopulations.add(event.populationType);
     }
     filteredEvents = filterEvents(
-        widget.exposition.events, startYearFilter, endYearFilter, selectedReasons, selectedPopulations);
+        widget.exposition.events, getMinYear(), DateTime.now().year.toDouble(), selectedReasons, selectedPopulations);
     filteredObjects = filterObjects(
-        widget.exposition.objects, startYearFilter, endYearFilter, selectedReasons);
+        widget.exposition.objects, getMinYear(), DateTime.now().year.toDouble(), selectedReasons);
   }
 
   void filterChanged(double start, double end, Set<ExpoAxis> reasons, Set<ExpoPopulationType> populations) {
@@ -77,11 +77,8 @@ class _MapPageState extends State<MapPage> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    isLargeScreen = MediaQuery.of(context).size.width >= 600;
-
-    // Find the minimal year value in all the objects
+  double getMinYear() {
+        // Find the minimal year value in all the objects
     int minObjectYear = widget.exposition.objects
         .expand((obj) => obj.coordinates.keys)
         .reduce(math.min);
@@ -91,8 +88,15 @@ class _MapPageState extends State<MapPage> {
         .map((event) => event.startYear)
         .reduce(math.min);
 
+    return math.min(minObjectYear, minEventYear).toDouble();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    isLargeScreen = MediaQuery.of(context).size.width >= 600;
+
     // Set the minimal year value as minimal year for my slider range settings
-    startYearFilter = math.min(minObjectYear, minEventYear).toDouble();
+    startYearFilter = getMinYear();
     // Set current year as maximal year for my slider range settings
     endYearFilter = DateTime.now().year.toDouble();
 
@@ -157,18 +161,28 @@ class _MapPageState extends State<MapPage> {
           Positioned(
             top: 16,
             left: 16,
-            child: FloatingActionButton(
-              onPressed: () {
-                setState(() {
-                  showFilter = !showFilter;
-                });
-              },
-              child: Icon(Icons.filter_list),
-            ),
+            child: Column (children: [
+              FloatingActionButton(
+                onPressed: () {
+                  Navigator.of(context)
+                      .popUntil((route) => route.isFirst);
+                },
+                child: const Icon(Icons.home),
+              ),
+              const SizedBox(height: 16.0),
+              FloatingActionButton(
+                onPressed: () {
+                  setState(() {
+                    showFilter = !showFilter;
+                  });
+                },
+                child: const Icon(Icons.filter_list),
+              ),
+            ],)
           ),
           if (showFilter)
             Positioned(
-              top: 80,
+              top: 160,
               left: 16,
               child: Container (
                 height: 500,
@@ -193,8 +207,7 @@ class _MapPageState extends State<MapPage> {
                   allPopulations: allPopulations
                 ),
               )
-              
-              
+ 
             ),
         ],
       ),
