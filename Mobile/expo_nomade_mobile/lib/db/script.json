@@ -649,12 +649,12 @@
                   ]
                }
             },
-            "participation":[
-               {
+            "participation":{
+               "20230907_16341222":{
                   "email":"",
                   "score":0
                }
-            ]
+            }
          }
       }
    }
