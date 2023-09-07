@@ -53,6 +53,7 @@ class _MenuPageState extends State<MenuPage> {
   }
 }
 
+// create the part to selecte the currente expo
 class SelectExpo extends StatelessWidget {
   const SelectExpo({super.key});
   @override
@@ -64,14 +65,14 @@ class SelectExpo extends StatelessWidget {
     return Column(children: [
       Text(translations.getTranslation("selectExpo"),
           style: theme.textTheme.displaySmall),
-      /*BOSelectorWidget(
+      BOSelectorWidget(
         name: translations.getTranslation("expo"),
         preSel: dataProvider.expositions[dataProvider.exposition.id],
         objects: dataProvider.expositions.values.toList(),
         selectedItemChanged: (newVal) =>
             setCurrentExpo(newVal as ExpoName, dataProvider, context),
         mandatory: true,
-      )*/
+      )
     ]);
   }
 

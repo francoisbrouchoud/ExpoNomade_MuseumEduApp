@@ -64,7 +64,7 @@ class FirebaseService {
 // set the news current exposition
   static setCurrentExposition(String id) async {
     DatabaseReference ref = database.ref();
-    await ref.set({'currentExposition': id});
+    await ref.update({'currentExposition': id});
   }
 
   /// Uploads an image to firebase storage. Returns the download URL.

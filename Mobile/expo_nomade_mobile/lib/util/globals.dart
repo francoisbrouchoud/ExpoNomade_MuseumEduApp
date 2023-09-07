@@ -52,6 +52,9 @@ class GlobalConstants {
   /// Default dimensions for icons displayed in the application.
   static const double iconsDefaultDimension = 24.0;
 
+  /// Default dimensions for image displayed in the application.
+  static const double imagesDefaultDimension = 232.0;
+
   /// Editor block top and bottom margin height.
   static const double blockTopBottomMarginHeight = 15.0;
 
