@@ -58,6 +58,9 @@ class GlobalConstants {
   /// Editor block top and bottom margin height.
   static const double blockTopBottomMarginHeight = 15.0;
 
+  /// Editor block to add espace between to block.
+  static const double sizeOfTheBlock = 25.0;
+
   /// Label margin for custom form widgets containing multiple TextFormFields.
   static const double multiTFFLabelMargin = 20.0;
 

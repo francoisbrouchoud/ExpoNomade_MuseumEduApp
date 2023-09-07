@@ -68,9 +68,9 @@ class LoginPage extends StatelessWidget {
                         await FirebaseAuth.instance.signInWithEmailAndPassword(
                             email: mailController.text,
                             password: passwordController.text);
-                        loginProvider.setIsLogin(true);
                         var expos = await FirebaseService.getAllExpoNames();
                         dataProvider.setExpositions(expos!);
+                        loginProvider.setIsLogin(true);
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'user-not-found' ||
                             e.code == 'wrong-password') {
