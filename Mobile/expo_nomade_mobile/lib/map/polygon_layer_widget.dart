@@ -8,6 +8,7 @@ import 'package:latlong2/latlong.dart';
 
 class PolygonLayerWidget extends StatelessWidget {
   final List<ExpoEvent> expoEvents;
+
   const PolygonLayerWidget({required this.expoEvents});
 
   @override
