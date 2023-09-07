@@ -73,7 +73,7 @@ class _FilterPopupState extends State<FilterPopup> {
             ),
           ),
 
-          Text('Raison', textAlign: TextAlign.left,),
+          Text(translations.getTranslation("reason").toString(), textAlign: TextAlign.left,),
           ...widget.allReasons.map((reason) {
             return CheckboxListTile(
               title: Text(reason[langCode]),
@@ -93,7 +93,7 @@ class _FilterPopupState extends State<FilterPopup> {
             );
           }).toList(),
 
-          Text('Type de population', textAlign: TextAlign.left,),
+          Text(translations.getTranslation("population_types").toString(), textAlign: TextAlign.left,),
           ...widget.allPopulations.map((pop) {
             return CheckboxListTile(
               title: Text(pop.title[langCode]),
