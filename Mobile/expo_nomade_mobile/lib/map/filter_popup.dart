@@ -1,20 +1,26 @@
 import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../bo/expo_event.dart';
-import 'filter_logic.dart';
+import '../bo/expo_population_type.dart';
+import '../util/multilingual_string.dart';
 
 class FilterPopup extends StatefulWidget {
-  final Function(double, double) onRangeChanged;
+  final Function(double, double, Set<MultilingualString>, Set<ExpoPopulationType>) onFilterChanged;
   final double startYearFilter;
   final double endYearFilter;
-  final Set<String> selectedReasons;
+  final Set<MultilingualString> selectedReasons;
+  final Set<MultilingualString> allReasons;
+  final Set<ExpoPopulationType> selectedPopulations;
+  final Set<ExpoPopulationType> allPopulations;
 
   const FilterPopup({
-    required this.onRangeChanged,
+    required this.onFilterChanged,
     required this.startYearFilter,
     required this.endYearFilter,
     required this.selectedReasons,
+    required this.allReasons,
+    required this.selectedPopulations,
+    required this.allPopulations,
     Key? key,
   }) : super(key: key);
 
@@ -25,9 +31,8 @@ class FilterPopup extends StatefulWidget {
 class _FilterPopupState extends State<FilterPopup> {
   late double start;
   late double end;
-  Set<String> selectedReasons = {};
-  Set<String> allReasons = {};
-  List<ExpoEvent> filteredEvents = [];
+  Set<MultilingualString> selectedReasons = {};
+  Set<ExpoPopulationType> selectedPopulations = {};
 
   @override
   void initState() {
@@ -35,12 +40,14 @@ class _FilterPopupState extends State<FilterPopup> {
     start = widget.startYearFilter;
     end = widget.endYearFilter;
     selectedReasons = widget.selectedReasons;
-    allReasons = widget.selectedReasons;
+    selectedPopulations = widget.selectedPopulations;
   }
+
 
   @override
   Widget build(BuildContext context) {
     final translations = AppLocalization.of(context);
+    final langCode = translations.getCurrentLangCode();
     return Container(
       color: Colors.white,
       padding: EdgeInsets.all(16),
@@ -58,19 +65,20 @@ class _FilterPopupState extends State<FilterPopup> {
                 start = values.start;
                 end = values.end;
               });
-              widget.onRangeChanged(values.start, values.end);
+              widget.onFilterChanged(values.start, values.end, selectedReasons, selectedPopulations);
             },
             labels: RangeLabels(
               start.round().toString(),
               end.round().toString(),
             ),
           ),
-          Text(translations.getTranslation("years").toString()),
 
-          ...selectedReasons.map((reason) {
+          Text('Raison'),
+          ...widget.allReasons.map((reason) {
             return CheckboxListTile(
-              title: Text(reason),
+              title: Text(reason[langCode]),
               value: selectedReasons.contains(reason),
+              controlAffinity: ListTileControlAffinity.leading,
               onChanged: (bool? value) {
                 setState(() {
                   if (value == true) {
@@ -78,13 +86,32 @@ class _FilterPopupState extends State<FilterPopup> {
                   } else {
                     selectedReasons.remove(reason);
                   }
-                  // Mettre à jour le filtrage
-                  //filteredEvents = filterEvents(widget.exposition.events, start, end, selectedReasons);
                 });
+                // update filtered elements
+                widget.onFilterChanged(start, end, selectedReasons, selectedPopulations);
               },
             );
           }).toList(),
-          // Ajoutez d'autres filtres ici
+
+          Text('Type de population'),
+          ...widget.allPopulations.map((pop) {
+            return CheckboxListTile(
+              title: Text(pop.title[langCode]),
+              value: selectedPopulations.contains(pop),
+              controlAffinity: ListTileControlAffinity.leading,
+              onChanged: (bool? value) {
+                setState(() {
+                  if (value == true) {
+                    selectedPopulations.add(pop);
+                  } else {
+                    selectedPopulations.remove(pop);
+                  }
+                });
+                // update filtered elements
+                widget.onFilterChanged(start, end, selectedReasons, selectedPopulations);
+              },
+            );
+          }).toList(),
         ],
       ),
     );

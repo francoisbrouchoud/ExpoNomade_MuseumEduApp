@@ -2,14 +2,17 @@ import 'dart:collection';
 
 import '../bo/expo_event.dart';
 import '../bo/expo_object.dart';
+import '../bo/expo_population_type.dart';
+import '../util/multilingual_string.dart';
 
 /// Filters a list of ExpoEvent by year.
 List<ExpoEvent> filterEvents(
-    List<ExpoEvent> events, double startYear, double endYear, Set<String> reasons) {
+    List<ExpoEvent> events, double startYear, double endYear, Set<MultilingualString> reasons, Set<ExpoPopulationType> populations) {
   return events.where((event) {
     return event.startYear >= startYear && 
             event.endYear <= endYear &&
-            reasons.contains(event.reason['fr']);
+            reasons.contains(event.reason) &&
+            populations.contains(event.populationType);
   }).toList();
 }
 
