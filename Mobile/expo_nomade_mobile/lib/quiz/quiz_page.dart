@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import '../app_localization.dart';
+import '../util/globals.dart';
 import 'score_page.dart';
 import '../bo/quiz_question.dart';
 
@@ -36,13 +37,13 @@ class _QuizPageState extends State<QuizPage> {
     final theme = Theme.of(context);
     final translations = AppLocalization.of(context);
     final langCode = translations.getCurrentLangCode();
-    final QuestionTextStyle = theme.textTheme.displayMedium!.copyWith(
+    final questionTextStyle = theme.textTheme.displayMedium!.copyWith(
       color: theme.colorScheme.secondary,
-      fontSize: 25,
+      fontSize: 25, //TODO uniformizer Julienne
     );
-    final OptionTextStyle = theme.textTheme.displayMedium!.copyWith(
+    final optionTextStyle = theme.textTheme.displayMedium!.copyWith(
       color: theme.colorScheme.secondary,
-      fontSize: 20,
+      fontSize: 20, //TODO uniformizer Julienne
     );
 
     double screenWidth = MediaQuery.of(context).size.width;
@@ -55,28 +56,27 @@ class _QuizPageState extends State<QuizPage> {
           Center(
             child: Container(
               width: screenWidth * 0.85,
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0), //TODO uniformizer
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16.0),
                 color: theme.colorScheme.background,
               ),
               child: Text(
-                randomSelectedQuestions[currentQuestionIdx]
-                        .question[langCode] ??
-                    "",
-                style: QuestionTextStyle,
+                randomSelectedQuestions[currentQuestionIdx].question[langCode],
+                style: questionTextStyle,
                 textAlign: TextAlign.center,
               ),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: GlobalConstants.sizeOfTheBlock),
           ...List.generate(
             randomSelectedQuestions[currentQuestionIdx].options.length,
             (index) => Center(
               child: Container(
-                width: screenWidth * 0.7,
-                margin: EdgeInsets.symmetric(vertical: 8),
-                padding: EdgeInsets.all(12.0),
+                width: screenWidth * 0.7, //TODO uniformizer
+                margin:
+                    const EdgeInsets.symmetric(vertical: 8), //TODO uniformizer
+                padding: const EdgeInsets.all(12.0), //TODO uniformizer
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16.0),
                   color: theme.colorScheme.background,
@@ -93,10 +93,9 @@ class _QuizPageState extends State<QuizPage> {
                   },
                   title: Text(
                     randomSelectedQuestions[currentQuestionIdx]
-                            .options[index]
-                            .label[langCode] ??
-                        "",
-                    style: OptionTextStyle,
+                        .options[index]
+                        .label[langCode],
+                    style: optionTextStyle,
                   ),
                   leading: Radio(
                     value: index,
@@ -131,7 +130,7 @@ class _QuizPageState extends State<QuizPage> {
                         currentQuestionIdx--;
                       });
                     },
-                    icon: Icon(Icons.navigate_before),
+                    icon: const Icon(Icons.navigate_before),
                     color: theme.colorScheme.secondary,
                   ),
                 ),
@@ -141,7 +140,7 @@ class _QuizPageState extends State<QuizPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   '${currentQuestionIdx + 1} / ${randomSelectedQuestions.length}',
-                  style: QuestionTextStyle,
+                  style: questionTextStyle,
                 ),
               ),
 
@@ -165,7 +164,7 @@ class _QuizPageState extends State<QuizPage> {
                         ),
                       );
                     },
-                    icon: Icon(Icons.check),
+                    icon: const Icon(Icons.check),
                     color: theme.colorScheme.secondary,
                   ),
                 )
@@ -183,7 +182,7 @@ class _QuizPageState extends State<QuizPage> {
                         currentQuestionIdx++;
                       });
                     },
-                    icon: Icon(Icons.navigate_next),
+                    icon: const Icon(Icons.navigate_next),
                     color: theme.colorScheme.secondary,
                   ),
                 ),

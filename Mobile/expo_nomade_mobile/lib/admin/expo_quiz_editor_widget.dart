@@ -6,7 +6,6 @@ import 'package:expo_nomade_mobile/bo/quiz_question.dart';
 import 'package:expo_nomade_mobile/firebase_service.dart';
 import 'package:expo_nomade_mobile/util/base_bo_editor_widget.dart';
 import 'package:expo_nomade_mobile/util/globals.dart';
-import 'package:expo_nomade_mobile/util/latlng_selector_widget.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string_editor.dart';
 import 'package:expo_nomade_mobile/util/quiz_option_selector_widget.dart';
@@ -14,8 +13,6 @@ import 'package:expo_nomade_mobile/util/quiz_option_selector_widget.dart';
 import 'package:expo_nomade_mobile/util/simple_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../bo/expo_event.dart';
 
 /// Class ExpoQuizEditorWidget is a widget used to edit or create an QuizQuestion object.
 class ExpoQuizEditorWidget extends StatefulWidget {
@@ -72,8 +69,8 @@ class _ExpoQuizEditorWidgetState extends State<ExpoQuizEditorWidget> {
         ],
         object: widget.quizQuestion,
         itemSaveRequested: () async {
-          QuizQuestion quizQuestion = QuizQuestion(
-              "", MultilingualString(newQuestVals), new List.empty());
+          QuizQuestion quizQuestion =
+              QuizQuestion("", MultilingualString(newQuestVals), List.empty());
           if (widget.quizQuestion != null) {
             quizQuestion = widget.quizQuestion!;
             quizQuestion.question = MultilingualString(newQuestVals);

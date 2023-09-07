@@ -24,13 +24,15 @@ class LoginPage extends StatelessWidget {
         title: translations.getTranslation("login"),
         isAdmin: true,
         body: Padding(
-          padding: const EdgeInsets.only(left: 40, right: 40),
+          padding: const EdgeInsets.symmetric(
+              horizontal: GlobalConstants.containerLittlePaddingHorizontal),
           child: Form(
             key: formKey,
             child: Column(
               children: <Widget>[
                 Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding:
+                        const EdgeInsets.all(GlobalConstants.appMinPadding),
                     child: TextFormField(
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -47,7 +49,8 @@ class LoginPage extends StatelessWidget {
                           labelText: translations.getTranslation("email")),
                     )),
                 Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding:
+                        const EdgeInsets.all(GlobalConstants.appMinPadding),
                     child: TextFormField(
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -60,7 +63,7 @@ class LoginPage extends StatelessWidget {
                       decoration: InputDecoration(
                           labelText: translations.getTranslation("password")),
                     )),
-                const SizedBox(height: 30),
+                const SizedBox(height: GlobalConstants.sizeOfTheBlock),
                 ButtonWidget(
                   action: () async {
                     if (formKey.currentState!.validate()) {

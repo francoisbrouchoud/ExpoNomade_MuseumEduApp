@@ -42,7 +42,8 @@ class _MenuPageState extends State<MenuPage> {
           fixedContainerHeight: true,
           title: translations.getTranslation("admin"),
           body: Padding(
-            padding: const EdgeInsets.only(left: 40, right: 40),
+            padding: const EdgeInsets.symmetric(
+                horizontal: GlobalConstants.containerLittlePaddingHorizontal),
             child: ListView(
               children: <Widget>[
                 SelectExpo(dataProvider: dataProvider),
@@ -97,7 +98,7 @@ class Menu extends StatelessWidget {
     return Column(children: [
       Text(translations.getTranslation("titleMenu"),
           style: theme.textTheme.displaySmall),
-      const SizedBox(height: 25),
+      const SizedBox(height: GlobalConstants.sizeOfTheBlock),
       ButtonWidget(
           text: translations.getTranslation("show_result"),
           action: () => {
@@ -108,7 +109,7 @@ class Menu extends StatelessWidget {
                 ),
               },
           type: ButtonWidgetType.standard),
-      const SizedBox(height: 25),
+      const SizedBox(height: GlobalConstants.sizeOfTheBlock),
       ButtonWidget(
           text: translations.getTranslation("quiz"),
           action: () => {
@@ -119,7 +120,7 @@ class Menu extends StatelessWidget {
                 ),
               },
           type: ButtonWidgetType.standard),
-      const SizedBox(height: 25),
+      const SizedBox(height: GlobalConstants.sizeOfTheBlock),
       ButtonWidget(
           text: translations.getTranslation("axis"),
           action: () => {
@@ -130,7 +131,7 @@ class Menu extends StatelessWidget {
                 ),
               },
           type: ButtonWidgetType.standard),
-      const SizedBox(height: 25),
+      const SizedBox(height: GlobalConstants.sizeOfTheBlock),
       ButtonWidget(
           text: translations.getTranslation("population_types"),
           action: () => {
@@ -142,7 +143,7 @@ class Menu extends StatelessWidget {
                 ),
               },
           type: ButtonWidgetType.standard),
-      const SizedBox(height: 25),
+      const SizedBox(height: GlobalConstants.sizeOfTheBlock),
       ButtonWidget(
           text: translations.getTranslation("events"),
           action: () => {
@@ -153,7 +154,7 @@ class Menu extends StatelessWidget {
                 ),
               },
           type: ButtonWidgetType.standard),
-      const SizedBox(height: 25),
+      const SizedBox(height: GlobalConstants.sizeOfTheBlock),
       ButtonWidget(
           text: translations.getTranslation("expo"),
           action: () => {
@@ -164,7 +165,7 @@ class Menu extends StatelessWidget {
                 ),
               },
           type: ButtonWidgetType.standard),
-      const SizedBox(height: 25),
+      const SizedBox(height: GlobalConstants.sizeOfTheBlock),
       ButtonWidget(
           text: "logout",
           action: () {

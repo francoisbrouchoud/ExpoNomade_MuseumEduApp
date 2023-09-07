@@ -32,7 +32,7 @@ class ScoreSubmissionPage extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('OK'),
+              child: const Text('OK'), //TODO normal?
             ),
           ],
         );
@@ -44,17 +44,17 @@ class ScoreSubmissionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final translations = AppLocalization.of(context);
-    final langCode = translations.getCurrentLangCode();
 
     final dataProvider = Provider.of<ExpositionNotifier>(context);
     final Exposition expo = dataProvider.exposition;
 
-    final ScoreTextStyle = theme.textTheme.bodyText1!.copyWith(
+    //TODO uniformizer Julienne
+    final scoreTextStyle = theme.textTheme.bodyText1!.copyWith(
       color: theme.colorScheme.secondary,
       fontSize: 30,
     );
 
-    final ContentTextStyle = theme.textTheme.bodyText1!.copyWith(
+    final contentTextStyle = theme.textTheme.bodyText1!.copyWith(
       color: theme.colorScheme.secondary,
       fontSize: 20,
     );
@@ -69,23 +69,23 @@ class ScoreSubmissionPage extends StatelessWidget {
           Center(
             child: Container(
               width: screenWidth * 0.9,
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0), // TODO uniformisation
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16.0),
                 color: theme.colorScheme.background,
               ),
               child: Text(
                 translations.getTranslation("submit_score").toString(),
-                style: ScoreTextStyle,
+                style: scoreTextStyle,
                 textAlign: TextAlign.center,
               ),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: GlobalConstants.sizeOfTheBlock),
           Center(
             child: Container(
               width: screenWidth * 0.9,
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0), // TODO uniformization
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16.0),
                 color: theme.colorScheme.background,
@@ -94,21 +94,21 @@ class ScoreSubmissionPage extends StatelessWidget {
                 children: [
                   Text(
                     translations.getTranslation("contact_input").toString(),
-                    style: ContentTextStyle,
+                    style: contentTextStyle,
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: GlobalConstants.sizeOfTheBlock),
                   Row(
                     children: [
                       Text(
                         "Email: ",
-                        style: ContentTextStyle,
+                        style: contentTextStyle,
                       ),
                       Expanded(
                         child: TextFormField(controller: emailController),
                       ),
                     ],
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: GlobalConstants.sizeOfTheBlock),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -119,7 +119,7 @@ class ScoreSubmissionPage extends StatelessWidget {
                         },
                         child: Text(
                           translations.getTranslation("quit").toString(),
-                          style: ContentTextStyle,
+                          style: contentTextStyle,
                         ),
                       ),
                       ElevatedButton(
@@ -143,7 +143,7 @@ class ScoreSubmissionPage extends StatelessWidget {
                         },
                         child: Text(
                           translations.getTranslation("send").toString(),
-                          style: ContentTextStyle,
+                          style: contentTextStyle,
                         ),
                       ),
                     ],

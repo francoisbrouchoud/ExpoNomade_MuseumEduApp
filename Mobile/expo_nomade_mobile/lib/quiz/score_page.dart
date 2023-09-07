@@ -1,6 +1,7 @@
 import 'package:expo_nomade_mobile/quiz/score_submission_page.dart';
 import 'package:flutter/material.dart';
 import '../app_localization.dart';
+import '../util/globals.dart';
 
 class ScorePage extends StatelessWidget {
   final int correctAnswers;
@@ -13,14 +14,13 @@ class ScorePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final translations = AppLocalization.of(context);
-    final langCode = translations.getCurrentLangCode();
 
-    final EltTextStyle = theme.textTheme.displayMedium!.copyWith(
+    final eltTextStyle = theme.textTheme.displayMedium!.copyWith(
       color: theme.colorScheme.secondary,
-      fontSize: 30,
+      fontSize: 30, //TODO uniformizer Julienne
     );
-
-    final PointTextStyle = theme.textTheme.displayMedium!.copyWith(
+//TODO uniformizer Julienne
+    final pointTextStyle = theme.textTheme.displayMedium!.copyWith(
         color: theme.colorScheme.secondary,
         fontSize: 75,
         fontWeight: FontWeight.bold);
@@ -36,23 +36,23 @@ class ScorePage extends StatelessWidget {
           Center(
             child: Container(
               width: screenWidth * 0.9,
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0), //TODO uniformizer
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16.0),
                 color: theme.colorScheme.background,
               ),
               child: Text(
                 translations.getTranslation("quiz_result").toString(),
-                style: EltTextStyle,
+                style: eltTextStyle,
                 textAlign: TextAlign.center,
               ),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: GlobalConstants.sizeOfTheBlock),
           Center(
             child: Container(
               width: screenWidth * 0.9,
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0), //TODO uniformizer
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16.0),
                 color: theme.colorScheme.background,
@@ -64,37 +64,37 @@ class ScorePage extends StatelessWidget {
                       translations
                           .getTranslation("very_good_result")
                           .toString(),
-                      style: EltTextStyle,
+                      style: eltTextStyle,
                     )
                   else if (correctPercentage >= 80)
                     Text(
                       translations.getTranslation("good_result").toString(),
-                      style: EltTextStyle,
+                      style: eltTextStyle,
                     )
                   else if (correctPercentage >= 60)
                     Text(
                       translations.getTranslation("average_result").toString(),
-                      style: EltTextStyle,
+                      style: eltTextStyle,
                     )
                   else
                     Text(
                       translations.getTranslation("bad_result").toString(),
-                      style: EltTextStyle,
+                      style: eltTextStyle,
                     ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: GlobalConstants.sizeOfTheBlock),
                   Text(
                     '${correctPercentage.toStringAsFixed(0)}%',
-                    style: PointTextStyle,
+                    style: pointTextStyle,
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: GlobalConstants.sizeOfTheBlock),
                   Text(
                     ('${translations.getTranslation("answer_msg_0")} $correctAnswers '
                         '${correctAnswers == 0 ? translations.getTranslation("answer_msg_1_sing") : translations.getTranslation("answer_msg_1_plur")} '
                         '$totalQuestions'
                         '${translations.getTranslation("answer_msg_2")}'),
-                    style: EltTextStyle,
+                    style: eltTextStyle,
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: GlobalConstants.sizeOfTheBlock),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(
@@ -104,15 +104,15 @@ class ScorePage extends StatelessWidget {
                         ),
                       );
                     },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          theme.colorScheme.secondary),
+                    ),
                     child: Text(
                       translations.getTranslation("next").toString(),
                       style: TextStyle(
                         color: theme.colorScheme.onSecondary,
                       ),
-                    ),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          theme.colorScheme.secondary),
                     ),
                   ),
                 ],
