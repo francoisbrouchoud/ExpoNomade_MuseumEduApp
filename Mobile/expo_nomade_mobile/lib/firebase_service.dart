@@ -182,7 +182,8 @@ class FirebaseService {
             };
           }).toList()
         });
-        return QuizQuestion(quizQuestion.question, quizQuestion.options);
+        return QuizQuestion(
+            quizQuestion.id, quizQuestion.question, quizQuestion.options);
       }
     }
     return null;
@@ -195,7 +196,7 @@ class FirebaseService {
     if (currentExpo.exists) {
       await ref
           .child(
-              "expositions/${currentExpo.value}/quiz/questions/${quizQuestion.question}")
+              "expositions/${currentExpo.value}/quiz/questions/${quizQuestion.id}")
           .set({
         "questions": quizQuestion.question.toMap(),
         "options": quizQuestion.options.map((quizOption) {
@@ -215,7 +216,7 @@ class FirebaseService {
     if (currentExpo.exists) {
       await ref
           .child(
-              "expositions/${currentExpo.value}/quiz/questions/${quizQuestion.question}")
+              "expositions/${currentExpo.value}/quiz/questions/${quizQuestion.id}")
           .remove();
     }
   }
