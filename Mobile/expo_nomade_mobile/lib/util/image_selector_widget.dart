@@ -68,6 +68,7 @@ class _ImageSelectorWidgetState extends State<ImageSelectorWidget> {
             if (url.isNotEmpty)
               SizedBox(
                 child: Image.network(url),
+                height: GlobalConstants.imagesDefaultDimension,
               ),
             IconButton(
               onPressed: _pickImageFile,

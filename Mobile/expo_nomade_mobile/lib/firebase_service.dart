@@ -64,7 +64,7 @@ class FirebaseService {
 // set the news current exposition
   static setCurrentExposition(String id) async {
     DatabaseReference ref = database.ref();
-    await ref.set({'currentExposition': id});
+    await ref.update({'currentExposition': id});
   }
 
   /// Uploads an image to firebase storage. Returns the download URL.
@@ -204,7 +204,7 @@ class FirebaseService {
           "question": quizQuestion.question.toMap(),
           "options": quizQuestion.options.map((quizOption) {
             return {
-              "isCorrect": quizOption.isCorrect,
+              "isCorrect": quizOption.isCorrect ? 1 : 0,
               "optionText": quizOption.label.toMap(),
             };
           }).toList()
@@ -225,10 +225,10 @@ class FirebaseService {
           .child(
               "expositions/${currentExpo.value}/quiz/questions/${quizQuestion.id}")
           .set({
-        "questions": quizQuestion.question.toMap(),
+        "question": quizQuestion.question.toMap(),
         "options": quizQuestion.options.map((quizOption) {
           return {
-            "isCorrect": quizOption.isCorrect,
+            "isCorrect": quizOption.isCorrect ? 1 : 0,
             "optionText": quizOption.label.toMap(),
           };
         }).toList(),

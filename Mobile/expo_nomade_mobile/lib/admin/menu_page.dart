@@ -53,6 +53,7 @@ class _MenuPageState extends State<MenuPage> {
   }
 }
 
+// create the part to selecte the currente expo
 class SelectExpo extends StatelessWidget {
   const SelectExpo({super.key});
   @override
@@ -69,16 +70,16 @@ class SelectExpo extends StatelessWidget {
         preSel: dataProvider.expositions[dataProvider.exposition.id],
         objects: dataProvider.expositions.values.toList(),
         selectedItemChanged: (newVal) =>
-            setCurrentExpo(newVal as ExpoName, context),
+            setCurrentExpo(newVal as ExpoName, dataProvider, context),
         mandatory: true,
       )
     ]);
   }
 
   /// Handles the click event on any expo button
-  setCurrentExpo(ExpoName expoName, BuildContext context) async {
+  setCurrentExpo(ExpoName expoName, ExpositionNotifier dataProvider,
+      BuildContext context) async {
     await FirebaseService.setCurrentExposition(expoName.id);
-    final dataProvider = Provider.of<ExpositionNotifier>(context);
     var expo = await FirebaseService.getCurrentExposition();
     dataProvider.setExposition(expo!);
   }
@@ -170,7 +171,7 @@ class Menu extends StatelessWidget {
             FirebaseAuth.instance.signOut();
             loginProvider.setIsLogin(false);
           },
-          type: ButtonWidgetType.standard)
+          type: ButtonWidgetType.delete)
     ]);
   }
 }

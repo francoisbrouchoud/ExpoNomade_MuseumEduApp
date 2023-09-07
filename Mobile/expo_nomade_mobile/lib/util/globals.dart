@@ -52,6 +52,9 @@ class GlobalConstants {
   /// Default dimensions for icons displayed in the application.
   static const double iconsDefaultDimension = 24.0;
 
+  /// Default dimensions for image displayed in the application.
+  static const double imagesDefaultDimension = 232.0;
+
   /// Editor block top and bottom margin height.
   static const double blockTopBottomMarginHeight = 15.0;
 
@@ -75,6 +78,12 @@ class GlobalConstants {
 
   /// Application buttons horizontal padding.
   static const double appBtnHorzPadding = 20.0;
+
+  /// Minimum of options in the quiz
+  static const int quizOptionMinNb = 2;
+
+  /// Maximum of options in the quiz
+  static const int quizOptionMaxNb = 4;
 
   /// Gets now's DateTime formatted for database insert.
   static String getNowFormattedForDB() {

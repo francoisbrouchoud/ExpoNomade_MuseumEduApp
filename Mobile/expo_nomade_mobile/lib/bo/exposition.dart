@@ -57,7 +57,7 @@ class Exposition extends BaseBusinessObject {
     }
     Quiz quiz = Quiz(questions: [], participations: []);
     if (json.containsKey("quiz")) {
-      Quiz.fromJson(json['quiz']);
+      quiz = Quiz.fromJson(json['quiz']);
     }
 
     return Exposition(id, name, axes, events, objects, popTypes, quiz);
