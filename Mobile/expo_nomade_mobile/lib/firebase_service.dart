@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:expo_nomade_mobile/bo/expo_axis.dart';
 import 'package:expo_nomade_mobile/bo/expo_event.dart';
 import 'package:expo_nomade_mobile/bo/expo_name.dart';
+import 'package:expo_nomade_mobile/bo/expo_object.dart';
 import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
 import 'package:expo_nomade_mobile/bo/exposition.dart';
 import 'package:expo_nomade_mobile/bo/museum.dart';
@@ -216,6 +217,11 @@ class FirebaseService {
     return null;
   }
 
+  /// Creates a ExpoObject business object.
+  static Future<ExpoObject?> createObject(ExpoObject object) async {
+    // TODO complete method
+  }
+
   /// Updates a QuizQuestion business object.
   static Future<void> updateQuizQuestion(QuizQuestion quizQuestion) async {
     DatabaseReference ref = database.ref();
@@ -236,6 +242,11 @@ class FirebaseService {
     }
   }
 
+  /// Updates an ExpoObject business object.
+  static Future<void> updateObject(ExpoObject object) async {
+    // TODO complete method
+  }
+
   /// Delete a QuizQuestion business object.
   static Future<void> deleteQuizQuestion(QuizQuestion quizQuestion) async {
     DatabaseReference ref = database.ref();
@@ -246,6 +257,11 @@ class FirebaseService {
               "expositions/${currentExpo.value}/quiz/questions/${quizQuestion.id}")
           .remove();
     }
+  }
+
+  /// Deletes an ExpoObject business object.
+  static Future<void> deleteObject(ExpoObject object) async {
+    // TODO complete method
   }
 
   /// Creates an ExpoEvent business object.
