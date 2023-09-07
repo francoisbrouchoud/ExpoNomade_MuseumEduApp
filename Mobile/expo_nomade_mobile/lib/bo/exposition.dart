@@ -55,7 +55,7 @@ class Exposition extends BaseBusinessObject {
           .map((o) => ExpoObject.fromJson(o, axes, museums))
           .toList();
     }
-    Quiz quiz = Quiz(questions: [],participations: );
+    Quiz quiz = Quiz(questions: [], participations: []);
     if (json.containsKey("quiz")) {
       Quiz.fromJson(json['quiz']);
     }
