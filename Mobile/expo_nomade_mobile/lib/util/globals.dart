@@ -82,6 +82,9 @@ class GlobalConstants {
   /// Minimal number of coordinates to enter for an event BO.
   static const int eventMinCoordinatesNb = 3;
 
+  /// Minimal number of coordinates to enter for an object BO.
+  static const int objectMinCoordinatesNb = 1;
+
   /// Application buttons vertical padding.
   static const double appBtnVertPadding = 10.0;
 
