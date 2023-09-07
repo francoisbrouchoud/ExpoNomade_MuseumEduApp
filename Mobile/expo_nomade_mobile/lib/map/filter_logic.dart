@@ -5,7 +5,7 @@ import '../bo/expo_object.dart';
 import '../bo/expo_population_type.dart';
 import '../util/multilingual_string.dart';
 
-/// Filters a list of ExpoEvent by year.
+/// Filters a list of ExpoEvent by year, by reason and by population type.
 List<ExpoEvent> filterEvents(
     List<ExpoEvent> events, double startYear, double endYear, Set<MultilingualString> reasons, Set<ExpoPopulationType> populations) {
   return events.where((event) {
