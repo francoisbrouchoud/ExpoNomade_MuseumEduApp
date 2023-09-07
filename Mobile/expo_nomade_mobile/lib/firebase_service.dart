@@ -31,7 +31,7 @@ class FirebaseService {
     final mus = await ref.child("museum").get();
     if (mus.exists) {
       return Map.from(mus.value as Map)
-          .map((key, value) => MapEntry(key, Museum.fromJson(value)));
+          .map((key, value) => MapEntry(key, Museum.fromJson(key, value)));
     }
     return null;
   }
@@ -192,6 +192,47 @@ class FirebaseService {
     return null;
   }
 
+  /// Creates a ExpoObject business object.
+  static Future<ExpoObject?> createObject(ExpoObject object) async {
+    DatabaseReference ref = database.ref();
+    final currentExpo = await ref.child("currentExposition").get();
+    if (currentExpo.exists) {
+      DatabaseReference newEventRef =
+          ref.child("expositions/${currentExpo.value}/object").push();
+      if (newEventRef.key != null) {
+        await newEventRef.set({
+          "title": object.title.toMap(),
+          "description": object.description.toMap(),
+          "others": object.others.toMap(),
+          "position": object.position.toMap(),
+          "axe": object.axis.id,
+          "dimension": object.dimension,
+          "museum": object.museum.id,
+          /*"coordinates": object.coordinates.map((year, latlng) {
+            return {
+              "year": year,
+              "coordonate": {"lat": latlng.latitude, "lon": latlng.longitude}
+            };
+          }).toList(),*/
+          "picture": object.pictureURL,
+        });
+        return ExpoObject(
+            newEventRef.key!,
+            object.axis,
+            object.coordinates,
+            object.description,
+            object.dimension,
+            object.material,
+            object.museum,
+            object.others,
+            object.pictureURL,
+            object.position,
+            object.title);
+      }
+    }
+    return null;
+  }
+
   /// Creates a QuizQuestion business object.
   static Future<QuizQuestion?> createQuizQuestion(
       QuizQuestion quizQuestion) async {
@@ -217,11 +258,6 @@ class FirebaseService {
     return null;
   }
 
-  /// Creates a ExpoObject business object.
-  static Future<ExpoObject?> createObject(ExpoObject object) async {
-    // TODO complete method
-  }
-
   /// Updates a QuizQuestion business object.
   static Future<void> updateQuizQuestion(QuizQuestion quizQuestion) async {
     DatabaseReference ref = database.ref();
@@ -242,11 +278,6 @@ class FirebaseService {
     }
   }
 
-  /// Updates an ExpoObject business object.
-  static Future<void> updateObject(ExpoObject object) async {
-    // TODO complete method
-  }
-
   /// Delete a QuizQuestion business object.
   static Future<void> deleteQuizQuestion(QuizQuestion quizQuestion) async {
     DatabaseReference ref = database.ref();
@@ -257,11 +288,6 @@ class FirebaseService {
               "expositions/${currentExpo.value}/quiz/questions/${quizQuestion.id}")
           .remove();
     }
-  }
-
-  /// Deletes an ExpoObject business object.
-  static Future<void> deleteObject(ExpoObject object) async {
-    // TODO complete method
   }
 
   /// Creates an ExpoEvent business object.
@@ -334,6 +360,32 @@ class FirebaseService {
     }
   }
 
+  /// Updates an ExpoObject business object.
+  static Future<void> updateObject(ExpoObject object) async {
+    DatabaseReference ref = database.ref();
+    final currentExpo = await ref.child("currentExposition").get();
+    if (currentExpo.exists) {
+      await ref
+          .child("expositions/${currentExpo.value}/object/${object.id}")
+          .set({
+        "title": object.title.toMap(),
+        "description": object.description.toMap(),
+        "others": object.others.toMap(),
+        "position": object.position.toMap(),
+        "axe": object.axis.id,
+        "dimension": object.dimension,
+        "museum": object.museum.id,
+        /*"coordinates": object.coordinates.map((year, latlng) {
+            return {
+              "year": year,
+              "coordonate": {"lat": latlng.latitude, "lon": latlng.longitude}
+            };
+          }).toList(),*/
+        "picture": object.pictureURL,
+      });
+    }
+  }
+
   /// Updates an ExpoEvent business object.
   static Future<void> updateExposition(ExpoName expo) async {
     DatabaseReference ref = database.ref();
@@ -371,6 +423,17 @@ class FirebaseService {
     if (currentExpo.exists) {
       await ref
           .child("expositions/${currentExpo.value}/event/${event.id}")
+          .remove();
+    }
+  }
+
+  /// Deletes an ExpoObject business object.
+  static Future<void> deleteObject(ExpoObject object) async {
+    DatabaseReference ref = database.ref();
+    final currentExpo = await ref.child("currentExposition").get();
+    if (currentExpo.exists) {
+      await ref
+          .child("expositions/${currentExpo.value}/object/${object.id}")
           .remove();
     }
   }
