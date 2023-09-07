@@ -54,7 +54,7 @@ class _FilterPopupState extends State<FilterPopup> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(translations.getTranslation("years").toString()),
+          Text(translations.getTranslation("years").toString(), textAlign: TextAlign.left,),
           RangeSlider(
             values: RangeValues(start, end),
             min: 1700,
@@ -73,7 +73,7 @@ class _FilterPopupState extends State<FilterPopup> {
             ),
           ),
 
-          Text('Raison'),
+          Text('Raison', textAlign: TextAlign.left,),
           ...widget.allReasons.map((reason) {
             return CheckboxListTile(
               title: Text(reason[langCode]),
@@ -93,7 +93,7 @@ class _FilterPopupState extends State<FilterPopup> {
             );
           }).toList(),
 
-          Text('Type de population'),
+          Text('Type de population', textAlign: TextAlign.left,),
           ...widget.allPopulations.map((pop) {
             return CheckboxListTile(
               title: Text(pop.title[langCode]),
