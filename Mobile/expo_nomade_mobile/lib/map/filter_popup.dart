@@ -46,10 +46,11 @@ class _FilterPopupState extends State<FilterPopup> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final translations = AppLocalization.of(context);
     final langCode = translations.getCurrentLangCode();
     return Container(
-      color: Colors.white,
+      color: theme.colorScheme.onBackground,
       padding: const EdgeInsets.all(20),
       child: Column(
         mainAxisSize: MainAxisSize.min,

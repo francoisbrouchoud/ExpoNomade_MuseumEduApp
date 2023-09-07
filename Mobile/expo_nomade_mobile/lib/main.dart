@@ -34,6 +34,8 @@ class App extends StatelessWidget {
   static const tertiary = Color(0xFF1B8989);
   static const error = Color(0xFF942A3D);
   static const background = Color(0xFFEEEEEE);
+  static const onBackground = Color(0xFFFFFFFF);
+  static const onSurface = Color(0xFF000000);
 
   // This widget is the root of your application.
   @override
@@ -80,7 +82,9 @@ class App extends StatelessWidget {
                           error: error,
                           secondary: secondary,
                           background: background,
-                          tertiary: tertiary),
+                          tertiary: tertiary,
+                          onBackground: onBackground,
+                          onSurface: onSurface),
                       textTheme: const TextTheme(
                           displayMedium: TextStyle(fontFamily: 'Montserrat'),
                           displaySmall:

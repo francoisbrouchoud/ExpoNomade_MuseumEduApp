@@ -9,11 +9,9 @@ import 'package:expo_nomade_mobile/map/filter_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-
 import '../bo/expo_event.dart';
 import '../bo/expo_population_type.dart';
 import '../bo/exposition.dart';
-
 import 'dart:math' as math;
 
 /// Class MapPage is used to display the map and the information related to the exposition.
@@ -94,6 +92,7 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     isLargeScreen = MediaQuery.of(context).size.width >= 600;
+    final theme = Theme.of(context);
 
     // Set the minimal year value as minimal year for my slider range settings
     startYearFilter = getMinYear();
@@ -131,7 +130,7 @@ class _MapPageState extends State<MapPage> {
                     children: [
                       /// Both the tile layer and the marker layer have their own class to prevent messy code.
                       /// They are in charge of rendering the map and adding any markers on it.
-                      TileLayerWidget(),
+                      const TileLayerWidget(),
                       PolygonLayerWidget(expoEvents: filteredEvents),
                       MarkerLayerWidget(
                         onMarkerTap: (ExpoObject object) {
@@ -190,10 +189,10 @@ class _MapPageState extends State<MapPage> {
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
+                      color: theme.colorScheme.onSurface.withOpacity(0.2),
                       spreadRadius: 5,
                       blurRadius: 9,
-                      offset: Offset(0, 3),
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
