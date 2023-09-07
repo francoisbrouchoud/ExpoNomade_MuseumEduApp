@@ -52,10 +52,17 @@ class FirebaseService {
       Map<String, Museum>? museums = await getMuseums();
       final expo = await ref.child("expositions/${currentExpo.value}").get();
       if (expo.exists && museums != null) {
-        return Exposition.fromJson(expo.value, museums);
+        return Exposition.fromJson(
+            currentExpo.value.toString(), expo.value, museums);
       }
     }
     return null;
+  }
+
+// set the news current exposition
+  static setCurrentExposition(String id) async {
+    DatabaseReference ref = database.ref();
+    await ref.set({'currentExposition': id});
   }
 
   /// Uploads an image to firebase storage. Returns the download URL.

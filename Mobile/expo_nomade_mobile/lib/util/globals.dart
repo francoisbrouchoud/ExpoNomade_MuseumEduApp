@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:expo_nomade_mobile/bo/exposition.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +11,7 @@ class ExpositionNotifier extends ChangeNotifier {
 
   Exposition get exposition => _exposition!;
 
-  Map<String, ExpoName> get expositions => _exposititons!;
+  Map<String, ExpoName> get expositions => _exposititons ?? HashMap();
 
   /// Updates the current locale and notifies the listeners
   void setExposition(Exposition expo) {

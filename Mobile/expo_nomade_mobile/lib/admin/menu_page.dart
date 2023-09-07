@@ -2,11 +2,13 @@ import 'package:expo_nomade_mobile/admin/expo_axis_list_widget.dart';
 import 'package:expo_nomade_mobile/admin/expo_participation_widget.dart';
 import 'package:expo_nomade_mobile/admin/expo_quiz_list_widget.dart';
 import 'package:expo_nomade_mobile/app_localization.dart';
+import 'package:expo_nomade_mobile/bo/expo_name.dart';
 import 'package:expo_nomade_mobile/util/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import '../firebase_service.dart';
+import '../util/bo_selector_widget.dart';
 import '../util/container_admin_widget.dart';
 import 'exp_list_widget.dart';
 import 'expo_event_list_widget.dart';
@@ -61,14 +63,26 @@ class SelectExpo extends StatelessWidget {
   Widget build(BuildContext context) {
     final translations = AppLocalization.of(context);
     final theme = Theme.of(context);
+    final dataProvider = Provider.of<ExpositionNotifier>(context);
+
     return Column(children: [
       Text(translations.getTranslation("selectExpo"),
-          style: theme.textTheme.displaySmall)
+          style: theme.textTheme.displaySmall),
+      BOSelectorWidget(
+        name: translations.getTranslation("expo"),
+        preSel:
+            ExpoName(dataProvider.exposition.id, dataProvider.exposition.name),
+        objects: dataProvider.expositions.values.toList(),
+        selectedItemChanged: (newVal) =>
+            setCurrentExpo(newVal as ExpoName, context),
+        mandatory: true,
+      )
     ]);
   }
 
   /// Handles the click event on any expo button
-  setCurrentExpo(String expoId, BuildContext context) async {
+  setCurrentExpo(ExpoName expoName, BuildContext context) async {
+    await FirebaseService.setCurrentExposition(expoName.id);
     final dataProvider = Provider.of<ExpositionNotifier>(context);
     var expo = await FirebaseService.getCurrentExposition();
     dataProvider.setExposition(expo!);
