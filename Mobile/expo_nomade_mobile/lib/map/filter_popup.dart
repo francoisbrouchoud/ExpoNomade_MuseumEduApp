@@ -52,6 +52,7 @@ class _FilterPopupState extends State<FilterPopup> {
       color: Colors.white,
       padding: const EdgeInsets.all(20),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Align(
             alignment: Alignment.centerLeft,

@@ -31,8 +31,8 @@ class _MapPageState extends State<MapPage> {
   bool isLargeScreen = false;
   ExpoObject? selectedObject;
   bool showFilter = false;
-  double startYearFilter = 1700;
-  double endYearFilter = 2020;
+  double startYearFilter = 0.0;
+  double endYearFilter = 0.0;
   List<ExpoEvent> filteredEvents = [];
   Map<ExpoObject, int> filteredObjects = {};
   Set<ExpoAxis> selectedReasons = {};
@@ -48,6 +48,9 @@ class _MapPageState extends State<MapPage> {
     // Get all existing reasons and set them to checked by default
     for (var event in widget.exposition.events) {
       selectedReasons.add(event.axis);
+    }
+    for (var object in widget.exposition.objects) {
+      selectedReasons.add(object.axis);
     }
     //Get all existing population types and set them to checked by default
     for (var event in widget.exposition.events) {
@@ -168,15 +171,15 @@ class _MapPageState extends State<MapPage> {
               top: 80,
               left: 16,
               child: Container (
-                height: 300,
+                height: 500,
                 width: 300,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.2), // Couleur de l'ombre
-                      spreadRadius: 5, // Propagation de l'ombre
-                      blurRadius: 9, // Flou de l'ombre
-                      offset: Offset(0, 3), // Position de l'ombre
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 5,
+                      blurRadius: 9,
+                      offset: Offset(0, 3),
                     ),
                   ],
                 ),
