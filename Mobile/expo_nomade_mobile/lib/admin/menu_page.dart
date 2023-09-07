@@ -171,7 +171,7 @@ class Menu extends StatelessWidget {
             FirebaseAuth.instance.signOut();
             loginProvider.setIsLogin(false);
           },
-          type: ButtonWidgetType.standard)
+          type: ButtonWidgetType.delete)
     ]);
   }
 }
