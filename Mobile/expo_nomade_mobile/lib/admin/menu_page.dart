@@ -34,6 +34,8 @@ class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     final translations = AppLocalization.of(context);
+    final dataProvider = Provider.of<ExpositionNotifier>(context);
+
     return WillPopScope(
         onWillPop: () => _onWillPop(context),
         child: ContainerAdminWidget(
@@ -42,10 +44,10 @@ class _MenuPageState extends State<MenuPage> {
           body: Padding(
             padding: const EdgeInsets.only(left: 40, right: 40),
             child: ListView(
-              children: const <Widget>[
-                SelectExpo(),
-                SizedBox(height: 25),
-                Menu()
+              children: <Widget>[
+                SelectExpo(dataProvider: dataProvider),
+                const SizedBox(height: GlobalConstants.sizeOfTheBlock),
+                const Menu()
               ],
             ),
           ),
@@ -55,12 +57,12 @@ class _MenuPageState extends State<MenuPage> {
 
 // create the part to selecte the currente expo
 class SelectExpo extends StatelessWidget {
-  const SelectExpo({super.key});
+  const SelectExpo({super.key, required this.dataProvider});
+  final ExpositionNotifier dataProvider;
   @override
   Widget build(BuildContext context) {
     final translations = AppLocalization.of(context);
     final theme = Theme.of(context);
-    final dataProvider = Provider.of<ExpositionNotifier>(context);
 
     return Column(children: [
       Text(translations.getTranslation("selectExpo"),
