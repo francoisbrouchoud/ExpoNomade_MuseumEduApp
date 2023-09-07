@@ -1,11 +1,11 @@
 import 'package:expo_nomade_mobile/admin/expo_axis_list_widget.dart';
 import 'package:expo_nomade_mobile/admin/expo_population_type_list_widget.dart';
-import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
 import 'package:expo_nomade_mobile/quiz/quiz_page.dart';
 import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'admin/exp_list_widget.dart';
 import 'admin/menu_page.dart';
 import 'bo/exposition.dart';
 import 'firebase_options.dart';
@@ -38,11 +38,12 @@ class App extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => LocaleNotifier()),
-        ChangeNotifierProvider(create: (context) => DataNotifier())
+        ChangeNotifierProvider(create: (context) => ExpositionNotifier()),
+        ChangeNotifierProvider(create: (context) => LoginNotifier()),
       ],
       builder: (context, child) {
         final appLocaleProvider = Provider.of<LocaleNotifier>(context);
-        final dataProvider = Provider.of<DataNotifier>(context);
+        final expoProvider = Provider.of<ExpositionNotifier>(context);
         return FutureBuilder<Exposition?>(
             future: FirebaseService.getCurrentExposition(),
             builder: (context, AsyncSnapshot<Exposition?> snapshot) {
@@ -52,7 +53,7 @@ class App extends StatelessWidget {
                   return const Text("no_data");
                 } else {
                   final Exposition expo = snapshot.data!;
-                  dataProvider.setExposition(expo);
+                  expoProvider.setExposition(expo);
                   return MaterialApp(
                     locale: appLocaleProvider.locale,
                     localizationsDelegates:
@@ -86,14 +87,16 @@ class App extends StatelessWidget {
                     home: const HomePage(),
                     routes: {
                       '/map': (context) =>
-                          MapPage(exposition: dataProvider.exposition),
+                          MapPage(exposition: expoProvider.exposition),
                       '/quiz': (context) => QuizPage(
-                          questions: dataProvider.exposition.quiz.questions),
+                          questions: expoProvider.exposition.quiz.questions),
                       '/admin': (context) => const MenuPage(),
                       '/admin/axis': (context) =>
                           ExpoAxisListWidget(context: context),
                       '/admin/populationType': (context) =>
-                          ExpoPopulationTypeListWidget(context: context)
+                          ExpoPopulationTypeListWidget(context: context),
+                      '/admin/expositions': (context) =>
+                          ExpoListWidget(context: context)
                     },
                   );
                 }

@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final translations = AppLocalization.of(context);
-    final dataProvider = Provider.of<DataNotifier>(context);
+    final dataProvider = Provider.of<ExpositionNotifier>(context);
     return Scaffold(
       backgroundColor: theme.colorScheme.primary,
       floatingActionButton: ElevatedButton(
@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TitleWidget(
-                text: Provider.of<DataNotifier>(context)
+                text: Provider.of<ExpositionNotifier>(context)
                     .exposition
                     .name[translations.getCurrentLangCode()]),
             const SizedBox(height: 50),

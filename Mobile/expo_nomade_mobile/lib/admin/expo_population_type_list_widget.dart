@@ -14,16 +14,17 @@ class ExpoPopulationTypeListWidget extends BaseBOListWidget {
       : super(
             title:
                 AppLocalization.of(context).getTranslation("population_types"),
-            listableItems: Provider.of<DataNotifier>(context, listen: true)
-                .exposition
-                .populationTypes
-                .values
-                .toList(),
+            listableItems:
+                Provider.of<ExpositionNotifier>(context, listen: true)
+                    .exposition
+                    .populationTypes
+                    .values
+                    .toList(),
             itemTap: (item) {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => ExpoPopulationTypeEditorWidget(
-                    popTypeId: (item as ExpoPopulationType).id,
+                    populationType: (item as ExpoPopulationType),
                   ),
                 ),
               );
@@ -31,7 +32,7 @@ class ExpoPopulationTypeListWidget extends BaseBOListWidget {
             itemAddRequested: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => ExpoPopulationTypeEditorWidget(),
+                  builder: (context) => const ExpoPopulationTypeEditorWidget(),
                 ),
               );
             },

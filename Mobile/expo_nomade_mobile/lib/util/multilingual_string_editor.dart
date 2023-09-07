@@ -1,6 +1,7 @@
 import 'package:expo_nomade_mobile/app_localization.dart';
+import 'package:expo_nomade_mobile/util/bo_editor_block_widget.dart';
+import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string.dart';
-import 'package:expo_nomade_mobile/util/underlined_container_widget.dart';
 import 'package:flutter/material.dart';
 
 /// Class MultilingualStringEditorWidget is used to display a list of TextFormFields for each language available in the application.
@@ -48,42 +49,32 @@ class _MultilingualStringEditorWidgetState
 
   @override
   Widget build(BuildContext context) {
-    const labelMargin = 20.0;
-    const containerMargin = 15.0;
     final translations = AppLocalization.of(context);
-    return UnderlinedContainerWidget(
-      content: Column(
-        children: [
-          const SizedBox(height: containerMargin),
-          Row(
+    return BOEditorBlockWidget(
+      name: widget.name,
+      mandatory: widget.mandatory,
+      children: [
+        ...AppLocalization.supportedLanguages.map(
+          (lang) => Row(
             children: [
-              Text(widget.mandatory
-                  ? "${widget.name} (${translations.getTranslation("required")})"
-                  : widget.name),
-            ],
-          ),
-          ...AppLocalization.supportedLanguages.map(
-            (lang) => Row(
-              children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: labelMargin),
-                  child: Text(lang.toUpperCase()),
-                ),
-                Expanded(
-                  child: TextFormField(
-                    controller: _controllers[lang],
-                    decoration: InputDecoration(
-                      labelText:
-                          '${widget.name} (${translations.getTranslation('lang_$lang')})',
-                    ),
+              Container(
+                margin: const EdgeInsets.symmetric(
+                    horizontal: GlobalConstants.multiTFFLabelMargin),
+                child: Text(lang.toUpperCase()),
+              ),
+              Expanded(
+                child: TextFormField(
+                  controller: _controllers[lang],
+                  decoration: InputDecoration(
+                    labelText:
+                        '${widget.name} (${translations.getTranslation('lang_$lang')})',
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          const SizedBox(height: containerMargin)
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

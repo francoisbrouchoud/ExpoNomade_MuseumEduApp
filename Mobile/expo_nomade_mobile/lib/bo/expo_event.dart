@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:expo_nomade_mobile/util/base_business_object.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string.dart';
 import 'package:latlong2/latlong.dart';
@@ -13,7 +12,7 @@ class ExpoEvent extends BaseBusinessObject {
   MultilingualString description;
   int endYear;
   List<LatLng> from;
-  Picture? picture;
+  String pictureURL;
   ExpoPopulationType populationType;
   MultilingualString reason;
   int startYear;
@@ -27,7 +26,7 @@ class ExpoEvent extends BaseBusinessObject {
       this.description,
       this.endYear,
       this.from,
-      this.picture,
+      this.pictureURL,
       this.populationType,
       this.reason,
       this.startYear,
@@ -68,8 +67,8 @@ class ExpoEvent extends BaseBusinessObject {
                 ? (coordinate['lon'] as int).toDouble()
                 : coordinate['lon'] as double))
         .toList();
-    Picture? picture; // TODO get picture if existing
-    return ExpoEvent(id, axis, description, endYear, from, picture, popType,
+    String pictureURL = json['picture'] as String;
+    return ExpoEvent(id, axis, description, endYear, from, pictureURL, popType,
         reason, startYear, title, to);
   }
 

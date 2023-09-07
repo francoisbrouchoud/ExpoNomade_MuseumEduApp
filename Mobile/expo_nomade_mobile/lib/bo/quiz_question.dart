@@ -19,20 +19,22 @@ class Quiz {
 
 /// Contain the question text in différente language and a list of option
 class QuizQuestion extends BaseBusinessObject {
+  //String id;
   MultilingualString question;
-  final List<QuizOption> options;
+  List<QuizOption> options;
 
-  QuizQuestion({required this.question, required this.options});
+  QuizQuestion(this.question, this.options);
 
   /// Convert a json into the buisness object quizQuestion class
   factory QuizQuestion.fromJson(questionJson) {
+    //String id;
     var quizQuestionJson = questionJson['options'] as List;
     List<QuizOption> options = quizQuestionJson
         .map((questionJson) => QuizOption.fromJson(questionJson))
         .toList();
     MultilingualString question =
         MultilingualString(Map<String, String>.from(questionJson['question']));
-    return QuizQuestion(question: question, options: options);
+    return QuizQuestion(question, options);
   }
 
   @override
@@ -43,15 +45,15 @@ class QuizQuestion extends BaseBusinessObject {
 
 /// Contain the option text in différente language and if it is the right answer
 class QuizOption {
-  final Map<String, String> label;
-  final bool isCorrect;
+  MultilingualString label;
+  late final bool isCorrect;
 
   QuizOption({required this.label, this.isCorrect = false});
 
   /// Convert a json into the buisness object quizOption class
   factory QuizOption.fromJson(quizOptionJson) {
-    Map<String, String> label =
-        Map<String, String>.from(quizOptionJson['optionText']);
+    MultilingualString label = MultilingualString(
+        Map<String, String>.from(quizOptionJson['optionText']));
     return QuizOption(
         label: label, isCorrect: quizOptionJson['isCorrect'] == 1);
   }

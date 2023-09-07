@@ -1,12 +1,20 @@
+import 'dart:typed_data';
+
 import 'package:expo_nomade_mobile/bo/expo_axis.dart';
 import 'package:expo_nomade_mobile/bo/expo_event.dart';
+import 'package:expo_nomade_mobile/bo/expo_name.dart';
 import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
 import 'package:expo_nomade_mobile/bo/exposition.dart';
 import 'package:expo_nomade_mobile/bo/museum.dart';
+import 'package:expo_nomade_mobile/bo/quiz_question.dart';
+import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
-// documentation : https://firebase.flutter.dev/docs/database/read-and-write
+// TODO are we going to keep this here??
+// -> documentation : https://firebase.flutter.dev/docs/database/read-and-write
+/// Class FirebaseService provides every method needed by the application to communicate with Firebase.
 class FirebaseService {
   static final firebaseApp = Firebase.app();
   static FirebaseDatabase database = FirebaseDatabase.instanceFor(
@@ -25,6 +33,17 @@ class FirebaseService {
     return null;
   }
 
+  /// Gets the list of all museums.
+  static Future<Map<String, ExpoName>?> getAllExpoNames() async {
+    DatabaseReference ref = database.ref();
+    final expo = await ref.child("expositions").get();
+    if (expo.exists) {
+      return Map.from(expo.value as Map)
+          .map((key, value) => MapEntry(key, ExpoName.fromJson(key, value)));
+    }
+    return null;
+  }
+
   /// Gets the current complete exposition.
   static Future<Exposition?> getCurrentExposition() async {
     DatabaseReference ref = database.ref();
@@ -39,20 +58,27 @@ class FirebaseService {
     return null;
   }
 
+  /// Uploads an image to firebase storage. Returns the download URL.
+  static Future<String> uploadImage(
+      Uint8List imageBytes, String imageExtension) async {
+    final String filename =
+        "${GlobalConstants.getNowFormattedForDB()}.$imageExtension";
+    final Reference imageRef =
+        FirebaseStorage.instance.ref().child("images").child(filename);
+    UploadTask task = imageRef.putData(
+        imageBytes, SettableMetadata(contentType: 'image/$imageExtension'));
+    await task.whenComplete(() => null);
+    return await imageRef.getDownloadURL();
+  }
+
+  /// Adds a new score entry in the database.
   static Future<void> submitScore(String email, double score) async {
     DatabaseReference ref = database.ref();
     final currentExpo = await ref.child("currentExposition").get();
     if (currentExpo.exists) {
-      // get timestamp
-      DateTime now = DateTime.now();
-
-      // format timestamp
-      String formattedDate =
-          "${now.year}${now.month.toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}_${now.hour.toString().padLeft(2, '0')}${now.minute.toString().padLeft(2, '0')}${now.second.toString().padLeft(2, '0')}${now.millisecond.toString().padLeft(3, '0')}";
-
       await ref
           .child(
-              'expositions/${currentExpo.value}/quiz/participation/$formattedDate')
+              'expositions/${currentExpo.value}/quizParticipations/${GlobalConstants.getNowFormattedForDB()}')
           .set({'email': email, 'score': score});
     }
   }
@@ -119,7 +145,7 @@ class FirebaseService {
               "lon": latlng.longitude,
             };
           }).toList(),
-          "picture": event.picture?.toString() ?? "",
+          "picture": event.pictureURL,
         });
         return ExpoEvent(
             newEventRef.key!,
@@ -127,13 +153,82 @@ class FirebaseService {
             event.description,
             event.endYear,
             event.from,
-            event.picture,
+            event.pictureURL,
             event.populationType,
             event.reason,
             event.startYear,
             event.title,
             event.to);
       }
+    }
+    return null;
+  }
+
+  /// Creates a QuizQuestion business object.
+  static Future<QuizQuestion?> createQuizQuestion(
+      QuizQuestion quizQuestion) async {
+    DatabaseReference ref = database.ref();
+    final currentExpo = await ref.child("currentExposition").get();
+    if (currentExpo.exists) {
+      DatabaseReference newQuestionRef =
+          ref.child("expositions/${currentExpo.value}/quiz/questions").push();
+      if (newQuestionRef.key != null) {
+        await newQuestionRef.set({
+          "question": quizQuestion.question.toMap(),
+          "options": quizQuestion.options.map((quizOption) {
+            return {
+              "isCorrect": quizOption.isCorrect,
+              "optionText": quizOption.label.toMap(),
+            };
+          }).toList()
+        });
+        return QuizQuestion(quizQuestion.question, quizQuestion.options);
+      }
+    }
+    return null;
+  }
+
+  /// Updates a QuizQuestion business object.
+  static Future<void> updateQuizQuestion(QuizQuestion quizQuestion) async {
+    DatabaseReference ref = database.ref();
+    final currentExpo = await ref.child("currentExposition").get();
+    if (currentExpo.exists) {
+      await ref
+          .child(
+              "expositions/${currentExpo.value}/quiz/questions/${quizQuestion.question}")
+          .set({
+        "questions": quizQuestion.question.toMap(),
+        "options": quizQuestion.options.map((quizOption) {
+          return {
+            "isCorrect": quizOption.isCorrect,
+            "optionText": quizOption.label.toMap(),
+          };
+        }).toList(),
+      });
+    }
+  }
+
+  /// Delete a QuizQuestion business object.
+  static Future<void> deleteQuizQuestion(QuizQuestion quizQuestion) async {
+    DatabaseReference ref = database.ref();
+    final currentExpo = await ref.child("currentExposition").get();
+    if (currentExpo.exists) {
+      await ref
+          .child(
+              "expositions/${currentExpo.value}/quiz/questions/${quizQuestion.question}")
+          .remove();
+    }
+  }
+
+  /// Creates an ExpoEvent business object.
+  static Future<ExpoName?> createExposition(ExpoName expo) async {
+    DatabaseReference ref = database.ref();
+    DatabaseReference newEventRef = ref.child("expositions").push();
+    if (newEventRef.key != null) {
+      await newEventRef.set({
+        "name": expo.name.toMap(),
+      });
+      return ExpoName(newEventRef.key!, expo.name);
     }
     return null;
   }
@@ -190,9 +285,15 @@ class FirebaseService {
             "lon": latlng.longitude,
           };
         }).toList(),
-        "picture": event.picture?.toString() ?? "",
+        "picture": event.pictureURL,
       });
     }
+  }
+
+  /// Updates an ExpoEvent business object.
+  static Future<void> updateExposition(ExpoName expo) async {
+    DatabaseReference ref = database.ref();
+    await ref.child("expositions/${expo.id}").set({"name": expo.name.toMap()});
   }
 
   /// Deletes an ExpoAxis business object.
@@ -228,5 +329,11 @@ class FirebaseService {
           .child("expositions/${currentExpo.value}/event/${event.id}")
           .remove();
     }
+  }
+
+  /// Deletes an Exposition business object.
+  static Future<void> deleteExposition(ExpoName expo) async {
+    DatabaseReference ref = database.ref();
+    await ref.child("expositions/${expo.id}").remove();
   }
 }
