@@ -26,12 +26,17 @@ class BOSelectorWidget extends StatefulWidget {
 
 /// State class for the BOSelectorWidget.
 class _BOSelectorWidgetState extends State<BOSelectorWidget> {
-  late BaseBusinessObject _selectedItem;
+  late BaseBusinessObject? _selectedItem;
 
   @override
   void initState() {
     super.initState();
-    _selectedItem = widget.preSel ?? widget.objects.first;
+    _selectedItem = null;
+    if (widget.preSel != null) {
+      _selectedItem = widget.preSel!;
+    } else if (widget.objects.isNotEmpty) {
+      _selectedItem = widget.objects.first;
+    }
   }
 
   @override
@@ -60,8 +65,10 @@ class _BOSelectorWidgetState extends State<BOSelectorWidget> {
       onChanged: (BaseBusinessObject? newValue) {
         setState(() {
           _selectedItem = newValue ?? _selectedItem;
-          widget.selectedItemChanged(_selectedItem);
         });
+        if (_selectedItem != null) {
+          widget.selectedItemChanged(_selectedItem!);
+        }
       },
       items: widget.objects.map((BaseBusinessObject object) {
         return DropdownMenuItem<BaseBusinessObject>(
