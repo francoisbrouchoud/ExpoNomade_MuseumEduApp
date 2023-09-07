@@ -64,21 +64,21 @@ class SelectExpo extends StatelessWidget {
     return Column(children: [
       Text(translations.getTranslation("selectExpo"),
           style: theme.textTheme.displaySmall),
-      BOSelectorWidget(
+      /*BOSelectorWidget(
         name: translations.getTranslation("expo"),
         preSel: dataProvider.expositions[dataProvider.exposition.id],
         objects: dataProvider.expositions.values.toList(),
         selectedItemChanged: (newVal) =>
-            setCurrentExpo(newVal as ExpoName, context),
+            setCurrentExpo(newVal as ExpoName, dataProvider, context),
         mandatory: true,
-      )
+      )*/
     ]);
   }
 
   /// Handles the click event on any expo button
-  setCurrentExpo(ExpoName expoName, BuildContext context) async {
+  setCurrentExpo(ExpoName expoName, ExpositionNotifier dataProvider,
+      BuildContext context) async {
     await FirebaseService.setCurrentExposition(expoName.id);
-    final dataProvider = Provider.of<ExpositionNotifier>(context);
     var expo = await FirebaseService.getCurrentExposition();
     dataProvider.setExposition(expo!);
   }
