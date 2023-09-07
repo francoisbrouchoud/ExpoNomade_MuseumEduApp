@@ -6,6 +6,7 @@ import 'package:expo_nomade_mobile/bo/expo_name.dart';
 import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
 import 'package:expo_nomade_mobile/bo/exposition.dart';
 import 'package:expo_nomade_mobile/bo/museum.dart';
+import 'package:expo_nomade_mobile/bo/paticipation.dart';
 import 'package:expo_nomade_mobile/bo/quiz_question.dart';
 import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -79,15 +80,21 @@ class FirebaseService {
   }
 
   /// Adds a new score entry in the database.
-  static Future<void> submitScore(String email, double score) async {
+  static Future<Participation?> submitScore(String email, int score) async {
     DatabaseReference ref = database.ref();
     final currentExpo = await ref.child("currentExposition").get();
     if (currentExpo.exists) {
+      String dateTimeNow = GlobalConstants.getNowFormattedForDB();
+
       await ref
           .child(
-              'expositions/${currentExpo.value}/quizParticipations/${GlobalConstants.getNowFormattedForDB()}')
+              'expositions/${currentExpo.value}/quiz/participation/$dateTimeNow')
           .set({'email': email, 'score': score});
+
+      return Participation(dateTimeNow, email, score);
     }
+
+    return null;
   }
 
   /// Creates an ExpoAxis business object.
@@ -189,7 +196,8 @@ class FirebaseService {
             };
           }).toList()
         });
-        return QuizQuestion(quizQuestion.question, quizQuestion.options);
+        return QuizQuestion(
+            quizQuestion.id, quizQuestion.question, quizQuestion.options);
       }
     }
     return null;
@@ -202,7 +210,7 @@ class FirebaseService {
     if (currentExpo.exists) {
       await ref
           .child(
-              "expositions/${currentExpo.value}/quiz/questions/${quizQuestion.question}")
+              "expositions/${currentExpo.value}/quiz/questions/${quizQuestion.id}")
           .set({
         "questions": quizQuestion.question.toMap(),
         "options": quizQuestion.options.map((quizOption) {
@@ -222,7 +230,7 @@ class FirebaseService {
     if (currentExpo.exists) {
       await ref
           .child(
-              "expositions/${currentExpo.value}/quiz/questions/${quizQuestion.question}")
+              "expositions/${currentExpo.value}/quiz/questions/${quizQuestion.id}")
           .remove();
     }
   }

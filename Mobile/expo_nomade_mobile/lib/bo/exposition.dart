@@ -4,7 +4,6 @@ import 'package:expo_nomade_mobile/bo/expo_axis.dart';
 import 'package:expo_nomade_mobile/bo/expo_event.dart';
 import 'package:expo_nomade_mobile/bo/expo_object.dart';
 import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
-import 'package:expo_nomade_mobile/bo/paticipation.dart';
 import 'package:expo_nomade_mobile/util/base_business_object.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string.dart';
 
@@ -20,11 +19,10 @@ class Exposition extends BaseBusinessObject {
   List<ExpoEvent> events;
   List<ExpoObject> objects;
   Quiz quiz;
-  List<Participation> participations;
 
   /// Exposition complete constructor.
   Exposition(this.id, this.name, this.axes, this.events, this.objects,
-      this.populationTypes, this.quiz, this.participations);
+      this.populationTypes, this.quiz);
 
   /// Convert json into the business object Exposition.
   factory Exposition.fromJson(
@@ -57,22 +55,12 @@ class Exposition extends BaseBusinessObject {
           .map((o) => ExpoObject.fromJson(o, axes, museums))
           .toList();
     }
-    Quiz quiz = Quiz(questions: []);
+    Quiz quiz = Quiz(questions: [],participations: );
     if (json.containsKey("quiz")) {
       Quiz.fromJson(json['quiz']);
     }
 
-    List<Participation> participations = [];
-    if (json.containsKey("quizParticipations")) {
-      for (var participation
-          in Map<String, dynamic>.from(json['quizParticipations']).entries) {
-        participations.add(
-            Participation.fromJson(participation.key, participation.value));
-      }
-    }
-
-    return Exposition(
-        id, name, axes, events, objects, popTypes, quiz, participations);
+    return Exposition(id, name, axes, events, objects, popTypes, quiz);
   }
 
   @override

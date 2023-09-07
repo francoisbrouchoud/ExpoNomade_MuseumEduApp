@@ -1,9 +1,13 @@
+import 'package:expo_nomade_mobile/bo/exposition.dart';
+import 'package:expo_nomade_mobile/bo/paticipation.dart';
 import 'package:expo_nomade_mobile/firebase_service.dart';
+import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../app_localization.dart';
 
 class ScoreSubmissionPage extends StatelessWidget {
-  final double score;
+  final int score;
   final TextEditingController emailController = TextEditingController();
 
   ScoreSubmissionPage({super.key, required this.score});
@@ -41,6 +45,9 @@ class ScoreSubmissionPage extends StatelessWidget {
     final theme = Theme.of(context);
     final translations = AppLocalization.of(context);
     final langCode = translations.getCurrentLangCode();
+
+    final dataProvider = Provider.of<ExpositionNotifier>(context);
+    final Exposition expo = dataProvider.exposition;
 
     final ScoreTextStyle = theme.textTheme.bodyText1!.copyWith(
       color: theme.colorScheme.secondary,
@@ -120,7 +127,13 @@ class ScoreSubmissionPage extends StatelessWidget {
                           String email = emailController.text;
                           if (isValidEmail(email)) {
                             // Send to Firebase
-                            await FirebaseService.submitScore(email, score);
+                            Participation? participation =
+                                await FirebaseService.submitScore(email, score);
+
+                            if (participation != null) {
+                              expo.quiz.participations.add(participation);
+                            }
+
                             // Navigate to the main page
                             Navigator.of(context)
                                 .popUntil((route) => route.isFirst);

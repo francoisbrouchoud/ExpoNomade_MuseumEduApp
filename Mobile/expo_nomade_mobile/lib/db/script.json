@@ -150,15 +150,15 @@
                "endYear":2000,
                "axe":"-NcqpNHcZkWCsLTXxIxm",
                "reason":{
-                  "fr":"",
-                  "de":""
+                  "fr":"Travail",
+                  "de":"Arbeit"
                },
                "populationType":"-Ncqpj_hDfwZeo_YYBmn"
             }
          },
          "quiz":{
-            "questions":[
-               {
+            "questions":{
+               "-Kxh5G2R89XlDsPv0gMf6YjA7XzH":{
                   "question":{
                      "fr":"De quel pays proviennent principalement les ouvriers qui ont construit le tunnel du Simplon ?",
                      "de":"Aus welchem Land kommen die Arbeiter, die den Simplontunnel gebaut haben, hauptsächlich?"
@@ -187,7 +187,7 @@
                      }
                   ]
                },
-               {
+               "-bWdRzT9eHg8XjQaCmYfVnS0xL1I":{
                   "question":{
                      "fr":"En quel année a été terminé le premier tube tunnel du Simplon ?",
                      "de":"In welchem Jahr wurde die erste Tunnelröhre am Simplon fertiggestellt?"
@@ -223,7 +223,7 @@
                      }
                   ]
                },
-               {
+               "-sUqPdRzH0g8XfMjCmYnS1IzW2E":{
                   "question":{
                      "fr":"Qui a traversé le col du Grand St-Bernard avec un éléphant ?",
                      "de":"Wer hat den Pass des Großen St. Bernhard mit einem Elefanten überquert?"
@@ -252,7 +252,7 @@
                      }
                   ]
                },
-               {
+               "-jUqB5zH8gRfXmM0YnA7S1IzW2E":{
                   "question":{
                      "fr":"En 2020, quel pays représentait la plus grande communauté étrangère résidant en Valais ?",
                      "de":"Welches Land stellte im Jahr 2020 die grösste im Wallis wohnhafte ausländische Gemeinschaft?"
@@ -288,7 +288,7 @@
                      }
                   ]
                },
-               {
+               "-xLzW4PqRmU7e8H0gXfMj1YnCzA":{
                   "question":{
                      "fr":"Dans l'Antiquité, quel peuple occupait principalement la région du Valais avant la conquête romaine?",
                      "de":"Welches Volk besiedelte im Altertum vor der Eroberung durch die Römer hauptsächlich die Region Wallis?"
@@ -324,7 +324,7 @@
                      }
                   ]
                },
-               {
+               "-zH8gRjCmUqPdXfMnS1IzW0Y7E":{
                   "question":{
                      "fr":"Durant quel siècle le Valais a-t-il été intégré à l'Empire carolingien?",
                      "de":"In welchem Jahrhundert war das Wallis Teil des karolingischen Reiches?"
@@ -360,7 +360,7 @@
                      }
                   ]
                },
-               {
+               "-YjCmUqB5H8gXfRzPdA7I1W2E0M":{
                   "question":{
                      "fr":"Quelle route commerciale importante traversait le Valais dans l'Antiquité et le Moyen Âge, favorisant les mouvements migratoires?",
                      "de":"Welche wichtige Handelsroute führte in der Antike und im Mittelalter durch das Wallis und förderte die Migration?"
@@ -396,7 +396,7 @@
                      }
                   ]
                },
-               {
+               "-mUqPjCmYnRzH8gA7XfS1IzW0E2":{
                   "question":{
                      "fr":"Le Valais est devenu un évêché indépendant au début duquel siècle, consolidant ainsi son autonomie?",
                      "de":"Das Wallis wurde Anfang des Jahrhunderts zu einem unabhängigen Bistum und festigte so seine Autonomie?"
@@ -432,7 +432,7 @@
                      }
                   ]
                },
-               {
+               "-fMjCmYnS1IzW0E2H8gRjUqB5A7":{
                   "question":{
                      "fr":"Durant les invasions barbares, quel peuple germanique a traversé et parfois occupé le Valais, influençant sa démographie?",
                      "de":"Welches germanische Volk zog während der Barbareninvasionen durch das Wallis und besetzte es zeitweise, was die Demografie beeinflusste?"
@@ -468,7 +468,7 @@
                      }
                   ]
                },
-               {
+               "-S1IzW0XfMjCmYnH8gRjCzA7UqP":{
                   "question":{
                      "fr":"Quelle ligne ferroviaire, inaugurée à la fin du 19ème siècle, a considérablement renforcé les liens entre le Valais et le reste de la Suisse?",
                      "de":"Welche Eisenbahnlinie, die Ende des 19. Jahrhunderts eröffnet wurde, hat die Verbindungen zwischen dem Wallis und dem Rest der Schweiz erheblich verstärkt?"
@@ -504,7 +504,7 @@
                      }
                   ]
                },
-               {
+               "-gRjCmYfUqB5XzH8gRmS1IzW0A7":{
                   "question":{
                      "fr":"Durant la Première Guerre mondiale, le Valais a accueilli de nombreux réfugiés de quel pays voisin?",
                      "de":"Während des Ersten Weltkriegs nahm das Wallis viele Flüchtlinge aus welchem Nachbarland auf?"
@@ -540,7 +540,7 @@
                      }
                   ]
                },
-               {
+               "-zW2H8gRjCmUqPdYnS1IzA0XfMj":{
                   "question":{
                      "fr":"À la suite de la construction de grands barrages hydroélectriques au 20ème siècle, le Valais a vu une augmentation de migrants venant principalement de quel pays?",
                      "de":"Nach dem Bau großer Wasserkraftwerke im 20. Jahrhundert verzeichnete das Wallis einen Anstieg von Migranten, die hauptsächlich aus welchem Land kamen?"
@@ -576,7 +576,7 @@
                      }
                   ]
                },
-               {
+               "-Y7XfMjCmS1IzW0H8gRjUqPdA7":{
                   "question":{
                      "fr":"Durant la Seconde Guerre mondiale, quel col du Valais a été particulièrement utilisé par les réfugiés fuyant l'occupation?",
                      "de":"Welcher Pass im Wallis wurde während des Zweiten Weltkriegs besonders häufig von Flüchtlingen benutzt, die vor der Besatzung flohen?"
@@ -612,7 +612,7 @@
                      }
                   ]
                },
-               {
+               "-zW0E2H8gRjCmUqB5A7XfS1IjMn":{
                   "question":{
                      "fr":"Au 20ème siècle, quelle industrie du Valais a particulièrement attiré des travailleurs étrangers, notamment en raison de la croissance du tourisme?",
                      "de":"Welche Industrie im Wallis zog im 20. Jahrhundert besonders viele ausländische Arbeitskräfte an, vor allem aufgrund des wachsenden Tourismus?"
@@ -648,13 +648,13 @@
                      }
                   ]
                }
-            ],
-            "participation":[
-               {
+            },
+            "participation":{
+               "20230907_16341222":{
                   "email":"",
                   "score":0
                }
-            ]
+            }
          }
       }
    }

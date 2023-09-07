@@ -10,7 +10,9 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../bo/expo_event.dart';
+import '../bo/expo_population_type.dart';
 import '../bo/exposition.dart';
+import '../util/multilingual_string.dart';
 
 /// Class MapPage is used to display the map and the information related to the exposition.
 class MapPage extends StatefulWidget {
@@ -31,25 +33,40 @@ class _MapPageState extends State<MapPage> {
   double endYearFilter = 2020;
   List<ExpoEvent> filteredEvents = [];
   Map<ExpoObject, int> filteredObjects = {};
+  Set<MultilingualString> selectedReasons = {};
+  Set<MultilingualString> allReasons = {};
+  Set<ExpoPopulationType> selectedPopulations = {};
+  Set<ExpoPopulationType> allPopulations = {};
+
 
   @override
   void initState() {
     super.initState();
 
-    filteredEvents = filterEventsByYear(
-        widget.exposition.events, startYearFilter, endYearFilter);
+    // Get all existing reasons and set them to checked by default
+    for (var event in widget.exposition.events) {
+      selectedReasons.add(event.reason);
+    }
+    //Get all existing population types and set them to checked by default
+    for (var event in widget.exposition.events) {
+      selectedPopulations.add(event.populationType);
+    }
+    filteredEvents = filterEvents(
+        widget.exposition.events, startYearFilter, endYearFilter, selectedReasons, selectedPopulations);
     filteredObjects = filterObjectsByYear(
         widget.exposition.objects, startYearFilter, endYearFilter);
   }
 
-  void filterRangeChanged(double start, double end) {
+  void filterChanged(double start, double end, Set<MultilingualString> reasons, Set<ExpoPopulationType> populations) {
     setState(() {
       startYearFilter = start;
       endYearFilter = end;
+      selectedReasons = reasons;
+      selectedPopulations = populations;
 
       // Filter Events and Objects
-      filteredEvents = filterEventsByYear(
-          widget.exposition.events, startYearFilter, endYearFilter);
+      filteredEvents = filterEvents(
+          widget.exposition.events, startYearFilter, endYearFilter, selectedReasons, selectedPopulations);
       filteredObjects = filterObjectsByYear(
           widget.exposition.objects, startYearFilter, endYearFilter);
     });
@@ -58,6 +75,15 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     isLargeScreen = MediaQuery.of(context).size.width >= 600;
+
+    // Get all existing reasons
+    for (var event in widget.exposition.events) {
+      allReasons.add(event.reason);
+    }
+    //Get all existing population types
+    for (var event in widget.exposition.events) {
+      allPopulations.add(event.populationType);
+    }
 
     return Scaffold(
       body: Stack(
@@ -121,11 +147,21 @@ class _MapPageState extends State<MapPage> {
             Positioned(
               top: 80,
               left: 16,
-              child: FilterPopup(
-                onRangeChanged: filterRangeChanged,
-                startYearFilter: startYearFilter,
-                endYearFilter: endYearFilter,
-              ),
+              child: Container (
+                height: 300,
+                width: 300,
+                child: FilterPopup(
+                  onFilterChanged: filterChanged,
+                  startYearFilter: startYearFilter,
+                  endYearFilter: endYearFilter, 
+                  selectedReasons: selectedReasons,
+                  allReasons: allReasons,
+                  selectedPopulations: selectedPopulations,
+                  allPopulations: allPopulations
+                ),
+              )
+              
+              
             ),
         ],
       ),
