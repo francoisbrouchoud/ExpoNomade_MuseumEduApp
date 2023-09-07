@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:expo_nomade_mobile/util/bo_editor_block_widget.dart';
 import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:flutter/material.dart';
@@ -40,9 +42,17 @@ class _ImageSelectorWidgetState extends State<ImageSelectorWidget> {
       if (file.bytes != null && file.extension != null) {
         String imageUrl =
             await FirebaseService.uploadImage(file.bytes!, file.extension!);
+        widget.urlChanged(imageUrl);
+
         setState(() {
           url = imageUrl;
-          widget.urlChanged(imageUrl);
+        });
+      } else if (file.path != null && file.extension != null) {
+        String imageUrl = await FirebaseService.uploadImageFile(
+            File(file.path!), file.extension!);
+        widget.urlChanged(imageUrl);
+        setState(() {
+          url = imageUrl;
         });
       }
     }

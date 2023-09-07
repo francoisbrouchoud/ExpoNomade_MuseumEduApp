@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:expo_nomade_mobile/bo/expo_axis.dart';
@@ -53,10 +54,17 @@ class FirebaseService {
       Map<String, Museum>? museums = await getMuseums();
       final expo = await ref.child("expositions/${currentExpo.value}").get();
       if (expo.exists && museums != null) {
-        return Exposition.fromJson(expo.value, museums);
+        return Exposition.fromJson(
+            currentExpo.value.toString(), expo.value, museums);
       }
     }
     return null;
+  }
+
+// set the news current exposition
+  static setCurrentExposition(String id) async {
+    DatabaseReference ref = database.ref();
+    await ref.set({'currentExposition': id});
   }
 
   /// Uploads an image to firebase storage. Returns the download URL.
@@ -68,6 +76,18 @@ class FirebaseService {
         FirebaseStorage.instance.ref().child("images").child(filename);
     UploadTask task = imageRef.putData(
         imageBytes, SettableMetadata(contentType: 'image/$imageExtension'));
+    await task.whenComplete(() => null);
+    return await imageRef.getDownloadURL();
+  }
+
+  static Future<String> uploadImageFile(
+      File file, String imageExtension) async {
+    final String filename =
+        "${GlobalConstants.getNowFormattedForDB()}.$imageExtension";
+    final Reference imageRef =
+        FirebaseStorage.instance.ref().child("images").child(filename);
+    UploadTask task = imageRef.putFile(
+        file, SettableMetadata(contentType: 'image/$imageExtension'));
     await task.whenComplete(() => null);
     return await imageRef.getDownloadURL();
   }
