@@ -26,7 +26,7 @@ class ScorePage extends StatelessWidget {
         fontWeight: FontWeight.bold);
 
     double screenWidth = MediaQuery.of(context).size.width;
-    double correctPercentage = (correctAnswers / totalQuestions) * 100;
+    int correctPercentage = ((correctAnswers / totalQuestions) * 100).toInt();
 
     return Scaffold(
       backgroundColor: theme.colorScheme.primary,
