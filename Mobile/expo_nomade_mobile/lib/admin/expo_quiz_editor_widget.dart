@@ -9,6 +9,7 @@ import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:expo_nomade_mobile/util/latlng_selector_widget.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string_editor.dart';
+import 'package:expo_nomade_mobile/util/quiz_option_selector_widget.dart';
 
 import 'package:expo_nomade_mobile/util/simple_snack_bar.dart';
 import 'package:flutter/material.dart';
@@ -62,14 +63,12 @@ class _ExpoQuizEditorWidgetState extends State<ExpoQuizEditorWidget> {
             valueChanged: (newVals) => newQuestVals = newVals,
             mandatory: true,
           ),
-          /*
           QuizOptionSelectorWidget(
             name: translations.getTranslation("coordinates_from"),
             values: newQuizOptVals,
             valuesChanged: (newVals) => newQuizOptVals = newVals,
             mandatory: true,
           )
-          */
         ],
         object: widget.quizQuestion,
         itemSaveRequested: () async {
@@ -78,7 +77,7 @@ class _ExpoQuizEditorWidgetState extends State<ExpoQuizEditorWidget> {
           if (widget.quizQuestion != null) {
             quizQuestion = widget.quizQuestion!;
             quizQuestion.question = MultilingualString(newQuestVals);
-            quizQuestion.options = new List.empty();
+            quizQuestion.options = newQuizOptVals;
 
             await FirebaseService.updateQuizQuestion(quizQuestion);
           } else {

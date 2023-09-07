@@ -1,5 +1,8 @@
 import 'package:expo_nomade_mobile/admin/expo_axis_list_widget.dart';
+import 'package:expo_nomade_mobile/admin/expo_event_list_widget.dart';
+import 'package:expo_nomade_mobile/admin/expo_participation_widget.dart';
 import 'package:expo_nomade_mobile/admin/expo_population_type_list_widget.dart';
+import 'package:expo_nomade_mobile/admin/expo_quiz_list_widget.dart';
 import 'package:expo_nomade_mobile/quiz/quiz_page.dart';
 import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:flutter/material.dart';
@@ -96,7 +99,13 @@ class App extends StatelessWidget {
                       '/admin/populationType': (context) =>
                           ExpoPopulationTypeListWidget(context: context),
                       '/admin/expositions': (context) =>
-                          ExpoListWidget(context: context)
+                          ExpoListWidget(context: context),
+                      '/admin/events': (context) =>
+                          ExpoEventListWidget(context: context),
+                      '/admin/participations': (context) =>
+                          ExpoParticipationTypeListWidget(context: context),
+                      '/admin/quiz': (context) =>
+                          ExpoQuizListWidget(context: context),
                     },
                   );
                 }

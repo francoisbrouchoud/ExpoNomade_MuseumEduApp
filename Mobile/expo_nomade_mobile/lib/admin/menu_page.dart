@@ -31,32 +31,29 @@ class _MenuPageState extends State<MenuPage> {
     return true;
   }
 
-  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final translations = AppLocalization.of(context);
     return WillPopScope(
         onWillPop: () => _onWillPop(context),
         child: ContainerAdminWidget(
-            title: translations.getTranslation("admin"),
-            body: Padding(
-              padding: const EdgeInsets.only(left: 40, right: 40),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: <Widget>[
-                    SelectExpo(),
-                    const SizedBox(height: 25),
-                    Menu(refresh: () {
-                      setState(() {});
-                    })
-                  ],
-                ),
-              ),
-            )));
+          fixedContainerHeight: true,
+          title: translations.getTranslation("admin"),
+          body: Padding(
+            padding: const EdgeInsets.only(left: 40, right: 40),
+            child: ListView(
+              children: const <Widget>[
+                SelectExpo(),
+                SizedBox(height: 25),
+                Menu()
+              ],
+            ),
+          ),
+        ));
   }
 }
 
+// create the part to selecte the currente expo
 class SelectExpo extends StatelessWidget {
   const SelectExpo({super.key});
   @override
@@ -70,28 +67,26 @@ class SelectExpo extends StatelessWidget {
           style: theme.textTheme.displaySmall),
       BOSelectorWidget(
         name: translations.getTranslation("expo"),
-        preSel:
-            ExpoName(dataProvider.exposition.id, dataProvider.exposition.name),
+        preSel: dataProvider.expositions[dataProvider.exposition.id],
         objects: dataProvider.expositions.values.toList(),
         selectedItemChanged: (newVal) =>
-            setCurrentExpo(newVal as ExpoName, context),
+            setCurrentExpo(newVal as ExpoName, dataProvider, context),
         mandatory: true,
       )
     ]);
   }
 
   /// Handles the click event on any expo button
-  setCurrentExpo(ExpoName expoName, BuildContext context) async {
+  setCurrentExpo(ExpoName expoName, ExpositionNotifier dataProvider,
+      BuildContext context) async {
     await FirebaseService.setCurrentExposition(expoName.id);
-    final dataProvider = Provider.of<ExpositionNotifier>(context);
     var expo = await FirebaseService.getCurrentExposition();
     dataProvider.setExposition(expo!);
   }
 }
 
 class Menu extends StatelessWidget {
-  const Menu({super.key, required this.refresh});
-  final Function() refresh;
+  const Menu({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +171,7 @@ class Menu extends StatelessWidget {
             FirebaseAuth.instance.signOut();
             loginProvider.setIsLogin(false);
           },
-          type: ButtonWidgetType.standard)
+          type: ButtonWidgetType.delete)
     ]);
   }
 }

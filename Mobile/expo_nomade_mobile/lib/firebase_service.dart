@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:expo_nomade_mobile/bo/expo_axis.dart';
@@ -63,7 +64,7 @@ class FirebaseService {
 // set the news current exposition
   static setCurrentExposition(String id) async {
     DatabaseReference ref = database.ref();
-    await ref.set({'currentExposition': id});
+    await ref.update({'currentExposition': id});
   }
 
   /// Uploads an image to firebase storage. Returns the download URL.
@@ -75,6 +76,18 @@ class FirebaseService {
         FirebaseStorage.instance.ref().child("images").child(filename);
     UploadTask task = imageRef.putData(
         imageBytes, SettableMetadata(contentType: 'image/$imageExtension'));
+    await task.whenComplete(() => null);
+    return await imageRef.getDownloadURL();
+  }
+
+  static Future<String> uploadImageFile(
+      File file, String imageExtension) async {
+    final String filename =
+        "${GlobalConstants.getNowFormattedForDB()}.$imageExtension";
+    final Reference imageRef =
+        FirebaseStorage.instance.ref().child("images").child(filename);
+    UploadTask task = imageRef.putFile(
+        file, SettableMetadata(contentType: 'image/$imageExtension'));
     await task.whenComplete(() => null);
     return await imageRef.getDownloadURL();
   }
@@ -191,7 +204,7 @@ class FirebaseService {
           "question": quizQuestion.question.toMap(),
           "options": quizQuestion.options.map((quizOption) {
             return {
-              "isCorrect": quizOption.isCorrect,
+              "isCorrect": quizOption.isCorrect ? 1 : 0,
               "optionText": quizOption.label.toMap(),
             };
           }).toList()
@@ -212,10 +225,10 @@ class FirebaseService {
           .child(
               "expositions/${currentExpo.value}/quiz/questions/${quizQuestion.id}")
           .set({
-        "questions": quizQuestion.question.toMap(),
+        "question": quizQuestion.question.toMap(),
         "options": quizQuestion.options.map((quizOption) {
           return {
-            "isCorrect": quizOption.isCorrect,
+            "isCorrect": quizOption.isCorrect ? 1 : 0,
             "optionText": quizOption.label.toMap(),
           };
         }).toList(),

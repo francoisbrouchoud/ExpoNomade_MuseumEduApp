@@ -50,15 +50,15 @@ class _FilterPopupState extends State<FilterPopup> {
     final langCode = translations.getCurrentLangCode();
     return Container(
       color: Colors.white,
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(translations.getTranslation("years").toString(), textAlign: TextAlign.left,),
           RangeSlider(
             values: RangeValues(start, end),
-            min: 1700,
-            max: 2020,
+            min: widget.startYearFilter,
+            max: widget.endYearFilter,
             divisions: 32,
             onChanged: (RangeValues values) {
               setState(() {
@@ -73,45 +73,50 @@ class _FilterPopupState extends State<FilterPopup> {
             ),
           ),
 
-          Text(translations.getTranslation("reason").toString(), textAlign: TextAlign.left,),
-          ...widget.allReasons.map((reason) {
-            return CheckboxListTile(
-              title: Text(reason[langCode]),
-              value: selectedReasons.contains(reason),
-              controlAffinity: ListTileControlAffinity.leading,
-              onChanged: (bool? value) {
-                setState(() {
-                  if (value == true) {
-                    selectedReasons.add(reason);
-                  } else {
-                    selectedReasons.remove(reason);
-                  }
-                });
-                // update filtered elements
-                widget.onFilterChanged(start, end, selectedReasons, selectedPopulations);
-              },
-            );
-          }).toList(),
+          if(widget.allReasons.isNotEmpty) 
+            Text(translations.getTranslation("reason").toString(), textAlign: TextAlign.left,),
 
-          Text(translations.getTranslation("population_types").toString(), textAlign: TextAlign.left,),
-          ...widget.allPopulations.map((pop) {
-            return CheckboxListTile(
-              title: Text(pop.title[langCode]),
-              value: selectedPopulations.contains(pop),
-              controlAffinity: ListTileControlAffinity.leading,
-              onChanged: (bool? value) {
-                setState(() {
-                  if (value == true) {
-                    selectedPopulations.add(pop);
-                  } else {
-                    selectedPopulations.remove(pop);
-                  }
-                });
-                // update filtered elements
-                widget.onFilterChanged(start, end, selectedReasons, selectedPopulations);
-              },
-            );
-          }).toList(),
+          if(widget.allReasons.isNotEmpty)
+            ...widget.allReasons.map((reason) {
+              return CheckboxListTile(
+                title: Text(reason[langCode]),
+                value: selectedReasons.contains(reason),
+                controlAffinity: ListTileControlAffinity.leading,
+                onChanged: (bool? value) {
+                  setState(() {
+                    if (value == true) {
+                      selectedReasons.add(reason);
+                    } else {
+                      selectedReasons.remove(reason);
+                    }
+                  });
+                  // update filtered elements
+                  widget.onFilterChanged(start, end, selectedReasons, selectedPopulations);
+                },
+              );
+            }).toList(),
+
+          if(widget.allPopulations.isNotEmpty)
+            Text(translations.getTranslation("population_types").toString(), textAlign: TextAlign.left,),
+          if(widget.allPopulations.isNotEmpty)
+            ...widget.allPopulations.map((pop) {
+              return CheckboxListTile(
+                title: Text(pop.title[langCode]),
+                value: selectedPopulations.contains(pop),
+                controlAffinity: ListTileControlAffinity.leading,
+                onChanged: (bool? value) {
+                  setState(() {
+                    if (value == true) {
+                      selectedPopulations.add(pop);
+                    } else {
+                      selectedPopulations.remove(pop);
+                    }
+                  });
+                  // update filtered elements
+                  widget.onFilterChanged(start, end, selectedReasons, selectedPopulations);
+                },
+              );
+            }).toList(),
         ],
       ),
     );

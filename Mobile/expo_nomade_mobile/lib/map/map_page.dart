@@ -14,6 +14,8 @@ import '../bo/expo_population_type.dart';
 import '../bo/exposition.dart';
 import '../util/multilingual_string.dart';
 
+import 'dart:math' as math;
+
 /// Class MapPage is used to display the map and the information related to the exposition.
 class MapPage extends StatefulWidget {
   const MapPage({Key? key, required this.exposition}) : super(key: key);
@@ -75,6 +77,21 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     isLargeScreen = MediaQuery.of(context).size.width >= 600;
+
+    // Find the minimal year value in all the objects
+    int minObjectYear = widget.exposition.objects
+        .expand((obj) => obj.coordinates.keys)
+        .reduce(math.min);
+
+    // Find the minimal year value in all the events
+    int minEventYear = widget.exposition.events
+        .map((event) => event.startYear)
+        .reduce(math.min);
+
+    // Set the minimal year value as minimal year for my slider range settings
+    startYearFilter = math.min(minObjectYear, minEventYear).toDouble();
+    // Set current year as maximal year for my slider range settings
+    endYearFilter = DateTime.now().year.toDouble();
 
     // Get all existing reasons
     for (var event in widget.exposition.events) {
@@ -150,6 +167,16 @@ class _MapPageState extends State<MapPage> {
               child: Container (
                 height: 300,
                 width: 300,
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2), // Couleur de l'ombre
+                      spreadRadius: 5, // Propagation de l'ombre
+                      blurRadius: 9, // Flou de l'ombre
+                      offset: Offset(0, 3), // Position de l'ombre
+                    ),
+                  ],
+                ),
                 child: FilterPopup(
                   onFilterChanged: filterChanged,
                   startYearFilter: startYearFilter,
