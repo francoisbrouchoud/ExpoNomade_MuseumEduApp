@@ -32,13 +32,20 @@ class _MapPageState extends State<MapPage> {
   double endYearFilter = 2020;
   List<ExpoEvent> filteredEvents = [];
   Map<ExpoObject, int> filteredObjects = {};
+  Set<String> selectedReasons = {};
+
 
   @override
   void initState() {
     super.initState();
 
-    filteredEvents = filterEventsByYear(
-        widget.exposition.events, startYearFilter, endYearFilter);
+    // Collecte de toutes les raisons uniques et initialisation de selectedReasons
+    for (var event in widget.exposition.events) {
+      selectedReasons.add(event.reason['fr']);
+    }
+
+    filteredEvents = filterEvents(
+        widget.exposition.events, startYearFilter, endYearFilter, selectedReasons);
     filteredObjects = filterObjectsByYear(
         widget.exposition.objects, startYearFilter, endYearFilter);
   }
@@ -49,8 +56,8 @@ class _MapPageState extends State<MapPage> {
       endYearFilter = end;
 
       // Filter Events and Objects
-      filteredEvents = filterEventsByYear(
-          widget.exposition.events, startYearFilter, endYearFilter);
+      filteredEvents = filterEvents(
+          widget.exposition.events, startYearFilter, endYearFilter, selectedReasons);
       filteredObjects = filterObjectsByYear(
           widget.exposition.objects, startYearFilter, endYearFilter);
     });
@@ -124,11 +131,18 @@ class _MapPageState extends State<MapPage> {
             Positioned(
               top: 80,
               left: 16,
-              child: FilterPopup(
-                onRangeChanged: filterRangeChanged,
-                startYearFilter: startYearFilter,
-                endYearFilter: endYearFilter,
-              ),
+              child: Container (
+                height: 300,
+                width: 300,
+                child: FilterPopup(
+                  onRangeChanged: filterRangeChanged,
+                  startYearFilter: startYearFilter,
+                  endYearFilter: endYearFilter, 
+                  selectedReasons: selectedReasons,
+                ),
+              )
+              
+              
             ),
         ],
       ),

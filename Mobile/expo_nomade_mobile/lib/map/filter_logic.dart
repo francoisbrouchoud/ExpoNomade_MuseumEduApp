@@ -4,10 +4,12 @@ import '../bo/expo_event.dart';
 import '../bo/expo_object.dart';
 
 /// Filters a list of ExpoEvent by year.
-List<ExpoEvent> filterEventsByYear(
-    List<ExpoEvent> events, double startYear, double endYear) {
+List<ExpoEvent> filterEvents(
+    List<ExpoEvent> events, double startYear, double endYear, Set<String> reasons) {
   return events.where((event) {
-    return event.startYear >= startYear && event.endYear <= endYear;
+    return event.startYear >= startYear && 
+            event.endYear <= endYear &&
+            reasons.contains(event.reason['fr']);
   }).toList();
 }
 
