@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:expo_nomade_mobile/bo/expo_axis.dart';
@@ -75,6 +76,18 @@ class FirebaseService {
         FirebaseStorage.instance.ref().child("images").child(filename);
     UploadTask task = imageRef.putData(
         imageBytes, SettableMetadata(contentType: 'image/$imageExtension'));
+    await task.whenComplete(() => null);
+    return await imageRef.getDownloadURL();
+  }
+
+  static Future<String> uploadImageFile(
+      File file, String imageExtension) async {
+    final String filename =
+        "${GlobalConstants.getNowFormattedForDB()}.$imageExtension";
+    final Reference imageRef =
+        FirebaseStorage.instance.ref().child("images").child(filename);
+    UploadTask task = imageRef.putFile(
+        file, SettableMetadata(contentType: 'image/$imageExtension'));
     await task.whenComplete(() => null);
     return await imageRef.getDownloadURL();
   }
