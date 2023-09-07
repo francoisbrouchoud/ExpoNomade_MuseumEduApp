@@ -1,15 +1,15 @@
 import 'package:expo_nomade_mobile/app_localization.dart';
+import 'package:expo_nomade_mobile/bo/expo_axis.dart';
 import 'package:flutter/material.dart';
 
 import '../bo/expo_population_type.dart';
-import '../util/multilingual_string.dart';
 
 class FilterPopup extends StatefulWidget {
-  final Function(double, double, Set<MultilingualString>, Set<ExpoPopulationType>) onFilterChanged;
+  final Function(double, double, Set<ExpoAxis>, Set<ExpoPopulationType>) onFilterChanged;
   final double startYearFilter;
   final double endYearFilter;
-  final Set<MultilingualString> selectedReasons;
-  final Set<MultilingualString> allReasons;
+  final Set<ExpoAxis> selectedReasons;
+  final Set<ExpoAxis> allReasons;
   final Set<ExpoPopulationType> selectedPopulations;
   final Set<ExpoPopulationType> allPopulations;
 
@@ -31,7 +31,7 @@ class FilterPopup extends StatefulWidget {
 class _FilterPopupState extends State<FilterPopup> {
   late double start;
   late double end;
-  Set<MultilingualString> selectedReasons = {};
+  Set<ExpoAxis> selectedReasons = {};
   Set<ExpoPopulationType> selectedPopulations = {};
 
   @override
@@ -50,11 +50,20 @@ class _FilterPopupState extends State<FilterPopup> {
     final langCode = translations.getCurrentLangCode();
     return Container(
       color: Colors.white,
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(20),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         children: [
-          Text(translations.getTranslation("years").toString(), textAlign: TextAlign.left,),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              translations.getTranslation("years").toString(),
+              textAlign: TextAlign.left,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+              ),
+            ),
+          ),
           RangeSlider(
             values: RangeValues(start, end),
             min: widget.startYearFilter,
@@ -74,12 +83,22 @@ class _FilterPopupState extends State<FilterPopup> {
           ),
 
           if(widget.allReasons.isNotEmpty) 
-            Text(translations.getTranslation("reason").toString(), textAlign: TextAlign.left,),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                translations.getTranslation("reason").toString(),
+                textAlign: TextAlign.left,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                ),
+              ),
+            ),
 
           if(widget.allReasons.isNotEmpty)
             ...widget.allReasons.map((reason) {
               return CheckboxListTile(
-                title: Text(reason[langCode]),
+                title: Text(reason.title[langCode]),
                 value: selectedReasons.contains(reason),
                 controlAffinity: ListTileControlAffinity.leading,
                 onChanged: (bool? value) {
@@ -97,7 +116,18 @@ class _FilterPopupState extends State<FilterPopup> {
             }).toList(),
 
           if(widget.allPopulations.isNotEmpty)
-            Text(translations.getTranslation("population_types").toString(), textAlign: TextAlign.left,),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                translations.getTranslation("population_types").toString(),
+                textAlign: TextAlign.left,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                ),
+              ),
+            ),
+          
           if(widget.allPopulations.isNotEmpty)
             ...widget.allPopulations.map((pop) {
               return CheckboxListTile(
