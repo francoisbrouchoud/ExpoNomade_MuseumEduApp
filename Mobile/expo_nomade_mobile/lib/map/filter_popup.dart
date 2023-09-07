@@ -50,11 +50,20 @@ class _FilterPopupState extends State<FilterPopup> {
     final langCode = translations.getCurrentLangCode();
     return Container(
       color: Colors.white,
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(20),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         children: [
-          Text(translations.getTranslation("years").toString(), textAlign: TextAlign.left,),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              translations.getTranslation("years").toString(),
+              textAlign: TextAlign.left,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+              ),
+            ),
+          ),
           RangeSlider(
             values: RangeValues(start, end),
             min: widget.startYearFilter,
@@ -74,7 +83,17 @@ class _FilterPopupState extends State<FilterPopup> {
           ),
 
           if(widget.allReasons.isNotEmpty) 
-            Text(translations.getTranslation("reason").toString(), textAlign: TextAlign.left,),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                translations.getTranslation("reason").toString(),
+                textAlign: TextAlign.left,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                ),
+              ),
+            ),
 
           if(widget.allReasons.isNotEmpty)
             ...widget.allReasons.map((reason) {
@@ -97,7 +116,18 @@ class _FilterPopupState extends State<FilterPopup> {
             }).toList(),
 
           if(widget.allPopulations.isNotEmpty)
-            Text(translations.getTranslation("population_types").toString(), textAlign: TextAlign.left,),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                translations.getTranslation("population_types").toString(),
+                textAlign: TextAlign.left,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                ),
+              ),
+            ),
+          
           if(widget.allPopulations.isNotEmpty)
             ...widget.allPopulations.map((pop) {
               return CheckboxListTile(
