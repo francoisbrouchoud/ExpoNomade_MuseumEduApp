@@ -5,7 +5,6 @@ import 'package:expo_nomade_mobile/bo/expo_axis.dart';
 import '../bo/expo_event.dart';
 import '../bo/expo_object.dart';
 import '../bo/expo_population_type.dart';
-import '../util/multilingual_string.dart';
 
 /// Filters a list of ExpoEvent by year, by reason and by population type.
 List<ExpoEvent> filterEvents(
