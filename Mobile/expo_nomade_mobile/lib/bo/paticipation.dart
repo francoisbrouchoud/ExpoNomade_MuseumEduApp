@@ -1,7 +1,4 @@
-import 'dart:convert';
-import 'dart:ui';
 import 'package:expo_nomade_mobile/util/base_business_object.dart';
-import 'package:expo_nomade_mobile/util/multilingual_string.dart';
 
 /// Class contain all questions
 class Participation extends BaseBusinessObject {
@@ -22,6 +19,6 @@ class Participation extends BaseBusinessObject {
 
   @override
   String toListText(String langCode) {
-    return email + " " + score.toString();
+    return "$email $score";
   }
 }
