@@ -63,7 +63,7 @@ class _ExpoQuizEditorWidgetState extends State<ExpoQuizEditorWidget> {
             mandatory: true,
           ),
           /*
-          QuizOptionsEditor(
+          QuizOptionSelectorWidget(
             name: translations.getTranslation("coordinates_from"),
             values: newQuizOptVals,
             valuesChanged: (newVals) => newQuizOptVals = newVals,

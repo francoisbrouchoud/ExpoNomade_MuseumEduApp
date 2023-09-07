@@ -5,16 +5,27 @@ import 'package:expo_nomade_mobile/util/multilingual_string.dart';
 /// Class contain all questions
 class Quiz {
   final List<QuizQuestion> questions;
+  final List<Participation> participations;
 
-  Quiz({required this.questions});
+  Quiz({required this.questions, required this.participations});
 
   /// Convert a json into the buisness object quiz class
   factory Quiz.fromJson(dynamic json) {
-    var quizQuestionJson = json['questions'] as List;
-    List<QuizQuestion> questions = quizQuestionJson
-        .map((questionJson) => QuizQuestion.fromJson("", questionJson))
-        .toList();
-    return Quiz(questions: questions);
+    List<QuizQuestion> questions = [];
+    for (var quizQuestion
+        in Map<String, dynamic>.from(json['questions']).entries) {
+      questions
+          .add(QuizQuestion.fromJson(quizQuestion.key, quizQuestion.value));
+    }
+
+    List<Participation> participations = [];
+    for (var participation
+        in Map<String, dynamic>.from(json['participation']).entries) {
+      participations
+          .add(Participation.fromJson(participation.key, participation.value));
+    }
+
+    return Quiz(questions: questions, participations: participations);
   }
 }
 
