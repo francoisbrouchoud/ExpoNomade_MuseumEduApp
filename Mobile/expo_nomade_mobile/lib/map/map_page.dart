@@ -1,3 +1,4 @@
+import 'package:expo_nomade_mobile/bo/expo_axis.dart';
 import 'package:expo_nomade_mobile/bo/expo_object.dart';
 import 'package:expo_nomade_mobile/map/info_panel.dart';
 import 'package:expo_nomade_mobile/map/marker_layer_widget.dart';
@@ -12,7 +13,6 @@ import 'package:latlong2/latlong.dart';
 import '../bo/expo_event.dart';
 import '../bo/expo_population_type.dart';
 import '../bo/exposition.dart';
-import '../util/multilingual_string.dart';
 
 import 'dart:math' as math;
 
@@ -35,8 +35,8 @@ class _MapPageState extends State<MapPage> {
   double endYearFilter = 2020;
   List<ExpoEvent> filteredEvents = [];
   Map<ExpoObject, int> filteredObjects = {};
-  Set<MultilingualString> selectedReasons = {};
-  Set<MultilingualString> allReasons = {};
+  Set<ExpoAxis> selectedReasons = {};
+  Set<ExpoAxis> allReasons = {};
   Set<ExpoPopulationType> selectedPopulations = {};
   Set<ExpoPopulationType> allPopulations = {};
 
@@ -47,7 +47,7 @@ class _MapPageState extends State<MapPage> {
 
     // Get all existing reasons and set them to checked by default
     for (var event in widget.exposition.events) {
-      selectedReasons.add(event.reason);
+      selectedReasons.add(event.axis);
     }
     //Get all existing population types and set them to checked by default
     for (var event in widget.exposition.events) {
@@ -55,11 +55,11 @@ class _MapPageState extends State<MapPage> {
     }
     filteredEvents = filterEvents(
         widget.exposition.events, startYearFilter, endYearFilter, selectedReasons, selectedPopulations);
-    filteredObjects = filterObjectsByYear(
-        widget.exposition.objects, startYearFilter, endYearFilter);
+    filteredObjects = filterObjects(
+        widget.exposition.objects, startYearFilter, endYearFilter, selectedReasons);
   }
 
-  void filterChanged(double start, double end, Set<MultilingualString> reasons, Set<ExpoPopulationType> populations) {
+  void filterChanged(double start, double end, Set<ExpoAxis> reasons, Set<ExpoPopulationType> populations) {
     setState(() {
       startYearFilter = start;
       endYearFilter = end;
@@ -69,8 +69,8 @@ class _MapPageState extends State<MapPage> {
       // Filter Events and Objects
       filteredEvents = filterEvents(
           widget.exposition.events, startYearFilter, endYearFilter, selectedReasons, selectedPopulations);
-      filteredObjects = filterObjectsByYear(
-          widget.exposition.objects, startYearFilter, endYearFilter);
+      filteredObjects = filterObjects(
+          widget.exposition.objects, startYearFilter, endYearFilter, selectedReasons);
     });
   }
 
@@ -95,7 +95,10 @@ class _MapPageState extends State<MapPage> {
 
     // Get all existing reasons
     for (var event in widget.exposition.events) {
-      allReasons.add(event.reason);
+      allReasons.add(event.axis);
+    }
+    for (var object in widget.exposition.objects) {
+      allReasons.add(object.axis);
     }
     //Get all existing population types
     for (var event in widget.exposition.events) {

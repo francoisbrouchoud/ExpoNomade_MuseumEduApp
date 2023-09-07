@@ -1,4 +1,5 @@
 import 'package:expo_nomade_mobile/admin/expo_axis_list_widget.dart';
+import 'package:expo_nomade_mobile/admin/expo_object_list_widget.dart';
 import 'package:expo_nomade_mobile/admin/expo_participation_widget.dart';
 import 'package:expo_nomade_mobile/admin/expo_quiz_list_widget.dart';
 import 'package:expo_nomade_mobile/app_localization.dart';
@@ -34,18 +35,21 @@ class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     final translations = AppLocalization.of(context);
+    final dataProvider = Provider.of<ExpositionNotifier>(context);
+
     return WillPopScope(
         onWillPop: () => _onWillPop(context),
         child: ContainerAdminWidget(
           fixedContainerHeight: true,
           title: translations.getTranslation("admin"),
           body: Padding(
-            padding: const EdgeInsets.only(left: 40, right: 40),
+            padding: const EdgeInsets.symmetric(
+                horizontal: GlobalConstants.containerLittlePaddingHorizontal),
             child: ListView(
-              children: const <Widget>[
-                SelectExpo(),
-                SizedBox(height: 25),
-                Menu()
+              children: <Widget>[
+                SelectExpo(dataProvider: dataProvider),
+                const SizedBox(height: GlobalConstants.sizeOfTheBlock),
+                const Menu()
               ],
             ),
           ),
@@ -55,12 +59,12 @@ class _MenuPageState extends State<MenuPage> {
 
 // create the part to selecte the currente expo
 class SelectExpo extends StatelessWidget {
-  const SelectExpo({super.key});
+  const SelectExpo({super.key, required this.dataProvider});
+  final ExpositionNotifier dataProvider;
   @override
   Widget build(BuildContext context) {
     final translations = AppLocalization.of(context);
     final theme = Theme.of(context);
-    final dataProvider = Provider.of<ExpositionNotifier>(context);
 
     return Column(children: [
       Text(translations.getTranslation("selectExpo"),
@@ -95,7 +99,7 @@ class Menu extends StatelessWidget {
     return Column(children: [
       Text(translations.getTranslation("titleMenu"),
           style: theme.textTheme.displaySmall),
-      const SizedBox(height: 25),
+      const SizedBox(height: GlobalConstants.sizeOfTheBlock),
       ButtonWidget(
           text: translations.getTranslation("show_result"),
           action: () => {
@@ -106,7 +110,7 @@ class Menu extends StatelessWidget {
                 ),
               },
           type: ButtonWidgetType.standard),
-      const SizedBox(height: 25),
+      const SizedBox(height: GlobalConstants.sizeOfTheBlock),
       ButtonWidget(
           text: translations.getTranslation("quiz"),
           action: () => {
@@ -117,7 +121,7 @@ class Menu extends StatelessWidget {
                 ),
               },
           type: ButtonWidgetType.standard),
-      const SizedBox(height: 25),
+      const SizedBox(height: GlobalConstants.sizeOfTheBlock),
       ButtonWidget(
           text: translations.getTranslation("axis"),
           action: () => {
@@ -128,7 +132,7 @@ class Menu extends StatelessWidget {
                 ),
               },
           type: ButtonWidgetType.standard),
-      const SizedBox(height: 25),
+      const SizedBox(height: GlobalConstants.sizeOfTheBlock),
       ButtonWidget(
           text: translations.getTranslation("population_types"),
           action: () => {
@@ -140,13 +144,25 @@ class Menu extends StatelessWidget {
                 ),
               },
           type: ButtonWidgetType.standard),
-      const SizedBox(height: 25),
+      const SizedBox(height: GlobalConstants.sizeOfTheBlock),
       ButtonWidget(
           text: translations.getTranslation("events"),
           action: () => {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => ExpoEventListWidget(context: context),
+                  ),
+                ),
+              },
+          type: ButtonWidgetType.standard),
+      const SizedBox(height: GlobalConstants.sizeOfTheBlock),
+      ButtonWidget(
+          text: translations.getTranslation("objects"),
+          action: () => {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ExpoObjectListWidget(context: context),
                   ),
                 ),
               },
@@ -162,7 +178,7 @@ class Menu extends StatelessWidget {
                 ),
               },
           type: ButtonWidgetType.standard),
-      const SizedBox(height: 25),
+      const SizedBox(height: GlobalConstants.sizeOfTheBlock),
       ButtonWidget(
           text: "logout",
           action: () {

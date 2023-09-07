@@ -75,8 +75,8 @@
                }
             }
          },
-         "object":[
-            {
+         "object":{
+            "-NdlSrAdlVVACp539ZHh":{
                "title":{
                   "fr":"Ernest Biéler",
                   "de":""
@@ -95,7 +95,7 @@
                   }
                ],
                "picture":"",
-               "axe":"-NcqpNHcZkWCsLTXxIxm",
+               "axe":"-Ncqpb935WPaykE9_5X-",
                "museum":"-NcqpwOffpnKeRhzQKN2",
                "dimension":"48 x 46 cm",
                "material":{
@@ -111,7 +111,7 @@
                   "de":""
                }
             }
-         ],
+         },
          "event": {
             "-KsJm6IyzP3_mzXsA7LW": {
                "title":{

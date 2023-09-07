@@ -5,7 +5,6 @@ import 'package:expo_nomade_mobile/util/base_bo_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../bo/expo_event.dart';
 import '../util/globals.dart';
 import 'expo_event_editor_widget.dart';
 

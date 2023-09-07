@@ -75,5 +75,15 @@
     "quiz_result_list": "Liste des résultats",
     "show_result": "Consulter les résultats",
     "question_edit": "Edition du quiz",
-    "question_creation": "Ajout d'une nouvelle question"
+    "question_creation": "Ajout d'une nouvelle question",
+    "objects": "Objets",
+    "object_add": "Ajouter un objet",
+    "material": "Matérial",
+    "position": "Position",
+    "object_edit": "Edition de l'objet",
+    "object_creation": "Ajout d'un nouvel objet",
+    "other": "Autre",
+    "museum": "Musée",
+    "dimensions": "Dimensions",
+    "coordinates": "Coordonnées"
 }
