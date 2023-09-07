@@ -170,30 +170,29 @@ class _MapPageState extends State<MapPage> {
             Positioned(
               top: 80,
               left: 16,
-              child: SingleChildScrollView(
-                child: Container (
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 5,
-                        blurRadius: 9,
-                        offset: Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: FilterPopup(
-                    onFilterChanged: filterChanged,
-                    startYearFilter: startYearFilter,
-                    endYearFilter: endYearFilter, 
-                    selectedReasons: selectedReasons,
-                    allReasons: allReasons,
-                    selectedPopulations: selectedPopulations,
-                    allPopulations: allPopulations
-                  ),
-                )
+              child: Container (
+                height: 500,
+                width: 300,
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 5,
+                      blurRadius: 9,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: FilterPopup(
+                  onFilterChanged: filterChanged,
+                  startYearFilter: startYearFilter,
+                  endYearFilter: endYearFilter, 
+                  selectedReasons: selectedReasons,
+                  allReasons: allReasons,
+                  selectedPopulations: selectedPopulations,
+                  allPopulations: allPopulations
+                ),
               )
-
               
               
             ),
