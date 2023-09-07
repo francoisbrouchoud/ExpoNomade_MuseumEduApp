@@ -8,6 +8,7 @@ import 'package:latlong2/latlong.dart';
 
 /// Class ExpoObject is used to store all details related to an object of an exposition.
 class ExpoObject extends BaseBusinessObject {
+  String id;
   ExpoAxis axis;
   Map<int, LatLng> coordinates;
   MultilingualString description;
@@ -21,6 +22,7 @@ class ExpoObject extends BaseBusinessObject {
 
   /// ExpoObject complete constructor.
   ExpoObject(
+      this.id,
       this.axis,
       this.coordinates,
       this.description,
@@ -33,8 +35,8 @@ class ExpoObject extends BaseBusinessObject {
       this.title);
 
   /// Convert json into the business object ExpoObject.
-  factory ExpoObject.fromJson(
-      dynamic json, Map<String, ExpoAxis> axes, Map<String, Museum> museums) {
+  factory ExpoObject.fromJson(String id, dynamic json,
+      Map<String, ExpoAxis> axes, Map<String, Museum> museums) {
     ExpoAxis axis = axes[json['axe']]!;
     Map<int, LatLng> coordinates = HashMap();
     for (var coordinate in List<dynamic>.from(json['coordinates'])) {
@@ -55,7 +57,7 @@ class ExpoObject extends BaseBusinessObject {
     MultilingualString position =
         MultilingualString(Map<String, String>.from(json['position']));
     String pictureURL = json['picture'] as String;
-    return ExpoObject(axis, coordinates, description, dimension, material,
+    return ExpoObject(id, axis, coordinates, description, dimension, material,
         museum, others, pictureURL, position, title);
   }
 

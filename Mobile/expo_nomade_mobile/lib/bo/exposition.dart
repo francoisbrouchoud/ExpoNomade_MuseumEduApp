@@ -19,10 +19,11 @@ class Exposition extends BaseBusinessObject {
   List<ExpoEvent> events;
   List<ExpoObject> objects;
   Quiz quiz;
+  List<Museum> museums;
 
   /// Exposition complete constructor.
   Exposition(this.id, this.name, this.axes, this.events, this.objects,
-      this.populationTypes, this.quiz);
+      this.populationTypes, this.quiz, this.museums);
 
   /// Convert json into the business object Exposition.
   factory Exposition.fromJson(
@@ -51,16 +52,18 @@ class Exposition extends BaseBusinessObject {
     }
     List<ExpoObject> objects = [];
     if (json.containsKey("object")) {
-      objects = List<dynamic>.from(json['object'])
-          .map((o) => ExpoObject.fromJson(o, axes, museums))
-          .toList();
+      for (var object in Map.from(json['object']).entries) {
+        objects
+            .add(ExpoObject.fromJson(object.key, object.value, axes, museums));
+      }
     }
     Quiz quiz = Quiz(questions: [], participations: []);
     if (json.containsKey("quiz")) {
       quiz = Quiz.fromJson(json['quiz']);
     }
 
-    return Exposition(id, name, axes, events, objects, popTypes, quiz);
+    return Exposition(id, name, axes, events, objects, popTypes, quiz,
+        museums.values.toList());
   }
 
   @override
