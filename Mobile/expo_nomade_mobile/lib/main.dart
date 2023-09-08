@@ -87,7 +87,8 @@ class App extends StatelessWidget {
                       textTheme: const TextTheme(
                           displaySmall: TextStyle(fontFamily: 'Montserrat', fontSize: 20, color: secondary),
                           displayMedium: TextStyle(fontFamily: 'Montserrat', fontSize: 25, color: secondary),
-                          displayLarge: TextStyle(fontFamily: 'Montserrat', fontSize: 30, color: secondary),),
+                          displayLarge: TextStyle(fontFamily: 'Montserrat', fontSize: 30, color: secondary),
+                          titleLarge: TextStyle(fontFamily: 'Montserrat', fontSize: 40, color: secondary)),
                       useMaterial3: true,
                     ),
                     home: const HomePage(),
