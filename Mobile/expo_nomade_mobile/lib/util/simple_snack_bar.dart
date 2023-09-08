@@ -1,3 +1,4 @@
+import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:flutter/material.dart';
 
 /// SimpleSnackBar class is used to define quickly usable methods to display simple SnackBars
@@ -9,7 +10,7 @@ class SimpleSnackBar {
       content: Text(message),
       duration: const Duration(seconds: duration),
       action: SnackBarAction(
-        label: "OK",
+        label: GlobalConstants.okMsg,
         onPressed: () {
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
         },

@@ -53,7 +53,7 @@ class _ExpoQuizEditorWidgetState extends State<ExpoQuizEditorWidget> {
             : translations.getTranslation("question_creation"),
         content: [
           MultilingualStringEditorWidget(
-            name: translations.getTranslation("title"),
+            name: translations.getTranslation("question_title"),
             value: widget.quizQuestion != null
                 ? widget.quizQuestion!.question
                 : null,
@@ -61,7 +61,7 @@ class _ExpoQuizEditorWidgetState extends State<ExpoQuizEditorWidget> {
             mandatory: true,
           ),
           QuizOptionSelectorWidget(
-            name: translations.getTranslation("coordinates_from"),
+            name: translations.getTranslation("option_edit"),
             values: newQuizOptVals,
             valuesChanged: (newVals) => newQuizOptVals = newVals,
             mandatory: true,

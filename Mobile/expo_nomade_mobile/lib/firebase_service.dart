@@ -15,8 +15,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-// TODO are we going to keep this here??
-// -> documentation : https://firebase.flutter.dev/docs/database/read-and-write
 /// Class FirebaseService provides every method needed by the application to communicate with Firebase.
 class FirebaseService {
   static final firebaseApp = Firebase.app();
@@ -36,7 +34,7 @@ class FirebaseService {
     return null;
   }
 
-  /// Gets the list of all museums.
+  /// Gets the list of all expositions names.
   static Future<Map<String, ExpoName>?> getAllExpoNames() async {
     DatabaseReference ref = database.ref();
     final expo = await ref.child("expositions").get();
@@ -62,7 +60,7 @@ class FirebaseService {
     return null;
   }
 
-// set the news current exposition
+  /// Sets the news current exposition.
   static setCurrentExposition(String id) async {
     DatabaseReference ref = database.ref();
     await ref.update({'currentExposition': id});
@@ -81,6 +79,7 @@ class FirebaseService {
     return await imageRef.getDownloadURL();
   }
 
+  /// Uploads an image to firebase storage. Returns the download URL.
   static Future<String> uploadImageFile(
       File file, String imageExtension) async {
     final String filename =
@@ -205,15 +204,19 @@ class FirebaseService {
           "description": object.description.toMap(),
           "others": object.others.toMap(),
           "position": object.position.toMap(),
+          "material": object.material.toMap(),
           "axe": object.axis.id,
           "dimension": object.dimension,
           "museum": object.museum.id,
-          /*"coordinates": object.coordinates.map((year, latlng) {
+          "coordinates": object.coordinates.entries.map((entry) {
             return {
-              "year": year,
-              "coordonate": {"lat": latlng.latitude, "lon": latlng.longitude}
+              "year": entry.key,
+              "coordonate": {
+                "lat": entry.value.latitude,
+                "lon": entry.value.longitude,
+              }
             };
-          }).toList(),*/
+          }).toList(),
           "picture": object.pictureURL,
         });
         return ExpoObject(
@@ -258,6 +261,19 @@ class FirebaseService {
     return null;
   }
 
+  /// Creates an ExpoEvent business object.
+  static Future<ExpoName?> createExposition(ExpoName expo) async {
+    DatabaseReference ref = database.ref();
+    DatabaseReference newEventRef = ref.child("expositions").push();
+    if (newEventRef.key != null) {
+      await newEventRef.set({
+        "name": expo.name.toMap(),
+      });
+      return ExpoName(newEventRef.key!, expo.name);
+    }
+    return null;
+  }
+
   /// Updates a QuizQuestion business object.
   static Future<void> updateQuizQuestion(QuizQuestion quizQuestion) async {
     DatabaseReference ref = database.ref();
@@ -276,31 +292,6 @@ class FirebaseService {
         }).toList(),
       });
     }
-  }
-
-  /// Delete a QuizQuestion business object.
-  static Future<void> deleteQuizQuestion(QuizQuestion quizQuestion) async {
-    DatabaseReference ref = database.ref();
-    final currentExpo = await ref.child("currentExposition").get();
-    if (currentExpo.exists) {
-      await ref
-          .child(
-              "expositions/${currentExpo.value}/quiz/questions/${quizQuestion.id}")
-          .remove();
-    }
-  }
-
-  /// Creates an ExpoEvent business object.
-  static Future<ExpoName?> createExposition(ExpoName expo) async {
-    DatabaseReference ref = database.ref();
-    DatabaseReference newEventRef = ref.child("expositions").push();
-    if (newEventRef.key != null) {
-      await newEventRef.set({
-        "name": expo.name.toMap(),
-      });
-      return ExpoName(newEventRef.key!, expo.name);
-    }
-    return null;
   }
 
   /// Updates an ExpoAxis business object.
@@ -370,17 +361,21 @@ class FirebaseService {
           .set({
         "title": object.title.toMap(),
         "description": object.description.toMap(),
+        "material": object.material.toMap(),
         "others": object.others.toMap(),
         "position": object.position.toMap(),
         "axe": object.axis.id,
         "dimension": object.dimension,
         "museum": object.museum.id,
-        /*"coordinates": object.coordinates.map((year, latlng) {
-            return {
-              "year": year,
-              "coordonate": {"lat": latlng.latitude, "lon": latlng.longitude}
-            };
-          }).toList(),*/
+        "coordinates": object.coordinates.entries.map((entry) {
+          return {
+            "year": entry.key,
+            "coordonate": {
+              "lat": entry.value.latitude,
+              "lon": entry.value.longitude,
+            }
+          };
+        }).toList(),
         "picture": object.pictureURL,
       });
     }
@@ -442,5 +437,17 @@ class FirebaseService {
   static Future<void> deleteExposition(ExpoName expo) async {
     DatabaseReference ref = database.ref();
     await ref.child("expositions/${expo.id}").remove();
+  }
+
+  /// Delete a QuizQuestion business object.
+  static Future<void> deleteQuizQuestion(QuizQuestion quizQuestion) async {
+    DatabaseReference ref = database.ref();
+    final currentExpo = await ref.child("currentExposition").get();
+    if (currentExpo.exists) {
+      await ref
+          .child(
+              "expositions/${currentExpo.value}/quiz/questions/${quizQuestion.id}")
+          .remove();
+    }
   }
 }

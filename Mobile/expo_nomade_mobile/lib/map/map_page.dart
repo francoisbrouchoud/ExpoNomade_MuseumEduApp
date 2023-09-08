@@ -6,8 +6,7 @@ import 'package:expo_nomade_mobile/bo/expo_object.dart';
 import 'package:expo_nomade_mobile/map/info_panel.dart';
 import 'package:expo_nomade_mobile/map/info_panel_event.dart';
 import 'package:expo_nomade_mobile/map/marker_layer_widget.dart';
-//import 'package:expo_nomade_mobile/map/polygon_layer_widget.dart';
-import 'package:expo_nomade_mobile/map/polygon_layer_test.dart';
+import 'package:expo_nomade_mobile/map/polygon_layer_widget.dart';
 import 'package:expo_nomade_mobile/map/tile_layer_widget.dart';
 import 'package:expo_nomade_mobile/map/filter_popup.dart';
 import 'package:expo_nomade_mobile/map/filter_logic.dart';
@@ -151,7 +150,7 @@ class _MapPageState extends State<MapPage> {
                       /// They are in charge of rendering the map and adding any markers on it.
                       const TileLayerWidget(),
                       //PolygonLayerTest(expoEvents: filteredEvents),
-                      PolygonLayerTest(
+                      PolygonLayerWidget(
                         expoEvents: polygons.values.toList(),
                       ),
                       MarkerLayerWidget(

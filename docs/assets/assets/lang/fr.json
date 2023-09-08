@@ -4,7 +4,7 @@
     "quiz": "Quiz",
     "next": "Suivant",
     "quiz_result": "Résultats du quiz",
-    "very_good_result": "Félécitaiton. Voici ton score :",
+    "very_good_result": "Félicitation. Voici ton score :",
     "good_result" : "Bien. Voici ton score :",
     "average_result" : "Pas mal. Voici ton score :",
     "bad_result" : "Dommage. Voici ton score :",
@@ -75,5 +75,7 @@
     "quiz_result_list": "Liste des résultats",
     "show_result": "Consulter les résultats",
     "question_edit": "Edition du quiz",
-    "question_creation": "Ajout d'une nouvelle question"
+    "question_creation": "Ajout d'une nouvelle question",
+    "question_title": "Intitulé de la question",
+    "option_edit": "Edition des options"
 }

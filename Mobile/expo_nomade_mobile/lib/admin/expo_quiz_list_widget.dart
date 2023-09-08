@@ -31,10 +31,10 @@ class ExpoQuizListWidget extends BaseBOListWidget {
             itemAddRequested: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const ExpoEventEditorWidget(),
+                  builder: (context) => const ExpoQuizEditorWidget(),
                 ),
               );
             },
-            addButtonText:
-                AppLocalization.of(context).getTranslation("event_add"));
+            addButtonText: AppLocalization.of(context)
+                .getTranslation("question_creation"));
 }

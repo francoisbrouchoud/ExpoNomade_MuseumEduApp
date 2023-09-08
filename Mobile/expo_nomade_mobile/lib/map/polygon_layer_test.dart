@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:geodesy/geodesy.dart';
 
 class PolygonLayerTest extends StatelessWidget {
   final List<Polygon> expoEvents;
