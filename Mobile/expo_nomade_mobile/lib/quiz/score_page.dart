@@ -1,7 +1,7 @@
 import 'package:expo_nomade_mobile/quiz/score_submission_page.dart';
 import 'package:flutter/material.dart';
-import '../app_localization.dart';
-import '../util/globals.dart';
+import '../helper/app_localization.dart';
+import '../helper/globals.dart';
 
 /// Class ScorePage is used to display the result of the quiz.
 class ScorePage extends StatelessWidget {
@@ -18,10 +18,8 @@ class ScorePage extends StatelessWidget {
     final translations = AppLocalization.of(context);
 
     final eltTextStyle = theme.textTheme.displayLarge;
-    final pointTextStyle = theme.textTheme.displayLarge!.copyWith(
-      fontSize: 75,
-      fontWeight: FontWeight.bold
-    );
+    final pointTextStyle = theme.textTheme.displayLarge!
+        .copyWith(fontSize: 75, fontWeight: FontWeight.bold);
 
     double screenWidth = MediaQuery.of(context).size.width;
     int correctPercentage = ((correctAnswers / totalQuestions) * 100).toInt();

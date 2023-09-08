@@ -1,4 +1,4 @@
-import 'package:expo_nomade_mobile/util/base_business_object.dart';
+import 'package:expo_nomade_mobile/bo/base_business_object.dart';
 
 /// Class contain all questions
 class Participation extends BaseBusinessObject {

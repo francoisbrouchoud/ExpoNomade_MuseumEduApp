@@ -1,6 +1,6 @@
 import 'package:expo_nomade_mobile/bo/paticipation.dart';
-import 'package:expo_nomade_mobile/util/base_business_object.dart';
-import 'package:expo_nomade_mobile/util/multilingual_string.dart';
+import 'package:expo_nomade_mobile/bo/base_business_object.dart';
+import 'package:expo_nomade_mobile/helper/multilingual_string.dart';
 
 /// Class contain all questions
 class Quiz {

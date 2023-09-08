@@ -10,7 +10,7 @@ import 'package:expo_nomade_mobile/bo/exposition.dart';
 import 'package:expo_nomade_mobile/bo/museum.dart';
 import 'package:expo_nomade_mobile/bo/paticipation.dart';
 import 'package:expo_nomade_mobile/bo/quiz_question.dart';
-import 'package:expo_nomade_mobile/util/globals.dart';
+import 'package:expo_nomade_mobile/helper/globals.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';

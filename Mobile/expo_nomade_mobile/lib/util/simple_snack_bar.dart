@@ -1,4 +1,4 @@
-import 'package:expo_nomade_mobile/util/globals.dart';
+import 'package:expo_nomade_mobile/helper/globals.dart';
 import 'package:flutter/material.dart';
 
 /// SimpleSnackBar class is used to define quickly usable methods to display simple SnackBars

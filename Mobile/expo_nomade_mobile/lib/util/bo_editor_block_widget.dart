@@ -1,5 +1,5 @@
-import 'package:expo_nomade_mobile/app_localization.dart';
-import 'package:expo_nomade_mobile/util/globals.dart';
+import 'package:expo_nomade_mobile/helper/app_localization.dart';
+import 'package:expo_nomade_mobile/helper/globals.dart';
 import 'package:expo_nomade_mobile/util/underlined_container_widget.dart';
 import 'package:flutter/material.dart';
 

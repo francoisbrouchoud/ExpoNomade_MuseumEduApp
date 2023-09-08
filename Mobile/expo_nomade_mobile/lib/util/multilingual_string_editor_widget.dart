@@ -1,7 +1,7 @@
-import 'package:expo_nomade_mobile/app_localization.dart';
+import 'package:expo_nomade_mobile/helper/app_localization.dart';
 import 'package:expo_nomade_mobile/util/bo_editor_block_widget.dart';
-import 'package:expo_nomade_mobile/util/globals.dart';
-import 'package:expo_nomade_mobile/util/multilingual_string.dart';
+import 'package:expo_nomade_mobile/helper/globals.dart';
+import 'package:expo_nomade_mobile/helper/multilingual_string.dart';
 import 'package:flutter/material.dart';
 
 /// Class MultilingualStringEditorWidget is used to display a list of TextFormFields for each language available in the application.

@@ -2,8 +2,8 @@ import 'dart:collection';
 
 import 'package:expo_nomade_mobile/bo/expo_axis.dart';
 import 'package:expo_nomade_mobile/bo/museum.dart';
-import 'package:expo_nomade_mobile/util/base_business_object.dart';
-import 'package:expo_nomade_mobile/util/multilingual_string.dart';
+import 'package:expo_nomade_mobile/bo/base_business_object.dart';
+import 'package:expo_nomade_mobile/helper/multilingual_string.dart';
 import 'package:latlong2/latlong.dart';
 
 /// Class ExpoObject is used to store all details related to an object of an exposition.

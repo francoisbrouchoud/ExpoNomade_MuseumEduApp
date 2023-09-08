@@ -1,5 +1,5 @@
 import 'package:expo_nomade_mobile/bo/quiz_question.dart';
-import 'package:expo_nomade_mobile/util/globals.dart';
+import 'package:expo_nomade_mobile/helper/globals.dart';
 
 import 'multilingual_string.dart';
 import 'package:latlong2/latlong.dart';

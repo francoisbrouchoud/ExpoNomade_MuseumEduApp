@@ -1,11 +1,11 @@
-import 'package:expo_nomade_mobile/app_localization.dart';
+import 'package:expo_nomade_mobile/helper/app_localization.dart';
 import 'package:expo_nomade_mobile/bo/paticipation.dart';
 import 'package:expo_nomade_mobile/util/container_admin_widget.dart';
 import 'package:expo_nomade_mobile/util/underlined_container_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../util/globals.dart';
+import '../helper/globals.dart';
 
 /// Class ExpoParticipationListWidget is used to list a collection of ExpoPopulationType. Inherits from BaseBOListWidget.
 class ExpoParticipationListWidget extends StatelessWidget {
@@ -39,10 +39,14 @@ class ExpoParticipationListWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(AppLocalization.of(context).getTranslation("email"),
-                      style: theme.textTheme.displayLarge,),
-                  Text(AppLocalization.of(context).getTranslation("score"),
-                      style: theme.textTheme.displayLarge,),
+                  Text(
+                    AppLocalization.of(context).getTranslation("email"),
+                    style: theme.textTheme.displayLarge,
+                  ),
+                  Text(
+                    AppLocalization.of(context).getTranslation("score"),
+                    style: theme.textTheme.displayLarge,
+                  ),
                 ],
               ),
             ),
@@ -60,8 +64,8 @@ class ExpoParticipationListWidget extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(item.email,
-                              overflow: TextOverflow.ellipsis,
-                              style: theme.textTheme.displaySmall),
+                                overflow: TextOverflow.ellipsis,
+                                style: theme.textTheme.displaySmall),
                           ),
                           Text("${item.score}%",
                               style: theme.textTheme.displaySmall),

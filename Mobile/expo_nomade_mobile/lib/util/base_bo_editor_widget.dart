@@ -1,7 +1,7 @@
-import 'package:expo_nomade_mobile/app_localization.dart';
-import 'package:expo_nomade_mobile/util/base_business_object.dart';
+import 'package:expo_nomade_mobile/helper/app_localization.dart';
+import 'package:expo_nomade_mobile/bo/base_business_object.dart';
 import 'package:expo_nomade_mobile/util/container_admin_widget.dart';
-import 'package:expo_nomade_mobile/util/globals.dart';
+import 'package:expo_nomade_mobile/helper/globals.dart';
 import 'package:expo_nomade_mobile/util/simple_snack_bar.dart';
 import 'package:flutter/material.dart';
 

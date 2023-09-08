@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'globals.dart';
+import '../helper/globals.dart';
 
 /// Enum ButtonWidgetType defines every type of button available in the application.
 enum ButtonWidgetType { standard, home, delete }

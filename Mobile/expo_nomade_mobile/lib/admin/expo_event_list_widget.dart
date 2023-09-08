@@ -1,10 +1,10 @@
-import 'package:expo_nomade_mobile/app_localization.dart';
+import 'package:expo_nomade_mobile/helper/app_localization.dart';
 import 'package:expo_nomade_mobile/util/base_bo_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../bo/expo_event.dart';
-import '../util/globals.dart';
+import '../helper/globals.dart';
 import 'expo_event_editor_widget.dart';
 
 /// Class ExpoEventListWidget is used to list a collection of ExpoEvent. Inherits from BaseBOListWidget.

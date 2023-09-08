@@ -5,18 +5,18 @@ import 'package:expo_nomade_mobile/admin/expo_participation_widget.dart';
 import 'package:expo_nomade_mobile/admin/expo_population_type_list_widget.dart';
 import 'package:expo_nomade_mobile/admin/expo_quiz_list_widget.dart';
 import 'package:expo_nomade_mobile/quiz/quiz_page.dart';
-import 'package:expo_nomade_mobile/util/globals.dart';
+import 'package:expo_nomade_mobile/helper/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'admin/exp_list_widget.dart';
 import 'admin/menu_page.dart';
 import 'bo/exposition.dart';
-import 'firebase_options.dart';
-import 'firebase_service.dart';
+import 'helper/firebase_options.dart';
+import 'helper/firebase_service.dart';
 import 'home_page.dart';
 import 'map/map_page.dart';
-import 'app_localization.dart';
+import 'helper/app_localization.dart';
 
 /// Main method that launches the application.
 void main() async {
@@ -85,10 +85,22 @@ class App extends StatelessWidget {
                           onBackground: onBackground,
                           onSurface: onSurface),
                       textTheme: const TextTheme(
-                          displaySmall: TextStyle(fontFamily: 'Montserrat', fontSize: 20, color: secondary),
-                          displayMedium: TextStyle(fontFamily: 'Montserrat', fontSize: 25, color: secondary),
-                          displayLarge: TextStyle(fontFamily: 'Montserrat', fontSize: 30, color: secondary),
-                          titleLarge: TextStyle(fontFamily: 'Montserrat', fontSize: 40, color: secondary)),
+                          displaySmall: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontSize: 20,
+                              color: secondary),
+                          displayMedium: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontSize: 25,
+                              color: secondary),
+                          displayLarge: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontSize: 30,
+                              color: secondary),
+                          titleLarge: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontSize: 40,
+                              color: secondary)),
                       useMaterial3: true,
                     ),
                     home: const HomePage(),

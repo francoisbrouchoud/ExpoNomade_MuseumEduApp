@@ -1,7 +1,7 @@
-import 'package:expo_nomade_mobile/app_localization.dart';
+import 'package:expo_nomade_mobile/helper/app_localization.dart';
 import 'package:expo_nomade_mobile/bo/expo_event.dart';
 import 'package:flutter/material.dart';
-import 'package:expo_nomade_mobile/util/globals.dart';
+import 'package:expo_nomade_mobile/helper/globals.dart';
 
 // This class display all the information we want from an Event in our database
 class InfoPanelEvent extends StatelessWidget {

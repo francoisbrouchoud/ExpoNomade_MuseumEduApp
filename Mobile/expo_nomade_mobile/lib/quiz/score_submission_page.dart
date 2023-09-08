@@ -1,11 +1,11 @@
 import 'package:expo_nomade_mobile/bo/exposition.dart';
 import 'package:expo_nomade_mobile/bo/paticipation.dart';
-import 'package:expo_nomade_mobile/firebase_service.dart';
-import 'package:expo_nomade_mobile/util/globals.dart';
+import 'package:expo_nomade_mobile/helper/firebase_service.dart';
+import 'package:expo_nomade_mobile/helper/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../app_localization.dart';
-import '../util/validation_helper.dart';
+import '../helper/app_localization.dart';
+import '../helper/validation_helper.dart';
 
 /// Class ScoreSubmissionPage is the widget that will display the final score and let the user choose to save his score or return to the home page.
 class ScoreSubmissionPage extends StatelessWidget {

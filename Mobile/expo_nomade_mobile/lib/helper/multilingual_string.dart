@@ -1,6 +1,6 @@
-import 'package:expo_nomade_mobile/app_localization.dart';
-import 'package:expo_nomade_mobile/util/globals.dart';
-import 'package:expo_nomade_mobile/util/validation_helper.dart';
+import 'package:expo_nomade_mobile/helper/app_localization.dart';
+import 'package:expo_nomade_mobile/helper/globals.dart';
+import 'package:expo_nomade_mobile/helper/validation_helper.dart';
 
 /// Class MultilingualString is used to manage translated properties.
 class MultilingualString {

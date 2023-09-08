@@ -2,19 +2,19 @@ import 'package:expo_nomade_mobile/admin/expo_axis_list_widget.dart';
 import 'package:expo_nomade_mobile/admin/expo_object_list_widget.dart';
 import 'package:expo_nomade_mobile/admin/expo_participation_widget.dart';
 import 'package:expo_nomade_mobile/admin/expo_quiz_list_widget.dart';
-import 'package:expo_nomade_mobile/app_localization.dart';
+import 'package:expo_nomade_mobile/helper/app_localization.dart';
 import 'package:expo_nomade_mobile/bo/expo_name.dart';
 import 'package:expo_nomade_mobile/util/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
-import '../firebase_service.dart';
+import '../helper/firebase_service.dart';
 import '../util/bo_selector_widget.dart';
 import '../util/container_admin_widget.dart';
 import 'exp_list_widget.dart';
 import 'expo_event_list_widget.dart';
 import 'expo_population_type_list_widget.dart';
-import '../util/globals.dart';
+import '../helper/globals.dart';
 
 /// Class MenuPage displays the administration menu.
 class MenuPage extends StatefulWidget {

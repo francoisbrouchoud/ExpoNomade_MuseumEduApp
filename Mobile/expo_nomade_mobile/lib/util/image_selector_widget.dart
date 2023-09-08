@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:expo_nomade_mobile/util/bo_editor_block_widget.dart';
-import 'package:expo_nomade_mobile/util/globals.dart';
+import 'package:expo_nomade_mobile/helper/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 
-import '../firebase_service.dart';
+import '../helper/firebase_service.dart';
 
 /// Class ImageSelectorWidget is used to display an image (if defined) and upload an image to set the value or update it.
 class ImageSelectorWidget extends StatefulWidget {

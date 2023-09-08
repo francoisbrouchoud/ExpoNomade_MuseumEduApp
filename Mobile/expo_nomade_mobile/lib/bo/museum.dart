@@ -1,5 +1,5 @@
-import 'package:expo_nomade_mobile/util/base_business_object.dart';
-import 'package:expo_nomade_mobile/util/multilingual_string.dart';
+import 'package:expo_nomade_mobile/bo/base_business_object.dart';
+import 'package:expo_nomade_mobile/helper/multilingual_string.dart';
 
 /// Class Museum is used to store all details related to a museum.
 class Museum extends BaseBusinessObject {

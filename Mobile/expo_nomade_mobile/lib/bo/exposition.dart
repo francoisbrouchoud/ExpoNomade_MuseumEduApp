@@ -4,8 +4,8 @@ import 'package:expo_nomade_mobile/bo/expo_axis.dart';
 import 'package:expo_nomade_mobile/bo/expo_event.dart';
 import 'package:expo_nomade_mobile/bo/expo_object.dart';
 import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
-import 'package:expo_nomade_mobile/util/base_business_object.dart';
-import 'package:expo_nomade_mobile/util/multilingual_string.dart';
+import 'package:expo_nomade_mobile/bo/base_business_object.dart';
+import 'package:expo_nomade_mobile/helper/multilingual_string.dart';
 
 import 'museum.dart';
 import 'quiz_question.dart';

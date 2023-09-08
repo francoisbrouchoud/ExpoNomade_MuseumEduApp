@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import '../app_localization.dart';
-import '../util/globals.dart';
+import '../helper/app_localization.dart';
+import '../helper/globals.dart';
 import 'score_page.dart';
 import '../bo/quiz_question.dart';
 

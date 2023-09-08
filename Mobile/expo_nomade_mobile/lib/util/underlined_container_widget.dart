@@ -1,4 +1,4 @@
-import 'package:expo_nomade_mobile/util/globals.dart';
+import 'package:expo_nomade_mobile/helper/globals.dart';
 import 'package:flutter/material.dart';
 
 /// Class UnderlinedContainerWidget is used to create a container underlined with a fixed border on the bottom with the color of the theme.
