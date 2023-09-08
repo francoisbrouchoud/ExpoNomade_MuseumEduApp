@@ -109,6 +109,21 @@ class GlobalConstants {
   /// Lang buttons width.
   static const double langBtnWidth = 50.0;
 
+  /// Container margin for the title widget.
+  static const double titleWidgetContMargin = 8.0;
+
+  /// Container padding for the title widget.
+  static const double titleWidgetContPadding = 12.0;
+
+  /// Container border radius for the title widget.
+  static const double titleWidgetBorderRad = 16.0;
+
+  /// Text padding for the title widget.
+  static const double titleWidgetTextPad = 10.0;
+
+  /// Title widget width multiplicator.
+  static const double titleWidgetWMult = 0.7;
+
   /// Gets now's DateTime formatted for database insert.
   static String getNowFormattedForDB() {
     final DateTime now = DateTime.now();

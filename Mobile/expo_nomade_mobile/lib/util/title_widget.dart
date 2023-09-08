@@ -1,14 +1,14 @@
+import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:flutter/material.dart';
 
+/// Class TitleWidget is used to display a title in the style of the application.
 class TitleWidget extends StatelessWidget {
+  /// Creates a new TitleWidget.
   const TitleWidget({super.key, required this.text});
 
   final String text;
-  final contMargin = 8.0;
-  final contPadding = 12.0;
-  final borderRad = 16.0;
-  final paddingPadding = 10.0;
 
+  /// Estimates the title's final height
   double estimateTitleHeight(BuildContext context) {
     final theme = Theme.of(context);
     final textStyle = theme.textTheme.displayMedium!.copyWith(
@@ -19,9 +19,12 @@ class TitleWidget extends StatelessWidget {
       textDirection: TextDirection.ltr,
       maxLines: 1,
     )..layout(
-        maxWidth: MediaQuery.of(context).size.width * 0.7 - 2 * contPadding);
+        maxWidth: MediaQuery.of(context).size.width * 0.7 -
+            2 * GlobalConstants.titleWidgetContPadding);
 
-    return textPainter.size.height + 2 * contPadding + 2 * contMargin;
+    return textPainter.size.height +
+        2 * GlobalConstants.titleWidgetContPadding +
+        2 * GlobalConstants.titleWidgetContMargin;
   }
 
   @override
@@ -32,16 +35,18 @@ class TitleWidget extends StatelessWidget {
       color: theme.colorScheme.secondary,
     );
     return Container(
-      width: screenWidth * 0.7,
-      margin: EdgeInsets.symmetric(vertical: contMargin),
-      padding: EdgeInsets.all(contPadding),
+      width: screenWidth * GlobalConstants.titleWidgetWMult,
+      margin: const EdgeInsets.symmetric(
+          vertical: GlobalConstants.titleWidgetContMargin),
+      padding: const EdgeInsets.all(GlobalConstants.titleWidgetContPadding),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(borderRad),
+        borderRadius:
+            BorderRadius.circular(GlobalConstants.titleWidgetBorderRad),
         color: theme.colorScheme.background,
       ),
       child: Center(
         child: Padding(
-          padding: EdgeInsets.all(paddingPadding),
+          padding: const EdgeInsets.all(GlobalConstants.titleWidgetTextPad),
           child: Text(text, style: textStyle),
         ),
       ),
