@@ -1,3 +1,4 @@
+import 'package:expo_nomade_mobile/bo/quiz_question.dart';
 import 'package:expo_nomade_mobile/util/globals.dart';
 
 import 'multilingual_string.dart';
@@ -25,6 +26,9 @@ class ValidationHelper {
 
   /// Checks if a map of translations is empty.
   static bool isEmptyTranslationMap(Map<String, String> translations) {
+    if (translations.isEmpty) {
+      return true;
+    }
     for (var translation in translations.values) {
       if (isEmptyString(translation)) {
         return true;
@@ -44,6 +48,14 @@ class ValidationHelper {
   /// Checks if a map of LatLng linked to a year is entirely filled and ready to be used for an object BO.
   static bool isIncompleteLatLngListForObject(Map<int, LatLng> coordinates) {
     if (coordinates.length < GlobalConstants.objectMinCoordinatesNb) {
+      return true;
+    }
+    return false;
+  }
+
+  /// Checks if a list of QuizOption is entirely filled and ready to be used for a quiz BO.
+  static bool isIncompleteQuizOptionList(List<QuizOption> newQuizOptVals) {
+    if (newQuizOptVals.length < GlobalConstants.quizOptionMinNb) {
       return true;
     }
     return false;

@@ -11,6 +11,7 @@ import 'package:expo_nomade_mobile/util/multilingual_string_editor.dart';
 import 'package:expo_nomade_mobile/util/quiz_option_selector_widget.dart';
 
 import 'package:expo_nomade_mobile/util/simple_snack_bar.dart';
+import 'package:expo_nomade_mobile/util/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -69,25 +70,31 @@ class _ExpoQuizEditorWidgetState extends State<ExpoQuizEditorWidget> {
         ],
         object: widget.quizQuestion,
         itemSaveRequested: () async {
-          QuizQuestion quizQuestion =
-              QuizQuestion("", MultilingualString(newQuestVals), List.empty());
-          if (widget.quizQuestion != null) {
-            quizQuestion = widget.quizQuestion!;
-            quizQuestion.question = MultilingualString(newQuestVals);
-            quizQuestion.options = newQuizOptVals;
+          if (!ValidationHelper.isEmptyTranslationMap(newQuestVals) &&
+              !ValidationHelper.isIncompleteQuizOptionList(newQuizOptVals)) {
+            QuizQuestion quizQuestion = QuizQuestion(
+                "", MultilingualString(newQuestVals), newQuizOptVals);
+            if (widget.quizQuestion != null) {
+              quizQuestion = widget.quizQuestion!;
+              quizQuestion.question = MultilingualString(newQuestVals);
+              quizQuestion.options = newQuizOptVals;
 
-            await FirebaseService.updateQuizQuestion(quizQuestion);
-          } else {
-            QuizQuestion? newQuizQuestion =
-                await FirebaseService.createQuizQuestion(quizQuestion);
-            if (newQuizQuestion != null) {
-              expo.quiz.questions.add(newQuizQuestion);
+              await FirebaseService.updateQuizQuestion(quizQuestion);
+            } else {
+              QuizQuestion? newQuizQuestion =
+                  await FirebaseService.createQuizQuestion(quizQuestion);
+              if (newQuizQuestion != null) {
+                expo.quiz.questions.add(newQuizQuestion);
+              }
             }
+            dataProvider.forceRelaod();
+            SimpleSnackBar.showSnackBar(
+                context, translations.getTranslation("saved"));
+            backToList();
+          } else {
+            SimpleSnackBar.showSnackBar(context,
+                translations.getTranslation("fill_required_fields_msg"));
           }
-          dataProvider.forceRelaod();
-          SimpleSnackBar.showSnackBar(
-              context, translations.getTranslation("saved"));
-          backToList();
         },
         itemDeleteRequested: () async {
           await FirebaseService.deleteQuizQuestion(widget.quizQuestion!);

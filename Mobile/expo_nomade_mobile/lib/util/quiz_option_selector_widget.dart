@@ -1,18 +1,13 @@
-import 'dart:collection';
-
 import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:expo_nomade_mobile/bo/quiz_question.dart';
 import 'package:expo_nomade_mobile/util/bo_editor_block_widget.dart';
 import 'package:expo_nomade_mobile/util/globals.dart';
-import 'package:expo_nomade_mobile/util/input_formatters.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string.dart';
 import 'package:expo_nomade_mobile/util/multilingual_string_editor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:latlong2/latlong.dart';
-
-/// Class QuizOptionSelectorWidget is used to display a list of TextFormFields to input at least three latitudes and longitudes.
+/// Class QuizOptionSelectorWidget is used to display input fields to create or edit options for a quiz question.
 class QuizOptionSelectorWidget extends StatefulWidget {
   final String name;
   final List<QuizOption>? values;
@@ -35,9 +30,9 @@ class QuizOptionSelectorWidget extends StatefulWidget {
 /// State class for the QuizOptionSelectorWidget.
 class _QuizOptionSelectorWidgetState extends State<QuizOptionSelectorWidget> {
   late List<QuizOption> quizOptions;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     if (widget.values != null && widget.values!.isNotEmpty) {
@@ -56,23 +51,14 @@ class _QuizOptionSelectorWidgetState extends State<QuizOptionSelectorWidget> {
     }
   }
 
-  /// Adds a new coordinate field
+  /// Adds new option field
   void _addOption(BuildContext buildContext) {
     setState(() {
-      widget.values!.add(QuizOption(label: MultilingualString({})));
-
-      /*
-      _controllers.add(MultilingualStringEditorWidget(
-          name:
-              "${AppLocalization.of(buildContext).getTranslation("option")} ${_controllers.length + 1}",
-          value: null,
-          valueChanged: (newValues) =>
-              _valueChange(_controllers.length + 1, newValues)));
-              */
+      quizOptions.add(QuizOption(label: MultilingualString({})));
     });
   }
 
-  /// si on passe un qui est nul on devra le supprimer
+  /// Updates the value of the quizOption at the given index
   void _valueChange(int idx, Map<String, String>? newValues) {
     if (newValues != null) {
       setState(() {
@@ -86,35 +72,10 @@ class _QuizOptionSelectorWidgetState extends State<QuizOptionSelectorWidget> {
     widget.valuesChanged(quizOptions);
   }
 
-  /// Removes a coordinate field
+  /// Removes an option field
   void _deleteOption(int idx) {
     _valueChange(idx, null);
-    // make sure the listener doesn't keep the deleted option
   }
-/*
-  @override
-  void initState() {
-    super.initState();
-    _controllers = [];
-    for (var option in widget.values!) {
-      _controllers.add(MultilingualStringEditorWidget(
-          name: "Option",
-          value: option.label,
-          valueChanged: (newValues) =>
-              _valueChange(_controllers.length + 1, newValues)));
-    }
-    if (_controllers.length < GlobalConstants.quizOptionMinNb) {
-      for (var i = _controllers.length;
-          i < GlobalConstants.quizOptionMinNb;
-          i++) {
-        _controllers.add(MultilingualStringEditorWidget(
-            name: "Option",
-            value: null,
-            valueChanged: (newValues) =>
-                _valueChange(_controllers.length + 1, newValues)));
-      }
-    }
-  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -130,11 +91,13 @@ class _QuizOptionSelectorWidgetState extends State<QuizOptionSelectorWidget> {
             children: [
               Expanded(
                   child: MultilingualStringEditorWidget(
-                      name:
-                          "$option ${quizOptions.indexOf(quizOption) + 1}: ${quizOptions.indexOf(quizOption) == 0 ? translations.getTranslation("option_true") : translations.getTranslation("option_false")}",
-                      value: quizOption.label,
-                      valueChanged: (newValues) => _valueChange(
-                          quizOptions.indexOf(quizOption), newValues))),
+                name:
+                    "$option ${quizOptions.indexOf(quizOption) + 1}: ${quizOptions.indexOf(quizOption) == 0 ? translations.getTranslation("option_true") : translations.getTranslation("option_false")}",
+                value: quizOption.label,
+                valueChanged: (newValues) =>
+                    _valueChange(quizOptions.indexOf(quizOption), newValues),
+                mandatory: true,
+              )),
               const SizedBox(
                   width: GlobalConstants.textFormFieldIconRightMargin),
               if (quizOptions.indexOf(quizOption) >=
