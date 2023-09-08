@@ -1,5 +1,4 @@
-import 'dart:math';
-import 'package:expo_nomade_mobile/app_localization.dart';
+import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -21,11 +20,11 @@ class MarkerLayerWidget extends StatelessWidget {
         markers.add(
           Marker(
             point: LatLng(coordinates.latitude, coordinates.longitude),
-            width: 50,
-            height: 50,
+            width: GlobalConstants.markerMapSize,
+            height: GlobalConstants.markerMapSize,
             builder: (ctx) => GestureDetector(
               onTap: () => {onMarkerTap(expoObject.key)},
-              child: Image.asset('assets/images/marker.png'),
+              child: Image.asset(GlobalConstants.markerMapImagePath),
             ),
           ),
         );

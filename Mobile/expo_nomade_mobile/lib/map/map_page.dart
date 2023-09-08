@@ -7,6 +7,7 @@ import 'package:expo_nomade_mobile/map/polygon_layer_widget.dart';
 import 'package:expo_nomade_mobile/map/tile_layer_widget.dart';
 import 'package:expo_nomade_mobile/map/filter_popup.dart';
 import 'package:expo_nomade_mobile/map/filter_logic.dart';
+import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -15,6 +16,8 @@ import '../bo/expo_population_type.dart';
 import '../bo/exposition.dart';
 import 'package:maps_toolkit/maps_toolkit.dart' as mp;
 import 'dart:math' as math;
+
+import 'helper_map.dart';
 
 /// Class MapPage is used to display the map and the information related to the exposition.
 class MapPage extends StatefulWidget {
@@ -40,8 +43,11 @@ class _MapPageState extends State<MapPage> {
   Set<ExpoAxis> allReasons = {};
   Set<ExpoPopulationType> selectedPopulations = {};
   Set<ExpoPopulationType> allPopulations = {};
+  Map<ExpoEvent, Polygon> polygons = {};
 
   @override
+
+  /// initialise event and object to show in the map
   void initState() {
     super.initState();
 
@@ -62,6 +68,7 @@ class _MapPageState extends State<MapPage> {
         DateTime.now().year.toDouble(), selectedReasons);
   }
 
+  /// if a filter has his value change we reset event and object to show
   void filterChanged(double start, double end, Set<ExpoAxis> reasons,
       Set<ExpoPopulationType> populations) {
     setState(() {
@@ -78,6 +85,7 @@ class _MapPageState extends State<MapPage> {
     });
   }
 
+  /// get the min year in object and event
   double getMinYear() {
     // Find the minimal year value in all the objects
     int minObjectYear = widget.exposition.objects
@@ -96,6 +104,7 @@ class _MapPageState extends State<MapPage> {
   Widget build(BuildContext context) {
     isLargeScreen = MediaQuery.of(context).size.width >= 600;
     final theme = Theme.of(context);
+    polygons = generatePolygone(filteredEvents, theme.colorScheme.primary);
 
     // Set the minimal year value as minimal year for my slider range settings
     startYearFilter = getMinYear();
@@ -127,20 +136,25 @@ class _MapPageState extends State<MapPage> {
                     /// The map options define the "spawning" coordinates of the map when we load it and the default zoom to show only a specific area of the world map.
                     /// The latitude and the longitude we use here are the coordinates of Sion, capital city of the State Valais.
                     options: MapOptions(
-                      center: const LatLng(46.22809, 7.35886),
-                      zoom: 10,
-                    ),
+                        center: const LatLng(46.22809, 7.35886),
+                        zoom: GlobalConstants.mapInitZoom,
+                        onTap: ((tapPosition, point) {
+                          for (var event in polygons.entries) {
+                            if (pointInPolygon(point, event.value)) {
+                              setState(() {
+                                selectedEvent = event.key;
+                                selectedObject = null;
+                              });
+                              return;
+                            }
+                          }
+                        })),
                     children: [
                       /// Both the tile layer and the marker layer have their own class to prevent messy code.
                       /// They are in charge of rendering the map and adding any markers on it.
                       const TileLayerWidget(),
                       PolygonLayerWidget(
-                        onMarkerTap: (ExpoEvent event) {
-                          setState(() {
-                            selectedEvent = event;
-                          });
-                        },
-                        expoEvents: filteredEvents,
+                        expoEvents: polygons.values.toList(),
                       ),
                       MarkerLayerWidget(
                         onMarkerTap: (ExpoObject object) {
@@ -179,34 +193,37 @@ class _MapPageState extends State<MapPage> {
             ),
           ),
           Positioned(
-              top: 16,
-              left: 16,
+              top: GlobalConstants.mapFloatingButtonSpace,
+              left: GlobalConstants.mapFloatingButtonSpace,
               child: Column(
                 children: [
                   FloatingActionButton(
                     onPressed: () {
                       Navigator.of(context).popUntil((route) => route.isFirst);
                     },
+                    heroTag: null,
                     child: const Icon(Icons.home),
                   ),
-                  const SizedBox(height: 16.0),
+                  const SizedBox(
+                      height: GlobalConstants.mapFloatingButtonSpace),
                   FloatingActionButton(
                     onPressed: () {
                       setState(() {
                         showFilter = !showFilter;
                       });
                     },
+                    heroTag: null,
                     child: const Icon(Icons.filter_list),
                   ),
                 ],
               )),
           if (showFilter)
             Positioned(
-                top: 80,
-                left: 16,
+                top: GlobalConstants.mapFilterContainerTop,
+                left: GlobalConstants.mapFloatingButtonSpace,
                 child: Container(
-                  height: 300,
-                  width: 300,
+                  height: GlobalConstants.mapFilterContainerHeight,
+                  width: GlobalConstants.mapFilterContainerWidth,
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
