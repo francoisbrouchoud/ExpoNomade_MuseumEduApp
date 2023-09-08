@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
 import 'package:expo_nomade_mobile/util/simple_snack_bar.dart';
 import 'package:expo_nomade_mobile/util/validation_helper.dart';
@@ -45,7 +43,7 @@ class _ExpoPopulationTypeEditorWidgetState
     final dataProvider = Provider.of<ExpositionNotifier>(context);
     final Exposition expo = dataProvider.exposition;
     Map<String, String> newTitleVals =
-        widget.populationType?.title.toMap() ?? HashMap();
+        widget.populationType?.title.toMap() ?? {};
     return Material(
       child: BaseBOEditorWidget(
         title: widget.populationType != null
