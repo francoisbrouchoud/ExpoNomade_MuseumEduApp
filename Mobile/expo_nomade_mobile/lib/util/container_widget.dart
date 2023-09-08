@@ -1,7 +1,10 @@
+import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:expo_nomade_mobile/util/title_widget.dart';
 import 'package:flutter/material.dart';
 
+/// Class ContainerWidget is a container designed in the style of the application.
 class ContainerWidget extends StatelessWidget {
+  /// Creates a new ContainerWidget
   const ContainerWidget(
       {super.key,
       required this.title,
@@ -16,12 +19,6 @@ class ContainerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const befTitlePlaceHolderH = 60.0;
-    const aftTitlePlaceHolderH = 30.0;
-    const contMargin = 8.0;
-    const contPadding = 12.0;
-    const borderRad = 16.0;
-    const bodyPadding = 10.0;
     final titleWidget = TitleWidget(text: title);
     final theme = Theme.of(context);
     double screenWidth = MediaQuery.of(context).size.width;
@@ -35,31 +32,34 @@ class ContainerWidget extends StatelessWidget {
             double? contHeight;
             if (fixedContainerHeight) {
               contHeight = maxHeight -
-                  befTitlePlaceHolderH -
+                  GlobalConstants.cwBefTitlePHH -
                   titleWidget.estimateTitleHeight(context) -
-                  aftTitlePlaceHolderH -
-                  2 * contMargin -
-                  2 * contPadding -
-                  befTitlePlaceHolderH;
+                  GlobalConstants.cwAftTitlePHH -
+                  2 * GlobalConstants.cwContMargin -
+                  2 * GlobalConstants.cwContPadding -
+                  GlobalConstants.cwBefTitlePHH;
             }
             return Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const SizedBox(height: befTitlePlaceHolderH),
+                const SizedBox(height: GlobalConstants.cwBefTitlePHH),
                 titleWidget,
-                const SizedBox(height: aftTitlePlaceHolderH),
+                const SizedBox(height: GlobalConstants.cwAftTitlePHH),
                 Container(
-                  width: screenWidth * 0.7,
+                  width: screenWidth * GlobalConstants.defaultWidgetWidthMult,
                   height: contHeight,
-                  margin: const EdgeInsets.symmetric(vertical: contMargin),
-                  padding: const EdgeInsets.all(contPadding),
+                  margin: const EdgeInsets.symmetric(
+                      vertical: GlobalConstants.cwContMargin),
+                  padding: const EdgeInsets.all(GlobalConstants.cwContPadding),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(borderRad),
+                    borderRadius: BorderRadius.circular(
+                        GlobalConstants.defaultBorderRadius),
                     color: theme.colorScheme.background,
                   ),
                   child: Center(
                     child: Padding(
-                      padding: const EdgeInsets.all(bodyPadding),
+                      padding:
+                          const EdgeInsets.all(GlobalConstants.cwBodyPadding),
                       child: body,
                     ),
                   ),
