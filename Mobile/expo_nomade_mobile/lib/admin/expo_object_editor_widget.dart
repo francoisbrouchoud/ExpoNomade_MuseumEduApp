@@ -17,6 +17,7 @@ import '../bo/expo_object.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../bo/exposition.dart';
+import '../util/latlng_year_selector_widget.dart';
 import '../util/validation_helper.dart';
 
 /// Class ExpoObjectEditorWidget est un widget utilisé pour éditer ou créer un objet ExpoObject.
@@ -86,6 +87,7 @@ class _ExpoObjectEditorWidgetState extends State<ExpoObjectEditorWidget> {
             name: translations.getTranslation("position"),
             value: widget.object?.position,
             valueChanged: (newVals) => newPosVals = newVals,
+            mandatory: true,
           ),
           MultilingualStringEditorWidget(
             name: translations.getTranslation("other"),
@@ -113,6 +115,7 @@ class _ExpoObjectEditorWidgetState extends State<ExpoObjectEditorWidget> {
           ),
           BOEditorBlockWidget(
             name: translations.getTranslation("dimensions"),
+            mandatory: true,
             children: [
               Row(
                 children: [
@@ -121,7 +124,7 @@ class _ExpoObjectEditorWidgetState extends State<ExpoObjectEditorWidget> {
                       controller: _dimController,
                       decoration: InputDecoration(
                         labelText:
-                            '${translations.getTranslation("dimensions")} (${translations.getTranslation('lang_${translations.getCurrentLangCode()}}')})',
+                            '${translations.getTranslation("dimensions")} (${translations.getTranslation('lang_${translations.getCurrentLangCode()}')})',
                       ),
                     ),
                   ),
@@ -129,18 +132,20 @@ class _ExpoObjectEditorWidgetState extends State<ExpoObjectEditorWidget> {
               ),
             ],
           ),
-          // TODO coordinates widget
-          // LatLngSelectorWidget(
-          //   name: translations.getTranslation("coordinates"),
-          //   values: newCoordinatesVals,
-          //   valuesChanged: (newVals) => newCoordinatesVals = newVals,
-          //   mandatory: true,
-          // ),
+          LatLngYearSelectorWidget(
+            name: translations.getTranslation("coordinates"),
+            values: newCoordinatesVals,
+            valuesChanged: (newVals) => newCoordinatesVals = newVals,
+            mandatory: true,
+          ),
         ],
         object: widget.object,
         itemSaveRequested: () async {
-          if (!ValidationHelper.isEmptyTranslationMap(newTitleVals)) {
-            // TODO validation for other mandatory fields
+          if (!ValidationHelper.isEmptyTranslationMap(newTitleVals) &&
+              !ValidationHelper.isIncompleteLatLngListForObject(
+                  newCoordinatesVals) &&
+              !ValidationHelper.isEmptyString(newDimensions) &&
+              !ValidationHelper.isEmptyTranslationMap(newPosVals)) {
             ExpoObject object = ExpoObject(
               "",
               newAxis,
