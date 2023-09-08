@@ -106,7 +106,7 @@ class App extends StatelessWidget {
                       '/admin/events': (context) =>
                           ExpoEventListWidget(context: context),
                       '/admin/participations': (context) =>
-                          ExpoParticipationTypeListWidget(context: context),
+                          ExpoParticipationListWidget(context: context),
                       '/admin/quiz': (context) =>
                           ExpoQuizListWidget(context: context),
                       '/admin/objects': (context) =>

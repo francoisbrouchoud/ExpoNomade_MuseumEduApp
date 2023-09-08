@@ -7,19 +7,19 @@ import 'package:provider/provider.dart';
 
 import '../util/globals.dart';
 
-class ExpoParticipationTypeListWidget extends StatelessWidget {
+/// Class ExpoParticipationListWidget is used to list a collection of ExpoPopulationType. Inherits from BaseBOListWidget.
+class ExpoParticipationListWidget extends StatelessWidget {
   final String title;
   final List<Participation> listableItems;
 
-  ExpoParticipationTypeListWidget({required BuildContext context})
-      : this.title =
-            AppLocalization.of(context).getTranslation("quiz_result_list"),
-        this.listableItems =
-            Provider.of<ExpositionNotifier>(context, listen: true)
-                .exposition
-                .quiz
-                .participations
-                .toList();
+  /// Creates a new ExpoParticipationListWidget.
+  ExpoParticipationListWidget({super.key, required BuildContext context})
+      : title = AppLocalization.of(context).getTranslation("quiz_result_list"),
+        listableItems = Provider.of<ExpositionNotifier>(context, listen: true)
+            .exposition
+            .quiz
+            .participations
+            .toList();
 
   @override
   Widget build(BuildContext context) {
@@ -31,15 +31,16 @@ class ExpoParticipationTypeListWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: GlobalConstants.quizDefPaddingSize,
+                  vertical: GlobalConstants.quizPageContMargin),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(AppLocalization.of(context).getTranslation("email"),
-                      style: TextStyle(fontSize: 28.0)),
+                      style: TextStyle(fontSize: 28.0)), // TODO Julienne
                   Text(AppLocalization.of(context).getTranslation("score"),
-                      style: TextStyle(fontSize: 28.0)),
+                      style: TextStyle(fontSize: 28.0)), // TODO Julienne
                 ],
               ),
             ),
@@ -58,10 +59,12 @@ class ExpoParticipationTypeListWidget extends StatelessWidget {
                           Expanded(
                             child: Text(item.email,
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(fontSize: 22.0)),
+                                style:
+                                    TextStyle(fontSize: 22.0)), // TODO Julienne
                           ),
-                          Text(item.score.toString() + "%",
-                              style: TextStyle(fontSize: 22.0)),
+                          Text("${item.score}%",
+                              style:
+                                  TextStyle(fontSize: 22.0)), // TODO Julienne
                         ],
                       ),
                     ),

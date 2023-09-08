@@ -16,7 +16,9 @@ import 'expo_event_list_widget.dart';
 import 'expo_population_type_list_widget.dart';
 import '../util/globals.dart';
 
+/// Class MenuPage displays the administration menu.
 class MenuPage extends StatefulWidget {
+  /// Creates a new MenuPage
   const MenuPage({Key? key})
       : super(key: key); // Correction du nom du paramètre
 
@@ -24,7 +26,9 @@ class MenuPage extends StatefulWidget {
   State<MenuPage> createState() => _MenuPageState();
 }
 
+/// State class for the MenuPage.
 class _MenuPageState extends State<MenuPage> {
+  /// Signs out the connected user.
   Future<bool> _onWillPop(BuildContext context) async {
     final loginProvider = Provider.of<LoginNotifier>(context, listen: false);
     FirebaseAuth.instance.signOut();
@@ -57,8 +61,9 @@ class _MenuPageState extends State<MenuPage> {
   }
 }
 
-// create the part to selecte the currente expo
+/// SelectExpo creates the part to select the current exposition
 class SelectExpo extends StatelessWidget {
+  /// Creates a new SelectExpo
   const SelectExpo({super.key, required this.dataProvider});
   final ExpositionNotifier dataProvider;
   @override
@@ -89,7 +94,9 @@ class SelectExpo extends StatelessWidget {
   }
 }
 
+/// Class Menu contains all buttons that must be displayed in the MenuPage.
 class Menu extends StatelessWidget {
+  /// Creates a new Menu
   const Menu({super.key});
 
   @override
@@ -106,7 +113,7 @@ class Menu extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                       builder: (context) =>
-                          ExpoParticipationTypeListWidget(context: context)),
+                          ExpoParticipationListWidget(context: context)),
                 ),
               },
           type: ButtonWidgetType.standard),
