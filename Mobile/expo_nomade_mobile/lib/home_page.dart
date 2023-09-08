@@ -9,14 +9,15 @@ import 'map/map_page.dart';
 import 'quiz/quiz_page.dart';
 import 'util/title_widget.dart';
 
+/// Home page for the application.
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key})
-      : super(key: key); // Correction du nom du paramètre
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
+/// State class for the HomePage widget.
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,7 @@ class _HomePageState extends State<HomePage> {
                 text: Provider.of<ExpositionNotifier>(context)
                     .exposition
                     .name[translations.getCurrentLangCode()]),
-            const SizedBox(height: 50),
+            const SizedBox(height: GlobalConstants.homePageTitleBSpacing),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -59,7 +60,8 @@ class _HomePageState extends State<HomePage> {
                   text: translations.getTranslation("quiz"),
                   type: ButtonWidgetType.home,
                 ),
-                const SizedBox(width: 25),
+                const SizedBox(
+                    width: GlobalConstants.homePageMainButtonSpacing),
                 ButtonWidget(
                   action: () {
                     Navigator.of(context).push(
@@ -74,17 +76,19 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            const SizedBox(height: 50),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: Language.langList()
-                    .map((e) => LangButton(lang: e))
-                    .toList(),
-              ),
+            const SizedBox(height: GlobalConstants.homePageTitleBSpacing),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: Language.langList().map((e) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: GlobalConstants.langBtnHSpacing),
+                  child: LangButton(lang: e),
+                );
+              }).toList(),
             ),
+            //),
           ],
         ),
       ),
@@ -92,8 +96,9 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-/// Contain the design of a language button from the homepage
+/// Contain the design of a language button from the HomePage.
 class LangButton extends StatelessWidget {
+  /// Creates a new lang button widget.
   const LangButton({super.key, required this.lang});
 
   final Language lang;
@@ -110,7 +115,7 @@ class LangButton extends StatelessWidget {
       ),
       icon: Image.asset(
         'assets/images/${lang.langCode}.png',
-        width: 50,
+        width: GlobalConstants.langBtnWidth,
         fit: BoxFit.cover,
       ),
     );
