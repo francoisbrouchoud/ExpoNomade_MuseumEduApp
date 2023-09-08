@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import '../app_localization.dart';
 import '../util/globals.dart';
 
+/// Class ScorePage is used to display the result of the quiz.
 class ScorePage extends StatelessWidget {
   final int correctAnswers;
   final int totalQuestions;
 
+  /// Creates a new ScorePage
   const ScorePage(
       {super.key, required this.correctAnswers, required this.totalQuestions});
 
@@ -35,10 +37,11 @@ class ScorePage extends StatelessWidget {
         children: [
           Center(
             child: Container(
-              width: screenWidth * 0.9,
-              padding: const EdgeInsets.all(16.0), //TODO uniformizer
+              width: screenWidth * GlobalConstants.quizWidgetsWidthMult,
+              padding: const EdgeInsets.all(GlobalConstants.sspPaddingSize),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16.0),
+                borderRadius:
+                    BorderRadius.circular(GlobalConstants.defaultBorderRadius),
                 color: theme.colorScheme.background,
               ),
               child: Text(
@@ -51,27 +54,28 @@ class ScorePage extends StatelessWidget {
           const SizedBox(height: GlobalConstants.sizeOfTheBlock),
           Center(
             child: Container(
-              width: screenWidth * 0.9,
-              padding: const EdgeInsets.all(16.0), //TODO uniformizer
+              width: screenWidth * GlobalConstants.quizWidgetsWidthMult,
+              padding: const EdgeInsets.all(GlobalConstants.sspPaddingSize),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16.0),
+                borderRadius:
+                    BorderRadius.circular(GlobalConstants.defaultBorderRadius),
                 color: theme.colorScheme.background,
               ),
               child: Column(
                 children: [
-                  if (correctPercentage >= 90)
+                  if (correctPercentage >= GlobalConstants.resVeryGood)
                     Text(
                       translations
                           .getTranslation("very_good_result")
                           .toString(),
                       style: eltTextStyle,
                     )
-                  else if (correctPercentage >= 80)
+                  else if (correctPercentage >= GlobalConstants.resGood)
                     Text(
                       translations.getTranslation("good_result").toString(),
                       style: eltTextStyle,
                     )
-                  else if (correctPercentage >= 60)
+                  else if (correctPercentage >= GlobalConstants.resAvg)
                     Text(
                       translations.getTranslation("average_result").toString(),
                       style: eltTextStyle,

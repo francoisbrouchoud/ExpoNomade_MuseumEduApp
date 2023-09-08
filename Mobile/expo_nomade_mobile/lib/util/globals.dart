@@ -148,6 +148,15 @@ class GlobalConstants {
   /// Score submission page padding size.
   static const double sspPaddingSize = 16.0;
 
+  /// Results considered very good from...
+  static const int resVeryGood = 90;
+
+  /// Results considered good from...
+  static const int resGood = 80;
+
+  /// Results considered average from...
+  static const int resAvg = 60;
+
   /// Gets now's DateTime formatted for database insert.
   static String getNowFormattedForDB() {
     final DateTime now = DateTime.now();
