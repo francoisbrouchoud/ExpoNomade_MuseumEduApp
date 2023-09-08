@@ -40,7 +40,7 @@ class _QuizOptionSelectorWidgetState extends State<QuizOptionSelectorWidget> {
     // TODO: implement initState
     super.initState();
 
-    if (widget.values != null) {
+    if (widget.values != null && widget.values!.isNotEmpty) {
       quizOptions = widget.values!;
       QuizOption optionCorrect =
           quizOptions.singleWhere((element) => element.isCorrect);
