@@ -29,9 +29,7 @@ class TitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     double screenWidth = MediaQuery.of(context).size.width;
-    final textStyle = theme.textTheme.displayMedium!.copyWith(
-      color: theme.colorScheme.secondary,
-    );
+    final textStyle = theme.textTheme.displayLarge;
     return Container(
       width: screenWidth * GlobalConstants.defaultWidgetWidthMult,
       margin: const EdgeInsets.symmetric(
