@@ -85,9 +85,9 @@ class App extends StatelessWidget {
                           onBackground: onBackground,
                           onSurface: onSurface),
                       textTheme: const TextTheme(
-                          displayMedium: TextStyle(fontFamily: 'Montserrat'),
-                          displaySmall:
-                              TextStyle(fontSize: 26, color: secondary)),
+                          displaySmall: TextStyle(fontFamily: 'Montserrat', fontSize: 20, color: secondary),
+                          displayMedium: TextStyle(fontFamily: 'Montserrat', fontSize: 25, color: secondary),
+                          displayLarge: TextStyle(fontFamily: 'Montserrat', fontSize: 30, color: secondary),),
                       useMaterial3: true,
                     ),
                     home: const HomePage(),

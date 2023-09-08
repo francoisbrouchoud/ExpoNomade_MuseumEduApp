@@ -23,6 +23,8 @@ class ExpoParticipationListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return ContainerAdminWidget(
       fixedContainerHeight: true,
       title: title,
@@ -38,9 +40,9 @@ class ExpoParticipationListWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(AppLocalization.of(context).getTranslation("email"),
-                      style: TextStyle(fontSize: 28.0)), // TODO Julienne
+                      style: theme.textTheme.displayLarge,),
                   Text(AppLocalization.of(context).getTranslation("score"),
-                      style: TextStyle(fontSize: 28.0)), // TODO Julienne
+                      style: theme.textTheme.displayLarge,),
                 ],
               ),
             ),
@@ -58,13 +60,11 @@ class ExpoParticipationListWidget extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(item.email,
-                                overflow: TextOverflow.ellipsis,
-                                style:
-                                    TextStyle(fontSize: 22.0)), // TODO Julienne
+                              overflow: TextOverflow.ellipsis,
+                              style: theme.textTheme.displaySmall),
                           ),
                           Text("${item.score}%",
-                              style:
-                                  TextStyle(fontSize: 22.0)), // TODO Julienne
+                              style: theme.textTheme.displaySmall),
                         ],
                       ),
                     ),

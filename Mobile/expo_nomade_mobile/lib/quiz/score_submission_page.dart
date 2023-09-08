@@ -46,16 +46,8 @@ class ScoreSubmissionPage extends StatelessWidget {
     final dataProvider = Provider.of<ExpositionNotifier>(context);
     final Exposition expo = dataProvider.exposition;
 
-    //TODO uniformizer Julienne
-    final scoreTextStyle = theme.textTheme.bodyText1!.copyWith(
-      color: theme.colorScheme.secondary,
-      fontSize: 30,
-    );
-
-    final contentTextStyle = theme.textTheme.bodyText1!.copyWith(
-      color: theme.colorScheme.secondary,
-      fontSize: 20,
-    );
+    final scoreTextStyle = theme.textTheme.displayLarge;
+    final contentTextStyle = theme.textTheme.displaySmall;
 
     double screenWidth = MediaQuery.of(context).size.width;
 

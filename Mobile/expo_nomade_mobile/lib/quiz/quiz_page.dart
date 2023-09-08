@@ -41,14 +41,8 @@ class _QuizPageState extends State<QuizPage> {
     final theme = Theme.of(context);
     final translations = AppLocalization.of(context);
     final langCode = translations.getCurrentLangCode();
-    final questionTextStyle = theme.textTheme.displayMedium!.copyWith(
-      color: theme.colorScheme.secondary,
-      fontSize: 25, //TODO uniformizer Julienne
-    );
-    final optionTextStyle = theme.textTheme.displayMedium!.copyWith(
-      color: theme.colorScheme.secondary,
-      fontSize: 20, //TODO uniformizer Julienne
-    );
+    final questionTextStyle = theme.textTheme.displayMedium;
+    final optionTextStyle = theme.textTheme.displaySmall;
 
     double screenWidth = MediaQuery.of(context).size.width;
 

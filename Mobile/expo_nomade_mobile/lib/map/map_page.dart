@@ -13,9 +13,8 @@ import 'package:latlong2/latlong.dart';
 import '../bo/expo_event.dart';
 import '../bo/expo_population_type.dart';
 import '../bo/exposition.dart';
+import 'package:maps_toolkit/maps_toolkit.dart' as mp;
 import 'dart:math' as math;
-
-import 'helper_map.dart';
 
 /// Class MapPage is used to display the map and the information related to the exposition.
 class MapPage extends StatefulWidget {
@@ -41,7 +40,6 @@ class _MapPageState extends State<MapPage> {
   Set<ExpoAxis> allReasons = {};
   Set<ExpoPopulationType> selectedPopulations = {};
   Set<ExpoPopulationType> allPopulations = {};
-  Map<ExpoEvent, Polygon> polygons = {};
 
   @override
   void initState() {
@@ -98,7 +96,6 @@ class _MapPageState extends State<MapPage> {
   Widget build(BuildContext context) {
     isLargeScreen = MediaQuery.of(context).size.width >= 600;
     final theme = Theme.of(context);
-    polygons = generatePolygone(filteredEvents, theme.colorScheme.primary);
 
     // Set the minimal year value as minimal year for my slider range settings
     startYearFilter = getMinYear();
@@ -130,32 +127,25 @@ class _MapPageState extends State<MapPage> {
                     /// The map options define the "spawning" coordinates of the map when we load it and the default zoom to show only a specific area of the world map.
                     /// The latitude and the longitude we use here are the coordinates of Sion, capital city of the State Valais.
                     options: MapOptions(
-                        center: const LatLng(46.22809, 7.35886),
-                        zoom: 10,
-                        onTap: ((tapPosition, point) {
-                          for (var event in polygons.entries) {
-                            if (pointInPolygon(point, event.value)) {
-                              setState(() {
-                                selectedEvent = event.key;
-                                selectedObject = null;
-                              });
-                              return;
-                            }
-                          }
-                        })),
+                      center: const LatLng(46.22809, 7.35886),
+                      zoom: 10,
+                    ),
                     children: [
                       /// Both the tile layer and the marker layer have their own class to prevent messy code.
                       /// They are in charge of rendering the map and adding any markers on it.
                       const TileLayerWidget(),
-                      //PolygonLayerTest(expoEvents: filteredEvents),
                       PolygonLayerWidget(
-                        expoEvents: polygons.values.toList(),
+                        onMarkerTap: (ExpoEvent event) {
+                          setState(() {
+                            selectedEvent = event;
+                          });
+                        },
+                        expoEvents: filteredEvents,
                       ),
                       MarkerLayerWidget(
                         onMarkerTap: (ExpoObject object) {
                           setState(() {
                             selectedObject = object;
-                            selectedEvent = null;
                           });
                         },
                         expoObjects: filteredObjects,
@@ -197,7 +187,6 @@ class _MapPageState extends State<MapPage> {
                     onPressed: () {
                       Navigator.of(context).popUntil((route) => route.isFirst);
                     },
-                    heroTag: null,
                     child: const Icon(Icons.home),
                   ),
                   const SizedBox(height: 16.0),
@@ -207,7 +196,6 @@ class _MapPageState extends State<MapPage> {
                         showFilter = !showFilter;
                       });
                     },
-                    heroTag: null,
                     child: const Icon(Icons.filter_list),
                   ),
                 ],
