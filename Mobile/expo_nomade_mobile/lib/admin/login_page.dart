@@ -8,7 +8,9 @@ import '../util/container_widget.dart';
 import '../util/globals.dart';
 import '../util/validation_helper.dart';
 
+/// Class LoginPage displays a login screen to log in the administration part of the application
 class LoginPage extends StatelessWidget {
+  /// Creates a new LoginPage
   const LoginPage({super.key}); // Correction du nom du paramètre
 
   @override

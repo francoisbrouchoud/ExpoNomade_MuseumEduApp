@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:expo_nomade_mobile/bo/expo_axis.dart';
 import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
@@ -49,10 +47,9 @@ class _ExpoEventEditorWidgetState extends State<ExpoEventEditorWidget> {
     final translations = AppLocalization.of(context);
     final dataProvider = Provider.of<ExpositionNotifier>(context);
     final Exposition expo = dataProvider.exposition;
-    Map<String, String> newTitleVals = widget.event?.title.toMap() ?? HashMap();
-    Map<String, String> newDescVals =
-        widget.event?.description.toMap() ?? HashMap();
-    Map<String, String> newReasVals = widget.event?.reason.toMap() ?? HashMap();
+    Map<String, String> newTitleVals = widget.event?.title.toMap() ?? {};
+    Map<String, String> newDescVals = widget.event?.description.toMap() ?? {};
+    Map<String, String> newReasVals = widget.event?.reason.toMap() ?? {};
     ExpoAxis newAxisVal = widget.event?.axis ?? expo.axes.values.first;
     ExpoPopulationType newPopTypeVal =
         widget.event?.populationType ?? expo.populationTypes.values.first;
