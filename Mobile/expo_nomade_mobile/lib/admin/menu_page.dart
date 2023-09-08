@@ -187,7 +187,7 @@ class Menu extends StatelessWidget {
           type: ButtonWidgetType.standard),
       const SizedBox(height: GlobalConstants.sizeOfTheBlock),
       ButtonWidget(
-          text: "logout",
+          text: "Logout",
           action: () {
             final loginProvider =
                 Provider.of<LoginNotifier>(context, listen: false);
