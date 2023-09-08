@@ -49,7 +49,7 @@ class _QuizOptionSelectorWidgetState extends State<QuizOptionSelectorWidget> {
     } else {
       quizOptions = [];
 
-      for (var i = 0; i < GlobalConstants.quizOptionMinNb; i++) {
+      for (var i = 0; i <= GlobalConstants.quizOptionMinNb; i++) {
         quizOptions
             .add(QuizOption(label: MultilingualString({}), isCorrect: i == 0));
       }
@@ -60,6 +60,7 @@ class _QuizOptionSelectorWidgetState extends State<QuizOptionSelectorWidget> {
   void _addOption(BuildContext buildContext) {
     setState(() {
       widget.values!.add(QuizOption(label: MultilingualString({})));
+
       /*
       _controllers.add(MultilingualStringEditorWidget(
           name:
