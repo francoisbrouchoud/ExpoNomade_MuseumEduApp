@@ -3,9 +3,9 @@
       "-NcqpwOffpnKeRhzQKN2":{
          "name":{
             "fr":"Musée d’art du Valais",
-            "de":""
+            "de":"Walliser Kunstmuseum"
          },
-         "address":""
+         "address":"Pl. de la Majorie 15, 1950 Sion"
       }
    },
    "currentExposition":"-Ncqq4-PqPZh2avCdA_q",
@@ -18,60 +18,56 @@
          "axes":{
             "-NcqpNHcZkWCsLTXxIxm":{
                "title":{
-                  "fr":"le territoire (établissement)",
-                  "de":"das Gebiet (Einrichtung)"
+                  "fr":"Le territoire (établissement)",
+                  "de":"Das Gebiet (Einrichtung)"
                },
                "description":{
                   "fr":"",
                   "de":""
-               },
-               "color":""
+               }
             },
             "-Ncqpb935WPaykE9_5X-":{
                "title":{
-                  "fr":"la conquête",
-                  "de":"die Eroberung"
+                  "fr":"La conquête",
+                  "de":"Die Eroberung"
                },
                "description":{
                   "fr":"",
                   "de":""
-               },
-               "color":""
+               }
             },
             "-NcqpeK33xcP1gElFa21":{
                "title":{
-                  "fr":"le refuge",
-                  "de":"die Zuflucht"
+                  "fr":"Le refuge",
+                  "de":"Die Zuflucht"
                },
                "description":{
                   "fr":"",
                   "de":""
-               },
-               "color":""
+               }
             },
             "-Ncqph9qqmiNqP2qh9FS":{
                "title":{
-                  "fr":"le travail",
-                  "de":"die Arbeit"
+                  "fr":"Le travail",
+                  "de":"Die Arbeit"
                },
                "description":{
                   "fr":"",
                   "de":""
-               },
-               "color":""
+               }
             }
          },
          "populationTypes":{
             "-Ncqpj_hDfwZeo_YYBmn":{
                "title":{
-                  "fr":"les familles",
-                  "de":"die Familien"
+                  "fr":"Les familles",
+                  "de":"Die Familien"
                }
             },
             "-NcqprMePtNbqjB0fpbY":{
                "title":{
-                  "fr":"les hommes",
-                  "de":"die Männer"
+                  "fr":"Les hommes",
+                  "de":"Die Männer"
                }
             }
          },
@@ -79,13 +75,20 @@
             "-NdlSrAdlVVACp539ZHh":{
                "title":{
                   "fr":"Ernest Biéler",
-                  "de":""
+                  "de":"Ernest Biéler"
                },
                "description":{
                   "fr":"Considéré́ comme le chef de file de ce que l’on nomme « l’École de Savièse », Ernest Biéler s’attache à la représentation idéalisée d’une société́ rurale. Arrivant en Valais et à Savièse en 1884 sur les conseils du peintre Raphaël Ritz, le Vaudois s’établit dans la Commune en 1885 et y construit une maison en 1934. Jusqu’à sa mort, en 1948, l’artiste réside entre Savièse, Paris et Montellier-sur-Rivaz. Ernest Biéler invite de nombreux·ses artistes à le rejoindre en Valais pour dépeindre cette paysannerie rêvée, le primitivisme rural étant alors en vogue. \n Dans un style graphique, Savièse est une représentation typique des réalisations valaisannes de Biéler, avec un regard exogène focalisé sur ce que le peintre considère comme « exotique » : les costumes, les coutumes et tout ce qui se réfère à la paysannerie et que l’artiste estime être « authentique ». Ces deux Saviésannes au champ incarnent alors la typologie de la Valaisanne par excellence, avec tous les attributs qui la définissent : costume traditionnel, activité rurale, décor bucolique ou alpestre. ",
                   "de":"Ernest Biéler, der alś Anführer der sogenannten \"Schule von Savièse\" gilt, bemüht sich um die idealisierte Darstellung einer ländlichen Gesellschaft́. Der Waadtländer kam 1884 auf Anraten des Malers Raphaël Ritz ins Wallis und nach Savièse, ließ sich 1885 in der Gemeinde nieder und baute 1934 ein Haus. Bis zu seinem Tod im Jahr 1948 wohnte der Künstler zwischen Savièse, Paris und Montellier-sur-Rivaz. Ernest Biéler lud zahlreiche Künstler ein, sich ihm ins Wallis anzuschließen, um die erträumte Bauernschaft zu porträtieren, da der ländliche Primitivismus damals in Mode war. \n Savièse ist eine typische grafische Darstellung von Biélers Walliser Werken, mit einem exogenen Blick, der sich auf das konzentriert, was der Maler als \"exotisch\" betrachtet: Trachten, Bräuche und alles, was sich auf die Bauernschaft bezieht und was der Künstler als \"authentisch\" erachtet. Diese beiden Savieserinnen auf dem Feld verkörpern dann die Typologie der Walliserin par excellence, mit allen Attributen, die sie definieren: traditionelle Tracht, ländliche Tätigkeit, bukolische oder alpine Szenerie."
                },
                "coordinates":[
+                  {
+                     "year":1723,
+                     "coordonate":{
+                        "lat":46.02,
+                        "lon":7.02
+                     }
+                  },
                   {
                      "year":1921,
                      "coordonate":{
@@ -99,7 +102,7 @@
                "museum":"-NcqpwOffpnKeRhzQKN2",
                "dimension":"48 x 46 cm",
                "material":{
-                  "fr":"aquarelle, gouache et crayon sur papier",
+                  "fr":"Aquarelle, gouache et crayon sur papier",
                   "de":"Aquarell, Gouache und Bleistift auf Papier"
                },
                "others":{
@@ -107,8 +110,85 @@
                   "de":""
                },
                "position":{
+                  "fr":"Troisième tiroir à droite",
+                  "de":"Dritte Schublade rechts"
+               }
+            },
+            "-MmD4aQdLq36w0xEazWk":{
+               "title":{
+                  "fr":"Chevrolet Impala 1967",
+                  "de":"Chevrolet Impala 1967"
+               },
+               "description":{
                   "fr":"",
                   "de":""
+               },
+               "coordinates":[
+                  {
+                     "year":1972,
+                     "coordonate":{
+                        "lat":46.103115,
+                        "lon":7.0727354
+                     }
+                  },
+                  {
+                     "year":2023,
+                     "coordonate":{
+                        "lat":46.2311749,
+                        "lon":7.3588795
+                     }
+                  }
+               ],
+               "picture":"",
+               "axe":"-Ncqpb935WPaykE9_5X-",
+               "museum":"-NcqpwOffpnKeRhzQKN2",
+               "dimension":"541 x 203 x 162 cm",
+               "material":{
+                  "fr":"",
+                  "de":""
+               },
+               "others":{
+                  "fr":"",
+                  "de":""
+               },
+               "position":{
+                  "fr":"Absent de l'expo nomade",
+                  "de":"Abwesend von der Nomadenausstellung"
+               }
+            },
+            "-Mn1N6iPAGUcYUdZvPrO":{
+               "title":{
+                  "fr":"Dahu empaillé",
+                  "de":"Ausgestopfte Dahu"
+               },
+               "description":{
+                  "fr":"",
+                  "de":""
+               },
+               "coordinates":[
+                  {
+                     "year":1836,
+                     "coordonate":{
+                        "lat":46.18045425415039,
+                        "lon":7.294835090637207
+                     }
+                  }
+               ],
+               "picture":"",
+               "axe":"-Ncqpb935WPaykE9_5X-",
+               "museum":"-NcqpwOffpnKeRhzQKN2",
+               "dimension":"102 x 86 cm",
+               "material":{
+                  "fr":"",
+                  "de":""
+               },
+               "others":{
+                  "fr":"",
+                  "de":""
+               },
+               "position":{
+                  "fr":"Absent de l'expo nomade",
+                  "de":"Abwesend von der Nomadenausstellung"
                }
             }
          },
@@ -152,6 +232,148 @@
                "reason":{
                   "fr":"Travail",
                   "de":"Arbeit"
+               },
+               "populationType":"-Ncqpj_hDfwZeo_YYBmn"
+            },
+            "-Mb7Rf8wR5bsKIjDRF4X": {
+               "title":{
+                  "fr":"Nécessité de permis de séjour",
+                  "de":"Notwendigkeit einer Aufenthaltsgenehmigung"
+               },
+               "description":{
+                  "fr":"",
+                  "de":""
+               },
+               "picture":"",
+               "from":[
+               {
+                  "lat":45.83215,
+                  "lon":13.40529
+               },
+               {
+                  "lat":46.52495, 
+                  "lon":13.4257
+               },
+               {
+                  "lat":46.96966, 
+                  "lon":12.01788
+               },
+               {
+                  "lat":46.83566,
+                  "lon":10.54258
+               },
+               {
+                  "lat":46.27887, 
+                  "lon":10.16278
+               },
+               {
+                  "lat":46.40473, 
+                  "lon":9.38121
+               },
+               {
+                  "lat":45.83867,
+                  "lon":7.14849
+               },
+               {
+                  "lat":45.01882, 
+                  "lon":6.73951
+               },
+               {
+                  "lat":43.90012, 
+                  "lon":7.7233
+               }],
+               "to":[{
+                  "lat":46.24422, 
+                  "lon":7.40779
+               },
+               {
+                  "lat":46.23804, 
+                  "lon":6.95151
+               },
+               {
+                  "lat":46.09217, 
+                  "lon":7.02824
+               },
+               {
+                  "lat":46.07371, 
+                  "lon":7.05005
+               },
+               {
+                  "lat":46.11877, 
+                  "lon":7.20471
+               },
+               {
+                  "lat":46.17139, 
+                  "lon":7.34015
+               }],
+               "startYear":1920,
+               "endYear":1939,
+               "axe":"-Ncqph9qqmiNqP2qh9FS",
+               "reason":{
+                  "fr":"Travail",
+                  "de":"Arbeit"
+               },
+               "populationType":"-Ncqpj_hDfwZeo_YYBmn"
+            },
+            "-MmBqxR9KPJoVJGDN3Un": {
+               "title":{
+                  "fr":"Les Francs étendent leur territoire",
+                  "de":"Die Franken erweitern ihr Gebiet"
+               },
+               "description":{
+                  "fr":"",
+                  "de":""
+               },
+               "picture":"",
+               "from":[
+               {
+                  "lat":46.36541,
+                  "lon":6.28753
+               },
+               {
+                  "lat":46.22831, 
+                  "lon":6.32289
+               },
+               {
+                  "lat":46.03608, 
+                  "lon":5.7814
+               },
+               {
+                  "lat":45.5439,
+                  "lon":6.95379
+               },
+               {
+                  "lat":45.80876, 
+                  "lon":6.74972
+               },
+               {
+                  "lat":45.90829, 
+                  "lon":7.01176
+               },
+               {
+                  "lat":46.38792,
+                  "lon":6.74483
+               }],
+               "to":[{
+                  "lat":46.31706, 
+                  "lon":7.52623
+               },
+               {
+                  "lat":46.17698, 
+                  "lon":7.06858
+               },{
+                  "lat":46.04047, 
+                  "lon":7.05605
+               },{
+                  "lat":46.24279, 
+                  "lon":7.5434
+               }],
+               "startYear":500,
+               "endYear":534,
+               "axe":"-Ncqpb935WPaykE9_5X-",
+               "reason":{
+                  "fr":"Etente du territoire",
+                  "de":"Umfang des Gebiets"
                },
                "populationType":"-Ncqpj_hDfwZeo_YYBmn"
             }
@@ -651,8 +873,8 @@
             },
             "participation":{
                "20230907_16341222":{
-                  "email":"",
-                  "score":0
+                  "email":"scooby.doo@mystery.inc",
+                  "score":100
                }
             }
          }

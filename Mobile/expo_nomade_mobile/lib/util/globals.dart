@@ -200,6 +200,15 @@ class GlobalConstants {
   /// Quiz page container padding.
   static const double quizPageContPadding = 12;
 
+  /// InfoPanel & InfoPanelEvent Padding
+  static const double infoPanelsPadding = 32;
+
+  /// InfoPanel & InfoPanelEvent Small Spacing
+  static const double infoPanelsSmallSpacing = 10;
+
+  /// InfoPanel & InfoPanelEvent Medium Spacing
+  static const double infoPanelsMediumSpacing = 20;
+
   /// Gets now's DateTime formatted for database insert.
   static String getNowFormattedForDB() {
     final DateTime now = DateTime.now();
