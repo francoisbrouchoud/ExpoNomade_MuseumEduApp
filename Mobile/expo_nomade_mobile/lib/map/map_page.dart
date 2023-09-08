@@ -7,6 +7,7 @@ import 'package:expo_nomade_mobile/map/polygon_layer_widget.dart';
 import 'package:expo_nomade_mobile/map/tile_layer_widget.dart';
 import 'package:expo_nomade_mobile/map/filter_popup.dart';
 import 'package:expo_nomade_mobile/map/filter_logic.dart';
+import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -44,6 +45,8 @@ class _MapPageState extends State<MapPage> {
   Map<ExpoEvent, Polygon> polygons = {};
 
   @override
+
+  /// initialise event and object to show in the map
   void initState() {
     super.initState();
 
@@ -64,6 +67,7 @@ class _MapPageState extends State<MapPage> {
         DateTime.now().year.toDouble(), selectedReasons);
   }
 
+  /// if a filter has his value change we reset event and object to show
   void filterChanged(double start, double end, Set<ExpoAxis> reasons,
       Set<ExpoPopulationType> populations) {
     setState(() {
@@ -80,6 +84,7 @@ class _MapPageState extends State<MapPage> {
     });
   }
 
+  /// get the min year in object and event
   double getMinYear() {
     // Find the minimal year value in all the objects
     int minObjectYear = widget.exposition.objects
@@ -131,7 +136,7 @@ class _MapPageState extends State<MapPage> {
                     /// The latitude and the longitude we use here are the coordinates of Sion, capital city of the State Valais.
                     options: MapOptions(
                         center: const LatLng(46.22809, 7.35886),
-                        zoom: 10,
+                        zoom: GlobalConstants.mapInitZoom,
                         onTap: ((tapPosition, point) {
                           for (var event in polygons.entries) {
                             if (pointInPolygon(point, event.value)) {
@@ -189,8 +194,8 @@ class _MapPageState extends State<MapPage> {
             ),
           ),
           Positioned(
-              top: 16,
-              left: 16,
+              top: GlobalConstants.mapFloatingButtonSpace,
+              left: GlobalConstants.mapFloatingButtonSpace,
               child: Column(
                 children: [
                   FloatingActionButton(
@@ -200,7 +205,8 @@ class _MapPageState extends State<MapPage> {
                     heroTag: null,
                     child: const Icon(Icons.home),
                   ),
-                  const SizedBox(height: 16.0),
+                  const SizedBox(
+                      height: GlobalConstants.mapFloatingButtonSpace),
                   FloatingActionButton(
                     onPressed: () {
                       setState(() {
@@ -214,11 +220,11 @@ class _MapPageState extends State<MapPage> {
               )),
           if (showFilter)
             Positioned(
-                top: 80,
-                left: 16,
+                top: GlobalConstants.mapFilterContainerTop,
+                left: GlobalConstants.mapFloatingButtonSpace,
                 child: Container(
-                  height: 300,
-                  width: 300,
+                  height: GlobalConstants.mapFilterContainerHeight,
+                  width: GlobalConstants.mapFilterContainerWidth,
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(

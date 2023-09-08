@@ -1,11 +1,13 @@
 import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:expo_nomade_mobile/bo/expo_axis.dart';
+import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:flutter/material.dart';
 
 import '../bo/expo_population_type.dart';
 
 class FilterPopup extends StatefulWidget {
-  final Function(double, double, Set<ExpoAxis>, Set<ExpoPopulationType>) onFilterChanged;
+  final Function(double, double, Set<ExpoAxis>, Set<ExpoPopulationType>)
+      onFilterChanged;
   final double startYearFilter;
   final double endYearFilter;
   final Set<ExpoAxis> selectedReasons;
@@ -43,7 +45,6 @@ class _FilterPopupState extends State<FilterPopup> {
     selectedPopulations = widget.selectedPopulations;
   }
 
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -70,21 +71,21 @@ class _FilterPopupState extends State<FilterPopup> {
             values: RangeValues(start, end),
             min: widget.startYearFilter,
             max: widget.endYearFilter,
-            divisions: 32,
+            divisions: GlobalConstants.stepInYearsFilter,
             onChanged: (RangeValues values) {
               setState(() {
                 start = values.start;
                 end = values.end;
               });
-              widget.onFilterChanged(values.start, values.end, selectedReasons, selectedPopulations);
+              widget.onFilterChanged(values.start, values.end, selectedReasons,
+                  selectedPopulations);
             },
             labels: RangeLabels(
               start.round().toString(),
               end.round().toString(),
             ),
           ),
-
-          if(widget.allReasons.isNotEmpty) 
+          if (widget.allReasons.isNotEmpty)
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -92,12 +93,11 @@ class _FilterPopupState extends State<FilterPopup> {
                 textAlign: TextAlign.left,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 20.0,
+                  fontSize: 20.0, // TODO Julienne
                 ),
               ),
             ),
-
-          if(widget.allReasons.isNotEmpty)
+          if (widget.allReasons.isNotEmpty)
             ...widget.allReasons.map((reason) {
               return CheckboxListTile(
                 title: Text(reason.title[langCode]),
@@ -112,12 +112,12 @@ class _FilterPopupState extends State<FilterPopup> {
                     }
                   });
                   // update filtered elements
-                  widget.onFilterChanged(start, end, selectedReasons, selectedPopulations);
+                  widget.onFilterChanged(
+                      start, end, selectedReasons, selectedPopulations);
                 },
               );
             }).toList(),
-
-          if(widget.allPopulations.isNotEmpty)
+          if (widget.allPopulations.isNotEmpty)
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -125,12 +125,11 @@ class _FilterPopupState extends State<FilterPopup> {
                 textAlign: TextAlign.left,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 20.0,
+                  fontSize: 20.0, // TODO Julienne
                 ),
               ),
             ),
-          
-          if(widget.allPopulations.isNotEmpty)
+          if (widget.allPopulations.isNotEmpty)
             ...widget.allPopulations.map((pop) {
               return CheckboxListTile(
                 title: Text(pop.title[langCode]),
@@ -145,7 +144,8 @@ class _FilterPopupState extends State<FilterPopup> {
                     }
                   });
                   // update filtered elements
-                  widget.onFilterChanged(start, end, selectedReasons, selectedPopulations);
+                  widget.onFilterChanged(
+                      start, end, selectedReasons, selectedPopulations);
                 },
               );
             }).toList(),

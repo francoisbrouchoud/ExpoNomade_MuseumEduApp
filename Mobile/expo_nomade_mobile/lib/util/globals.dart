@@ -46,6 +46,37 @@ class LoginNotifier extends ChangeNotifier {
 
 /// Class GlobalConstants contains all global constants used throughout the application.
 class GlobalConstants {
+  /// Width of container for map filter
+  static const double mapFilterContainerWidth = 300;
+
+  /// Height of container for map filter
+  static const double mapFilterContainerHeight = 500;
+
+  /// Size of button for map floating button
+  static const double mapFilterContainerTop = 160;
+
+  /// Space betwen border and button for map floating button
+  static const double mapFloatingButtonSpace = 16;
+
+  /// the max zoom allow in the map.
+  static const double mapMaxZoom = 20;
+
+  /// the init zoom in the map.
+  static const double mapInitZoom = 10;
+
+  /// the path of the map design
+  static const String mapStyleUrl =
+      "https://api.mapbox.com/styles/v1/laumey/clk7147pb009801nw2y750jx5/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGF1bWV5IiwiYSI6ImNsazcxbWRiZDA1a2kzdHA2OTFzd2JkdmYifQ.8xOnsXZQ7GZprIYer0llfw";
+
+  /// the path of the marker us in map page
+  static const String markerMapImagePath = 'assets/images/marker.png';
+
+  /// Size of the marker in the map page.
+  static const double markerMapSize = 50;
+
+  /// Filter year number of step.
+  static const int stepInYearsFilter = 32;
+
   /// Height for SizeBox separating two buttons vertically.
   static const double multiButtonVerticalSpacing = 10.0;
 
