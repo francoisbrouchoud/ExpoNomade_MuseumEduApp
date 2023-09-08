@@ -50,22 +50,19 @@ class InfoPanel extends StatelessWidget {
             ),
 
             // Title of the object
-            const SizedBox(
-                height: GlobalConstants.infoPanelsSmallSpacing), // Add spacing
+            const SizedBox(height: GlobalConstants.infoPanelsSmallSpacing),
             Text(
               object.title[langCode],
               style: titleStyle,
             ),
+            const SizedBox(height: GlobalConstants.infoPanelsSmallSpacing),
 
             // Image of the object
             if (object.pictureURL != '')
-              const SizedBox(
-                  height:
-                      GlobalConstants.infoPanelsSmallSpacing), // Add spacing
-            SizedBox(
-              height: GlobalConstants.imagesDefaultDimension,
-              child: Image.network(object.pictureURL),
-            ),
+              SizedBox(
+                height: GlobalConstants.imagesDefaultDimension,
+                child: Image.network(object.pictureURL),
+              ),
 
             // The year of the object
             const SizedBox(height: GlobalConstants.infoPanelsMediumSpacing),
