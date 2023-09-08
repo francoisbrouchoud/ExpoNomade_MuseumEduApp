@@ -8,14 +8,15 @@ import 'package:latlong2/latlong.dart';
 import '../bo/expo_event.dart';
 
 /// generate a liste of polygon with expo to show in map
-Map<ExpoEvent, Polygon> generatePolygone(List<ExpoEvent> expoEvents) {
+Map<ExpoEvent, Polygon> generatePolygone(
+    List<ExpoEvent> expoEvents, Color color) {
   Map<ExpoEvent, Polygon> eventPoly = HashMap();
   for (var event in expoEvents) {
     final List<LatLng> sortedCoordinates = sortCoordinates(event.from);
     sortedCoordinates.add(sortedCoordinates.first);
     eventPoly[event] = Polygon(
       points: sortedCoordinates,
-      color: Colors.lightBlueAccent.withOpacity(0.3),
+      color: color.withOpacity(0.2),
       isFilled: true,
     );
   }
