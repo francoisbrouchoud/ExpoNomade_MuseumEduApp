@@ -23,7 +23,8 @@ class InfoPanel extends StatelessWidget {
     return Container(
       height: screenHeight,
       color: theme.colorScheme.primary, // Set your desired background color
-      padding: const EdgeInsets.all(32), // Add internal padding
+      padding: const EdgeInsets.all(
+          GlobalConstants.infoPanelsPadding), // Add internal padding
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -37,7 +38,8 @@ class InfoPanel extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 10), // Add spacing
+            const SizedBox(
+                height: GlobalConstants.infoPanelsSmallSpacing), // Add spacing
             Text(
               object.title[langCode],
               style: const TextStyle(
@@ -45,13 +47,15 @@ class InfoPanel extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 10), // Add spacing
+            const SizedBox(
+                height: GlobalConstants.infoPanelsSmallSpacing), // Add spacing
             SizedBox(
               child: Image.network(object.pictureURL),
               height: GlobalConstants.imagesDefaultDimension,
             ),
 
-            const SizedBox(height: 20), // Add spacing
+            const SizedBox(
+                height: GlobalConstants.infoPanelsMediumSpacing), // Add spacing
             Row(
               children: [
                 Text(
@@ -62,7 +66,8 @@ class InfoPanel extends StatelessWidget {
               ],
             ),
 
-            const SizedBox(height: 10), // Add spacing
+            const SizedBox(
+                height: GlobalConstants.infoPanelsSmallSpacing), // Add spacing
             Row(
               children: [
                 Text(
@@ -73,7 +78,8 @@ class InfoPanel extends StatelessWidget {
               ],
             ),
 
-            const SizedBox(height: 10), // Add spacing
+            const SizedBox(
+                height: GlobalConstants.infoPanelsSmallSpacing), // Add spacing
             Row(
               children: [
                 Text(
@@ -84,7 +90,8 @@ class InfoPanel extends StatelessWidget {
               ],
             ),
 
-            const SizedBox(height: 10), // Add spacing
+            const SizedBox(
+                height: GlobalConstants.infoPanelsSmallSpacing), // Add spacing
             Row(
               children: [
                 Text(
@@ -95,7 +102,8 @@ class InfoPanel extends StatelessWidget {
               ],
             ),
 
-            const SizedBox(height: 10), // Add spacing
+            const SizedBox(
+                height: GlobalConstants.infoPanelsSmallSpacing), // Add spacing
             Row(
               children: [
                 Text(
