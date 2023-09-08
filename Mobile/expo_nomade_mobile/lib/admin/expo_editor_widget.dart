@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:expo_nomade_mobile/util/simple_snack_bar.dart';
 import 'package:expo_nomade_mobile/util/validation_helper.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +40,7 @@ class _ExpoEditorWidgetState extends State<ExpoEditorWidget> {
     final dataProvider = Provider.of<ExpositionNotifier>(context);
     final expos = dataProvider.expositions;
     final expo = dataProvider.exposition;
-    Map<String, String> newTitleVals = widget.expo?.name.toMap() ?? HashMap();
+    Map<String, String> newTitleVals = widget.expo?.name.toMap() ?? {};
     return Material(
       child: BaseBOEditorWidget(
           title: widget.expo != null
