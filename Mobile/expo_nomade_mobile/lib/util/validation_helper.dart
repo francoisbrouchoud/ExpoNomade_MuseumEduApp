@@ -40,4 +40,12 @@ class ValidationHelper {
     }
     return false;
   }
+
+  /// Checks if a map of LatLng linked to a year is entirely filled and ready to be used for an object BO.
+  static bool isIncompleteLatLngListForObject(Map<int, LatLng> coordinates) {
+    if (coordinates.length < GlobalConstants.objectMinCoordinatesNb) {
+      return true;
+    }
+    return false;
+  }
 }

@@ -9,11 +9,9 @@ import 'package:expo_nomade_mobile/map/filter_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-
 import '../bo/expo_event.dart';
 import '../bo/expo_population_type.dart';
 import '../bo/exposition.dart';
-
 import 'dart:math' as math;
 
 /// Class MapPage is used to display the map and the information related to the exposition.
@@ -31,8 +29,8 @@ class _MapPageState extends State<MapPage> {
   bool isLargeScreen = false;
   ExpoObject? selectedObject;
   bool showFilter = false;
-  double startYearFilter = 1700;
-  double endYearFilter = 2020;
+  double startYearFilter = 0.0;
+  double endYearFilter = 0.0;
   List<ExpoEvent> filteredEvents = [];
   Map<ExpoObject, int> filteredObjects = {};
   Set<ExpoAxis> selectedReasons = {};
@@ -48,14 +46,17 @@ class _MapPageState extends State<MapPage> {
     for (var event in widget.exposition.events) {
       selectedReasons.add(event.axis);
     }
+    for (var object in widget.exposition.objects) {
+      selectedReasons.add(object.axis);
+    }
     //Get all existing population types and set them to checked by default
     for (var event in widget.exposition.events) {
       selectedPopulations.add(event.populationType);
     }
-    filteredEvents = filterEvents(widget.exposition.events, startYearFilter,
-        endYearFilter, selectedReasons, selectedPopulations);
-    filteredObjects = filterObjects(widget.exposition.objects, startYearFilter,
-        endYearFilter, selectedReasons);
+    filteredEvents = filterEvents(
+        widget.exposition.events, getMinYear(), DateTime.now().year.toDouble(), selectedReasons, selectedPopulations);
+    filteredObjects = filterObjects(
+        widget.exposition.objects, getMinYear(), DateTime.now().year.toDouble(), selectedReasons);
   }
 
   void filterChanged(double start, double end, Set<ExpoAxis> reasons,
@@ -74,11 +75,8 @@ class _MapPageState extends State<MapPage> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    isLargeScreen = MediaQuery.of(context).size.width >= 600;
-
-    // Find the minimal year value in all the objects
+  double getMinYear() {
+        // Find the minimal year value in all the objects
     int minObjectYear = widget.exposition.objects
         .expand((obj) => obj.coordinates.keys)
         .reduce(math.min);
@@ -88,8 +86,16 @@ class _MapPageState extends State<MapPage> {
         .map((event) => event.startYear)
         .reduce(math.min);
 
+    return math.min(minObjectYear, minEventYear).toDouble();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    isLargeScreen = MediaQuery.of(context).size.width >= 600;
+    final theme = Theme.of(context);
+
     // Set the minimal year value as minimal year for my slider range settings
-    startYearFilter = math.min(minObjectYear, minEventYear).toDouble();
+    startYearFilter = getMinYear();
     // Set current year as maximal year for my slider range settings
     endYearFilter = DateTime.now().year.toDouble();
 
@@ -124,7 +130,7 @@ class _MapPageState extends State<MapPage> {
                     children: [
                       /// Both the tile layer and the marker layer have their own class to prevent messy code.
                       /// They are in charge of rendering the map and adding any markers on it.
-                      TileLayerWidget(),
+                      const TileLayerWidget(),
                       PolygonLayerWidget(expoEvents: filteredEvents),
                       MarkerLayerWidget(
                         onMarkerTap: (ExpoObject object) {
@@ -154,14 +160,24 @@ class _MapPageState extends State<MapPage> {
           Positioned(
             top: 16,
             left: 16,
-            child: FloatingActionButton(
-              onPressed: () {
-                setState(() {
-                  showFilter = !showFilter;
-                });
-              },
-              child: Icon(Icons.filter_list),
-            ),
+            child: Column (children: [
+              FloatingActionButton(
+                onPressed: () {
+                  Navigator.of(context)
+                      .popUntil((route) => route.isFirst);
+                },
+                child: const Icon(Icons.home),
+              ),
+              const SizedBox(height: 16.0),
+              FloatingActionButton(
+                onPressed: () {
+                  setState(() {
+                    showFilter = !showFilter;
+                  });
+                },
+                child: const Icon(Icons.filter_list),
+              ),
+            ],)
           ),
           if (showFilter)
             Positioned(
@@ -190,6 +206,33 @@ class _MapPageState extends State<MapPage> {
                       selectedPopulations: selectedPopulations,
                       allPopulations: allPopulations),
                 )),
+              top: 160,
+              left: 16,
+              child: Container (
+                height: 500,
+                width: 300,
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: theme.colorScheme.onSurface.withOpacity(0.2),
+                      spreadRadius: 5,
+                      blurRadius: 9,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: FilterPopup(
+                  onFilterChanged: filterChanged,
+                  startYearFilter: startYearFilter,
+                  endYearFilter: endYearFilter, 
+                  selectedReasons: selectedReasons,
+                  allReasons: allReasons,
+                  selectedPopulations: selectedPopulations,
+                  allPopulations: allPopulations
+                ),
+              )
+ 
+            ),
         ],
       ),
     );
