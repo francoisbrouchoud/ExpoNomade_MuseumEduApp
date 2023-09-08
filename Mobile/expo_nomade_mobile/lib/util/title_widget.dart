@@ -35,13 +35,13 @@ class TitleWidget extends StatelessWidget {
       color: theme.colorScheme.secondary,
     );
     return Container(
-      width: screenWidth * GlobalConstants.titleWidgetWMult,
+      width: screenWidth * GlobalConstants.defaultWidgetWidthMult,
       margin: const EdgeInsets.symmetric(
           vertical: GlobalConstants.titleWidgetContMargin),
       padding: const EdgeInsets.all(GlobalConstants.titleWidgetContPadding),
       decoration: BoxDecoration(
         borderRadius:
-            BorderRadius.circular(GlobalConstants.titleWidgetBorderRad),
+            BorderRadius.circular(GlobalConstants.defaultBorderRadius),
         color: theme.colorScheme.background,
       ),
       child: Center(
