@@ -197,6 +197,7 @@ class _MapPageState extends State<MapPage> {
                     onPressed: () {
                       Navigator.of(context).popUntil((route) => route.isFirst);
                     },
+                    heroTag: null,
                     child: const Icon(Icons.home),
                   ),
                   const SizedBox(height: 16.0),
@@ -206,6 +207,7 @@ class _MapPageState extends State<MapPage> {
                         showFilter = !showFilter;
                       });
                     },
+                    heroTag: null,
                     child: const Icon(Icons.filter_list),
                   ),
                 ],
