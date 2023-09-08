@@ -124,6 +124,9 @@ class GlobalConstants {
   /// Application default width multiplicator.
   static const double defaultWidgetWidthMult = 0.7;
 
+  /// Quiz page width multiplicator.
+  static const double quizPageWidthMult = 0.85;
+
   /// Quiz default width multiplicator.
   static const double quizWidgetsWidthMult = 0.9;
 
@@ -146,7 +149,25 @@ class GlobalConstants {
   static const double cwBodyPadding = 10.0;
 
   /// Score submission page padding size.
-  static const double sspPaddingSize = 16.0;
+  static const double quizDefPaddingSize = 16.0;
+
+  /// Results considered very good from...
+  static const int resVeryGood = 90;
+
+  /// Results considered good from...
+  static const int resGood = 80;
+
+  /// Results considered average from...
+  static const int resAvg = 60;
+
+  /// Number of questions randomly taken for the quiz.
+  static const int quizQuestionsNb = 5;
+
+  /// Quiz page container margin.
+  static const double quizPageContMargin = 8;
+
+  /// Quiz page container padding.
+  static const double quizPageContPadding = 12;
 
   /// Gets now's DateTime formatted for database insert.
   static String getNowFormattedForDB() {

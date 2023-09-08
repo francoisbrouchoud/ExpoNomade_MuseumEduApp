@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:expo_nomade_mobile/app_localization.dart';
 import 'package:expo_nomade_mobile/bo/exposition.dart';
 import 'package:expo_nomade_mobile/firebase_service.dart';
@@ -42,9 +40,8 @@ class _ExpoAxisEditorWidgetState extends State<ExpoAxisEditorWidget> {
     final translations = AppLocalization.of(context);
     final dataProvider = Provider.of<ExpositionNotifier>(context);
     final Exposition expo = dataProvider.exposition;
-    Map<String, String> newTitleVals = widget.axis?.title.toMap() ?? HashMap();
-    Map<String, String> newDescVals =
-        widget.axis?.description.toMap() ?? HashMap();
+    Map<String, String> newTitleVals = widget.axis?.title.toMap() ?? {};
+    Map<String, String> newDescVals = widget.axis?.description.toMap() ?? {};
     return Material(
       child: BaseBOEditorWidget(
         title: widget.axis != null
