@@ -1,21 +1,13 @@
 import 'dart:math';
 
-import 'package:expo_nomade_mobile/bo/expo_event.dart';
-import 'package:expo_nomade_mobile/map/poly_marker_layer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:geodesy/geodesy.dart';
-import 'package:maps_toolkit/maps_toolkit.dart' as mp;
 
 class PolygonLayerWidget extends StatelessWidget {
-  final Function(ExpoEvent) onMarkerTap;
-  final List<ExpoEvent> expoEvents;
-  final MapController mapController = MapController();
-  PolygonLayerWidget(
-      {super.key, required this.expoEvents, required this.onMarkerTap});
-  Geodesy geodesy = Geodesy();
+  final List<Polygon> expoEvents;
+  const PolygonLayerWidget({super.key, required this.expoEvents});
 
   @override
   Widget build(BuildContext context) {
@@ -23,25 +15,7 @@ class PolygonLayerWidget extends StatelessWidget {
       children: [
         // Couche de polygones
         PolygonLayer(
-          polygons: expoEvents.map((ExpoEvent expoEvent) {
-            final List<LatLng> sortedCoordinates =
-                sortCoordinates(expoEvent.from);
-            sortedCoordinates
-                .add(sortedCoordinates.first); // Fermez le polygone
-            return Polygon(
-              points: sortedCoordinates,
-              color: Colors.lightBlueAccent.withOpacity(0.3),
-              isFilled: true,
-            );
-          }).toList(),
-        ),
-
-        // Couche de marqueurs
-        PolyMarkerLayerWidget(
-          expoEvents: expoEvents,
-          onMarkerTap: (expoEvent) {
-            onMarkerTap(expoEvent);
-          },
+          polygons: expoEvents,
         ),
       ],
     );
