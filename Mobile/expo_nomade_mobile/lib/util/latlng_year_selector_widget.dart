@@ -23,12 +23,12 @@ class LatLngYearSelectorWidget extends StatefulWidget {
       this.mandatory = false});
 
   @override
-  _LatLngYearSelectorWidgetState createState() =>
-      _LatLngYearSelectorWidgetState();
+  LatLngYearSelectorWidgetState createState() =>
+      LatLngYearSelectorWidgetState();
 }
 
 /// State class for the LatLngYearSelectorWidget.
-class _LatLngYearSelectorWidgetState extends State<LatLngYearSelectorWidget> {
+class LatLngYearSelectorWidgetState extends State<LatLngYearSelectorWidget> {
   late final List<List<TextEditingController>> _controllers;
 
   /// Gets the current values from the TextFormFields

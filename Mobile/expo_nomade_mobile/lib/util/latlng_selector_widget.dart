@@ -23,11 +23,11 @@ class LatLngSelectorWidget extends StatefulWidget {
       this.mandatory = false});
 
   @override
-  _LatLngSelectorWidgetState createState() => _LatLngSelectorWidgetState();
+  LatLngSelectorWidgetState createState() => LatLngSelectorWidgetState();
 }
 
 /// State class for the LatLngSelectorWidget.
-class _LatLngSelectorWidgetState extends State<LatLngSelectorWidget> {
+class LatLngSelectorWidgetState extends State<LatLngSelectorWidget> {
   late final List<List<TextEditingController>> _controllers;
 
   /// Gets the current values from the TextFormFields

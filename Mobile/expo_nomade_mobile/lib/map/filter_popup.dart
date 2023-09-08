@@ -27,10 +27,10 @@ class FilterPopup extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _FilterPopupState createState() => _FilterPopupState();
+  FilterPopupState createState() => FilterPopupState();
 }
 
-class _FilterPopupState extends State<FilterPopup> {
+class FilterPopupState extends State<FilterPopup> {
   late double start;
   late double end;
   Set<ExpoAxis> selectedReasons = {};
@@ -58,13 +58,11 @@ class _FilterPopupState extends State<FilterPopup> {
         children: [
           Align(
             alignment: Alignment.centerLeft,
-            child: Text(
-              translations.getTranslation("years").toString(),
-              textAlign: TextAlign.left,
-              style: theme.textTheme.displaySmall!.copyWith(
-                fontWeight: FontWeight.bold,
-              )
-            ),
+            child: Text(translations.getTranslation("years").toString(),
+                textAlign: TextAlign.left,
+                style: theme.textTheme.displaySmall!.copyWith(
+                  fontWeight: FontWeight.bold,
+                )),
           ),
           RangeSlider(
             values: RangeValues(start, end),
@@ -87,13 +85,11 @@ class _FilterPopupState extends State<FilterPopup> {
           if (widget.allReasons.isNotEmpty)
             Align(
               alignment: Alignment.centerLeft,
-              child: Text(
-                translations.getTranslation("reason").toString(),
-                textAlign: TextAlign.left,
-                style: theme.textTheme.displaySmall!.copyWith(
-                  fontWeight: FontWeight.bold,
-                )
-              ),
+              child: Text(translations.getTranslation("reason").toString(),
+                  textAlign: TextAlign.left,
+                  style: theme.textTheme.displaySmall!.copyWith(
+                    fontWeight: FontWeight.bold,
+                  )),
             ),
           if (widget.allReasons.isNotEmpty)
             ...widget.allReasons.map((reason) {
@@ -119,12 +115,11 @@ class _FilterPopupState extends State<FilterPopup> {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                translations.getTranslation("population_types").toString(),
-                textAlign: TextAlign.left,
-                style: theme.textTheme.displaySmall!.copyWith(
-                  fontWeight: FontWeight.bold,
-                )
-              ),
+                  translations.getTranslation("population_types").toString(),
+                  textAlign: TextAlign.left,
+                  style: theme.textTheme.displaySmall!.copyWith(
+                    fontWeight: FontWeight.bold,
+                  )),
             ),
           if (widget.allPopulations.isNotEmpty)
             ...widget.allPopulations.map((pop) {

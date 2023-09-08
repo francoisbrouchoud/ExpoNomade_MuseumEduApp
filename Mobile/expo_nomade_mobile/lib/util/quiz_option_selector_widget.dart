@@ -23,12 +23,12 @@ class QuizOptionSelectorWidget extends StatefulWidget {
       this.mandatory = false});
 
   @override
-  _QuizOptionSelectorWidgetState createState() =>
-      _QuizOptionSelectorWidgetState();
+  QuizOptionSelectorWidgetState createState() =>
+      QuizOptionSelectorWidgetState();
 }
 
 /// State class for the QuizOptionSelectorWidget.
-class _QuizOptionSelectorWidgetState extends State<QuizOptionSelectorWidget> {
+class QuizOptionSelectorWidgetState extends State<QuizOptionSelectorWidget> {
   late List<QuizOption> quizOptions;
 
   @override

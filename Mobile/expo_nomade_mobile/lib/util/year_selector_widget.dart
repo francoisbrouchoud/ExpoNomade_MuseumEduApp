@@ -19,11 +19,11 @@ class YearSelectorWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _YearSelectorWidgetState createState() => _YearSelectorWidgetState();
+  YearSelectorWidgetState createState() => YearSelectorWidgetState();
 }
 
 /// State class for the YearSelectorWidget.
-class _YearSelectorWidgetState extends State<YearSelectorWidget> {
+class YearSelectorWidgetState extends State<YearSelectorWidget> {
   late int selectedYear = widget.selectedYear;
   final TextEditingController _yearController = TextEditingController();
 

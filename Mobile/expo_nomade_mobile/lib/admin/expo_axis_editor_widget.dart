@@ -20,18 +20,21 @@ class ExpoAxisEditorWidget extends StatefulWidget {
   const ExpoAxisEditorWidget({super.key, this.axis});
 
   @override
-  _ExpoAxisEditorWidgetState createState() => _ExpoAxisEditorWidgetState();
+  ExpoAxisEditorWidgetState createState() => ExpoAxisEditorWidgetState();
 }
 
 /// State class for the ExpoAxisEditorWidget.
-class _ExpoAxisEditorWidgetState extends State<ExpoAxisEditorWidget> {
+class ExpoAxisEditorWidgetState extends State<ExpoAxisEditorWidget> {
   @override
   void initState() {
     super.initState();
   }
 
   /// Navigates back to the list view.
-  void backToList() {
+  void backToList({String? text}) {
+    if (text != null) {
+      SimpleSnackBar.showSnackBar(context, text);
+    }
     Navigator.of(context).pop();
   }
 
@@ -77,9 +80,8 @@ class _ExpoAxisEditorWidgetState extends State<ExpoAxisEditorWidget> {
               }
             }
             dataProvider.forceRelaod();
-            SimpleSnackBar.showSnackBar(
-                context, translations.getTranslation("saved"));
-            backToList();
+
+            backToList(text: translations.getTranslation("saved"));
           } else {
             SimpleSnackBar.showSnackBar(context,
                 translations.getTranslation("fill_required_fields_msg"));

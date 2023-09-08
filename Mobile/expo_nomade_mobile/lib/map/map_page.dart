@@ -14,7 +14,6 @@ import 'package:latlong2/latlong.dart';
 import '../bo/expo_event.dart';
 import '../bo/expo_population_type.dart';
 import '../bo/exposition.dart';
-import 'package:maps_toolkit/maps_toolkit.dart' as mp;
 import 'dart:math' as math;
 
 import 'helper_map.dart';
@@ -26,11 +25,11 @@ class MapPage extends StatefulWidget {
   final Exposition exposition;
 
   @override
-  _MapPageState createState() => _MapPageState();
+  MapPageState createState() => MapPageState();
 }
 
 /// Class _MapPageState is the state class for the MapPage class, used to manage the behavior on click of the markers.
-class _MapPageState extends State<MapPage> {
+class MapPageState extends State<MapPage> {
   bool isLargeScreen = false;
   ExpoObject? selectedObject;
   ExpoEvent? selectedEvent;
@@ -231,7 +230,7 @@ class _MapPageState extends State<MapPage> {
                             Colors.black.withOpacity(0.2), // Couleur de l'ombre
                         spreadRadius: 5, // Propagation de l'ombre
                         blurRadius: 9, // Flou de l'ombre
-                        offset: Offset(0, 3), // Position de l'ombre
+                        offset: const Offset(0, 3), // Position de l'ombre
                       ),
                     ],
                   ),

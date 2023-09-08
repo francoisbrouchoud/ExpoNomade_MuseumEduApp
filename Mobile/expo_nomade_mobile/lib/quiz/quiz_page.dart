@@ -13,11 +13,11 @@ class QuizPage extends StatefulWidget {
   const QuizPage({super.key, required this.questions});
 
   @override
-  _QuizPageState createState() => _QuizPageState();
+  QuizPageState createState() => QuizPageState();
 }
 
 /// State class for the QuizPage
-class _QuizPageState extends State<QuizPage> {
+class QuizPageState extends State<QuizPage> {
   List<int?> selectedOptionIdx = [];
   List<bool> answeredCorrectly = [];
   List<QuizQuestion> randomSelectedQuestions = [];

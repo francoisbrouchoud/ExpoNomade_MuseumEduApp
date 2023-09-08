@@ -18,11 +18,11 @@ class ImageSelectorWidget extends StatefulWidget {
       {super.key, required this.name, required this.urlChanged, this.url});
 
   @override
-  _ImageSelectorWidgetState createState() => _ImageSelectorWidgetState();
+  ImageSelectorWidgetState createState() => ImageSelectorWidgetState();
 }
 
 /// State class for the ImageSelectorWidget
-class _ImageSelectorWidgetState extends State<ImageSelectorWidget> {
+class ImageSelectorWidgetState extends State<ImageSelectorWidget> {
   late String url;
 
   @override
@@ -67,8 +67,8 @@ class _ImageSelectorWidgetState extends State<ImageSelectorWidget> {
           children: [
             if (url.isNotEmpty)
               SizedBox(
-                child: Image.network(url),
                 height: GlobalConstants.imagesDefaultDimension,
+                child: Image.network(url),
               ),
             IconButton(
               onPressed: _pickImageFile,

@@ -20,12 +20,12 @@ class ExpoPopulationTypeEditorWidget extends StatefulWidget {
   const ExpoPopulationTypeEditorWidget({super.key, this.populationType});
 
   @override
-  _ExpoPopulationTypeEditorWidgetState createState() =>
-      _ExpoPopulationTypeEditorWidgetState();
+  ExpoPopulationTypeEditorWidgetState createState() =>
+      ExpoPopulationTypeEditorWidgetState();
 }
 
 /// State class for the ExpoPopulationTypeEditorWidget.
-class _ExpoPopulationTypeEditorWidgetState
+class ExpoPopulationTypeEditorWidgetState
     extends State<ExpoPopulationTypeEditorWidget> {
   @override
   void initState() {
@@ -33,7 +33,10 @@ class _ExpoPopulationTypeEditorWidgetState
   }
 
   /// Navigates back to the list view.
-  void backToList() {
+  void backToList({String? text}) {
+    if (text != null) {
+      SimpleSnackBar.showSnackBar(context, text);
+    }
     Navigator.of(context).pop();
   }
 
@@ -75,9 +78,7 @@ class _ExpoPopulationTypeEditorWidgetState
               }
             }
             dataProvider.forceRelaod();
-            SimpleSnackBar.showSnackBar(
-                context, translations.getTranslation("saved"));
-            backToList();
+            backToList(text: translations.getTranslation("saved"));
           } else {
             SimpleSnackBar.showSnackBar(context,
                 translations.getTranslation("fill_required_fields_msg"));

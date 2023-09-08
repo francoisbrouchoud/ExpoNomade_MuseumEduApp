@@ -23,18 +23,21 @@ class ExpoQuizEditorWidget extends StatefulWidget {
   const ExpoQuizEditorWidget({super.key, this.quizQuestion});
 
   @override
-  _ExpoQuizEditorWidgetState createState() => _ExpoQuizEditorWidgetState();
+  ExpoQuizEditorWidgetState createState() => ExpoQuizEditorWidgetState();
 }
 
 /// State class for the ExpoQuizEditorWidget.
-class _ExpoQuizEditorWidgetState extends State<ExpoQuizEditorWidget> {
+class ExpoQuizEditorWidgetState extends State<ExpoQuizEditorWidget> {
   @override
   void initState() {
     super.initState();
   }
 
   /// Navigates back to the list view.
-  void backToList() {
+  void backToList({String? text}) {
+    if (text != null) {
+      SimpleSnackBar.showSnackBar(context, text);
+    }
     Navigator.of(context).pop();
   }
 
@@ -88,9 +91,8 @@ class _ExpoQuizEditorWidgetState extends State<ExpoQuizEditorWidget> {
               }
             }
             dataProvider.forceRelaod();
-            SimpleSnackBar.showSnackBar(
-                context, translations.getTranslation("saved"));
-            backToList();
+
+            backToList(text: translations.getTranslation("saved"));
           } else {
             SimpleSnackBar.showSnackBar(context,
                 translations.getTranslation("fill_required_fields_msg"));

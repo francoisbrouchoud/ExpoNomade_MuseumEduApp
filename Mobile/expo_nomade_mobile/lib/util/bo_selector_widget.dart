@@ -21,11 +21,11 @@ class BOSelectorWidget extends StatefulWidget {
       this.mandatory = false});
 
   @override
-  _BOSelectorWidgetState createState() => _BOSelectorWidgetState();
+  BOSelectorWidgetState createState() => BOSelectorWidgetState();
 }
 
 /// State class for the BOSelectorWidget.
-class _BOSelectorWidgetState extends State<BOSelectorWidget> {
+class BOSelectorWidgetState extends State<BOSelectorWidget> {
   late BaseBusinessObject? _selectedItem;
 
   @override

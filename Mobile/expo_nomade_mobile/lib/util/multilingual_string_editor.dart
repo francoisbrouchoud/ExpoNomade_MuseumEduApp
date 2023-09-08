@@ -20,12 +20,12 @@ class MultilingualStringEditorWidget extends StatefulWidget {
       this.mandatory = false});
 
   @override
-  _MultilingualStringEditorWidgetState createState() =>
-      _MultilingualStringEditorWidgetState();
+  MultilingualStringEditorWidgetState createState() =>
+      MultilingualStringEditorWidgetState();
 }
 
 /// State class for the MultilingualStringEditorWidget.
-class _MultilingualStringEditorWidgetState
+class MultilingualStringEditorWidgetState
     extends State<MultilingualStringEditorWidget> {
   late final Map<String, TextEditingController> _controllers;
 
