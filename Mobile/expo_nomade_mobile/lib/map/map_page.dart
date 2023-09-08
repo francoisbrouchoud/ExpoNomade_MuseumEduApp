@@ -62,7 +62,6 @@ class _MapPageState extends State<MapPage> {
         DateTime.now().year.toDouble(), selectedReasons, selectedPopulations);
     filteredObjects = filterObjects(widget.exposition.objects, getMinYear(),
         DateTime.now().year.toDouble(), selectedReasons);
-    polygons = generatePolygone(filteredEvents);
   }
 
   void filterChanged(double start, double end, Set<ExpoAxis> reasons,
@@ -78,8 +77,6 @@ class _MapPageState extends State<MapPage> {
           endYearFilter, selectedReasons, selectedPopulations);
       filteredObjects = filterObjects(widget.exposition.objects,
           startYearFilter, endYearFilter, selectedReasons);
-
-      polygons = generatePolygone(filteredEvents);
     });
   }
 
@@ -101,6 +98,7 @@ class _MapPageState extends State<MapPage> {
   Widget build(BuildContext context) {
     isLargeScreen = MediaQuery.of(context).size.width >= 600;
     final theme = Theme.of(context);
+    polygons = generatePolygone(filteredEvents, theme.colorScheme.primary);
 
     // Set the minimal year value as minimal year for my slider range settings
     startYearFilter = getMinYear();
@@ -139,6 +137,7 @@ class _MapPageState extends State<MapPage> {
                             if (pointInPolygon(point, event.value)) {
                               setState(() {
                                 selectedEvent = event.key;
+                                selectedObject = null;
                               });
                               return;
                             }
@@ -156,6 +155,7 @@ class _MapPageState extends State<MapPage> {
                         onMarkerTap: (ExpoObject object) {
                           setState(() {
                             selectedObject = object;
+                            selectedEvent = null;
                           });
                         },
                         expoObjects: filteredObjects,
