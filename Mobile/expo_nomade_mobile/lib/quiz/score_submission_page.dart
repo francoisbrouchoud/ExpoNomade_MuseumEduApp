@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../helper/app_localization.dart';
 import '../helper/validation_helper.dart';
+import '../helper/notifer_helper.dart';
 
 /// Class ScoreSubmissionPage is the widget that will display the final score and let the user choose to save his score or return to the home page.
 class ScoreSubmissionPage extends StatelessWidget {

@@ -4,13 +4,13 @@ import 'package:expo_nomade_mobile/helper/app_localization.dart';
 import 'package:expo_nomade_mobile/bo/exposition.dart';
 import 'package:expo_nomade_mobile/bo/quiz_question.dart';
 import 'package:expo_nomade_mobile/helper/firebase_service.dart';
-import 'package:expo_nomade_mobile/util/base_bo_editor_widget.dart';
-import 'package:expo_nomade_mobile/helper/globals.dart';
+import 'package:expo_nomade_mobile/widgets/base_bo_editor_widget.dart';
+import '../helper/notifer_helper.dart';
 import 'package:expo_nomade_mobile/helper/multilingual_string.dart';
-import 'package:expo_nomade_mobile/util/multilingual_string_editor_widget.dart';
-import 'package:expo_nomade_mobile/util/quiz_option_selector_widget.dart';
+import 'package:expo_nomade_mobile/widgets/multilingual_string_editor_widget.dart';
+import 'package:expo_nomade_mobile/widgets/quiz_option_selector_widget.dart';
 
-import 'package:expo_nomade_mobile/util/simple_snack_bar.dart';
+import 'package:expo_nomade_mobile/widgets/simple_snack_bar.dart';
 import 'package:expo_nomade_mobile/helper/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

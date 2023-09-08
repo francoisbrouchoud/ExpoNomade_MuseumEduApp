@@ -1,5 +1,5 @@
 import 'package:expo_nomade_mobile/bo/expo_population_type.dart';
-import 'package:expo_nomade_mobile/util/simple_snack_bar.dart';
+import 'package:expo_nomade_mobile/widgets/simple_snack_bar.dart';
 import 'package:expo_nomade_mobile/helper/validation_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,10 +7,10 @@ import 'package:provider/provider.dart';
 import '../helper/app_localization.dart';
 import '../bo/exposition.dart';
 import '../helper/firebase_service.dart';
-import '../util/base_bo_editor_widget.dart';
-import '../helper/globals.dart';
+import '../widgets/base_bo_editor_widget.dart';
+import '../helper/notifer_helper.dart';
 import '../helper/multilingual_string.dart';
-import '../util/multilingual_string_editor_widget.dart';
+import '../widgets/multilingual_string_editor_widget.dart';
 
 /// Class ExpoPopulationTypeEditorWidget is a widget used to edit or create an ExpoPopulationType object.
 class ExpoPopulationTypeEditorWidget extends StatefulWidget {

@@ -1,13 +1,14 @@
 import 'package:expo_nomade_mobile/admin/menu_page.dart';
 import 'package:expo_nomade_mobile/helper/app_localization.dart';
-import 'package:expo_nomade_mobile/util/button_widget.dart';
+import 'package:expo_nomade_mobile/widgets/button_widget.dart';
 import 'package:expo_nomade_mobile/helper/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../helper/notifer_helper.dart';
 
 import 'map/map_page.dart';
 import 'quiz/quiz_page.dart';
-import 'util/title_widget.dart';
+import 'widgets/title_widget.dart';
 
 /// Home page for the application.
 class HomePage extends StatefulWidget {

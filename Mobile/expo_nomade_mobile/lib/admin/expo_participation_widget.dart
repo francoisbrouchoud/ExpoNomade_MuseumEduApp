@@ -1,11 +1,12 @@
 import 'package:expo_nomade_mobile/helper/app_localization.dart';
 import 'package:expo_nomade_mobile/bo/paticipation.dart';
-import 'package:expo_nomade_mobile/util/container_admin_widget.dart';
-import 'package:expo_nomade_mobile/util/underlined_container_widget.dart';
+import 'package:expo_nomade_mobile/widgets/container_admin_widget.dart';
+import 'package:expo_nomade_mobile/widgets/underlined_container_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../helper/globals.dart';
+import '../helper/notifer_helper.dart';
 
 /// Class ExpoParticipationListWidget is used to list a collection of ExpoPopulationType. Inherits from BaseBOListWidget.
 class ExpoParticipationListWidget extends StatelessWidget {

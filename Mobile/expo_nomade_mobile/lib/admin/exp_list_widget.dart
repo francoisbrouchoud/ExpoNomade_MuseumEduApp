@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 
 import '../helper/app_localization.dart';
 import '../bo/expo_name.dart';
-import '../util/base_bo_list_widget.dart';
-import '../helper/globals.dart';
+import '../helper/notifer_helper.dart';
+import '../widgets/base_bo_list_widget.dart';
 import 'expo_editor_widget.dart';
 
 /// Class ExpoListWidget is used to list a collection of ExpoPopulationType. Inherits from BaseBOListWidget.

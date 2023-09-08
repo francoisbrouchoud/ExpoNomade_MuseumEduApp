@@ -1,5 +1,5 @@
 import 'package:expo_nomade_mobile/helper/globals.dart';
-import 'package:expo_nomade_mobile/util/title_widget.dart';
+import 'package:expo_nomade_mobile/widgets/title_widget.dart';
 import 'package:flutter/material.dart';
 
 /// Class ContainerWidget is a container designed in the style of the application.

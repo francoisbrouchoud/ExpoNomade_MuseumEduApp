@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../helper/app_localization.dart';
-import '../util/base_bo_list_widget.dart';
-import '../helper/globals.dart';
+import '../widgets/base_bo_list_widget.dart';
+import '../helper/notifer_helper.dart';
 import 'expo_object_editor_widget.dart';
 
 /// Class ExpoObjectListWidget is used to list a collection of ExpoObject. Inherits from BaseBOListWidget.

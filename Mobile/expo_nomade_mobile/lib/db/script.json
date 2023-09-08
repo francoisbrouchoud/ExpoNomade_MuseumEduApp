@@ -203,7 +203,8 @@
                   "de":"Jahrhundert begann die Beschaffenheit des Wallis eine ganz bestimmte Kategorie von Malern anzuziehen, die sich der Sache der Verteidigung und Darstellung der Berge und der Bauernschaft anschlossen. Einige von ihnen sind nur auf der Durchreise, während andere sich regelmäßig im Wallis aufhalten oder es sogar zu ihrem Wohnsitz machen. Die Walliser Alpen mit ihren über vierzig Viertausendern verleihen dem Kanton einen besonderen Platz in der Schweizer Kunst. Mit dem wirtschaftlichen und touristischen Aufschwung der Region - insbesondere im Zusammenhang mit den großen Bergbesteigungen um 1850 - wurde das Wallis zu einer Heimat für viele Schweizer und ausländische Künstlerinnen und Künstler. Zuvor wurde die Walliser Landschaft als Illustration für wissenschaftliche Werke oder Reiseberichte gewählt, aber noch nicht als Thema für die Staffeleimalerei, da sie abseits der wirtschaftlichen und kulturellen Zentren lag. Jahrhunderts leichter zugänglich und wurde zu einer echten Inspirationsquelle für die Genfer Landschaftsschule, aber auch für Maler vor allem aus den Kantonen Waadt und Neuenburg. Abgesehen von einigen Ausnahmen wurde das Bild des Wallis also mehrheitlich von aussen, durch exogene und eingewanderte Blicke geprägt. Schriftsteller/innen, Künstler/innen und Ethnolog/innen, die vorwiegend aus städtischen Kontexten stammen, betrachten den Kanton als noch unberührt von jeglicher Veränderung und Modernität. Die besondere Topografie der Region, ihre Berge"
                },
                "picture":"",
-               "from":[{
+               "from":[
+                  {
                   "lat":46.25,
                   "lon":7.35
                },
@@ -215,7 +216,8 @@
                   "lat":46.1768168354531, 
                   "lon":7.022334181719967
                }],
-               "to":[{
+               "to":[
+                  {
                   "lat":46.2245197522465, 
                   "lon":6.133077284114841
                },

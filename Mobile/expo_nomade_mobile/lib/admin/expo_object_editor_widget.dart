@@ -1,14 +1,14 @@
 import 'package:expo_nomade_mobile/helper/app_localization.dart';
 import 'package:expo_nomade_mobile/bo/museum.dart';
 import 'package:expo_nomade_mobile/helper/firebase_service.dart';
-import 'package:expo_nomade_mobile/util/base_bo_editor_widget.dart';
-import 'package:expo_nomade_mobile/util/bo_editor_block_widget.dart';
-import 'package:expo_nomade_mobile/util/bo_selector_widget.dart';
-import 'package:expo_nomade_mobile/helper/globals.dart';
-import 'package:expo_nomade_mobile/util/image_selector_widget.dart';
+import 'package:expo_nomade_mobile/widgets/base_bo_editor_widget.dart';
+import 'package:expo_nomade_mobile/widgets/bo_editor_block_widget.dart';
+import 'package:expo_nomade_mobile/widgets/bo_selector_widget.dart';
+import '../helper/notifer_helper.dart';
+import 'package:expo_nomade_mobile/widgets/image_selector_widget.dart';
 import 'package:expo_nomade_mobile/helper/multilingual_string.dart';
-import 'package:expo_nomade_mobile/util/multilingual_string_editor_widget.dart';
-import 'package:expo_nomade_mobile/util/simple_snack_bar.dart';
+import 'package:expo_nomade_mobile/widgets/multilingual_string_editor_widget.dart';
+import 'package:expo_nomade_mobile/widgets/simple_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +17,7 @@ import '../bo/expo_object.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../bo/exposition.dart';
-import '../util/latlng_year_selector_widget.dart';
+import '../widgets/latlng_year_selector_widget.dart';
 import '../helper/validation_helper.dart';
 
 /// Class ExpoObjectEditorWidget est un widget utilisé pour éditer ou créer un objet ExpoObject.

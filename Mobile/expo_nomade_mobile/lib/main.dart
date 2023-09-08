@@ -5,7 +5,7 @@ import 'package:expo_nomade_mobile/admin/expo_participation_widget.dart';
 import 'package:expo_nomade_mobile/admin/expo_population_type_list_widget.dart';
 import 'package:expo_nomade_mobile/admin/expo_quiz_list_widget.dart';
 import 'package:expo_nomade_mobile/quiz/quiz_page.dart';
-import 'package:expo_nomade_mobile/helper/globals.dart';
+import '../helper/notifer_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';

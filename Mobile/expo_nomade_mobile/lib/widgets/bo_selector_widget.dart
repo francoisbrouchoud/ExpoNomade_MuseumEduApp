@@ -1,6 +1,6 @@
 import 'package:expo_nomade_mobile/helper/app_localization.dart';
 import 'package:expo_nomade_mobile/bo/base_business_object.dart';
-import 'package:expo_nomade_mobile/util/bo_editor_block_widget.dart';
+import 'package:expo_nomade_mobile/widgets/bo_editor_block_widget.dart';
 import 'package:flutter/material.dart';
 
 /// Class BOSelectorWidget is used to display a DropDownButton of business objects and select a single one of them.

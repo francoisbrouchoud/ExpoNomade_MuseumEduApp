@@ -1,12 +1,13 @@
 import 'package:expo_nomade_mobile/helper/app_localization.dart';
 import 'package:expo_nomade_mobile/helper/firebase_service.dart';
-import 'package:expo_nomade_mobile/util/button_widget.dart';
+import 'package:expo_nomade_mobile/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
-import '../util/container_widget.dart';
+import '../widgets/container_widget.dart';
 import '../helper/globals.dart';
 import '../helper/validation_helper.dart';
+import '../helper/notifer_helper.dart';
 
 /// Class LoginPage displays a login screen to log in the administration part of the application
 class LoginPage extends StatelessWidget {

@@ -1,9 +1,9 @@
 import 'package:expo_nomade_mobile/helper/app_localization.dart';
 import 'package:expo_nomade_mobile/bo/quiz_question.dart';
-import 'package:expo_nomade_mobile/util/bo_editor_block_widget.dart';
+import 'package:expo_nomade_mobile/widgets/bo_editor_block_widget.dart';
 import 'package:expo_nomade_mobile/helper/globals.dart';
 import 'package:expo_nomade_mobile/helper/multilingual_string.dart';
-import 'package:expo_nomade_mobile/util/multilingual_string_editor_widget.dart';
+import 'package:expo_nomade_mobile/widgets/multilingual_string_editor_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

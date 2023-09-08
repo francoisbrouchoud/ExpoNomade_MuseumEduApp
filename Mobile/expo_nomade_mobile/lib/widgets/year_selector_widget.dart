@@ -1,4 +1,4 @@
-import 'package:expo_nomade_mobile/util/bo_editor_block_widget.dart';
+import 'package:expo_nomade_mobile/widgets/bo_editor_block_widget.dart';
 import 'package:expo_nomade_mobile/helper/input_formatters.dart';
 import 'package:flutter/material.dart';
 
