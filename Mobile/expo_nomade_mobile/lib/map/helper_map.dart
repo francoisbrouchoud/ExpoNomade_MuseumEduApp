@@ -12,38 +12,13 @@ Map<ExpoEvent, Polygon> generatePolygone(
     List<ExpoEvent> expoEvents, Color color) {
   Map<ExpoEvent, Polygon> eventPoly = HashMap();
   for (var event in expoEvents) {
-    final List<LatLng> sortedCoordinates = sortCoordinates(event.from);
-    sortedCoordinates.add(sortedCoordinates.first);
     eventPoly[event] = Polygon(
-      points: sortedCoordinates,
+      points: event.from,
       color: color.withOpacity(0.2),
       isFilled: true,
     );
   }
   return eventPoly;
-}
-
-/// sort the coordinate to have a clean polygone
-List<LatLng> sortCoordinates(List<LatLng> coordinates) {
-  // Trouver le point le plus bas à gauche comme point de référence (pivot).
-  LatLng pivot = coordinates[0];
-  for (final coord in coordinates) {
-    if (coord.latitude < pivot.latitude ||
-        (coord.latitude == pivot.latitude &&
-            coord.longitude < pivot.longitude)) {
-      pivot = coord;
-    }
-  }
-  // Trier les coordonnées en fonction de leur angle par rapport au pivot.
-  coordinates.sort((a, b) {
-    double angleA =
-        atan2(a.latitude - pivot.latitude, a.longitude - pivot.longitude);
-    double angleB =
-        atan2(b.latitude - pivot.latitude, b.longitude - pivot.longitude);
-    return angleA.compareTo(angleB);
-  });
-
-  return coordinates;
 }
 
 /// detect if a point is in a polygon
