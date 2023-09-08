@@ -115,17 +115,38 @@ class GlobalConstants {
   /// Container padding for the title widget.
   static const double titleWidgetContPadding = 12.0;
 
-  /// Container border radius for the title widget.
-  static const double titleWidgetBorderRad = 16.0;
+  /// Default border radius for the application.
+  static const double defaultBorderRadius = 16.0;
 
   /// Text padding for the title widget.
   static const double titleWidgetTextPad = 10.0;
 
-  /// Title widget width multiplicator.
-  static const double titleWidgetWMult = 0.7;
+  /// Application default width multiplicator.
+  static const double defaultWidgetWidthMult = 0.7;
+
+  /// Quiz default width multiplicator.
+  static const double quizWidgetsWidthMult = 0.9;
 
   /// Ok text message.
   static const String okMsg = "OK";
+
+  /// Container widget before title place holder height.
+  static const double cwBefTitlePHH = 60.0;
+
+  /// Container widget after title place holder height.
+  static const double cwAftTitlePHH = 30.0;
+
+  /// Container widget container margin.
+  static const double cwContMargin = 8.0;
+
+  /// Container widget container padding.
+  static const double cwContPadding = 12.0;
+
+  /// Container widget body padding.
+  static const double cwBodyPadding = 10.0;
+
+  /// Score submission page padding size.
+  static const double sspPaddingSize = 16.0;
 
   /// Gets now's DateTime formatted for database insert.
   static String getNowFormattedForDB() {
