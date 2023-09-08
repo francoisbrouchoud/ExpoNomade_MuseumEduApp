@@ -15,14 +15,15 @@ class InfoPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     final theme = Theme.of(context);
     final translations = AppLocalization.of(context);
     final langCode = translations.getCurrentLangCode();
 
     return Container(
+      height: screenHeight,
       color: theme.colorScheme.primary, // Set your desired background color
-      margin: EdgeInsets.all(16.0), // Add margins
-      padding: EdgeInsets.all(16.0), // Add internal padding
+      padding: const EdgeInsets.all(32), // Add internal padding
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -57,7 +58,7 @@ class InfoPanel extends StatelessWidget {
                   '${translations.getTranslation('year')} : ',
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text(object.coordinates['year'].toString()),
+                Text(object.coordinates.keys.first.toString()),
               ],
             ),
 
