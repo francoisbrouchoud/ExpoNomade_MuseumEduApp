@@ -17,15 +17,11 @@ class ScorePage extends StatelessWidget {
     final theme = Theme.of(context);
     final translations = AppLocalization.of(context);
 
-    final eltTextStyle = theme.textTheme.displayMedium!.copyWith(
-      color: theme.colorScheme.secondary,
-      fontSize: 30, //TODO uniformizer Julienne
+    final eltTextStyle = theme.textTheme.displayLarge;
+    final pointTextStyle = theme.textTheme.displayLarge!.copyWith(
+      fontSize: 75,
+      fontWeight: FontWeight.bold
     );
-//TODO uniformizer Julienne
-    final pointTextStyle = theme.textTheme.displayMedium!.copyWith(
-        color: theme.colorScheme.secondary,
-        fontSize: 75,
-        fontWeight: FontWeight.bold);
 
     double screenWidth = MediaQuery.of(context).size.width;
     int correctPercentage = ((correctAnswers / totalQuestions) * 100).toInt();

@@ -61,10 +61,9 @@ class _FilterPopupState extends State<FilterPopup> {
             child: Text(
               translations.getTranslation("years").toString(),
               textAlign: TextAlign.left,
-              style: const TextStyle(
+              style: theme.textTheme.displaySmall!.copyWith(
                 fontWeight: FontWeight.bold,
-                fontSize: 20.0,
-              ),
+              )
             ),
           ),
           RangeSlider(
@@ -91,10 +90,9 @@ class _FilterPopupState extends State<FilterPopup> {
               child: Text(
                 translations.getTranslation("reason").toString(),
                 textAlign: TextAlign.left,
-                style: const TextStyle(
+                style: theme.textTheme.displaySmall!.copyWith(
                   fontWeight: FontWeight.bold,
-                  fontSize: 20.0, // TODO Julienne
-                ),
+                )
               ),
             ),
           if (widget.allReasons.isNotEmpty)
@@ -123,10 +121,9 @@ class _FilterPopupState extends State<FilterPopup> {
               child: Text(
                 translations.getTranslation("population_types").toString(),
                 textAlign: TextAlign.left,
-                style: const TextStyle(
+                style: theme.textTheme.displaySmall!.copyWith(
                   fontWeight: FontWeight.bold,
-                  fontSize: 20.0, // TODO Julienne
-                ),
+                )
               ),
             ),
           if (widget.allPopulations.isNotEmpty)

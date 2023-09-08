@@ -14,6 +14,7 @@ import 'package:latlong2/latlong.dart';
 import '../bo/expo_event.dart';
 import '../bo/expo_population_type.dart';
 import '../bo/exposition.dart';
+import 'package:maps_toolkit/maps_toolkit.dart' as mp;
 import 'dart:math' as math;
 
 import 'helper_map.dart';
@@ -152,7 +153,6 @@ class _MapPageState extends State<MapPage> {
                       /// Both the tile layer and the marker layer have their own class to prevent messy code.
                       /// They are in charge of rendering the map and adding any markers on it.
                       const TileLayerWidget(),
-                      //PolygonLayerTest(expoEvents: filteredEvents),
                       PolygonLayerWidget(
                         expoEvents: polygons.values.toList(),
                       ),
@@ -160,7 +160,6 @@ class _MapPageState extends State<MapPage> {
                         onMarkerTap: (ExpoObject object) {
                           setState(() {
                             selectedObject = object;
-                            selectedEvent = null;
                           });
                         },
                         expoObjects: filteredObjects,

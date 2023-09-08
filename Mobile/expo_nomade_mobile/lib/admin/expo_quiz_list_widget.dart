@@ -4,9 +4,7 @@ import 'package:expo_nomade_mobile/bo/quiz_question.dart';
 import 'package:expo_nomade_mobile/util/base_bo_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../util/globals.dart';
-import 'expo_event_editor_widget.dart';
 
 /// Class ExpoQuestionListWidget is used to list a collection of QuizQuestion. Inherits from BaseBOListWidget.
 class ExpoQuizListWidget extends BaseBOListWidget {
