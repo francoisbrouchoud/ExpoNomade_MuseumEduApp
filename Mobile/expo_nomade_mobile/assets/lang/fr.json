@@ -86,5 +86,12 @@
     "museum": "Musée",
     "dimensions": "Dimensions",
     "coordinates": "Coordonnées",
-    "year": "Année"
+    "year": "Année",
+    "question_title": "Titre de la question",
+    "option_edit": "Edition de l'option",
+    "option": "Option",
+    "option_true": "réponse vraie",
+    "option_false": "réponse fausse"
+
+
 }

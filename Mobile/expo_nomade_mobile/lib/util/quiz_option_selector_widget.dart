@@ -129,7 +129,8 @@ class _QuizOptionSelectorWidgetState extends State<QuizOptionSelectorWidget> {
             children: [
               Expanded(
                   child: MultilingualStringEditorWidget(
-                      name: "$option ${quizOptions.indexOf(quizOption)}",
+                      name:
+                          "$option ${quizOptions.indexOf(quizOption) + 1}: ${quizOptions.indexOf(quizOption) == 0 ? translations.getTranslation("option_true") : translations.getTranslation("option_false")}",
                       value: quizOption.label,
                       valueChanged: (newValues) => _valueChange(
                           quizOptions.indexOf(quizOption), newValues))),
