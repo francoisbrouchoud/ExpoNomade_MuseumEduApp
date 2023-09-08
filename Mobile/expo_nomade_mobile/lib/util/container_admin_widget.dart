@@ -6,7 +6,9 @@ import 'package:provider/provider.dart';
 
 import '../admin/login_page.dart';
 
+/// Class ContainerAdminWidget is a container designed in the style of the application for the administration part.
 class ContainerAdminWidget extends StatefulWidget {
+  /// Creates a new ContainerAdminWidget
   const ContainerAdminWidget(
       {Key? key,
       required this.title,
@@ -21,6 +23,7 @@ class ContainerAdminWidget extends StatefulWidget {
   State<ContainerAdminWidget> createState() => _ContainerAdminWidgetState();
 }
 
+/// State class for the ContainerAdminWidget.
 class _ContainerAdminWidgetState extends State<ContainerAdminWidget> {
   @override
   Widget build(BuildContext context) {

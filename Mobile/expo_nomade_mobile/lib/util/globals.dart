@@ -124,6 +124,9 @@ class GlobalConstants {
   /// Application default width multiplicator.
   static const double defaultWidgetWidthMult = 0.7;
 
+  /// Quiz default width multiplicator.
+  static const double quizWidgetsWidthMult = 0.9;
+
   /// Ok text message.
   static const String okMsg = "OK";
 
@@ -141,6 +144,9 @@ class GlobalConstants {
 
   /// Container widget body padding.
   static const double cwBodyPadding = 10.0;
+
+  /// Score submission page padding size.
+  static const double sspPaddingSize = 16.0;
 
   /// Gets now's DateTime formatted for database insert.
   static String getNowFormattedForDB() {

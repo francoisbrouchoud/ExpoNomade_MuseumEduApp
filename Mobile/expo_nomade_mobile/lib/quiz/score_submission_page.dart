@@ -5,19 +5,17 @@ import 'package:expo_nomade_mobile/util/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../app_localization.dart';
+import '../util/validation_helper.dart';
 
+/// Class ScoreSubmissionPage is the widget that will display the final score and let the user choose to save his score or return to the home page.
 class ScoreSubmissionPage extends StatelessWidget {
   final int score;
   final TextEditingController emailController = TextEditingController();
 
+  /// Creates a new ScoreSubmissionPage
   ScoreSubmissionPage({super.key, required this.score});
 
-  bool isValidEmail(String email) {
-    final emailRegex = RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-    return emailRegex.hasMatch(email);
-  }
-
+  /// Shows a dialog to tell that the input e-mail address is not valid.
   Future<void> _showInvalidEmailDialog(BuildContext context) async {
     final translations = AppLocalization.of(context);
     return showDialog<void>(
@@ -32,7 +30,7 @@ class ScoreSubmissionPage extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('OK'), //TODO normal?
+              child: const Text(GlobalConstants.okMsg),
             ),
           ],
         );
@@ -68,10 +66,11 @@ class ScoreSubmissionPage extends StatelessWidget {
         children: [
           Center(
             child: Container(
-              width: screenWidth * 0.9,
-              padding: const EdgeInsets.all(16.0), // TODO uniformisation
+              width: screenWidth * GlobalConstants.quizWidgetsWidthMult,
+              padding: const EdgeInsets.all(GlobalConstants.sspPaddingSize),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16.0),
+                borderRadius:
+                    BorderRadius.circular(GlobalConstants.defaultBorderRadius),
                 color: theme.colorScheme.background,
               ),
               child: Text(
@@ -84,10 +83,11 @@ class ScoreSubmissionPage extends StatelessWidget {
           const SizedBox(height: GlobalConstants.sizeOfTheBlock),
           Center(
             child: Container(
-              width: screenWidth * 0.9,
-              padding: const EdgeInsets.all(16.0), // TODO uniformization
+              width: screenWidth * GlobalConstants.quizWidgetsWidthMult,
+              padding: const EdgeInsets.all(GlobalConstants.sspPaddingSize),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16.0),
+                borderRadius:
+                    BorderRadius.circular(GlobalConstants.defaultBorderRadius),
                 color: theme.colorScheme.background,
               ),
               child: Column(
@@ -100,7 +100,7 @@ class ScoreSubmissionPage extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "Email: ",
+                        translations.getTranslation("email"),
                         style: contentTextStyle,
                       ),
                       Expanded(
@@ -125,7 +125,7 @@ class ScoreSubmissionPage extends StatelessWidget {
                       ElevatedButton(
                         onPressed: () async {
                           String email = emailController.text;
-                          if (isValidEmail(email)) {
+                          if (ValidationHelper.isValidEmail(email)) {
                             // Send to Firebase
                             Participation? participation =
                                 await FirebaseService.submitScore(email, score);

@@ -7,6 +7,7 @@ enum ButtonWidgetType { standard, home, delete }
 
 /// Contains the design of a button using the application's theme according to it's type.
 class ButtonWidget extends StatelessWidget {
+  /// Creates a new ButtonWidget
   const ButtonWidget(
       {super.key,
       required this.text,
