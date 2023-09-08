@@ -38,7 +38,7 @@ class ScorePage extends StatelessWidget {
           Center(
             child: Container(
               width: screenWidth * GlobalConstants.quizWidgetsWidthMult,
-              padding: const EdgeInsets.all(GlobalConstants.sspPaddingSize),
+              padding: const EdgeInsets.all(GlobalConstants.quizDefPaddingSize),
               decoration: BoxDecoration(
                 borderRadius:
                     BorderRadius.circular(GlobalConstants.defaultBorderRadius),
@@ -55,7 +55,7 @@ class ScorePage extends StatelessWidget {
           Center(
             child: Container(
               width: screenWidth * GlobalConstants.quizWidgetsWidthMult,
-              padding: const EdgeInsets.all(GlobalConstants.sspPaddingSize),
+              padding: const EdgeInsets.all(GlobalConstants.quizDefPaddingSize),
               decoration: BoxDecoration(
                 borderRadius:
                     BorderRadius.circular(GlobalConstants.defaultBorderRadius),

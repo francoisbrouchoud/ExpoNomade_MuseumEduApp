@@ -5,15 +5,18 @@ import '../util/globals.dart';
 import 'score_page.dart';
 import '../bo/quiz_question.dart';
 
+/// Class QuizPage displays the quiz for the user to answer.
 class QuizPage extends StatefulWidget {
   final List<QuizQuestion> questions;
 
-  QuizPage({required this.questions});
+  /// Creates a new QuizPage
+  const QuizPage({super.key, required this.questions});
 
   @override
   _QuizPageState createState() => _QuizPageState();
 }
 
+/// State class for the QuizPage
 class _QuizPageState extends State<QuizPage> {
   List<int?> selectedOptionIdx = [];
   List<bool> answeredCorrectly = [];
@@ -27,7 +30,8 @@ class _QuizPageState extends State<QuizPage> {
     // Shuffle questions and take only 5
     randomSelectedQuestions = List.from(widget.questions);
     randomSelectedQuestions.shuffle(Random());
-    randomSelectedQuestions = randomSelectedQuestions.take(5).toList();
+    randomSelectedQuestions =
+        randomSelectedQuestions.take(GlobalConstants.quizQuestionsNb).toList();
     selectedOptionIdx = List.filled(randomSelectedQuestions.length, null);
     answeredCorrectly = List.filled(randomSelectedQuestions.length, false);
   }
@@ -55,10 +59,11 @@ class _QuizPageState extends State<QuizPage> {
         children: [
           Center(
             child: Container(
-              width: screenWidth * 0.85,
-              padding: const EdgeInsets.all(16.0), //TODO uniformizer
+              width: screenWidth * GlobalConstants.quizPageWidthMult,
+              padding: const EdgeInsets.all(GlobalConstants.quizDefPaddingSize),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16.0),
+                borderRadius:
+                    BorderRadius.circular(GlobalConstants.defaultBorderRadius),
                 color: theme.colorScheme.background,
               ),
               child: Text(
@@ -73,12 +78,14 @@ class _QuizPageState extends State<QuizPage> {
             randomSelectedQuestions[currentQuestionIdx].options.length,
             (index) => Center(
               child: Container(
-                width: screenWidth * 0.7, //TODO uniformizer
-                margin:
-                    const EdgeInsets.symmetric(vertical: 8), //TODO uniformizer
-                padding: const EdgeInsets.all(12.0), //TODO uniformizer
+                width: screenWidth * GlobalConstants.defaultWidgetWidthMult,
+                margin: const EdgeInsets.symmetric(
+                    vertical: GlobalConstants.quizPageContMargin),
+                padding:
+                    const EdgeInsets.all(GlobalConstants.quizPageContPadding),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16.0),
+                  borderRadius: BorderRadius.circular(
+                      GlobalConstants.defaultBorderRadius),
                   color: theme.colorScheme.background,
                 ),
                 child: ListTile(
@@ -137,7 +144,8 @@ class _QuizPageState extends State<QuizPage> {
 
               // Show the current question index
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: GlobalConstants.quizDefPaddingSize),
                 child: Text(
                   '${currentQuestionIdx + 1} / ${randomSelectedQuestions.length}',
                   style: questionTextStyle,
