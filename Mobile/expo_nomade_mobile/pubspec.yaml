@@ -50,6 +50,10 @@ dependencies:
   firebase_storage: ^11.2.6
   file_picker: ^5.5.0
   latlong2: ^0.9.0
+  geodesy: ^0.8.0
+  flutter_map_tappable_polyline: ^5.0.0
+  maps_toolkit: ^2.0.1
+
 
 
 dev_dependencies:

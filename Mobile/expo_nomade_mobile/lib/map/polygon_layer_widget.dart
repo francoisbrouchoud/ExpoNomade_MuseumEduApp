@@ -6,32 +6,18 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geodesy/geodesy.dart';
+import 'package:maps_toolkit/maps_toolkit.dart' as mp;
 
 class PolygonLayerWidget extends StatelessWidget {
   final List<ExpoEvent> expoEvents;
   final MapController mapController = MapController();
-  PolygonLayerWidget({required this.expoEvents});
+  PolygonLayerWidget({super.key, required this.expoEvents});
+  Geodesy geodesy = Geodesy();
+
+  void onTapDown(BuildContext context, TapDownDetails details) {}
 
   @override
   Widget build(BuildContext context) {
-    void onTapDown(BuildContext context, TapDownDetails details) {
-      double posx = 0;
-
-      double posy = 0;
-      // creating instance of renderbox
-      final RenderBox box = context.findRenderObject() as RenderBox;
-      // find the coordinate
-      final Offset localOffset = box.globalToLocal(details.globalPosition);
-      posx = localOffset.dx;
-      posy = localOffset.dy;
-      CustomPoint<num> customPoint = CustomPoint(posx, posy);
-
-      LatLng coord = mapController.pointToLatLng(customPoint);
-
-      // this string contain the x and y coordinates.
-      print('Tapped : $coord');
-    }
-
     return GestureDetector(
       onTapDown: (details) => onTapDown(context, details),
       child: PolygonLayer(
@@ -49,44 +35,20 @@ class PolygonLayerWidget extends StatelessWidget {
     );
   }
 
-  bool _pointInPolygon(LatLng position, Polygon polygon) {
-    // Check if the point is inside the polygon or on the boundary
-    int intersections = 0;
-    var verticesCount = polygon.points.length;
+  LatLng calculatePolygonCenter(List<LatLng> coordinates) {
+    double totalLatitude = 0.0;
+    double totalLongitude = 0.0;
 
-    for (int i = 1; i < verticesCount; i++) {
-      LatLng vertex1 = polygon.points[i - 1];
-      LatLng vertex2 = polygon.points[i];
-
-      // Check if point is on an horizontal polygon boundary
-      if (vertex1.latitude == vertex2.latitude &&
-          vertex1.latitude == position.latitude &&
-          position.longitude > min(vertex1.longitude, vertex2.longitude) &&
-          position.longitude < max(vertex1.longitude, vertex2.longitude)) {
-        return true;
-      }
-
-      if (position.latitude > min(vertex1.latitude, vertex2.latitude) &&
-          position.latitude <= max(vertex1.latitude, vertex2.latitude) &&
-          position.longitude <= max(vertex1.longitude, vertex2.longitude) &&
-          vertex1.latitude != vertex2.latitude) {
-        var xinters = (position.latitude - vertex1.latitude) *
-                (vertex2.longitude - vertex1.longitude) /
-                (vertex2.latitude - vertex1.latitude) +
-            vertex1.longitude;
-        if (xinters == position.longitude) {
-          // Check if point is on the polygon boundary (other than horizontal)
-          return true;
-        }
-        if (vertex1.longitude == vertex2.longitude ||
-            position.longitude <= xinters) {
-          intersections++;
-        }
-      }
+    for (final coord in coordinates) {
+      totalLatitude += coord.latitude;
+      totalLongitude += coord.longitude;
     }
 
-    // If the number of edges we passed through is odd, then it's in the polygon.
-    return intersections % 2 != 0;
+    final int pointCount = coordinates.length;
+    final double centerLatitude = totalLatitude / pointCount;
+    final double centerLongitude = totalLongitude / pointCount;
+
+    return LatLng(centerLatitude, centerLongitude);
   }
 
   List<LatLng> sortCoordinates(List<LatLng> coordinates) {
