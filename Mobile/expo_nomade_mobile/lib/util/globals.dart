@@ -97,6 +97,36 @@ class GlobalConstants {
   /// Maximum of options in the quiz
   static const int quizOptionMaxNb = 4;
 
+  /// Home page title bottom spacing.
+  static const double homePageTitleBSpacing = 50.0;
+
+  /// Home page buttons horizontal spacing.
+  static const double homePageMainButtonSpacing = 25.0;
+
+  /// Lang buttons padding.
+  static const double langBtnHSpacing = 15.0;
+
+  /// Lang buttons width.
+  static const double langBtnWidth = 50.0;
+
+  /// Container margin for the title widget.
+  static const double titleWidgetContMargin = 8.0;
+
+  /// Container padding for the title widget.
+  static const double titleWidgetContPadding = 12.0;
+
+  /// Container border radius for the title widget.
+  static const double titleWidgetBorderRad = 16.0;
+
+  /// Text padding for the title widget.
+  static const double titleWidgetTextPad = 10.0;
+
+  /// Title widget width multiplicator.
+  static const double titleWidgetWMult = 0.7;
+
+  /// Ok text message.
+  static const String okMsg = "OK";
+
   /// Gets now's DateTime formatted for database insert.
   static String getNowFormattedForDB() {
     final DateTime now = DateTime.now();

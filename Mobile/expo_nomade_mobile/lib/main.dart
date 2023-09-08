@@ -1,5 +1,6 @@
 import 'package:expo_nomade_mobile/admin/expo_axis_list_widget.dart';
 import 'package:expo_nomade_mobile/admin/expo_event_list_widget.dart';
+import 'package:expo_nomade_mobile/admin/expo_object_list_widget.dart';
 import 'package:expo_nomade_mobile/admin/expo_participation_widget.dart';
 import 'package:expo_nomade_mobile/admin/expo_population_type_list_widget.dart';
 import 'package:expo_nomade_mobile/admin/expo_quiz_list_widget.dart';
@@ -17,6 +18,7 @@ import 'home_page.dart';
 import 'map/map_page.dart';
 import 'app_localization.dart';
 
+/// Main method that launches the application.
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -54,8 +56,7 @@ class App extends StatelessWidget {
             builder: (context, AsyncSnapshot<Exposition?> snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.data == null) {
-                  // TODO utilisation trad
-                  return const Text("no_data");
+                  return const Text("No data found.");
                 } else {
                   final Exposition expo = snapshot.data!;
                   expoProvider.setExposition(expo);
@@ -73,8 +74,6 @@ class App extends StatelessWidget {
                       return supportedLocales.first;
                     },
                     title: 'Expo Nomade',
-
-                    /// TODO : Julienne review
                     theme: ThemeData(
                       colorScheme: ColorScheme.fromSeed(
                           seedColor: primary,
@@ -110,6 +109,8 @@ class App extends StatelessWidget {
                           ExpoParticipationTypeListWidget(context: context),
                       '/admin/quiz': (context) =>
                           ExpoQuizListWidget(context: context),
+                      '/admin/objects': (context) =>
+                          ExpoObjectListWidget(context: context),
                     },
                   );
                 }
