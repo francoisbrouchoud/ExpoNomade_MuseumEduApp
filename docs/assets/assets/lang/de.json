@@ -76,7 +76,20 @@
     "show_result": "Ergebnisse ansehen",
     "question_edit": "Quiz bearbeiten",
     "question_creation": "Eine neue Frage hinzufügen",
-    "option": "option",
+    "objects": "Objekts",
+    "object_add": "Objekt hinzufügen",
+    "material": "Material",
+    "position": "Position",
+    "object_edit": "Objektänderung",
+    "object_creation": "Hinzufügen eines neuen Objekts",
+    "other": "Andere",
+    "museum": "Museum",
+    "dimensions": "Abmessungen",
+    "coordinates": "Koordinaten",
+    "year": "Jahr",
     "question_title": "Titel der Frage",
-    "option_edit": "Optionen bearbeiten"
+    "option_edit": "Option bearbeiten",
+    "option": "Option",
+    "option_true": "richtige Antwort",
+    "option_false": "falsche Antwort"
 }
