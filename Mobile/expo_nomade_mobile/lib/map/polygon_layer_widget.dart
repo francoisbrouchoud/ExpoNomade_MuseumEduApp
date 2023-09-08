@@ -14,7 +14,10 @@ class PolygonLayerWidget extends StatelessWidget {
   PolygonLayerWidget({super.key, required this.expoEvents});
   Geodesy geodesy = Geodesy();
 
-  void onTapDown(BuildContext context, TapDownDetails details) {}
+  void onTapDown(BuildContext context, TapDownDetails details) {
+    print(
+        "${details.globalPosition.dx.toString()} ${details.globalPosition.dy.toString()}");
+  }
 
   @override
   Widget build(BuildContext context) {

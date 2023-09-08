@@ -1,3 +1,6 @@
+import 'dart:collection';
+import 'dart:math';
+
 import 'package:expo_nomade_mobile/bo/expo_axis.dart';
 import 'package:expo_nomade_mobile/bo/expo_object.dart';
 import 'package:expo_nomade_mobile/map/info_panel.dart';
@@ -14,7 +17,6 @@ import 'package:latlong2/latlong.dart';
 import '../bo/expo_event.dart';
 import '../bo/expo_population_type.dart';
 import '../bo/exposition.dart';
-import 'package:maps_toolkit/maps_toolkit.dart' as mp;
 import 'dart:math' as math;
 
 /// Class MapPage is used to display the map and the information related to the exposition.
@@ -41,6 +43,7 @@ class _MapPageState extends State<MapPage> {
   Set<ExpoAxis> allReasons = {};
   Set<ExpoPopulationType> selectedPopulations = {};
   Set<ExpoPopulationType> allPopulations = {};
+  Map<ExpoEvent, Polygon> polygons = {};
 
   @override
   void initState() {
@@ -61,6 +64,7 @@ class _MapPageState extends State<MapPage> {
         DateTime.now().year.toDouble(), selectedReasons, selectedPopulations);
     filteredObjects = filterObjects(widget.exposition.objects, getMinYear(),
         DateTime.now().year.toDouble(), selectedReasons);
+    polygons = generatePolygone(filteredEvents);
   }
 
   void filterChanged(double start, double end, Set<ExpoAxis> reasons,
@@ -76,6 +80,8 @@ class _MapPageState extends State<MapPage> {
           endYearFilter, selectedReasons, selectedPopulations);
       filteredObjects = filterObjects(widget.exposition.objects,
           startYearFilter, endYearFilter, selectedReasons);
+
+      polygons = generatePolygone(filteredEvents);
     });
   }
 
@@ -128,21 +134,25 @@ class _MapPageState extends State<MapPage> {
                     /// The map options define the "spawning" coordinates of the map when we load it and the default zoom to show only a specific area of the world map.
                     /// The latitude and the longitude we use here are the coordinates of Sion, capital city of the State Valais.
                     options: MapOptions(
-                      center: const LatLng(46.22809, 7.35886),
-                      zoom: 10,
-                    ),
+                        center: const LatLng(46.22809, 7.35886),
+                        zoom: 10,
+                        onTap: ((tapPosition, point) {
+                          for (var event in polygons.entries) {
+                            if (_pointInPolygon(point, event.value)) {
+                              setState(() {
+                                selectedEvent = event.key;
+                              });
+                              return;
+                            }
+                          }
+                        })),
                     children: [
                       /// Both the tile layer and the marker layer have their own class to prevent messy code.
                       /// They are in charge of rendering the map and adding any markers on it.
                       const TileLayerWidget(),
                       //PolygonLayerTest(expoEvents: filteredEvents),
                       PolygonLayerTest(
-                        onMarkerTap: (ExpoEvent event) {
-                          setState(() {
-                            selectedEvent = event;
-                          });
-                        },
-                        expoEvents: filteredEvents,
+                        expoEvents: polygons.values.toList(),
                       ),
                       MarkerLayerWidget(
                         onMarkerTap: (ExpoObject object) {
@@ -233,4 +243,60 @@ class _MapPageState extends State<MapPage> {
       ),
     );
   }
+}
+
+Map<ExpoEvent, Polygon> generatePolygone(List<ExpoEvent> expoEvents) {
+  Map<ExpoEvent, Polygon> eventPoly = HashMap();
+  for (var event in expoEvents) {
+    final List<LatLng> sortedCoordinates = sortCoordinates(event.from);
+    sortedCoordinates.add(sortedCoordinates.first);
+    eventPoly[event] = Polygon(
+      points: sortedCoordinates,
+      color: Colors.lightBlueAccent.withOpacity(0.3),
+      isFilled: true,
+    );
+  }
+  return eventPoly;
+}
+
+/// Translated from PHP
+/// Source: https://assemblysys.com/php-point-in-polygon-algorithm/
+bool _pointInPolygon(LatLng position, Polygon polygon) {
+  // Check if the point is inside the polygon or on the boundary
+  int intersections = 0;
+  var verticesCount = polygon.points.length;
+
+  for (int i = 1; i < verticesCount; i++) {
+    LatLng vertex1 = polygon.points[i - 1];
+    LatLng vertex2 = polygon.points[i];
+
+    // Check if point is on an horizontal polygon boundary
+    if (vertex1.latitude == vertex2.latitude &&
+        vertex1.latitude == position.latitude &&
+        position.longitude > min(vertex1.longitude, vertex2.longitude) &&
+        position.longitude < max(vertex1.longitude, vertex2.longitude)) {
+      return true;
+    }
+
+    if (position.latitude > min(vertex1.latitude, vertex2.latitude) &&
+        position.latitude <= max(vertex1.latitude, vertex2.latitude) &&
+        position.longitude <= max(vertex1.longitude, vertex2.longitude) &&
+        vertex1.latitude != vertex2.latitude) {
+      var xinters = (position.latitude - vertex1.latitude) *
+              (vertex2.longitude - vertex1.longitude) /
+              (vertex2.latitude - vertex1.latitude) +
+          vertex1.longitude;
+      if (xinters == position.longitude) {
+        // Check if point is on the polygon boundary (other than horizontal)
+        return true;
+      }
+      if (vertex1.longitude == vertex2.longitude ||
+          position.longitude <= xinters) {
+        intersections++;
+      }
+    }
+  }
+
+  // If the number of edges we passed through is odd, then it's in the polygon.
+  return intersections % 2 != 0;
 }
