@@ -124,6 +124,9 @@ class GlobalConstants {
   /// Title widget width multiplicator.
   static const double titleWidgetWMult = 0.7;
 
+  /// Ok text message.
+  static const String okMsg = "OK";
+
   /// Gets now's DateTime formatted for database insert.
   static String getNowFormattedForDB() {
     final DateTime now = DateTime.now();
