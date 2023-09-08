@@ -160,6 +160,7 @@ class _MapPageState extends State<MapPage> {
                         onMarkerTap: (ExpoObject object) {
                           setState(() {
                             selectedObject = object;
+                            selectedEvent = null;
                           });
                         },
                         expoObjects: filteredObjects,
