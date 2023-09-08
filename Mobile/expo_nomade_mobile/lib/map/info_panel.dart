@@ -20,6 +20,13 @@ class InfoPanel extends StatelessWidget {
     final theme = Theme.of(context);
     final translations = AppLocalization.of(context);
     final langCode = translations.getCurrentLangCode();
+    final titleStyle = theme.textTheme.displayMedium!.copyWith(
+      fontWeight: FontWeight.bold,
+    );
+    final textStyle = theme.textTheme.displaySmall!;
+    final labelStyle = theme.textTheme.displaySmall!.copyWith(
+      fontWeight: FontWeight.bold,
+    );
 
     return Container(
       height: screenHeight,
@@ -48,10 +55,7 @@ class InfoPanel extends StatelessWidget {
                 height: GlobalConstants.infoPanelsSmallSpacing), // Add spacing
             Text(
               object.title[langCode],
-              style: const TextStyle(
-                fontSize: 24, // Increase font size
-                fontWeight: FontWeight.bold,
-              ),
+              style: titleStyle,
             ),
 
             // Image of the object
@@ -68,9 +72,10 @@ class InfoPanel extends StatelessWidget {
               children: [
                 Text(
                   '${translations.getTranslation('year')} : ',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  style: labelStyle,
                 ),
-                Text(object.coordinates.keys.first.toString()),
+                Text(object.coordinates.keys.first.toString(),
+                    style: textStyle),
               ],
             ),
 
@@ -80,9 +85,9 @@ class InfoPanel extends StatelessWidget {
               children: [
                 Text(
                   '${translations.getTranslation('museum')} : ',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  style: labelStyle,
                 ),
-                Text(object.museum.name[langCode]),
+                Text(object.museum.name[langCode], style: textStyle),
               ],
             ),
 
@@ -93,9 +98,9 @@ class InfoPanel extends StatelessWidget {
               children: [
                 Text(
                   '${translations.getTranslation('position')} : ',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  style: labelStyle,
                 ),
-                Text(object.position[langCode]),
+                Text(object.position[langCode], style: textStyle),
               ],
             ),
 
@@ -106,9 +111,9 @@ class InfoPanel extends StatelessWidget {
               children: [
                 Text(
                   '${translations.getTranslation('dimensions')} : ',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  style: labelStyle,
                 ),
-                Text(object.dimension),
+                Text(object.dimension, style: textStyle),
               ],
             ),
 
@@ -119,16 +124,16 @@ class InfoPanel extends StatelessWidget {
               children: [
                 Text(
                   '${translations.getTranslation('material')} : ',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  style: labelStyle,
                 ),
-                Text(object.material[langCode]),
+                Text(object.material[langCode], style: textStyle),
               ],
             ),
 
             // The description of the object
             const SizedBox(
                 height: GlobalConstants.infoPanelsMediumSpacing), // Add spacing
-            Text(object.description[langCode]),
+            Text(object.description[langCode], style: textStyle),
           ],
         ),
       ),
