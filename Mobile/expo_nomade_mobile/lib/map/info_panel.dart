@@ -43,6 +43,37 @@ class InfoPanel extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10), // Add spacing
+            Image.network(object.pictureURL.toString()),
+
+            const SizedBox(height: 10), // Add spacing
+            Row(
+              children: [
+                Text(
+                  '${translations.getTranslation('year')} : ',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text(object.coordinates['year'].toString()),
+              ],
+            ),
+
+            const SizedBox(height: 10), // Add spacing
+            Row(
+              children: [
+                Text(
+                  '${translations.getTranslation('museum')} : ',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text(object.museum.name[langCode]),
+              ],
+            ),
+
+            SizedBox(height: 10), // Add spacing
+            Text(object.museum.name[langCode]),
+            SizedBox(height: 10), // Add spacing
+            Text(object.dimension),
+            SizedBox(height: 10), // Add spacing
+            Text(object.material[langCode]),
+            SizedBox(height: 10), // Add spacing
             Text(object.description[langCode]),
           ],
         ),
