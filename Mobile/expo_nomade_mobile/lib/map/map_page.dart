@@ -40,7 +40,6 @@ class _MapPageState extends State<MapPage> {
   Set<ExpoPopulationType> selectedPopulations = {};
   Set<ExpoPopulationType> allPopulations = {};
 
-
   @override
   void initState() {
     super.initState();
@@ -53,13 +52,14 @@ class _MapPageState extends State<MapPage> {
     for (var event in widget.exposition.events) {
       selectedPopulations.add(event.populationType);
     }
-    filteredEvents = filterEvents(
-        widget.exposition.events, startYearFilter, endYearFilter, selectedReasons, selectedPopulations);
-    filteredObjects = filterObjects(
-        widget.exposition.objects, startYearFilter, endYearFilter, selectedReasons);
+    filteredEvents = filterEvents(widget.exposition.events, startYearFilter,
+        endYearFilter, selectedReasons, selectedPopulations);
+    filteredObjects = filterObjects(widget.exposition.objects, startYearFilter,
+        endYearFilter, selectedReasons);
   }
 
-  void filterChanged(double start, double end, Set<ExpoAxis> reasons, Set<ExpoPopulationType> populations) {
+  void filterChanged(double start, double end, Set<ExpoAxis> reasons,
+      Set<ExpoPopulationType> populations) {
     setState(() {
       startYearFilter = start;
       endYearFilter = end;
@@ -67,10 +67,10 @@ class _MapPageState extends State<MapPage> {
       selectedPopulations = populations;
 
       // Filter Events and Objects
-      filteredEvents = filterEvents(
-          widget.exposition.events, startYearFilter, endYearFilter, selectedReasons, selectedPopulations);
-      filteredObjects = filterObjects(
-          widget.exposition.objects, startYearFilter, endYearFilter, selectedReasons);
+      filteredEvents = filterEvents(widget.exposition.events, startYearFilter,
+          endYearFilter, selectedReasons, selectedPopulations);
+      filteredObjects = filterObjects(widget.exposition.objects,
+          startYearFilter, endYearFilter, selectedReasons);
     });
   }
 
@@ -165,34 +165,31 @@ class _MapPageState extends State<MapPage> {
           ),
           if (showFilter)
             Positioned(
-              top: 80,
-              left: 16,
-              child: Container (
-                height: 300,
-                width: 300,
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2), // Couleur de l'ombre
-                      spreadRadius: 5, // Propagation de l'ombre
-                      blurRadius: 9, // Flou de l'ombre
-                      offset: Offset(0, 3), // Position de l'ombre
-                    ),
-                  ],
-                ),
-                child: FilterPopup(
-                  onFilterChanged: filterChanged,
-                  startYearFilter: startYearFilter,
-                  endYearFilter: endYearFilter, 
-                  selectedReasons: selectedReasons,
-                  allReasons: allReasons,
-                  selectedPopulations: selectedPopulations,
-                  allPopulations: allPopulations
-                ),
-              )
-              
-              
-            ),
+                top: 80,
+                left: 16,
+                child: Container(
+                  height: 300,
+                  width: 300,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color:
+                            Colors.black.withOpacity(0.2), // Couleur de l'ombre
+                        spreadRadius: 5, // Propagation de l'ombre
+                        blurRadius: 9, // Flou de l'ombre
+                        offset: Offset(0, 3), // Position de l'ombre
+                      ),
+                    ],
+                  ),
+                  child: FilterPopup(
+                      onFilterChanged: filterChanged,
+                      startYearFilter: startYearFilter,
+                      endYearFilter: endYearFilter,
+                      selectedReasons: selectedReasons,
+                      allReasons: allReasons,
+                      selectedPopulations: selectedPopulations,
+                      allPopulations: allPopulations),
+                )),
         ],
       ),
     );

@@ -5,29 +5,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:geodesy/geodesy.dart';
 
 class PolygonLayerWidget extends StatelessWidget {
   final List<ExpoEvent> expoEvents;
-
-  const PolygonLayerWidget({required this.expoEvents});
+  final MapController mapController = MapController();
+  PolygonLayerWidget({required this.expoEvents});
 
   @override
   Widget build(BuildContext context) {
-    double posx = 0;
-
-    double posy = 0;
-
     void onTapDown(BuildContext context, TapDownDetails details) {
-      final MapController _mapController = MapController();
+      double posx = 0;
+
+      double posy = 0;
       // creating instance of renderbox
       final RenderBox box = context.findRenderObject() as RenderBox;
       // find the coordinate
       final Offset localOffset = box.globalToLocal(details.globalPosition);
       posx = localOffset.dx;
       posy = localOffset.dy;
+      CustomPoint<num> customPoint = CustomPoint(posx, posy);
+
+      LatLng coord = mapController.pointToLatLng(customPoint);
+
       // this string contain the x and y coordinates.
-      print('Tapped\nX:$posx \nY:$posy');
-      ;
+      print('Tapped : $coord');
     }
 
     return GestureDetector(
