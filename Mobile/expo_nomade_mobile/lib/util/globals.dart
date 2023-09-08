@@ -97,6 +97,18 @@ class GlobalConstants {
   /// Maximum of options in the quiz
   static const int quizOptionMaxNb = 4;
 
+  /// Home page title bottom spacing.
+  static const double homePageTitleBSpacing = 50.0;
+
+  /// Home page buttons horizontal spacing.
+  static const double homePageMainButtonSpacing = 25.0;
+
+  /// Lang buttons padding.
+  static const double langBtnHSpacing = 15.0;
+
+  /// Lang buttons width.
+  static const double langBtnWidth = 50.0;
+
   /// Gets now's DateTime formatted for database insert.
   static String getNowFormattedForDB() {
     final DateTime now = DateTime.now();
