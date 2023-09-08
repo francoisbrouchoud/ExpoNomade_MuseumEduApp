@@ -11,7 +11,7 @@ class TitleWidget extends StatelessWidget {
   /// Estimates the title's final height
   double estimateTitleHeight(BuildContext context) {
     final theme = Theme.of(context);
-    final textStyle = theme.textTheme.displayLarge;
+    final textStyle = theme.textTheme.titleLarge;
     final textPainter = TextPainter(
       text: TextSpan(text: text, style: textStyle),
       textDirection: TextDirection.ltr,
@@ -29,7 +29,7 @@ class TitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     double screenWidth = MediaQuery.of(context).size.width;
-    final textStyle = theme.textTheme.displayLarge;
+    final textStyle = theme.textTheme.titleLarge;
     return Container(
       width: screenWidth * GlobalConstants.defaultWidgetWidthMult,
       margin: const EdgeInsets.symmetric(
