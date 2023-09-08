@@ -32,9 +32,8 @@ class InfoPanel extends StatelessWidget {
       height: screenHeight,
       // We set the color of the container by using the theme we created
       color: theme.colorScheme.primary,
-      padding: const EdgeInsets.all(
-          // The padding is also defined with global constants
-          GlobalConstants.infoPanelsPadding),
+      // The padding is also defined with global constants
+      padding: const EdgeInsets.all(GlobalConstants.infoPanelsPadding),
       // The SingleChildScrollView allows us to have an adaptative length for the container with our data
       child: SingleChildScrollView(
         child: Column(
@@ -59,8 +58,10 @@ class InfoPanel extends StatelessWidget {
             ),
 
             // Image of the object
-            const SizedBox(
-                height: GlobalConstants.infoPanelsSmallSpacing), // Add spacing
+            if (object.pictureURL != '')
+              const SizedBox(
+                  height:
+                      GlobalConstants.infoPanelsSmallSpacing), // Add spacing
             SizedBox(
               height: GlobalConstants.imagesDefaultDimension,
               child: Image.network(object.pictureURL),

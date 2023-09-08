@@ -3,6 +3,7 @@ import 'package:expo_nomade_mobile/bo/expo_event.dart';
 import 'package:flutter/material.dart';
 import 'package:expo_nomade_mobile/util/globals.dart';
 
+// This class display all the information we want from an Event in our database
 class InfoPanelEvent extends StatelessWidget {
   final ExpoEvent event;
   final VoidCallback onClose;
@@ -19,11 +20,21 @@ class InfoPanelEvent extends StatelessWidget {
     final theme = Theme.of(context);
     final translations = AppLocalization.of(context);
     final langCode = translations.getCurrentLangCode();
+    final titleStyle = theme.textTheme.displayMedium!.copyWith(
+      fontWeight: FontWeight.bold,
+    );
+    final textStyle = theme.textTheme.displaySmall!;
+    final labelStyle = theme.textTheme.displaySmall!.copyWith(
+      fontWeight: FontWeight.bold,
+    );
 
     return Container(
       height: screenHeight,
-      color: theme.colorScheme.primary, // Set your desired background color
-      padding: const EdgeInsets.all(32), // Add internal padding
+      // We set the color of the container by using the theme we created
+      color: theme.colorScheme.primary,
+      // The padding is also defined with global constants
+      padding: const EdgeInsets.all(GlobalConstants.infoPanelsPadding),
+      // The SingleChildScrollView allows us to have an adaptative length for the container with our data
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -37,62 +48,67 @@ class InfoPanelEvent extends StatelessWidget {
                 ),
               ],
             ),
+
+            // Title of the event
             const SizedBox(
                 height: GlobalConstants.infoPanelsSmallSpacing), // Add spacing
             Text(
               event.title[langCode],
-              style: const TextStyle(
-                fontSize: 24, // Increase font size
-                fontWeight: FontWeight.bold,
-              ),
+              style: titleStyle,
             ),
             const SizedBox(
                 height: GlobalConstants.infoPanelsSmallSpacing), // Add spacing
+
+            // Image of the event
             if (event.pictureURL != '')
               SizedBox(
-                child: Image.network(event.pictureURL),
                 height: GlobalConstants.imagesDefaultDimension,
+                child: Image.network(event.pictureURL),
               ),
 
+            // Reason of the Event
             const SizedBox(
                 height: GlobalConstants.infoPanelsMediumSpacing), // Add spacing
             Row(
               children: [
                 Text(
                   '${translations.getTranslation('reason')} : ',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  style: labelStyle,
                 ),
-                Text(event.reason[langCode]),
+                Text(event.reason[langCode], style: textStyle),
               ],
             ),
 
+            // The type of population of the Event
             const SizedBox(
                 height: GlobalConstants.infoPanelsSmallSpacing), // Add spacing
             Row(
               children: [
                 Text(
                   '${translations.getTranslation('population_type')} : ',
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  style: labelStyle,
                 ),
-                Text(event.populationType.title[langCode]),
+                Text(event.populationType.title[langCode], style: textStyle),
               ],
             ),
 
+            // The years of the Event
             const SizedBox(
                 height: GlobalConstants.infoPanelsSmallSpacing), // Add spacing
             Row(children: [
               Text(
                 '${translations.getTranslation('years')} : ',
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: labelStyle,
               ),
-              Text(event.startYear.toString()),
-              Text(" - "),
-              Text(event.endYear.toString()),
+              Text(event.startYear.toString(), style: textStyle),
+              Text(" - ", style: textStyle),
+              Text(event.endYear.toString(), style: textStyle),
             ]),
 
+            // The description of the Event
             const SizedBox(
                 height: GlobalConstants.infoPanelsSmallSpacing), // Add spacing
-            Text(event.description[langCode]),
+            Text(event.description[langCode], style: textStyle),
           ],
         ),
       ),
