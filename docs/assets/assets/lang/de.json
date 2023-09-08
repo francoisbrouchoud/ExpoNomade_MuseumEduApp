@@ -75,5 +75,8 @@
     "quiz_result_list": "Liste der Quizergebnisse",
     "show_result": "Ergebnisse ansehen",
     "question_edit": "Quiz bearbeiten",
-    "question_creation": "Eine neue Frage hinzufügen"
+    "question_creation": "Eine neue Frage hinzufügen",
+    "option": "option",
+    "question_title": "Titel der Frage",
+    "option_edit": "Optionen bearbeiten"
 }
