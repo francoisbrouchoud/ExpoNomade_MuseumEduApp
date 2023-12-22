@@ -24,7 +24,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final translations = AppLocalization.of(context);
-    final dataProvider = Provider.of<ExpositionNotifier>(context);
+    final dataProvider = Provider.of<ExpositionNotifier>(context, listen: true);
+    final bool hasQuestions = dataProvider.exposition.quiz.questions.isNotEmpty;
     return Scaffold(
       backgroundColor: theme.colorScheme.primary,
       floatingActionButton: ElevatedButton(
@@ -42,27 +43,29 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TitleWidget(
-                text: Provider.of<ExpositionNotifier>(context)
-                    .exposition
-                    .name[translations.getCurrentLangCode()]),
+                text: dataProvider
+                    .exposition.name[translations.getCurrentLangCode()]),
             const SizedBox(height: GlobalConstants.homePageTitleBSpacing),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                ButtonWidget(
-                  action: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => QuizPage(
-                            questions: dataProvider.exposition.quiz.questions),
-                      ),
-                    );
-                  },
-                  text: translations.getTranslation("quiz"),
-                  type: ButtonWidgetType.home,
-                ),
-                const SizedBox(
-                    width: GlobalConstants.homePageMainButtonSpacing),
+                if (hasQuestions)
+                  ButtonWidget(
+                    action: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => QuizPage(
+                              questions:
+                                  dataProvider.exposition.quiz.questions),
+                        ),
+                      );
+                    },
+                    text: translations.getTranslation("quiz"),
+                    type: ButtonWidgetType.home,
+                  ),
+                if (hasQuestions)
+                  const SizedBox(
+                      width: GlobalConstants.homePageMainButtonSpacing),
                 ButtonWidget(
                   action: () {
                     Navigator.of(context).push(

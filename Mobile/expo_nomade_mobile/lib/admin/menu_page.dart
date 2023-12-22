@@ -4,6 +4,7 @@ import 'package:expo_nomade_mobile/admin/expo_participation_widget.dart';
 import 'package:expo_nomade_mobile/admin/expo_quiz_list_widget.dart';
 import 'package:expo_nomade_mobile/helper/app_localization.dart';
 import 'package:expo_nomade_mobile/bo/expo_name.dart';
+import 'package:expo_nomade_mobile/home_page.dart';
 import 'package:expo_nomade_mobile/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -194,6 +195,9 @@ class Menu extends StatelessWidget {
                 Provider.of<LoginNotifier>(context, listen: false);
             FirebaseAuth.instance.signOut();
             loginProvider.setIsLogin(false);
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const HomePage()),
+                (route) => false);
           },
           type: ButtonWidgetType.delete)
     ]);
