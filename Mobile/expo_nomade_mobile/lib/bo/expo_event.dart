@@ -7,7 +7,6 @@ import 'package:expo_nomade_mobile/bo/expo_axis.dart';
 
 /// Class ExpoEvent is used to store all details related to an event of an exposition.
 class ExpoEvent extends BaseBusinessObject {
-  String id;
   ExpoAxis axis;
   MultilingualString description;
   int endYear;
@@ -21,7 +20,7 @@ class ExpoEvent extends BaseBusinessObject {
 
   /// ExpoEvent complete constructor.
   ExpoEvent(
-      this.id,
+      super.id,
       this.axis,
       this.description,
       this.endYear,

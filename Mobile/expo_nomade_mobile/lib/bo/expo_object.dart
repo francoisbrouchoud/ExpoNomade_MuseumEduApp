@@ -8,7 +8,6 @@ import 'package:latlong2/latlong.dart';
 
 /// Class ExpoObject is used to store all details related to an object of an exposition.
 class ExpoObject extends BaseBusinessObject {
-  String id;
   ExpoAxis axis;
   Map<int, LatLng> coordinates;
   MultilingualString description;
@@ -22,7 +21,7 @@ class ExpoObject extends BaseBusinessObject {
 
   /// ExpoObject complete constructor.
   ExpoObject(
-      this.id,
+      super.id,
       this.axis,
       this.coordinates,
       this.description,

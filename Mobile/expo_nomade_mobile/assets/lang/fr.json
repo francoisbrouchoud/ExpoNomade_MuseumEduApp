@@ -91,5 +91,9 @@
     "option_edit": "Edition de l'option",
     "option": "Option",
     "option_true": "réponse vraie",
-    "option_false": "réponse fausse"
+    "option_false": "réponse fausse",
+    "museums": "Musées",
+    "museum_creation": "Ajout d'un nouveau musée",
+    "museum_edit": "Edition du musée",
+    "address": "Adresse"
 }

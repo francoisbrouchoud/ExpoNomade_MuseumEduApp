@@ -2,6 +2,7 @@ import 'package:expo_nomade_mobile/admin/expo_axis_list_widget.dart';
 import 'package:expo_nomade_mobile/admin/expo_object_list_widget.dart';
 import 'package:expo_nomade_mobile/admin/expo_participation_widget.dart';
 import 'package:expo_nomade_mobile/admin/expo_quiz_list_widget.dart';
+import 'package:expo_nomade_mobile/admin/museum_list_widget.dart';
 import 'package:expo_nomade_mobile/helper/app_localization.dart';
 import 'package:expo_nomade_mobile/bo/expo_name.dart';
 import 'package:expo_nomade_mobile/home_page.dart';
@@ -176,13 +177,24 @@ class Menu extends StatelessWidget {
                 ),
               },
           type: ButtonWidgetType.standard),
-      const SizedBox(height: 25),
+      const SizedBox(height: GlobalConstants.sizeOfTheBlock),
       ButtonWidget(
           text: translations.getTranslation("expo"),
           action: () => {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => ExpoListWidget(context: context),
+                  ),
+                ),
+              },
+          type: ButtonWidgetType.standard),
+      const SizedBox(height: GlobalConstants.sizeOfTheBlock),
+      ButtonWidget(
+          text: translations.getTranslation("museums"),
+          action: () => {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => MuseumListWidget(context: context),
                   ),
                 ),
               },

@@ -52,6 +52,8 @@ class ExpoObjectEditorWidgetState extends State<ExpoObjectEditorWidget> {
     final translations = AppLocalization.of(context);
     final dataProvider = Provider.of<ExpositionNotifier>(context);
     final Exposition expo = dataProvider.exposition;
+    final Map<String, Museum> museums =
+        Provider.of<MuseumNotifier>(context).museums;
     Map<String, String> newTitleVals = widget.object?.title.toMap() ?? {};
     Map<String, String> newDescVals = widget.object?.description.toMap() ?? {};
     Map<String, String> newMaterialVals = widget.object?.material.toMap() ?? {};
@@ -59,7 +61,7 @@ class ExpoObjectEditorWidgetState extends State<ExpoObjectEditorWidget> {
     Map<String, String> newOtherVals = widget.object?.others.toMap() ?? {};
     String newPicURLVal = widget.object?.pictureURL ?? "";
     ExpoAxis newAxis = widget.object?.axis ?? expo.axes.values.first;
-    Museum newMuseum = widget.object?.museum ?? expo.museums.first;
+    Museum newMuseum = widget.object?.museum ?? museums.values.first;
     Map<int, LatLng> newCoordinatesVals = widget.object?.coordinates ?? {};
     return Material(
       child: BaseBOEditorWidget(
@@ -108,7 +110,7 @@ class ExpoObjectEditorWidgetState extends State<ExpoObjectEditorWidget> {
           ),
           BOSelectorWidget(
             name: translations.getTranslation("museum"),
-            objects: expo.museums,
+            objects: museums.values.toList(),
             preSel: newMuseum,
             selectedItemChanged: (newVal) => newMuseum = (newVal as Museum),
             mandatory: true,
@@ -161,6 +163,8 @@ class ExpoObjectEditorWidgetState extends State<ExpoObjectEditorWidget> {
             );
             if (widget.object != null) {
               object = widget.object!;
+              object.museum.references--;
+              FirebaseService.updateMuseum(object.museum);
               object.axis = newAxis;
               object.coordinates = newCoordinatesVals;
               object.dimension = newDimensions;
@@ -177,8 +181,11 @@ class ExpoObjectEditorWidgetState extends State<ExpoObjectEditorWidget> {
                   await FirebaseService.createObject(object);
               if (newObject != null) {
                 expo.objects.add(newObject);
+                object = newObject;
               }
             }
+            object.museum.references++;
+            FirebaseService.updateMuseum(object.museum);
             dataProvider.forceRelaod();
             backToList(text: translations.getTranslation("saved"));
           } else {
@@ -187,6 +194,8 @@ class ExpoObjectEditorWidgetState extends State<ExpoObjectEditorWidget> {
           }
         },
         itemDeleteRequested: () async {
+          widget.object!.museum.references--;
+          await FirebaseService.updateMuseum(widget.object!.museum);
           await FirebaseService.deleteObject(widget.object!);
           expo.objects.remove(widget.object!);
           dataProvider.forceRelaod();

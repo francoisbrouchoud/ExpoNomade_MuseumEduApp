@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:expo_nomade_mobile/bo/exposition.dart';
+import 'package:expo_nomade_mobile/bo/museum.dart';
 import 'package:flutter/material.dart';
 
 import '../bo/expo_name.dart';
@@ -27,6 +28,23 @@ class ExpositionNotifier extends ChangeNotifier {
   }
 
   void forceRelaod() {
+    notifyListeners();
+  }
+}
+
+/// Notifier class for museums
+class MuseumNotifier extends ChangeNotifier {
+  Map<String, Museum>? _museums;
+
+  Map<String, Museum> get museums => _museums ?? HashMap();
+
+  /// Sets the museums
+  void setMuseums(Map<String, Museum>? museums) {
+    _museums = museums;
+  }
+
+  /// Notifies all the listeners
+  void forceReload() {
     notifyListeners();
   }
 }

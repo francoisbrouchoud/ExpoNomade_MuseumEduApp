@@ -31,11 +31,10 @@ class Quiz {
 
 /// Contain the question text in différente language and a list of option
 class QuizQuestion extends BaseBusinessObject {
-  String id;
   MultilingualString question;
   List<QuizOption> options;
 
-  QuizQuestion(this.id, this.question, this.options);
+  QuizQuestion(super.id, this.question, this.options);
 
   /// Convert a json into the buisness object quizQuestion class
   factory QuizQuestion.fromJson(id, questionJson) {

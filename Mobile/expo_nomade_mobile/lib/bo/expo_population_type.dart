@@ -3,11 +3,10 @@ import 'package:expo_nomade_mobile/helper/multilingual_string.dart';
 
 /// Class ExpoPopulationType is used to store all details related to a population type.
 class ExpoPopulationType extends BaseBusinessObject {
-  String id;
   MultilingualString title;
 
   /// ExpoPopulationType complete constructor.
-  ExpoPopulationType(this.id, this.title);
+  ExpoPopulationType(super.id, this.title);
 
   /// Convert json into the business object ExpoPopulationType.
   factory ExpoPopulationType.fromJson(String id, dynamic json) {

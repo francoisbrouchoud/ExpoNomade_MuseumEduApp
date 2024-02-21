@@ -274,6 +274,21 @@ class FirebaseService {
     return null;
   }
 
+  /// Creates a Museum business object.
+  static Future<Museum?> createMuseum(Museum museum) async {
+    DatabaseReference ref = database.ref();
+    DatabaseReference newMuseumRef = ref.child("museum").push();
+    if (newMuseumRef.key != null) {
+      await newMuseumRef.set({
+        "name": museum.name.toMap(),
+        "address": museum.address,
+        "references": 0,
+      });
+      return Museum(newMuseumRef.key!, museum.address, museum.name, 0);
+    }
+    return null;
+  }
+
   /// Updates a QuizQuestion business object.
   static Future<void> updateQuizQuestion(QuizQuestion quizQuestion) async {
     DatabaseReference ref = database.ref();
@@ -387,6 +402,16 @@ class FirebaseService {
     await ref.child("expositions/${expo.id}").set({"name": expo.name.toMap()});
   }
 
+  /// Updates a Museum business object.
+  static Future<void> updateMuseum(Museum museum) async {
+    DatabaseReference ref = database.ref();
+    await ref.child("museum/${museum.id}").set({
+      "name": museum.name.toMap(),
+      "address": museum.address,
+      "references": museum.references,
+    });
+  }
+
   /// Deletes an ExpoAxis business object.
   static Future<void> deleteAxis(ExpoAxis axis) async {
     DatabaseReference ref = database.ref();
@@ -437,6 +462,12 @@ class FirebaseService {
   static Future<void> deleteExposition(ExpoName expo) async {
     DatabaseReference ref = database.ref();
     await ref.child("expositions/${expo.id}").remove();
+  }
+
+  /// Deletes a Museum business object.
+  static Future<void> deleteMuseum(Museum museum) async {
+    DatabaseReference ref = database.ref();
+    await ref.child("museum/${museum.id}").remove();
   }
 
   /// Delete a QuizQuestion business object.

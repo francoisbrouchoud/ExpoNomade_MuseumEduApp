@@ -12,18 +12,16 @@ import 'quiz_question.dart';
 
 /// Class Exposition is used to store all details related to an exposition.
 class Exposition extends BaseBusinessObject {
-  String id;
   MultilingualString name;
   Map<String, ExpoAxis> axes;
   Map<String, ExpoPopulationType> populationTypes;
   List<ExpoEvent> events;
   List<ExpoObject> objects;
   Quiz quiz;
-  List<Museum> museums;
 
   /// Exposition complete constructor.
-  Exposition(this.id, this.name, this.axes, this.events, this.objects,
-      this.populationTypes, this.quiz, this.museums);
+  Exposition(super.id, this.name, this.axes, this.events, this.objects,
+      this.populationTypes, this.quiz);
 
   /// Convert json into the business object Exposition.
   factory Exposition.fromJson(
@@ -62,8 +60,7 @@ class Exposition extends BaseBusinessObject {
       quiz = Quiz.fromJson(json['quiz']);
     }
 
-    return Exposition(id, name, axes, events, objects, popTypes, quiz,
-        museums.values.toList());
+    return Exposition(id, name, axes, events, objects, popTypes, quiz);
   }
 
   @override

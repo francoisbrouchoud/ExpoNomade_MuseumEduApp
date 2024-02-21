@@ -39,6 +39,12 @@ class App extends StatelessWidget {
   static const onBackground = Color(0xFFFFFFFF);
   static const onSurface = Color(0xFF000000);
 
+  /// Gets the museums
+  void fetchMuseums(BuildContext context) async {
+    Provider.of<MuseumNotifier>(context)
+        .setMuseums(await FirebaseService.getMuseums());
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -46,6 +52,7 @@ class App extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => LocaleNotifier()),
         ChangeNotifierProvider(create: (context) => ExpositionNotifier()),
+        ChangeNotifierProvider(create: (context) => MuseumNotifier()),
         ChangeNotifierProvider(create: (context) => LoginNotifier()),
       ],
       builder: (context, child) {
@@ -58,6 +65,7 @@ class App extends StatelessWidget {
                 if (snapshot.data == null) {
                   return const Text("No data found.");
                 } else {
+                  fetchMuseums(context);
                   final Exposition expo = snapshot.data!;
                   expoProvider.setExposition(expo);
                   return MaterialApp(

@@ -91,5 +91,9 @@
     "option_edit": "Option bearbeiten",
     "option": "Option",
     "option_true": "richtige Antwort",
-    "option_false": "falsche Antwort"
+    "option_false": "falsche Antwort",
+    "museums": "Museen",
+    "museum_creation": "Hinzufügen eines neuen Museums",
+    "museum_edit": "Museum bearbeiten",
+    "address": "Adresse"
 }
